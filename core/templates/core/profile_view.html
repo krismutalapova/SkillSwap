@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto; padding: 20px;">
+    <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+        <h2 style="text-align: center; margin: 0 0 20px 0; color: #333;">{{ profile.user.username }}</h2>
+        
+        <div style="display: flex; gap: 20px; align-items: flex-start;">
+            <div style="flex-shrink: 0; position: relative;">
+                <a href="{% url 'profile_edit' %}" style="text-decoration: none; display: block; position: relative;" title="Click to edit profile">
+                    {% if profile.profile_picture %}
+                        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #667eea; transition: all 0.3s ease; cursor: pointer;">
+                    {% else %}
+                        <div style="width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%); display: flex; align-items: center; justify-content: center; border: 3px solid #667eea; transition: all 0.3s ease; cursor: pointer;">
+                            <i class="fas fa-user" style="font-size: 60px; color: #999;"></i>
+                        </div>
+                    {% endif %}
+                    <div style="position: absolute; top: 0; left: 0; width: 150px; height: 150px; border-radius: 50%; background: rgba(102, 126, 234, 0.8); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; color: white; font-weight: bold; font-size: 14px; text-align: center; flex-direction: column;">
+                        <i class="fas fa-edit" style="font-size: 24px; margin-bottom: 5px;"></i>
+                        <span>Edit Profile</span>
+                    </div>
+                </a>
+                <style>
+                    a[title="Click to edit profile"]:hover div:last-child {
+                        opacity: 1;
+                    }
+                    a[title="Click to edit profile"]:hover img,
+                    a[title="Click to edit profile"]:hover > div:first-child {
+                        transform: scale(1.05);
+                        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+                    }
+                </style>
+            </div>
+            
+            <div style="flex: 1;">
+                <div style="margin-bottom: 15px;">
+                    <strong style="color: #17a2b8;">Username:</strong> {{ profile.user.username }}<br>
+                    <strong style="color: #17a2b8;">City:</strong> 
+                    {% if profile.city %}
+                        {{ profile.city }}
+                    {% else %}
+                        <span style="color: #999;">Not specified</span>
+                    {% endif %}<br>
+                    <strong style="color: #17a2b8;">Country:</strong> 
+                    {% if profile.country %}
+                        {{ profile.country }}
+                    {% else %}
+                        <span style="color: #999;">Not specified</span>
+                    {% endif %}<br>
+                    <strong style="color: #17a2b8;">Gender:</strong> 
+                    {% if profile.gender %}
+                        {{ profile.get_gender_display }}
+                    {% else %}
+                        <span style="color: #999;">Not specified</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <h3 style="color: #17a2b8; margin-bottom: 10px;">About me:</h3>
+            <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 60px;">
+                {% if profile.bio %}
+                    {{ profile.bio }}
+                {% else %}
+                    <em style="color: #999;">No bio provided yet.</em>
+                {% endif %}
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <h3 style="color: #17a2b8; margin-bottom: 10px;">Skills I need help with:</h3>
+            <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 80px;">
+                {% if profile.skills_needed %}
+                    {{ profile.skills_needed }}
+                {% else %}
+                    <em style="color: #999;">No skills specified yet.</em>
+                {% endif %}
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <h3 style="color: #17a2b8; margin-bottom: 10px;">Skills I can help with:</h3>
+            <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 80px;">
+                {% if profile.skills_offered %}
+                    {{ profile.skills_offered }}
+                {% else %}
+                    <em style="color: #999;">No skills specified yet.</em>
+                {% endif %}
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <h3 style="color: #17a2b8; margin-bottom: 10px;">Feedback received</h3>
+            <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px;">
+                <div style="margin-bottom: 10px;">
+                    <strong>Overall</strong>
+                    <div style="color: #ffc107; font-size: 18px;">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <div style="color: #666; font-size: 14px;">
+                    <strong>Completed SkillSwaps:</strong> 0
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

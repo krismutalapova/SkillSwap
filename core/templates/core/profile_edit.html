@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto; padding: 20px;">
+    <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 30px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+        <h2 style="text-align: center; color: #333; margin-bottom: 30px;">Edit Profile</h2>
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">Profile Picture:</label>
+                
+                {% if form.instance.profile_picture %}
+                    <div style="margin-bottom: 10px;">
+                        <p style="color: #666; font-size: 14px; margin-bottom: 5px;">Current picture:</p>
+                        <img src="{{ form.instance.profile_picture.url }}" alt="Current Profile Picture" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd;">
+                    </div>
+                {% endif %}
+                
+                {{ form.profile_picture }}
+                {% if form.profile_picture.help_text %}
+                    <small style="color: #666; display: block; margin-top: 5px;">{{ form.profile_picture.help_text }}</small>
+                {% endif %}
+                <small style="color: #666; display: block; margin-top: 5px;">Choose a new image to upload. Recommended: square image, max 2MB.</small>
+            </div>
+            
+            <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                <div style="flex: 1;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">City:</label>
+                    <input type="text" name="city" value="{{ form.city.value|default:'' }}" placeholder="e.g., Stockholm" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                    <small style="color: #666; display: block; margin-top: 5px;">Your current city</small>
+                </div>
+                
+                <div style="flex: 1;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">Country:</label>
+                    <input type="text" name="country" value="{{ form.country.value|default:'' }}" placeholder="e.g., Sweden" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                    <small style="color: #666; display: block; margin-top: 5px;">Your current country</small>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">Gender:</label>
+                <select name="gender" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                    <option value="">Select gender (optional)</option>
+                    <option value="M" {% if form.gender.value == 'M' %}selected{% endif %}>Male</option>
+                    <option value="F" {% if form.gender.value == 'F' %}selected{% endif %}>Female</option>
+                    <option value="O" {% if form.gender.value == 'O' %}selected{% endif %}>Other</option>
+                    <option value="P" {% if form.gender.value == 'P' %}selected{% endif %}>Prefer not to say</option>
+                </select>
+                <small style="color: #666; display: block; margin-top: 5px;">Optional: Help others know how to address you</small>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">About Me:</label>
+                <textarea name="bio" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; resize: vertical;">{{ form.bio.value|default:'' }}</textarea>
+                <small style="color: #666; display: block; margin-top: 5px;">Tell others about yourself, your interests, and background.</small>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">Skills I Can Help With:</label>
+                <textarea name="skills_offered" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; resize: vertical;">{{ form.skills_offered.value|default:'' }}</textarea>
+                <small style="color: #666; display: block; margin-top: 5px;">List the skills, chores, or services you can offer to help others.</small>
+            </div>
+            
+            <div style="margin-bottom: 30px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">Skills I Need Help With:</label>
+                <textarea name="skills_needed" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; resize: vertical;">{{ form.skills_needed.value|default:'' }}</textarea>
+                <small style="color: #666; display: block; margin-top: 5px;">List the skills, chores, or services you would like help with.</small>
+            </div>
+            
+            <div style="text-align: center;">
+                <button type="submit" style="background-color: #28a745; color: white; padding: 12px 30px; border: none; border-radius: 5px; cursor: pointer; margin-right: 10px; font-size: 16px;">Save Changes</button>
+                <a href="{% url 'profile_view' %}" style="background-color: #6c757d; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block; font-size: 16px;">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
