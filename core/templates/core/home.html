@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto; padding: 40px 20px;">
+    <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.2); text-align: center; margin-bottom: 30px;">
+        <h1 style="color: #333; font-size: 3em; margin-bottom: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Welcome to SkillSwap!</h1>
+        <p style="color: #666; font-size: 1.2em; margin-bottom: 30px; line-height: 1.6;">Connect with your community and exchange skills with neighbors. Learn something new while helping others!</p>
+        
+        {% if not user.is_authenticated %}
+            <div style="margin-top: 30px;">
+                <a href="{% url 'signup' %}" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; padding: 15px 30px; border-radius: 25px; font-weight: 500; margin-right: 15px; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);">Get Started</a>
+                <a href="{% url 'login' %}" style="background: transparent; color: #667eea; text-decoration: none; padding: 15px 30px; border: 2px solid #667eea; border-radius: 25px; font-weight: 500; display: inline-block; transition: all 0.3s ease;">Login</a>
+            </div>
+        {% else %}
+            <div style="margin-top: 30px;">
+                <a href="{% url 'profile_view' %}" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; padding: 15px 30px; border-radius: 25px; font-weight: 500; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);">View My Profile</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Search/Filter Section -->
+    {% if user.is_authenticated %}
+    <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 30px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.2);">
+        <h3 style="margin: 0 0 20px 0; color: #333; text-align: center; font-size: 1.8em;">Search for SkillSwappers</h3>
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+          
+            <!-- I can help with section -->
+            <div style="flex: 1; min-width: 200px;">
+                <div style="background-color: #17a2b8; color: white; padding: 8px 15px; border-radius: 5px; margin-bottom: 10px;">
+                    I can help with...
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Category</label>
+                    <select style="width: 100%; padding: 5px; border: 1px solid #ddd; border-radius: 3px;" disabled>
+                        <option>All</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Skill</label>
+                    <select style="width: 100%; padding: 5px; border: 1px solid #ddd; border-radius: 3px;" disabled>
+                        <option>All</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- I need help with section -->
+            <div style="flex: 1; min-width: 200px;">
+                <div style="background-color: #28a745; color: white; padding: 8px 15px; border-radius: 5px; margin-bottom: 10px;">
+                    I need help with...
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Category</label>
+                    <select style="width: 100%; padding: 5px; border: 1px solid #ddd; border-radius: 3px;" disabled>
+                        <option>All</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Skill</label>
+                    <select style="width: 100%; padding: 5px; border: 1px solid #ddd; border-radius: 3px;" disabled>
+                        <option>All</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Refine results section -->
+            <div style="flex: 1; min-width: 200px;">
+                <div style="background-color: #6c757d; color: white; padding: 8px 15px; border-radius: 5px; margin-bottom: 10px;">
+                    Refine results...
+                </div>
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                    <div style="flex: 1;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Country</label>
+                        <input type="text" placeholder="United Kingdom" style="width: 100%; padding: 5px; border: 1px solid #ddd; border-radius: 3px;" disabled>
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">City</label>
+                        <select style="width: 100%; padding: 5px; border: 1px solid #ddd; border-radius: 3px;" disabled>
+                            <option>United Kingdom</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Gender</label>
+                    <select style="width: 100%; padding: 5px; border: 1px solid #ddd; border-radius: 3px;" disabled>
+                        <option>Both</option>
+                    </select>
+                </div>
+                <button style="background-color: #ffc107; color: #333; border: none; padding: 8px 20px; border-radius: 5px; cursor: pointer;" disabled>Search</button>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
