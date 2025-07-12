@@ -1,0 +1,60 @@
+# Django/Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.db-journal
+
+# Virtual environments
+venv/
+.venv/
+ENV/
+env/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Static and media
+static/
+media/
+
+# Environment variables
+.env
+
+# Migration files
+*/migrations/*
+!*/migrations/__init__.py
+
+# Project documentation
+plan.md
+implementation.md
+
+# Others
+*.swp
+*.swo
+
+# Node/npm (if used)
+node_modules/
+
+# Coverage/test
+htmlcov/
+.coverage
+.tox/
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# Backup files
+*.bak
+*.tmp
