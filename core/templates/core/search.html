@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load core_extras %}
+
+{% block content %}
+<div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+    <!-- Header Section -->
+    <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 30px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); margin-bottom: 30px; text-align: center;">
+        <div style="margin-bottom: 20px;">
+            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 28px;">
+                <i class="fas fa-search"></i>
+            </div>
+            <h1 style="margin: 0; color: #333; font-size: 32px; font-weight: 600; margin-bottom: 10px;">
+                <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Discover Skills</span>
+            </h1>
+            <p style="color: #666; font-size: 16px; margin: 0;">
+                Connect with {{ total_users }} skilled individuals ready to share their knowledge
+            </p>
+        </div>
+
+        <!-- Search Bar Placeholder -->
+        <div style="max-width: 600px; margin: 0 auto;">
+            <div style="position: relative;">
+                <input type="text" placeholder="Search for skills, users, or locations..." 
+                       style="width: 100%; padding: 15px 50px 15px 20px; border: 2px solid #e1e5e9; border-radius: 25px; font-size: 16px; transition: all 0.3s ease; background: #fff;"
+                       disabled>
+                <div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #999;">
+                    <i class="fas fa-search" style="font-size: 18px;"></i>
+                </div>
+            </div>
+            <p style="color: #999; font-size: 14px; margin-top: 10px; font-style: italic;">
+                <i class="fas fa-info-circle" style="margin-right: 5px;"></i>
+                Search functionality coming soon! For now, browse all users below.
+            </p>
+        </div>
+    </div>
+
+    <!-- Users Grid -->
+    {% if users_with_profiles %}
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;">
+            {% for user_profile in users_with_profiles %}
+            <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 25px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); transition: all 0.3s ease; cursor: pointer;"
+                 onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 40px rgba(0,0,0,0.15)'"
+                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 32px rgba(0,0,0,0.1)'">
+                
+                <!-- User Header -->
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; color: white; font-size: 24px; font-weight: bold;">
+                        {% if user_profile.profile.profile_picture %}
+                            <img src="{{ user_profile.profile.profile_picture.url }}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                        {% else %}
+                            {{ user_profile.user.first_name.0 }}{{ user_profile.user.last_name.0 }}
+                        {% endif %}
+                    </div>
+                    <div style="flex: 1;">
+                        <h3 style="margin: 0; color: #333; font-size: 18px; font-weight: 600;">
+                            {{ user_profile.user.first_name }} {{ user_profile.user.last_name }}
+                        </h3>
+                        <p style="margin: 0; color: #666; font-size: 14px;">
+                            <i class="fas fa-map-marker-alt" style="margin-right: 5px; color: #667eea;"></i>
+                            {{ user_profile.profile.city|default:"Location not specified" }}, {{ user_profile.profile.country|default:"" }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Bio -->
+                {% if user_profile.profile.bio %}
+                <div style="margin-bottom: 15px;">
+                    <p style="color: #666; font-size: 14px; line-height: 1.5; margin: 0;">
+                        {{ user_profile.profile.bio|truncatewords:20 }}
+                    </p>
+                </div>
+                {% endif %}
+
+                <!-- Skills Offered -->
+                {% if user_profile.profile.skills_offered %}
+                <div style="margin-bottom: 10px;">
+                    <h4 style="margin: 0 0 8px 0; color: #333; font-size: 14px; font-weight: 600;">
+                        <i class="fas fa-star" style="margin-right: 5px; color: #28a745;"></i>
+                        Skills Offered
+                    </h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                        {% with skills_offered=user_profile.profile.skills_offered|split:","|slice:":3" %}
+                            {% for skill in skills_offered %}
+                            <span style="background: rgba(40, 167, 69, 0.1); color: #28a745; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">
+                                {{ skill }}
+                            </span>
+                            {% endfor %}
+                            {% with total_skills=user_profile.profile.skills_offered|split:","|length %}
+                                {% if total_skills > 3 %}
+                                <span style="background: rgba(102, 126, 234, 0.1); color: #667eea; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">
+                                    +{{ total_skills|add:"-3" }} more
+                                </span>
+                                {% endif %}
+                            {% endwith %}
+                        {% endwith %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Skills Needed -->
+                {% if user_profile.profile.skills_needed %}
+                <div style="margin-bottom: 15px;">
+                    <h4 style="margin: 0 0 8px 0; color: #333; font-size: 14px; font-weight: 600;">
+                        <i class="fas fa-lightbulb" style="margin-right: 5px; color: #ffc107;"></i>
+                        Looking to Learn
+                    </h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                        {% with skills_needed=user_profile.profile.skills_needed|split:","|slice:":2" %}
+                            {% for skill in skills_needed %}
+                            <span style="background: rgba(255, 193, 7, 0.1); color: #ffc107; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">
+                                {{ skill }}
+                            </span>
+                            {% endfor %}
+                            {% with total_needed=user_profile.profile.skills_needed|split:","|length %}
+                                {% if total_needed > 2 %}
+                                <span style="background: rgba(102, 126, 234, 0.1); color: #667eea; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">
+                                    +{{ total_needed|add:"-2" }} more
+                                </span>
+                                {% endif %}
+                            {% endwith %}
+                        {% endwith %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Action Button -->
+                <div style="text-align: center; margin-top: 20px;">
+                    <button style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);"
+                            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.4)'"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 10px rgba(102, 126, 234, 0.3)'">
+                        <i class="fas fa-envelope" style="margin-right: 5px;"></i>
+                        Connect
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <!-- Empty State -->
+        <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 40px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); text-align: center;">
+            <div style="width: 80px; height: 80px; background: rgba(102, 126, 234, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: #667eea; font-size: 36px;">
+                <i class="fas fa-users"></i>
+            </div>
+            <h2 style="color: #333; font-size: 24px; font-weight: 600; margin-bottom: 10px;">No Users Found</h2>
+            <p style="color: #666; font-size: 16px; margin-bottom: 20px;">
+                There are no users to display at the moment. 
+            </p>
+            <a href="{% url 'signup' %}" style="display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease;">
+                <i class="fas fa-user-plus" style="margin-right: 8px;"></i>
+                Be the First to Join
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+// Custom filter for splitting skills
+document.addEventListener('DOMContentLoaded', function() {
+    // Process skills strings and create skill tags
+    const skillsContainers = document.querySelectorAll('[data-skills]');
+    skillsContainers.forEach(container => {
+        const skillsString = container.getAttribute('data-skills');
+        const skills = skillsString.split(',').map(skill => skill.trim());
+        const maxSkills = parseInt(container.getAttribute('data-max') || 3);
+        
+        skills.slice(0, maxSkills).forEach(skill => {
+            const span = document.createElement('span');
+            span.textContent = skill;
+            span.style.cssText = 'background: rgba(40, 167, 69, 0.1); color: #28a745; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500; margin-right: 5px; margin-bottom: 5px; display: inline-block;';
+            container.appendChild(span);
+        });
+        
+        if (skills.length > maxSkills) {
+            const moreSpan = document.createElement('span');
+            moreSpan.textContent = `+${skills.length - maxSkills} more`;
+            moreSpan.style.cssText = 'background: rgba(102, 126, 234, 0.1); color: #667eea; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500; display: inline-block;';
+            container.appendChild(moreSpan);
+        }
+    });
+});
+</script>
+
+<!-- Custom template filter simulation -->
+{% load static %}
+<script>
+</script>
+{% endblock %}
