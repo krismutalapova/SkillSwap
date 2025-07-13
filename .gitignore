@@ -35,8 +35,7 @@ media/
 !*/migrations/__init__.py
 
 # Project documentation
-plan.md
-implementation.md
+docs_scripts/
 
 # Others
 *.swp
