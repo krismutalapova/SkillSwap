@@ -3,6 +3,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import View
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from .forms import ProfileForm
 from .models import Profile
 
@@ -50,3 +51,26 @@ def custom_404(request, exception):
 
 def custom_500(request):
     return render(request, "500.html", status=500)
+
+
+def search(request):
+    # Get all users with their profiles
+    users_with_profiles = []
+    users = (
+        User.objects.filter(is_active=True)
+        .exclude(is_superuser=True)
+        .select_related("profile")
+    )
+
+    for user in users:
+        try:
+            profile = user.profile
+            users_with_profiles.append({"user": user, "profile": profile})
+        except Profile.DoesNotExist:
+            continue
+
+    context = {
+        "users_with_profiles": users_with_profiles,
+        "total_users": len(users_with_profiles),
+    }
+    return render(request, "core/search.html", context)
