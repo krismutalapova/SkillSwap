@@ -42,7 +42,15 @@ SkillSwap is designed to create a community where people can:
 - **Route Management**: Proper handling of common navigation patterns
 - **Professional Footer**: Branded footer with navigation links
 
-### 🛡️ Security & Best Practices
+### � Search & Discovery
+- **User Search Page**: Browse all active users with card-based layout
+- **Profile Discovery**: View user profiles, skills offered, and skills needed
+- **Visual Skill Tags**: Color-coded skill display with smart truncation
+- **Interactive Cards**: Hover effects and smooth animations for user cards
+- **Responsive Grid**: Adaptive layout that works on all screen sizes
+- **Empty State Handling**: Professional messaging when no users are found
+
+### �🛡️ Security & Best Practices
 - **Django Security**: Built-in CSRF protection and secure authentication
 - **Proper HTTP Methods**: POST requests for sensitive operations
 - **Error Handling**: Graceful error management with user-friendly messages
@@ -103,8 +111,18 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-### 6. Access the Application
+### 6. Populate with Sample Data (Optional)
+```bash
+# Create sample users for testing
+python manage.py populate_users --count 15
+
+# Or clear existing and create new ones
+python manage.py populate_users --clear --count 20
+```
+
+### 7. Access the Application
 - **Main Site**: http://127.0.0.1:8000/
+- **Search Page**: http://127.0.0.1:8000/search/
 - **Admin Panel**: http://127.0.0.1:8000/admin/
 - **Login Page**: http://127.0.0.1:8000/login/
 - **Signup Page**: http://127.0.0.1:8000/signup/
@@ -114,7 +132,12 @@ python manage.py runserver
 ```
 skillswap/
 ├── core/                          # Main application
+│   ├── management/               # Custom management commands
+│   │   └── commands/            # Django management commands
+│   │       └── populate_users.py # Sample data generation
 │   ├── migrations/               # Database migrations
+│   ├── templatetags/            # Custom template filters
+│   │   └── core_extras.py       # Template filters for skill processing
 │   ├── templates/               # HTML templates
 │   │   ├── core/               # App-specific templates
 │   │   │   ├── home.html       # Home page
@@ -122,7 +145,8 @@ skillswap/
 │   │   │   ├── signup.html     # Signup page
 │   │   │   ├── logout.html     # Logout confirmation
 │   │   │   ├── profile_view.html # Profile display
-│   │   │   └── profile_edit.html # Profile editing
+│   │   │   ├── profile_edit.html # Profile editing
+│   │   │   └── search.html     # User search page
 │   │   ├── base.html           # Base template
 │   │   ├── 404.html           # Custom 404 error page
 │   │   └── 500.html           # Custom 500 error page
@@ -135,11 +159,13 @@ skillswap/
 │   ├── settings.py           # Django settings
 │   ├── urls.py              # Main URL configuration
 │   └── wsgi.py              # WSGI configuration
+├── docs_scripts/             # Documentation and scripts
+│   ├── plan.md              # Project roadmap and features
+│   └── implementation.md    # Detailed implementation log
 ├── media/                    # User uploaded files
 ├── static/                   # Static files (CSS, JS, images)
+├── populate_platform.py     # Wrapper script for data population
 ├── manage.py                # Django management script
-├── plan.md                  # Project roadmap and features
-├── implementation.md        # Detailed implementation log
 └── README.md               # This file
 ```
 
@@ -149,9 +175,10 @@ skillswap/
 2. **Sign Up**: Create account with comprehensive form validation
 3. **Login**: Secure authentication with password reveal functionality
 4. **Profile Setup**: Complete profile with personal information and skills
-5. **Profile Management**: View and edit profile with modern UI
-6. **Navigation**: Use responsive header with conditional navigation
-7. **Error Handling**: Experience custom error pages if issues occur
+5. **Browse Users**: Search page to discover other skill swappers
+6. **Profile Management**: View and edit profile with modern UI
+7. **Navigation**: Use responsive header with conditional navigation
+8. **Error Handling**: Experience custom error pages if issues occur
 
 ## 🔄 API Endpoints
 
@@ -163,6 +190,9 @@ skillswap/
 ### Profiles
 - `GET /profile/` - View current user's profile
 - `GET/POST /profile/edit/` - Edit current user's profile
+
+### Search & Discovery
+- `GET /search/` - Browse all users with profiles
 
 ### Navigation
 - `GET /` - Homepage
@@ -182,6 +212,9 @@ skillswap/
 - **Professional Error Handling**: Custom 404/500 pages with branded design
 - **Enhanced UX**: Smooth animations, hover effects, and responsive design
 - **Security Best Practices**: CSRF protection, secure forms, and proper HTTP methods
+- **Search Functionality**: User discovery with card-based interface
+- **Sample Data Generation**: Management command for creating test users
+- **Custom Template Filters**: Skill processing and display functionality
 
 ### Database Models
 - **User**: Django's built-in User model (username, email, password)
@@ -198,14 +231,15 @@ skillswap/
 The project roadmap includes these planned features:
 
 ### Phase 1: Core Functionality
+- [x] **User Search**: Browse and discover other skill swappers ✅
 - [ ] **Skill Listings**: Create, edit, and browse skill offerings/requests
-- [ ] **Search & Filter**: Find skills by category, location, or type
+- [ ] **Advanced Search**: Filter by skills, location, or availability
 - [ ] **Messaging System**: Contact other users about skill exchanges
 
 ### Phase 2: Enhanced Features
 - [ ] **Reviews & Ratings**: Rate and review skill exchanges
 - [ ] **Categories & Tags**: Organize skills with categories and tags
-- [ ] **Advanced Search**: Location-based and availability filtering
+- [ ] **Real-time Search**: Live search functionality with filters
 
 ### Phase 3: Platform Features
 - [ ] **Admin Dashboard**: Enhanced admin interface for platform management
@@ -220,13 +254,3 @@ This is currently a personal project, but suggestions and feedback are welcome! 
 
 This project is for educational and portfolio purposes.
 
-## 📞 Support
-
-For questions or issues:
-1. Check the `implementation.md` file for detailed technical documentation
-2. Review the `plan.md` file for project roadmap and feature status
-3. Use the test routes (e.g., `/test-404/`) to preview features during development
-
----
-
-**SkillSwap** - *Building connections through skill sharing* 🌟
