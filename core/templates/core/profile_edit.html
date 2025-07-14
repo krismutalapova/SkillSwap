@@ -1,6 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
 <div style="max-width: 1000px; margin: 0 auto; padding: 20px;">
+    <!-- Messages Display -->
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); color: white; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);">
+                    <div style="display: flex; align-items: center;">
+                        <i class="fas fa-exclamation-circle" style="font-size: 18px; margin-right: 10px;"></i>
+                        <span>{{ message }}</span>
+                    </div>
+                </div>
+            {% elif message.tags == 'success' %}
+                <div style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);">
+                    <div style="display: flex; align-items: center;">
+                        <i class="fas fa-check-circle" style="font-size: 18px; margin-right: 10px;"></i>
+                        <span>{{ message }}</span>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
     <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 30px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
         <h2 style="text-align: center; color: #333; margin-bottom: 30px;">Edit Profile</h2>
         
@@ -18,6 +39,13 @@
                 {% endif %}
                 
                 {{ form.profile_picture }}
+                {% if form.profile_picture.errors %}
+                    {% for error in form.profile_picture.errors %}
+                        <div style="color: #dc3545; font-size: 14px; margin-top: 5px;">
+                            <i class="fas fa-exclamation-circle" style="margin-right: 5px;"></i>{{ error }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 {% if form.profile_picture.help_text %}
                     <small style="color: #666; display: block; margin-top: 5px;">{{ form.profile_picture.help_text }}</small>
                 {% endif %}
@@ -28,12 +56,26 @@
                 <div style="flex: 1;">
                     <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">City:</label>
                     <input type="text" name="city" value="{{ form.city.value|default:'' }}" placeholder="e.g., Stockholm" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                    {% if form.city.errors %}
+                        {% for error in form.city.errors %}
+                            <div style="color: #dc3545; font-size: 14px; margin-top: 5px;">
+                                <i class="fas fa-exclamation-circle" style="margin-right: 5px;"></i>{{ error }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                     <small style="color: #666; display: block; margin-top: 5px;">Your current city</small>
                 </div>
                 
                 <div style="flex: 1;">
                     <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">Country:</label>
                     <input type="text" name="country" value="{{ form.country.value|default:'' }}" placeholder="e.g., Sweden" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                    {% if form.country.errors %}
+                        {% for error in form.country.errors %}
+                            <div style="color: #dc3545; font-size: 14px; margin-top: 5px;">
+                                <i class="fas fa-exclamation-circle" style="margin-right: 5px;"></i>{{ error }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                     <small style="color: #666; display: block; margin-top: 5px;">Your current country</small>
                 </div>
             </div>
