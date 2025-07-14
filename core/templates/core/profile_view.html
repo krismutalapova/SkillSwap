@@ -1,8 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
 <div style="max-width: 1000px; margin: 0 auto; padding: 20px;">
+    <!-- Name Completion Notification -->
+    {% if not profile.user.first_name or not profile.user.last_name %}
+        <div style="background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%); color: white; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center;">
+                    <i class="fas fa-exclamation-circle" style="font-size: 20px; margin-right: 10px;"></i>
+                    <div>
+                        <strong>Complete Your Profile</strong>
+                        <p style="margin: 0; font-size: 14px; opacity: 0.9;">Add your first and last name to help others recognize you</p>
+                    </div>
+                </div>
+                <a href="{% url 'complete_name' %}" style="background: rgba(255,255,255,0.2); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3);">
+                    Complete Now
+                </a>
+            </div>
+        </div>
+    {% endif %}
     <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
-        <h2 style="text-align: center; margin: 0 0 20px 0; color: #333;">{{ profile.user.username }}</h2>
+        <h2 style="text-align: center; margin: 0 0 20px 0; color: #333;">
+            {% if profile.user.first_name and profile.user.last_name %}
+                {{ profile.user.first_name }} {{ profile.user.last_name }}
+                <small style="color: #666; font-size: 14px; display: block; margin-top: 5px;">@{{ profile.user.username }}</small>
+            {% else %}
+                {{ profile.user.username }}
+            {% endif %}
+        </h2>
         
         <div style="display: flex; gap: 20px; align-items: flex-start;">
             <div style="flex-shrink: 0; position: relative;">
@@ -33,6 +57,9 @@
             
             <div style="flex: 1;">
                 <div style="margin-bottom: 15px;">
+                    {% if profile.user.first_name and profile.user.last_name %}
+                        <strong style="color: #17a2b8;">Full Name:</strong> {{ profile.user.first_name }} {{ profile.user.last_name }}<br>
+                    {% endif %}
                     <strong style="color: #17a2b8;">Username:</strong> {{ profile.user.username }}<br>
                     <strong style="color: #17a2b8;">City:</strong> 
                     {% if profile.city %}

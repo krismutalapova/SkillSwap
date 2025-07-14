@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import View
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .forms import ProfileForm
+from .forms import ProfileForm, CustomUserCreationForm, NameCompletionForm
 from .models import Profile
 
 
@@ -12,13 +11,30 @@ def home(request):
     return render(request, "core/home.html")
 
 
+@login_required
+def complete_name(request):
+    """Allow existing users without names to add them (one-time only)"""
+    if request.user.first_name and request.user.last_name:
+        return redirect("profile_view")
+
+    if request.method == "POST":
+        form = NameCompletionForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("profile_view")
+    else:
+        form = NameCompletionForm(instance=request.user)
+
+    return render(request, "core/complete_name.html", {"form": form})
+
+
 class SignupView(View):
     def get(self, request):
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
         return render(request, "core/signup.html", {"form": form})
 
     def post(self, request):
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)

@@ -27,6 +27,8 @@
                     {% for error in errors %}
                         <p style="margin: 5px 0 5px 24px;">
                             {% if field == 'username' %}<strong>Username:</strong> {% endif %}
+                            {% if field == 'first_name' %}<strong>First Name:</strong> {% endif %}
+                            {% if field == 'last_name' %}<strong>Last Name:</strong> {% endif %}
                             {% if field == 'password1' %}<strong>Password:</strong> {% endif %}
                             {% if field == 'password2' %}<strong>Password confirmation:</strong> {% endif %}
                             {{ error }}
@@ -38,6 +40,34 @@
         
         <form method="post">
             {% csrf_token %}
+            <!-- First Name Field -->
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; color: #333; font-weight: 500;">
+                    <i class="fas fa-id-card" style="margin-right: 8px; color: #667eea;"></i>First Name
+                </label>
+                <input type="text" name="first_name" placeholder="Enter your first name" required 
+                       style="width: 100%; padding: 12px 16px; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 16px; transition: all 0.3s ease; background: #fff;" 
+                       value="{{ form.first_name.value|default:'' }}">
+                <small style="display: block; text-align: left; color: #666; margin-top: 5px; font-size: 14px;">
+                    <i class="fas fa-info-circle" style="margin-right: 5px;"></i>
+                    Your real first name (cannot be changed later)
+                </small>
+            </div>
+
+            <!-- Last Name Field -->
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; color: #333; font-weight: 500;">
+                    <i class="fas fa-id-card" style="margin-right: 8px; color: #667eea;"></i>Last Name
+                </label>
+                <input type="text" name="last_name" placeholder="Enter your last name" required 
+                       style="width: 100%; padding: 12px 16px; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 16px; transition: all 0.3s ease; background: #fff;" 
+                       value="{{ form.last_name.value|default:'' }}">
+                <small style="display: block; text-align: left; color: #666; margin-top: 5px; font-size: 14px;">
+                    <i class="fas fa-info-circle" style="margin-right: 5px;"></i>
+                    Your real last name (cannot be changed later)
+                </small>
+            </div>
+
             <!-- Username Field -->
             <div style="margin-bottom: 20px;">
                 <label style="display: block; margin-bottom: 8px; color: #333; font-weight: 500;">
@@ -128,7 +158,6 @@
         }
     }
 
-    // Add focus effects to input fields
     document.addEventListener('DOMContentLoaded', function() {
         const inputs = document.querySelectorAll('input[type="text"], input[type="password"]');
         
@@ -144,7 +173,6 @@
             });
         });
 
-        // Button hover effects
         const submitBtn = document.querySelector('button[type="submit"]');
         if (submitBtn) {
             submitBtn.addEventListener('mouseenter', function() {
