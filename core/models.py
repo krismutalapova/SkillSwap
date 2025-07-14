@@ -26,6 +26,84 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.user.username}'s profile"
 
+    @property
+    def is_profile_complete(self):
+        required_user_fields = bool(self.user.first_name and self.user.last_name)
+        required_profile_fields = bool(
+            self.city
+            and self.country
+            and (self.skills_offered.strip() or self.skills_needed.strip())
+        )
+        return required_user_fields and required_profile_fields
+
+    @property
+    def completion_percentage(self):
+        total_fields = 8
+        completed_fields = 0
+        if self.user.first_name:
+            completed_fields += 1
+        if self.user.last_name:
+            completed_fields += 1
+        if self.bio.strip():
+            completed_fields += 1
+        if self.skills_offered.strip():
+            completed_fields += 1
+        if self.skills_needed.strip():
+            completed_fields += 1
+        if self.city:
+            completed_fields += 1
+        if self.country:
+            completed_fields += 1
+        if self.profile_picture:
+            completed_fields += 1
+
+        return round((completed_fields / total_fields) * 100)
+
+    @property
+    def missing_required_fields(self):
+        missing = []
+        if not self.user.first_name:
+            missing.append("First Name")
+        if not self.user.last_name:
+            missing.append("Last Name")
+        if not self.city:
+            missing.append("City")
+        if not self.country:
+            missing.append("Country")
+        if not (self.skills_offered.strip() or self.skills_needed.strip()):
+            missing.append("Skills (offered or needed)")
+        return missing
+
+    @property
+    def missing_critical_fields(self):
+        missing = []
+        if not self.user.first_name:
+            missing.append("First Name")
+        if not self.user.last_name:
+            missing.append("Last Name")
+        if not self.city:
+            missing.append("City")
+        if not self.country:
+            missing.append("Country")
+        return missing
+
+    @property
+    def missing_skills_only(self):
+        has_critical_missing = bool(self.missing_critical_fields)
+        has_skills = bool(self.skills_offered.strip() or self.skills_needed.strip())
+        return not has_critical_missing and not has_skills
+
+    @property
+    def completion_status_type(self):
+        if self.is_profile_complete:
+            return "complete"
+        elif self.missing_critical_fields:
+            return "critical_missing"
+        elif self.missing_skills_only:
+            return "skills_missing"
+        else:
+            return "critical_missing"
+
 
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
