@@ -45,19 +45,66 @@ class SignupView(View):
 @login_required
 def profile_view(request):
     profile = get_object_or_404(Profile, user=request.user)
-    return render(request, "core/profile_view.html", {"profile": profile})
+
+    context = {
+        "profile": profile,
+        "completion_percentage": profile.completion_percentage,
+        "is_complete": profile.is_profile_complete,
+        "missing_fields": profile.missing_required_fields,
+        "missing_critical_fields": profile.missing_critical_fields,
+        "missing_skills_only": profile.missing_skills_only,
+        "completion_status_type": profile.completion_status_type,
+    }
+    return render(request, "core/profile_view.html", context)
 
 
 @login_required
 def profile_edit(request):
     profile = get_object_or_404(Profile, user=request.user)
+
     if request.method == "POST":
-        form = ProfileForm(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            form.save()
-            return redirect("profile_view")
+        try:
+            # Check completion status before saving
+            was_complete_before = profile.is_profile_complete
+
+            form = ProfileForm(request.POST, request.FILES, instance=profile)
+            if form.is_valid():
+                form.save()
+
+                # Check if profile just became complete
+                profile.refresh_from_db()
+                is_complete_now = profile.is_profile_complete
+
+                from django.contrib import messages
+
+                if not was_complete_before and is_complete_now:
+                    # Profile just became complete
+                    messages.success(request, "profile_completed")
+                elif was_complete_before and is_complete_now:
+                    # Profile was complete and remains complete (just updated)
+                    messages.success(request, "profile_updated")
+                elif not was_complete_before and not is_complete_now:
+                    # Profile was incomplete and remains incomplete (but fields changed)
+                    messages.success(request, "profile_updated")
+                else:
+                    # Fallback (shouldn't happen in normal flow)
+                    messages.success(request, "Profile updated successfully!")
+
+                return redirect("profile_view")
+            else:
+                messages.error(
+                    request, "Please correct the errors below and try again."
+                )
+
+        except Exception as e:
+            messages.error(
+                request,
+                "An error occurred while saving your profile. Please try again.",
+            )
+            print(f"Profile save error: {e}")
     else:
         form = ProfileForm(instance=profile)
+
     return render(request, "core/profile_edit.html", {"form": form})
 
 
@@ -70,7 +117,7 @@ def custom_500(request):
 
 
 def search(request):
-    # Get all users with their profiles
+    # Get all users with complete profiles only
     users_with_profiles = []
     users = (
         User.objects.filter(is_active=True)
@@ -81,12 +128,15 @@ def search(request):
     for user in users:
         try:
             profile = user.profile
-            users_with_profiles.append({"user": user, "profile": profile})
+            # Only include users with complete profiles
+            if profile.is_profile_complete:
+                users_with_profiles.append({"user": user, "profile": profile})
         except Profile.DoesNotExist:
             continue
 
     context = {
         "users_with_profiles": users_with_profiles,
         "total_users": len(users_with_profiles),
+        "show_complete_only": True,
     }
     return render(request, "core/search.html", context)
