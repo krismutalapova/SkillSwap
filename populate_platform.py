@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """
-Quick script to populate SkillSwap with sample users.
-This is a wrapper around the Django management command.
-
+A script to populate SkillSwap with sample users.
 Usage:
     python populate_platform.py          # Create 20 users
     python populate_platform.py 50       # Create 50 users
@@ -15,7 +13,6 @@ import subprocess
 
 
 def run_populate_command(args):
-    """Run the Django management command with given arguments"""
     cmd = ["python", "manage.py", "populate_users"] + args
 
     try:
