@@ -1,262 +1,54 @@
 # SkillSwap
 
-A modern Django web platform that enables users to exchange skills and knowledge with each other. Connect with others to teach what you know and learn what you need.
+A Django web platform for skill exchange and learning. Connect with others to teach what you know and learn what you need.
 
-## 🌟 Project Overview
+## Features
 
-SkillSwap is designed to create a community where people can:
-- **Offer their skills** to help others learn
-- **Request skills** they want to develop
-- **Connect with like-minded learners** and teachers
-- **Build a network** of skill-sharing relationships
+- **User Authentication**: Secure signup/login with modern UI
+- **Profile Management**: Complete profiles with skills, bio, and profile pictures
+- **User Search**: Browse other users with quality-filtered results
+- **Modern Design**: Modern UI with responsive design
+- **Auto-dismiss Notifications**: Popup system for user feedback
 
-## ✨ Current Features
+## Quick Start
 
-### 🔐 Authentication System
-- **Modern Login/Signup Pages**: Facebook-style design with glassmorphism effects
-- **Complete Registration**: First name, last name, username, and password required during signup
-- **Password Security**: Password reveal functionality with eye icons
-- **Form Validation**: Comprehensive error handling with helpful messages
-- **User Guidance**: Username and password requirement hints
-- **Permanent Identity**: First and last names cannot be changed after registration
-- **Name Completion**: Existing users can add missing names through dedicated completion form
-- **Secure Sessions**: POST-based logout and proper session management
-
-### 👤 User Profiles
-- **Complete Profile Management**: Create and edit user profiles
-- **Identity Display**: Full name prominently displayed with username as handle
-- **Personal Information**: Bio, city, country, gender fields
-- **Profile Pictures**: Upload and display profile pictures with edit functionality
-- **Skills Sections**: Display skills offered and skills needed
-- **Modern UI**: Glassmorphism design with clickable profile picture and hover effects
-- **Auto-Profile Creation**: Profiles automatically created for new users
-
-### 🎨 Modern UI/UX Design
-- **Glassmorphism Effects**: Semi-transparent cards with backdrop blur
-- **Gradient Backgrounds**: Beautiful purple-blue gradient theme throughout
-- **Professional Branding**: Custom SkillSwap logo with Font Awesome icons
-- **Brand Favicon**: SVG favicon with exchange icon for browser tab recognition
-- **Responsive Design**: Mobile-friendly layouts and breakpoints
-- **Smooth Animations**: Hover effects and smooth transitions
-- **Professional Typography**: Clean font hierarchy and spacing
-
-### 🔧 Navigation & Error Handling
-- **Dynamic Header**: Conditional navigation based on authentication state
-- **Professional Buttons**: Gradient and outline button styles with hover effects
-- **Custom Error Pages**: Branded 404 and 500 error pages with recovery options
-- **Route Management**: Proper handling of common navigation patterns
-- **Professional Footer**: Branded footer with navigation links
-
-### � Search & Discovery
-- **User Search Page**: Browse all active users with card-based layout
-- **Profile Discovery**: View user profiles, skills offered, and skills needed
-- **Visual Skill Tags**: Color-coded skill display with smart truncation
-- **Interactive Cards**: Hover effects and smooth animations for user cards
-- **Responsive Grid**: Adaptive layout that works on all screen sizes
-- **Empty State Handling**: Professional messaging when no users are found
-
-### �🛡️ Security & Best Practices
-- **Django Security**: Built-in CSRF protection and secure authentication
-- **Proper HTTP Methods**: POST requests for sensitive operations
-- **Error Handling**: Graceful error management with user-friendly messages
-- **Development Tools**: Test routes for error page development
-
-## 🛠️ Technology Stack
-
-- **Backend**: Django 4.x (Python web framework)
-- **Database**: SQLite (development) - easily configurable for PostgreSQL/MySQL
-- **Frontend**: HTML5, CSS3, JavaScript
-- **Icons**: Font Awesome 6.4.0
-- **Image Processing**: Pillow (for profile picture uploads)
-- **Development**: Virtual environment with pip
-
-## 📋 Prerequisites
-
-- Python 3.8 or higher
-- pip (Python package installer)
-- Virtual environment (recommended)
-
-## 🚀 Quick Start
-
-### 1. Clone the Repository
 ```bash
-git clone <repository-url>
-cd skillswap
-```
-
-### 2. Set Up Virtual Environment
-```bash
-# Create virtual environment
+# Setup environment
 python -m venv skillswap_env
-
-# Activate virtual environment
-# On macOS/Linux:
 source skillswap_env/bin/activate
-# On Windows:
-skillswap_env\Scripts\activate
-```
-
-### 3. Install Dependencies
-```bash
 pip install django pillow
-```
 
-### 4. Set Up Database
-```bash
-# Run migrations
-python manage.py makemigrations
+# Initialize database
 python manage.py migrate
-
-# Create superuser (admin account)
 python manage.py createsuperuser
-```
 
-### 5. Run Development Server
-```bash
+# Run server
 python manage.py runserver
 ```
 
-### 6. Populate with Sample Data (Optional)
-```bash
-# Create sample users for testing
-python manage.py populate_users --count 15
+Visit http://127.0.0.1:8000/
 
-# Or clear existing and create new ones
-python manage.py populate_users --clear --count 20
-```
-
-### 7. Access the Application
-- **Main Site**: http://127.0.0.1:8000/
-- **Search Page**: http://127.0.0.1:8000/search/
-- **Admin Panel**: http://127.0.0.1:8000/admin/
-- **Login Page**: http://127.0.0.1:8000/login/
-- **Signup Page**: http://127.0.0.1:8000/signup/
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 skillswap/
-├── core/                          # Main application
-│   ├── management/               # Custom management commands
-│   │   └── commands/            # Django management commands
-│   │       └── populate_users.py # Sample data generation
-│   ├── migrations/               # Database migrations
-│   ├── templatetags/            # Custom template filters
-│   │   └── core_extras.py       # Template filters for skill processing
-│   ├── templates/               # HTML templates
-│   │   ├── core/               # App-specific templates
-│   │   │   ├── home.html       # Home page
-│   │   │   ├── login.html      # Login page
-│   │   │   ├── signup.html     # Signup page
-│   │   │   ├── logout.html     # Logout confirmation
-│   │   │   ├── profile_view.html # Profile display
-│   │   │   ├── profile_edit.html # Profile editing
-│   │   │   └── search.html     # User search page
-│   │   ├── base.html           # Base template
-│   │   ├── 404.html           # Custom 404 error page
-│   │   └── 500.html           # Custom 500 error page
-│   ├── models.py              # Database models
-│   ├── views.py               # View functions
-│   ├── forms.py               # Django forms
-│   ├── urls.py                # URL patterns
-│   └── admin.py               # Admin configuration
-├── skillswap/                 # Project configuration
-│   ├── settings.py           # Django settings
-│   ├── urls.py              # Main URL configuration
-│   └── wsgi.py              # WSGI configuration
-├── docs_scripts/             # Documentation and scripts
-│   ├── plan.md              # Project roadmap and features
-│   └── implementation.md    # Detailed implementation log
-├── media/                    # User uploaded files
-├── static/                   # Static files (CSS, JS, images)
-├── populate_platform.py     # Wrapper script for data population
-├── manage.py                # Django management script
-└── README.md               # This file
+├── core/           # Main app with models, views, templates
+├── tests/          # Test files
+├── scripts/        # Utility scripts
+├── media/          # User uploads
+└── static/         # CSS, JS, images
 ```
 
-## 🎯 Current User Journey
+## Commands
 
-1. **Visit Homepage**: Modern welcome page with SkillSwap branding
-2. **Sign Up**: Create account with comprehensive form validation
-3. **Login**: Secure authentication with password reveal functionality
-4. **Profile Setup**: Complete profile with personal information and skills
-5. **Browse Users**: Search page to discover other skill swappers
-6. **Profile Management**: View and edit profile with modern UI
-7. **Navigation**: Use responsive header with conditional navigation
-8. **Error Handling**: Experience custom error pages if issues occur
+```bash
+# Populate test users
+python manage.py populate_users --count 15
 
-## 🔄 API Endpoints
+# Run tests
+python tests/test_popup_messages.py
+```
 
-### Authentication
-- `GET/POST /login/` - User login
-- `GET/POST /signup/` - User registration
-- `POST /logout/` - User logout (POST for security)
+---
 
-### Profiles
-- `GET /profile/` - View current user's profile
-- `GET/POST /profile/edit/` - Edit current user's profile
-
-### Search & Discovery
-- `GET /search/` - Browse all users with profiles
-
-### Navigation
-- `GET /` - Homepage
-- `GET /home/` - Home page (alias)
-- `GET /index/` - Index page (alias)
-
-### Development/Testing
-- `GET /test-404/` - Preview 404 error page
-- `GET /test-500/` - Preview 500 error page
-- `GET /simulate-404/` - Trigger actual 404 error
-
-## 📝 Development Notes
-
-### Custom Features Implemented
-- **Auto-Profile Creation**: User profiles are automatically created via Django signals
-- **Modern Design System**: Consistent glassmorphism and gradient design throughout
-- **Professional Error Handling**: Custom 404/500 pages with branded design
-- **Enhanced UX**: Smooth animations, hover effects, and responsive design
-- **Security Best Practices**: CSRF protection, secure forms, and proper HTTP methods
-- **Search Functionality**: User discovery with modern card-based interface
-- **Sample Data Generation**: Management command for creating test users
-- **Custom Template Filters**: Skill processing and display functionality
-- **Brand Favicon**: SVG favicon with inline data URI for zero HTTP requests
-
-### Database Models
-- **User**: Django's built-in User model (username, email, password)
-- **Profile**: Extended user information (bio, city, country, gender, profile picture, skills)
-
-### Design Philosophy
-- **Modern & Professional**: Glassmorphism effects with professional color scheme
-- **User-Friendly**: Clear navigation, helpful error messages, and intuitive flows
-- **Responsive**: Mobile-first design that works on all device sizes
-- **Accessible**: Proper contrast, clear typography, and semantic HTML
-
-## 🚧 Upcoming Features
-
-The project roadmap includes these planned features:
-
-### Phase 1: Core Functionality
-- [x] **User Search**: Browse and discover other skill swappers ✅
-- [ ] **Skill Listings**: Create, edit, and browse skill offerings/requests
-- [ ] **Advanced Search**: Filter by skills, location, or availability
-- [ ] **Messaging System**: Contact other users about skill exchanges
-
-### Phase 2: Enhanced Features
-- [ ] **Reviews & Ratings**: Rate and review skill exchanges
-- [ ] **Categories & Tags**: Organize skills with categories and tags
-- [ ] **Real-time Search**: Live search functionality with filters
-
-### Phase 3: Platform Features
-- [ ] **Admin Dashboard**: Enhanced admin interface for platform management
-- [ ] **Notifications**: Message and activity notifications
-- [ ] **Mobile App**: Native mobile application
-
-## 🤝 Contributing
-
-This is currently a personal project, but suggestions and feedback are welcome! The project follows Django best practices and maintains comprehensive documentation.
-
-## 📄 License
-
-This project is for educational and portfolio purposes.
-
+Built with Django, featuring modern UI design and professional development practices.
