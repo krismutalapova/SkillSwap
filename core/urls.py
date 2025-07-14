@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.shortcuts import redirect, render
 from django.http import Http404
-from .views import SignupView, home, profile_view, profile_edit, search
+from .views import SignupView, home, profile_view, profile_edit, search, complete_name
 
 
 def redirect_to_home(request):
@@ -27,6 +27,7 @@ urlpatterns = [
     path("search/", search, name="search"),
     path("profile/", profile_view, name="profile_view"),
     path("profile/edit/", profile_edit, name="profile_edit"),
+    path("profile/complete-name/", complete_name, name="complete_name"),
     path("test-404/", lambda request: render(request, "404.html"), name="test_404"),
     path("test-500/", lambda request: render(request, "500.html"), name="test_500"),
     path(
