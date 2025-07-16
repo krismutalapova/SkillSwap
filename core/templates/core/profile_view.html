@@ -226,6 +226,12 @@
                         transform: scale(1.05);
                         box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
                     }
+                    
+                    .skill-action-btn:hover {
+                        background: rgba(255,255,255,0.3) !important;
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                    }
                 </style>
             </div>
             
@@ -265,6 +271,24 @@
                 {% else %}
                     <em style="color: #999;">No bio provided yet.</em>
                 {% endif %}
+            </div>
+        </div>
+
+        <!-- Skill Management Actions -->
+        <div style="margin-top: 20px; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; text-align: center;">
+            <h3 style="color: white; margin: 0 0 15px 0; font-size: 1.2rem;">
+                <i class="fas fa-tools"></i> Skill Management
+            </h3>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="{% url 'skill_create' %}?next=profile_view" class="skill-action-btn" style="background: rgba(255,255,255,0.2); color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); display: inline-flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-plus"></i> Add New Skill
+                </a>
+                <a href="{% url 'my_skills' %}" class="skill-action-btn" style="background: rgba(255,255,255,0.2); color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); display: inline-flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-star"></i> My Skills
+                </a>
+                <a href="{% url 'skill_list' %}" class="skill-action-btn" style="background: rgba(255,255,255,0.2); color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); display: inline-flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-search"></i> Browse Skills
+                </a>
             </div>
         </div>
 
