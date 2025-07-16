@@ -1,5 +1,6 @@
 """
-Django management command to populate the SkillSwap platform with sample users.
+Django management command to populate the SkillSwap platform with sample users and skills.
+Creates users with complete profiles and individual Skill objects properly categorized.
 Usage:
     python manage.py populate_users
     python manage.py populate_users --count 50
@@ -9,7 +10,7 @@ Usage:
 import random
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-from core.models import Profile
+from core.models import Profile, Skill
 
 
 class Command(BaseCommand):
@@ -64,10 +65,16 @@ class Command(BaseCommand):
             is_superuser=True
         )
 
-        count = sample_users.count()
+        skill_count = Skill.objects.filter(user__in=sample_users).count()
+        user_count = sample_users.count()
+
         sample_users.delete()
 
-        self.stdout.write(self.style.SUCCESS(f"Cleared {count} existing sample users"))
+        self.stdout.write(
+            self.style.SUCCESS(
+                f"Cleared {user_count} existing sample users and {skill_count} associated skills"
+            )
+        )
 
     def generate_user_data(self, index):
 
@@ -146,142 +153,162 @@ class Command(BaseCommand):
             "Wright",
         ]
 
-        cities = [
-            "New York",
-            "Los Angeles",
-            "Chicago",
-            "Houston",
-            "Phoenix",
-            "Philadelphia",
-            "San Antonio",
-            "San Diego",
-            "Dallas",
-            "San Jose",
-            "Austin",
-            "Jacksonville",
-            "Fort Worth",
-            "Columbus",
-            "Charlotte",
-            "San Francisco",
-            "Indianapolis",
-            "Seattle",
-            "Denver",
-            "Washington",
-            "Boston",
-            "Nashville",
-            "Baltimore",
-            "Portland",
-            "Las Vegas",
-            "Detroit",
-            "Memphis",
-            "Louisville",
-            "Milwaukee",
-            "Albuquerque",
-            "Stockholm",
-            "London",
-            "Berlin",
-            "Paris",
-            "Tokyo",
-            "Sydney",
-            "Toronto",
-            "Vancouver",
-            "Amsterdam",
-            "Barcelona",
-        ]
+        locations = {
+            "United Kingdom": [
+                "London",
+                "Manchester",
+                "Birmingham",
+                "Liverpool",
+                "Edinburgh",
+                "Glasgow",
+            ],
+            "Germany": [
+                "Berlin",
+                "Munich",
+                "Hamburg",
+                "Cologne",
+                "Frankfurt",
+            ],
+            "France": [
+                "Paris",
+                "Lyon",
+                "Marseille",
+                "Toulouse",
+                "Nice",
+            ],
+            "Netherlands": [
+                "Amsterdam",
+                "Rotterdam",
+                "The Hague",
+                "Utrecht",
+                "Eindhoven",
+            ],
+            "Sweden": [
+                "Stockholm",
+                "Gothenburg",
+                "Malmö",
+                "Uppsala",
+                "Linköping",
+            ],
+            "Spain": [
+                "Madrid",
+                "Barcelona",
+                "Valencia",
+                "Seville",
+                "Zaragoza",
+                "Alicante",
+            ],
+            "Italy": [
+                "Rome",
+                "Milan",
+                "Naples",
+                "Turin",
+                "Palermo",
+            ],
+            "Poland": [
+                "Warsaw",
+                "Kraków",
+                "Łódź",
+                "Wrocław",
+                "Poznań",
+                "Gdańsk",
+            ],
+        }
 
-        countries = [
-            "United States",
-            "Canada",
-            "United Kingdom",
-            "Germany",
-            "France",
-            "Netherlands",
-            "Sweden",
-            "Australia",
-            "Japan",
-            "Spain",
-            "Italy",
-            "Brazil",
-            "Mexico",
-            "India",
-            "South Korea",
-        ]
-
-        skills_offered = [
-            "Python Programming",
-            "Web Development",
-            "Graphic Design",
-            "Digital Marketing",
-            "Data Analysis",
-            "Photography",
-            "Writing",
-            "Language Translation",
-            "Music Production",
-            "Video Editing",
-            "Cooking",
-            "Gardening",
-            "Fitness Training",
-            "Yoga Instruction",
-            "Public Speaking",
-            "Project Management",
-            "UI/UX Design",
-            "Machine Learning",
-            "Mobile App Development",
-            "SEO Optimization",
-            "Social Media Management",
-            "Content Creation",
-            "Illustration",
-            "Voice Acting",
-            "Podcast Production",
-            "Event Planning",
-            "Financial Planning",
-            "Legal Advice",
-            "Career Coaching",
-            "Guitar Lessons",
-            "Piano Lessons",
-            "Dance Instruction",
-            "Art Therapy",
-            "Life Coaching",
-            "Business Strategy",
-        ]
-
-        skills_needed = [
-            "JavaScript",
-            "React Development",
-            "Database Design",
-            "Cloud Computing",
-            "Cybersecurity",
-            "DevOps",
-            "AI/ML",
-            "Blockchain Development",
-            "Mobile Development",
-            "Game Development",
-            "Foreign Languages",
-            "Public Speaking",
-            "Leadership Skills",
-            "Negotiation",
-            "Time Management",
-            "Creative Writing",
-            "Video Production",
-            "Podcasting",
-            "Social Media Strategy",
-            "Email Marketing",
-            "Sales Techniques",
-            "Customer Service",
-            "Meditation",
-            "Mindfulness",
-            "Stress Management",
-            "Nutrition",
-            "Interior Design",
-            "Fashion Design",
-            "Woodworking",
-            "Electronics",
-            "Car Maintenance",
-            "Home Renovation",
-            "Investment Strategies",
-            "Cryptocurrency",
-            "Real Estate",
-        ]
+        # Skills with their categories - structured for proper Skill model creation
+        skills_data = {
+            "technology": [
+                "Python Programming",
+                "Web Development",
+                "JavaScript",
+                "React Development",
+                "Database Design",
+                "Machine Learning",
+                "Mobile App Development",
+                "UI/UX Design",
+                "Cloud Computing",
+                "Cybersecurity",
+                "DevOps",
+                "AI/ML",
+                "Blockchain Development",
+                "Game Development",
+                "SEO Optimization",
+            ],
+            "business": [
+                "Digital Marketing",
+                "Data Analysis",
+                "Project Management",
+                "Social Media Management",
+                "Financial Planning",
+                "Business Strategy",
+                "Sales Techniques",
+                "Customer Service",
+                "Investment Strategies",
+                "Real Estate",
+                "Email Marketing",
+                "Leadership Skills",
+                "Negotiation",
+            ],
+            "music": [
+                "Music Production",
+                "Guitar Lessons",
+                "Piano Lessons",
+                "Voice Acting",
+                "Podcast Production",
+                "Video Production",
+                "Podcasting",
+                "Dance Instruction",
+                "Art Therapy",
+                "Illustration",
+            ],
+            "academic": [
+                "Writing",
+                "Language Translation",
+                "Public Speaking",
+                "Creative Writing",
+                "Foreign Languages",
+                "Time Management",
+                "Career Coaching",
+                "Life Coaching",
+                "Legal Advice",
+            ],
+            "health": [
+                "Fitness Training",
+                "Yoga Instruction",
+                "Meditation",
+                "Mindfulness",
+                "Stress Management",
+                "Nutrition",
+            ],
+            "cooking": [
+                "Cooking",
+                "Baking",
+                "Meal Planning",
+                "Food Photography",
+                "Wine Tasting",
+            ],
+            "crafts": [
+                "Gardening",
+                "Woodworking",
+                "Interior Design",
+                "Home Renovation",
+                "Electronics",
+                "Car Maintenance",
+            ],
+            "fashion": [
+                "Fashion Design",
+                "Personal Styling",
+                "Makeup Artistry",
+                "Photography",
+            ],
+            "other": [
+                "Photography",
+                "Video Editing",
+                "Content Creation",
+                "Event Planning",
+                "Cryptocurrency",
+            ],
+        }
 
         bio_templates = [
             "Passionate about {interest} and always eager to learn new skills. I believe in the power of sharing knowledge to build stronger communities.",
@@ -325,21 +352,27 @@ class Command(BaseCommand):
         username = f"user{index+1:03d}"
         email = f"{username}@skillswap.demo"
 
-        offered_skills = random.sample(skills_offered, random.randint(2, 5))
-        needed_skills = random.sample(skills_needed, random.randint(1, 4))
+        # Flatten skills data for bio generation
+        all_skills = []
+        for category_skills in skills_data.values():
+            all_skills.extend(category_skills)
 
         bio_template = random.choice(bio_templates)
         bio_vars = {
             "interest": random.choice(interests),
             "profession": random.choice(professions),
-            "skill": random.choice(offered_skills),
+            "skill": random.choice(all_skills),
             "field": random.choice(["technology", "design", "business", "education"]),
             "title": random.choice(professions),
-            "area": random.choice(offered_skills),
+            "area": random.choice(all_skills),
             "topic": random.choice(interests),
         }
 
         bio = bio_template.format(**bio_vars)
+
+        # Select a random country and then a random city from that country
+        country = random.choice(list(locations.keys()))
+        city = random.choice(locations[country])
 
         return {
             "username": username,
@@ -349,12 +382,13 @@ class Command(BaseCommand):
             "password": "skillswap123",
             "profile": {
                 "bio": bio,
-                "city": random.choice(cities),
-                "country": random.choice(countries),
+                "city": city,
+                "country": country,
                 "gender": random.choice(["M", "F", "O"]),
-                "skills_offered": ", ".join(offered_skills),
-                "skills_needed": ", ".join(needed_skills),
+                "skills_offered": "",  # Will be populated as individual Skill objects
+                "skills_needed": "",  # Will be populated as individual Skill objects
             },
+            "skills_data": skills_data,  # Pass skills data for Skill object creation
         }
 
     def create_user_and_profile(self, user_data):
@@ -383,8 +417,11 @@ class Command(BaseCommand):
             profile.skills_needed = user_data["profile"]["skills_needed"]
             profile.save()
 
+            # Create individual Skill objects
+            skills_created = self.create_user_skills(user, user_data["skills_data"])
+
             self.stdout.write(
-                f"✓ Created user: {user.username} ({user.first_name} {user.last_name})"
+                f"✓ Created user: {user.username} ({user.first_name} {user.last_name}) with {skills_created} skills"
             )
             return True
 
@@ -393,3 +430,90 @@ class Command(BaseCommand):
                 self.style.ERROR(f"Profile not found for user {user.username}")
             )
             return False
+
+    def create_user_skills(self, user, skills_data):
+        skills_created = 0
+
+        # Generate skill descriptions templates
+        offer_descriptions = [
+            "I have extensive experience in {skill} and would love to share my knowledge with others.",
+            "Been working with {skill} for several years and enjoy teaching others.",
+            "Passionate about {skill} and always excited to help fellow learners.",
+            "Professional experience in {skill} - happy to mentor and guide others.",
+            "Love sharing my {skill} expertise and helping others grow their skills.",
+        ]
+
+        request_descriptions = [
+            "Looking to learn {skill} from someone with real experience.",
+            "Interested in developing my {skill} abilities with proper guidance.",
+            "Would love to find a mentor to help me master {skill}.",
+            "Eager to learn {skill} and willing to exchange knowledge in return.",
+            "Seeking guidance in {skill} to advance my skill set.",
+        ]
+
+        # Availability options
+        availability_options = [
+            "Weekends",
+            "Evenings",
+            "Flexible schedule",
+            "Weekdays only",
+            "By appointment",
+            "Morning hours preferred",
+        ]
+
+        # Create 2-4 offered skills
+        offered_count = random.randint(2, 4)
+        created_categories = []
+
+        for _ in range(offered_count):
+            # Select a random category that hasn't been used yet
+            available_categories = [
+                cat for cat in skills_data.keys() if cat not in created_categories
+            ]
+            if not available_categories:
+                break
+
+            category = random.choice(available_categories)
+            created_categories.append(category)
+            skill_title = random.choice(skills_data[category])
+
+            description = random.choice(offer_descriptions).format(skill=skill_title)
+
+            skill = Skill.objects.create(
+                user=user,
+                title=skill_title,
+                description=description,
+                skill_type="offer",
+                category=category,
+                location=random.choice(
+                    ["Online", "In-person", "Both online and in-person", ""]
+                ),
+                availability=random.choice(availability_options),
+                is_remote=random.choice([True, False]),
+            )
+            skills_created += 1
+
+        # Create 1-3 requested skills
+        requested_count = random.randint(1, 3)
+
+        for _ in range(requested_count):
+            category = random.choice(list(skills_data.keys()))
+            skill_title = random.choice(skills_data[category])
+
+            description = random.choice(request_descriptions).format(skill=skill_title)
+
+            skill = Skill.objects.create(
+                user=user,
+                title=skill_title,
+                description=description,
+                skill_type="request",
+                category=category,
+                location=random.choice(
+                    ["Online", "In-person", "Both online and in-person", ""]
+                ),
+                availability=random.choice(availability_options),
+                is_remote=random.choice([True, False]),
+            )
+            skills_created += 1
+
+        return skills_created
