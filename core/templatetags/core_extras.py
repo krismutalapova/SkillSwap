@@ -18,3 +18,11 @@ def length(value):
         return len(value)
     except:
         return 0
+
+
+@register.filter
+def get_category_name(categories, category_key):
+    for key, name in categories:
+        if key == category_key:
+            return name
+    return category_key
