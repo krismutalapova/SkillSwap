@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.urls import reverse
 
 
 class Profile(models.Model):
@@ -103,6 +104,56 @@ class Profile(models.Model):
             return "skills_missing"
         else:
             return "critical_missing"
+
+
+class Skill(models.Model):
+    SKILL_TYPES = [
+        ("offer", "Skill Offered"),
+        ("request", "Skill Requested"),
+    ]
+
+    SKILL_CATEGORIES = [
+        ("technology", "IT, Programming & Tech"),
+        ("languages", "Languages"),
+        ("music", "Music & Arts"),
+        ("sports", "Sports & Fitness"),
+        ("cooking", "Cooking & Food"),
+        ("crafts", "Crafts & DIY"),
+        ("academic", "Academic & Education"),
+        ("business", "Business & Finance"),
+        ("health", "Health & Wellness"),
+        ("fashion", "Fashion & Beauty"),
+        ("other", "Other"),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="skills")
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    skill_type = models.CharField(max_length=10, choices=SKILL_TYPES)
+    category = models.CharField(
+        max_length=20, choices=SKILL_CATEGORIES, default="other"
+    )
+    location = models.CharField(
+        max_length=200, blank=True, help_text="Where can this skill be taught/learned?"
+    )
+    availability = models.CharField(
+        max_length=200, blank=True, help_text="When are you available?"
+    )
+    is_remote = models.BooleanField(
+        default=False, help_text="Can this be done remotely/online?"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.get_skill_type_display()}: {self.title}"
+
+    def get_absolute_url(self):
+        return reverse("skill_detail", kwargs={"pk": self.pk})
 
 
 @receiver(post_save, sender=User)
