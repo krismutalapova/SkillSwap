@@ -571,10 +571,8 @@ class Command(BaseCommand):
         return skills_created
 
     def create_skill_ratings(self, all_users):
-        """Create ratings for offered skills from other users"""
         ratings_created = 0
 
-        # Get all offered skills
         offered_skills = Skill.objects.filter(
             user__in=all_users, skill_type="offer", is_active=True
         )
