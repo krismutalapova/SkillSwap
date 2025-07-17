@@ -1,0 +1,44 @@
+# Python virtual environment
+skillswap_env/
+venv/
+env/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
+*.log
+local_settings.py
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# Documentation (development only)
+docs_scripts/
+
+# Docker files (avoid recursion)
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Test files
+tests/
+
+# Scripts (development only - exclude specific ones)
+scripts/
+demo-start.sh
+demo-status.sh
+dev-server.sh
+manage.sh
