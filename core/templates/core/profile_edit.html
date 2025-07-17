@@ -22,7 +22,7 @@
         {% endfor %}
     {% endif %}
 
-    <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 30px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+    <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 15px; padding: 30px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
         <h2 style="text-align: center; color: #333; margin-bottom: 30px;">Edit Profile</h2>
         
         <form method="post" enctype="multipart/form-data">
@@ -82,7 +82,7 @@
             
             <div style="margin-bottom: 20px;">
                 <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">Gender:</label>
-                <select name="gender" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                <select name="gender" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;">
                     <option value="">Select gender (optional)</option>
                     <option value="M" {% if form.gender.value == 'M' %}selected{% endif %}>Male</option>
                     <option value="F" {% if form.gender.value == 'F' %}selected{% endif %}>Female</option>
@@ -94,25 +94,25 @@
             
             <div style="margin-bottom: 20px;">
                 <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">About Me:</label>
-                <textarea name="bio" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; resize: vertical;">{{ form.bio.value|default:'' }}</textarea>
+                <textarea name="bio" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; resize: vertical;">{{ form.bio.value|default:'' }}</textarea>
                 <small style="color: #666; display: block; margin-top: 5px;">Tell others about yourself, your interests, and background.</small>
             </div>
             
             <div style="margin-bottom: 20px;">
                 <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">Skills I Can Help With:</label>
-                <textarea name="skills_offered" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; resize: vertical;">{{ form.skills_offered.value|default:'' }}</textarea>
+                <textarea name="skills_offered" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; resize: vertical;">{{ form.skills_offered.value|default:'' }}</textarea>
                 <small style="color: #666; display: block; margin-top: 5px;">List the skills, chores, or services you can offer to help others.</small>
             </div>
             
             <div style="margin-bottom: 30px;">
                 <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">Skills I Need Help With:</label>
-                <textarea name="skills_needed" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; resize: vertical;">{{ form.skills_needed.value|default:'' }}</textarea>
+                <textarea name="skills_needed" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; resize: vertical;">{{ form.skills_needed.value|default:'' }}</textarea>
                 <small style="color: #666; display: block; margin-top: 5px;">List the skills, chores, or services you would like help with.</small>
             </div>
             
             <div style="text-align: center;">
-                <button type="submit" style="background-color: #28a745; color: white; padding: 12px 30px; border: none; border-radius: 5px; cursor: pointer; margin-right: 10px; font-size: 16px;">Save Changes</button>
-                <a href="{% url 'profile_view' %}" style="background-color: #6c757d; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block; font-size: 16px;">Cancel</a>
+                <button type="submit" style="background-image: linear-gradient(117deg, #2C7744 0%, #76b852 100%); color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; margin-right: 10px; font-size: 16px;">Save Changes</button>
+                <a href="{% url 'profile_view' %}" style="background-color: #6c757d; color: white; padding: 12px 30px; text-decoration: none; border-radius: 8px; display: inline-block; font-size: 16px;">Cancel</a>
             </div>
         </form>
     </div>
