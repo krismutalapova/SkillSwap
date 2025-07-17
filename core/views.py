@@ -136,7 +136,20 @@ def profile_edit(request):
     else:
         form = ProfileForm(instance=profile)
 
-    return render(request, "core/profile_edit.html", {"form": form, "profile": profile})
+    # Get user's skills for display
+    offered_skills = Skill.objects.filter(user=request.user, skill_type="offer")
+    requested_skills = Skill.objects.filter(user=request.user, skill_type="request")
+
+    return render(
+        request,
+        "core/profile_edit.html",
+        {
+            "form": form,
+            "profile": profile,
+            "offered_skills": offered_skills,
+            "requested_skills": requested_skills,
+        },
+    )
 
 
 def custom_404(request, exception):
