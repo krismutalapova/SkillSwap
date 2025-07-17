@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load rating_extras %}
 
 {% block content %}
 <div class="container">
@@ -141,19 +142,23 @@
                 <!-- Skill Rating -->
                 <div class="skill-rating">
                     <h4><i class="fas fa-star"></i> Skill Rating</h4>
-                    <div class="rating-display">
-                        <div class="stars">
-                            <i class="fas fa-star active"></i>
-                            <i class="fas fa-star active"></i>
-                            <i class="fas fa-star active"></i>
-                            <i class="fas fa-star active"></i>
-                            <i class="fas fa-star"></i>
+                    {% if skill.rating_count > 0 %}
+                        <div class="rating-display">
+                            {% star_rating skill.average_rating show_value=True show_count=True count=skill.rating_count %}
                         </div>
-                        <div class="rating-info">
-                            <span class="rating-value">4.2</span>
-                            <span class="rating-count">(18 reviews)</span>
+                    {% else %}
+                        <div class="rating-display">
+                            <div class="stars">
+                                {% for star_num in skill.star_range %}
+                                    <i class="fas fa-star"></i>
+                                {% endfor %}
+                            </div>
+                            <div class="rating-info">
+                                <span class="rating-value">No ratings yet</span>
+                                <span class="rating-count">Be the first to rate!</span>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                     {% if not can_edit and user.is_authenticated %}
                         <button class="rate-skill-btn" onclick="showRatingModal()">
                             <i class="fas fa-thumbs-up"></i> Rate this skill
