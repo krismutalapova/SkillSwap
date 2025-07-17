@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
+from django.db.models import Avg
 
 
 class Profile(models.Model):
@@ -118,6 +119,17 @@ class Profile(models.Model):
         self.skills_needed = ", ".join(needed_skills)
         self.save()
 
+    @property
+    def overall_rating(self):
+        """Calculate median rating across all user's offered skills"""
+        from django.db.models import Avg
+
+        user_skill_ratings = Rating.objects.filter(
+            skill__user=self.user, skill__skill_type="offer", skill__is_active=True
+        ).aggregate(avg_rating=Avg("rating"))
+
+        return user_skill_ratings["avg_rating"] or 0.0
+
 
 class Skill(models.Model):
     SKILL_TYPES = [
@@ -167,6 +179,23 @@ class Skill(models.Model):
 
     def get_absolute_url(self):
         return reverse("skill_detail", kwargs={"pk": self.pk})
+
+
+class Rating(models.Model):
+    skill = models.ForeignKey(Skill, on_delete=models.CASCADE, related_name="ratings")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="ratings_given"
+    )
+    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
+    comment = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("skill", "user")
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.user.username} rated {self.skill.title}: {self.rating}/5"
 
 
 @receiver(post_save, sender=User)
