@@ -180,21 +180,67 @@
         
         @media (max-width: 768px) {
             .header-container {
-                padding: 0 15px;
+                padding: 0 10px;
+                flex-wrap: wrap;
+                gap: 10px;
             }
             
             .logo {
-                font-size: 20px;
+                font-size: 18px;
+                flex-shrink: 0;
             }
             
             .logo-icon {
-                width: 35px;
-                height: 35px;
-                margin-right: 8px;
+                width: 30px;
+                height: 30px;
+                margin-right: 6px;
             }
             
             .nav-items {
-                gap: 10px;
+                gap: 8px;
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                width: 100%;
+            }
+            
+            .nav-link {
+                padding: 6px 10px;
+                font-size: 13px;
+                white-space: nowrap;
+            }
+            
+            .nav-link i {
+                margin-right: 3px !important;
+            }
+            
+            .logout-btn,
+            .login-btn,
+            .signup-btn {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+            
+            .profile-btn,
+            .profile-btn-gradient {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+            }
+            
+            .logo {
+                margin-bottom: 10px;
+            }
+            
+            .nav-items {
+                justify-content: center;
+                gap: 6px;
             }
             
             .nav-link,
@@ -203,8 +249,8 @@
             .signup-btn,
             .profile-btn,
             .profile-btn-gradient {
-                padding: 8px 12px;
-                font-size: 14px;
+                padding: 5px 8px;
+                font-size: 12px;
             }
         }
     </style>
