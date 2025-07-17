@@ -66,24 +66,10 @@ class ProfileForm(forms.ModelForm):
             "city",
             "country",
             "gender",
-            "skills_offered",
-            "skills_needed",
         ]
         widgets = {
             "bio": forms.Textarea(
                 attrs={"rows": 4, "placeholder": "Tell others about yourself..."}
-            ),
-            "skills_offered": forms.Textarea(
-                attrs={
-                    "rows": 4,
-                    "placeholder": "What skills can you help others with? You can always add these later.",
-                }
-            ),
-            "skills_needed": forms.Textarea(
-                attrs={
-                    "rows": 4,
-                    "placeholder": "What skills are you looking to learn? You can always add these later.",
-                }
             ),
             "city": forms.TextInput(
                 attrs={"placeholder": "e.g., Stockholm (Required)"}
@@ -95,8 +81,6 @@ class ProfileForm(forms.ModelForm):
         help_texts = {
             "city": "Required for your profile to appear in search results",
             "country": "Required for your profile to appear in search results",
-            "skills_offered": "List skills you can teach or help with (optional but recommended)",
-            "skills_needed": "List skills you want to learn (optional but recommended)",
             "bio": "Optional: Tell others about your background and interests",
         }
 
