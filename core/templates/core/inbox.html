@@ -2,21 +2,21 @@
 
 {% block content %}
 <div class="container">
-    <div class="inbox-header">
-        <h2><i class="fas fa-inbox"></i> Inbox</h2>
-        {% if unread_count > 0 %}
-            <span class="unread-badge">{{ unread_count }} unread</span>
-        {% endif %}
-    </div>
-
-    <div class="message-nav">
-        <a href="{% url 'inbox' %}" class="nav-link active">
-            <i class="fas fa-inbox"></i> Received ({{ messages.paginator.count }})
-        </a>
-        <a href="{% url 'sent_messages' %}" class="nav-link">
-            <i class="fas fa-paper-plane"></i> Sent
-        </a>
-    </div>
+    <div class="inbox-card">
+        <div class="inbox-header">
+            <h2><i class="fas fa-envelope"></i> Messages</h2>
+            {% if unread_count > 0 %}
+                <span class="unread-badge">{{ unread_count }} unread</span>
+            {% endif %}
+        </div>
+        <div class="message-nav">
+            <a href="{% url 'inbox' %}" class="nav-link active">
+                <i class="fas fa-inbox"></i> Received ({{ messages.paginator.count }})
+            </a>
+            <a href="{% url 'sent_messages' %}" class="nav-link">
+                <i class="fas fa-paper-plane"></i> Sent
+            </a>
+        </div>
 
     {% if messages %}
         <div class="messages-list">
@@ -78,20 +78,32 @@
             </a>
         </div>
     {% endif %}
+    </div>
 </div>
 
 <style>
     .container {
-        max-width: 800px;
+        max-width: 1000px;
         margin: 0 auto;
         padding: 20px;
+    }
+
+    .inbox-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .inbox-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #f8f9fa;
     }
 
     .inbox-header h2 {
@@ -100,6 +112,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        font-size: 2rem;
     }
 
     .inbox-header h2 i {
@@ -148,26 +161,29 @@
     .messages-list {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
     }
 
     .message-item {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
+        background: rgba(248, 249, 250, 0.8);
+        backdrop-filter: blur(5px);
         border-radius: 15px;
         border: 2px solid #e9ecef;
         transition: all 0.3s ease;
         overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     }
 
     .message-item.unread {
         border-color: #667eea;
-        background: rgba(102, 126, 234, 0.05);
+        background: rgba(102, 126, 234, 0.08);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
     }
 
     .message-item:hover {
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
         transform: translateY(-2px);
+        border-color: #667eea;
     }
 
     .message-link {
@@ -234,24 +250,33 @@
 
     .empty-inbox {
         text-align: center;
-        padding: 60px 20px;
+        padding: 80px 30px;
         color: #6c757d;
+        background: rgba(248, 249, 250, 0.5);
+        border-radius: 15px;
+        border: 2px dashed #dee2e6;
+        margin-top: 20px;
     }
 
     .empty-icon {
-        font-size: 4rem;
-        margin-bottom: 20px;
+        font-size: 5rem;
+        margin-bottom: 25px;
         color: #dee2e6;
     }
 
     .empty-inbox h3 {
-        color: #333;
-        margin-bottom: 10px;
+        color: #495057;
+        margin-bottom: 15px;
+        font-size: 1.5rem;
     }
 
     .empty-inbox p {
-        margin-bottom: 25px;
+        margin-bottom: 30px;
         line-height: 1.6;
+        font-size: 1.1rem;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .btn-primary {
@@ -274,7 +299,7 @@
     }
 
     .pagination-container {
-        margin-top: 30px;
+        margin-top: 25px;
         display: flex;
         justify-content: center;
     }
@@ -283,11 +308,12 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
+        background: rgba(248, 249, 250, 0.8);
+        backdrop-filter: blur(5px);
         padding: 15px 25px;
         border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e9ecef;
     }
 
     .page-link {
@@ -315,10 +341,19 @@
             padding: 15px;
         }
 
+        .inbox-card {
+            padding: 20px;
+        }
+
+        .inbox-header h2 {
+            font-size: 1.5rem;
+        }
+
         .message-link {
             flex-direction: column;
             align-items: flex-start;
             gap: 10px;
+            padding: 15px;
         }
 
         .message-meta {
@@ -334,6 +369,22 @@
 
         .nav-link {
             justify-content: center;
+        }
+
+        .empty-inbox {
+            padding: 50px 20px;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+        }
+
+        .empty-inbox h3 {
+            font-size: 1.3rem;
+        }
+
+        .empty-inbox p {
+            font-size: 1rem;
         }
     }
 </style>
