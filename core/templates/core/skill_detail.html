@@ -83,13 +83,17 @@
                 <div class="user-card">
                     <div class="user-info">
                         {% if skill.user.profile.profile_picture %}
-                            <img src="{{ skill.user.profile.profile_picture.url }}" 
-                                 alt="{{ skill.user.get_full_name|default:skill.user.username }}" 
-                                 class="user-avatar">
+                            <a href="{% url 'public_profile_view' skill.user.id %}" class="avatar-link">
+                                <img src="{{ skill.user.profile.profile_picture.url }}" 
+                                     alt="{{ skill.user.get_full_name|default:skill.user.username }}" 
+                                     class="user-avatar">
+                            </a>
                         {% else %}
-                            <div class="user-avatar-placeholder">
-                                <i class="fas fa-user"></i>
-                            </div>
+                            <a href="{% url 'public_profile_view' skill.user.id %}" class="avatar-link">
+                                <div class="user-avatar-placeholder">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </a>
                         {% endif %}
                         
                         <div class="user-details">
@@ -435,6 +439,29 @@
         border: 2px solid #e9ecef;
     }
 
+    .avatar-link {
+        text-decoration: none;
+        color: inherit;
+        display: inline-block;
+        transition: transform 0.2s ease;
+    }
+
+    .avatar-link:hover {
+        transform: scale(1.05);
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .avatar-link:hover .user-avatar {
+        border-color: #6c63ff;
+        box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+    }
+
+    .avatar-link:hover .user-avatar-placeholder {
+        box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        transform: scale(1.02);
+    }
+
     .user-info {
         display: flex;
         flex-direction: column;
@@ -450,6 +477,8 @@
         object-fit: cover;
         margin-bottom: 15px;
         border: 3px solid #667eea;
+        transition: all 0.3s ease;
+        cursor: pointer;
     }
 
     .user-avatar-placeholder {
@@ -463,6 +492,8 @@
         color: white;
         font-size: 2rem;
         margin-bottom: 15px;
+        transition: all 0.3s ease;
+        cursor: pointer;
     }
 
     .user-name {
