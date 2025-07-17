@@ -191,8 +191,8 @@
         </div>
     {% endif %}
 
-    <!-- Profile Information -->
-    <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+    <!-- Basic Info & About Me -->
+    <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); margin-bottom: 20px;">
         <h2 style="text-align: center; margin: 0 0 20px 0; color: #333;">
             {% if profile.user.first_name and profile.user.last_name %}
                 {{ profile.user.first_name }} {{ profile.user.last_name }}
@@ -264,7 +264,7 @@
         </div>
 
         <div style="margin-top: 20px;">
-            <h3 style="color: #17a2b8; margin-bottom: 10px;">About me:</h3>
+            <h3 style="color: #17a2b8; margin-bottom: 15px;">About me:</h3>
             <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 60px;">
                 {% if profile.bio %}
                     {{ profile.bio }}
@@ -273,49 +273,57 @@
                 {% endif %}
             </div>
         </div>
+    </div>
 
-        <!-- Skill Management Actions -->
-        <div style="margin-top: 20px; padding: 15px; background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% ); border-radius: 10px; text-align: center;">
-            <h3 style="color: white; margin: 0 0 15px 0; font-size: 1.2rem;">
-                <i class="fas fa-tools"></i> Skill Management
-            </h3>
-            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                <a href="{% url 'skill_create' %}?next=profile_view" class="skill-action-btn" style="background: rgba(255,255,255,0.2); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); display: inline-flex; align-items: center; gap: 8px;">
-                    <i class="fas fa-plus"></i> Add New Skill
-                </a>
-                <a href="{% url 'my_skills' %}" class="skill-action-btn" style="background: rgba(255,255,255,0.2); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); display: inline-flex; align-items: center; gap: 8px;">
-                    <i class="fas fa-star"></i> My Skills
-                </a>
-                <a href="{% url 'skill_list' %}" class="skill-action-btn" style="background: rgba(255,255,255,0.2); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); display: inline-flex; align-items: center; gap: 8px;">
-                    <i class="fas fa-search"></i> Browse Skills
-                </a>
+    <!-- Skills & Feedback -->
+    <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+        <a href="{% url 'my_skills' %}" class="skill-management" style="
+            display: block;
+            background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+            border: none;
+            cursor: pointer;
+        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 123, 255, 0.4)'; this.style.backgroundImage='linear-gradient(109.6deg,  rgba(68,34,102,1) 11.2%, rgba(34,102,153,1) 100.1% )';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0, 123, 255, 0.3)'; this.style.backgroundImage='linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% )';">
+            <i class="fas fa-tools" style="margin-right: 10px; font-size: 1.4rem;"></i> Manage My Skills
+        </a>
+
+        <div style="margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <h3 style="color: #17a2b8; margin: 0;">Skills I need help with:</h3>
             </div>
-        </div>
-
-        <div style="margin-top: 20px;">
-            <h3 style="color: #17a2b8; margin-bottom: 10px;">Skills I need help with:</h3>
             <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 80px;">
                 {% if profile.skills_needed %}
                     {{ profile.skills_needed }}
                 {% else %}
-                    <em style="color: #999;">No skills specified yet.</em>
+                    <em style="color: #999;">No skills specified yet. <a href="{% url 'skill_create' %}?type=request">Add your first skill request</a></em>
                 {% endif %}
             </div>
         </div>
 
-        <div style="margin-top: 20px;">
-            <h3 style="color: #17a2b8; margin-bottom: 10px;">Skills I can help with:</h3>
+        <div style="margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <h3 style="color: #17a2b8; margin: 0;">Skills I can help with:</h3>
+            </div>
             <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 80px;">
                 {% if profile.skills_offered %}
                     {{ profile.skills_offered }}
                 {% else %}
-                    <em style="color: #999;">No skills specified yet.</em>
+                    <em style="color: #999;">No skills specified yet. <a href="{% url 'skill_create' %}?type=offer">Add your first skill offering</a></em>
                 {% endif %}
             </div>
         </div>
 
-        <div style="margin-top: 20px;">
-            <h3 style="color: #17a2b8; margin-bottom: 10px;">Feedback received</h3>
+        <div>
+            <h3 style="color: #17a2b8; margin-bottom: 15px;">Feedback received</h3>
             <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px;">
                 <div style="margin-bottom: 10px;">
                     <strong>Overall</strong>
