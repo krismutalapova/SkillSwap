@@ -39,6 +39,7 @@ urlpatterns = [
     path("signup/", SignupView.as_view(), name="signup"),
     path("search/", search, name="search"),
     path("profile/", profile_view, name="profile_view"),
+    path("profile/<int:user_id>/", profile_view, name="public_profile_view"),
     path("profile/edit/", profile_edit, name="profile_edit"),
     path("profile/complete-name/", complete_name, name="complete_name"),
     # Skill URLs

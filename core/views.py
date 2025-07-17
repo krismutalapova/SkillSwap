@@ -54,19 +54,39 @@ class SignupView(View):
 
 
 @login_required
-def profile_view(request):
-    profile = get_object_or_404(Profile, user=request.user)
+def profile_view(request, user_id=None):
+    if user_id:
+        # Public profile view
+        target_user = get_object_or_404(User, id=user_id)
+        profile = get_object_or_404(Profile, user=target_user)
+        is_own_profile = False
 
-    context = {
-        "profile": profile,
-        "completion_percentage": profile.completion_percentage,
-        "is_complete": profile.is_profile_complete,
-        "missing_fields": profile.missing_required_fields,
-        "missing_critical_fields": profile.missing_critical_fields,
-        "missing_skills_only": profile.missing_skills_only,
-        "completion_status_type": profile.completion_status_type,
-    }
-    return render(request, "core/profile_view.html", context)
+        # Get user's skills for display
+        offered_skills = Skill.objects.filter(user=target_user, skill_type="offer")
+        requested_skills = Skill.objects.filter(user=target_user, skill_type="request")
+
+        context = {
+            "profile": profile,
+            "is_own_profile": is_own_profile,
+            "offered_skills": offered_skills,
+            "requested_skills": requested_skills,
+        }
+        return render(request, "core/public_profile_view.html", context)
+    else:
+        # Own profile view
+        profile = get_object_or_404(Profile, user=request.user)
+
+        context = {
+            "profile": profile,
+            "completion_percentage": profile.completion_percentage,
+            "is_complete": profile.is_profile_complete,
+            "missing_fields": profile.missing_required_fields,
+            "missing_critical_fields": profile.missing_critical_fields,
+            "missing_skills_only": profile.missing_skills_only,
+            "completion_status_type": profile.completion_status_type,
+            "is_own_profile": True,
+        }
+        return render(request, "core/profile_view.html", context)
 
 
 @login_required
