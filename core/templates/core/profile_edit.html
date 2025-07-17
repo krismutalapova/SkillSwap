@@ -98,16 +98,28 @@
                 <small style="color: #666; display: block; margin-top: 5px;">Tell others about yourself, your interests, and background.</small>
             </div>
             
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">Skills I Can Help With:</label>
-                <textarea name="skills_offered" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; resize: vertical;">{{ form.skills_offered.value|default:'' }}</textarea>
-                <small style="color: #666; display: block; margin-top: 5px;">List the skills, chores, or services you can offer to help others.</small>
-            </div>
-            
+            <!-- Skills Management Section -->
             <div style="margin-bottom: 30px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">Skills I Need Help With:</label>
-                <textarea name="skills_needed" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; resize: vertical;">{{ form.skills_needed.value|default:'' }}</textarea>
-                <small style="color: #666; display: block; margin-top: 5px;">List the skills, chores, or services you would like help with.</small>
+                <h3 style="color: #333; margin-bottom: 15px;">Skills:</h3>
+                <p style="color: #666; margin-bottom: 15px;">Edit skills you offer or need separately.</p>
+                <a href="{% url 'my_skills' %}" style="
+                    display: block;
+                    background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 12px;
+                    text-align: center;
+                    text-decoration: none;
+                    font-weight: 700;
+                    font-size: 1.1rem;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+                    border: none;
+                    cursor: pointer;
+                " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 123, 255, 0.4)'; this.style.backgroundImage='linear-gradient(109.6deg,  rgba(68,34,102,1) 11.2%, rgba(34,102,153,1) 100.1% )';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0, 123, 255, 0.3)'; this.style.backgroundImage='linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% )';">
+                    <i class="fas fa-tools" style="margin-right: 10px; font-size: 1.2rem;"></i> 
+                        Manage My Skills
+                </a>
             </div>
             
             <div style="text-align: center;">
