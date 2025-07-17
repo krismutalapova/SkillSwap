@@ -62,49 +62,46 @@
                                 </div>
                             </div>
                             
-                            <h3 class="skill-title">{{ skill.title }}</h3>
-                            
-                            <div class="skill-category">
-                                <i class="fas fa-tag"></i>
-                                {{ skill.get_category_display }}
-                            </div>
-                            
-                            <p class="skill-description">{{ skill.description|truncatewords:15 }}</p>
-                        
-                            <div class="skill-details">
-                                {% if skill.location %}
-                                    <div class="detail-item">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        <span>{{ skill.location }}</span>
-                                    </div>
-                                {% endif %}
+                            <div class="skill-content">
+                                <h3 class="skill-title">{{ skill.title }}</h3>
                                 
-                                {% if skill.is_remote %}
-                                    <div class="detail-item remote">
-                                        <i class="fas fa-wifi"></i>
-                                        <span>Remote Available</span>
-                                    </div>
-                                {% endif %}
-                                
-                                {% if skill.availability %}
-                                    <div class="detail-item">
-                                        <i class="fas fa-clock"></i>
-                                        <span>{{ skill.availability }}</span>
-                                    </div>
-                                {% endif %}
-                            </div>
+                                <p class="skill-description">{{ skill.description|truncatewords:15 }}</p>
                             
-                            <div class="skill-meta">
-                                <div class="created-date">
-                                    <i class="fas fa-calendar-plus"></i>
-                                    Created {{ skill.created_at|date:"M d, Y" }}
+                                <div class="skill-details">
+                                    {% if skill.location %}
+                                        <div class="detail-item">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <span>{{ skill.location }}</span>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% if skill.is_remote %}
+                                        <div class="detail-item remote">
+                                            <i class="fas fa-wifi"></i>
+                                            <span>Remote Available</span>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% if skill.availability %}
+                                        <div class="detail-item">
+                                            <i class="fas fa-clock"></i>
+                                            <span>{{ skill.availability }}</span>
+                                        </div>
+                                    {% endif %}
                                 </div>
-                                {% if skill.updated_at != skill.created_at %}
-                                    <div class="updated-date">
-                                        <i class="fas fa-edit"></i>
-                                        Updated {{ skill.updated_at|date:"M d, Y" }}
+                                
+                                <div class="skill-meta">
+                                    <div class="created-date">
+                                        <i class="fas fa-calendar-plus"></i>
+                                        Created {{ skill.created_at|date:"M d, Y" }}
                                     </div>
-                                {% endif %}
+                                    {% if skill.updated_at != skill.created_at %}
+                                        <div class="updated-date">
+                                            <i class="fas fa-edit"></i>
+                                            Updated {{ skill.updated_at|date:"M d, Y" }}
+                                        </div>
+                                    {% endif %}
+                                </div>
                             </div>
                         </a>
                         
@@ -118,6 +115,13 @@
                             <a href="{% url 'skill_delete' skill.pk %}" class="action-btn delete">
                                 <i class="fas fa-trash"></i> Delete
                             </a>
+                        </div>
+                        
+                        <div class="skill-category-footer">
+                            <div class="skill-category">
+                                <i class="fas fa-tag"></i>
+                                {{ skill.get_category_display }}
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
@@ -202,15 +206,15 @@
     }
 
     .stat-card.offers .stat-icon {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        background: linear-gradient(135deg, #3a7bd5 0%, #3a6073 100%);
     }
 
     .stat-card.requests .stat-icon {
-        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        background: linear-gradient(135deg, #fd746c 0%, #ff9068 100%);
     }
 
     .stat-card.total .stat-icon {
-        background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+        background-image: linear-gradient(to right, #6441a5, #2a0845);
     }
 
     .stat-number {
@@ -251,7 +255,7 @@
     }
 
     .add-skill-btn {
-        background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+        background-image: linear-gradient(to right, #6441a5, #2a0845);
         color: white;
         padding: 12px 25px;
         border-radius: 8px;
@@ -282,6 +286,9 @@
         border: 2px solid #e9ecef;
         transition: all 0.3s ease;
         position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 450px;
     }
 
     .skill-card-clickable-area {
@@ -289,6 +296,21 @@
         color: inherit;
         display: block;
         cursor: pointer;
+        flex: 1;
+    }
+
+    .skill-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .skill-category-footer {
+        margin-top: auto;
+        padding-top: 15px;
+        border-top: 1px solid #e9ecef;
+        display: flex;
+        justify-content: center;
     }
 
     .skill-card:hover {
@@ -315,12 +337,12 @@
     }
 
     .skill-type.offer {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        background: linear-gradient(135deg, #3a7bd5 0%, #3a6073 100%);
         color: white;
     }
 
     .skill-type.request {
-        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        background: linear-gradient(135deg, #fd746c 0%, #ff9068 100%);
         color: white;
     }
 
@@ -353,16 +375,17 @@
     }
 
     .skill-category {
-        background: #e9ecef;
-        color: #495057;
-        padding: 6px 12px;
-        border-radius: 8px;
+        background: linear-gradient(to right, #6441a5, #2a0845);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
         font-size: 0.875rem;
-        font-weight: 500;
+        font-weight: 600;
         display: inline-flex;
         align-items: center;
         gap: 5px;
-        margin-bottom: 15px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
     }
 
     .skill-description {
@@ -437,7 +460,7 @@
     }
 
     .action-btn.view {
-        background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+        background-image: linear-gradient(to right, #6441a5, #2a0845);
         color: white;
     }
 
@@ -507,7 +530,7 @@
     }
 
     .primary-btn {
-        background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+        background-image: linear-gradient(to right, #6441a5, #2a0845);
         color: white;
     }
 

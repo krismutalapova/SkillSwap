@@ -102,45 +102,50 @@
                                 <i class="fas fa-{% if skill.skill_type == 'offer' %}hand-holding-heart{% else %}search{% endif %}"></i>
                                 {{ skill.get_skill_type_display }}
                             </div>
+                        </div>
+                        
+                        <div class="skill-content">
+                            <h3 class="skill-title">{{ skill.title }}</h3>
+                            
+                            <p class="skill-description">{{ skill.description|truncatewords:20 }}</p>
+                            
+                            <div class="skill-details">
+                                {% if skill.location %}
+                                    <div class="detail-item">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>{{ skill.location }}</span>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if skill.is_remote %}
+                                    <div class="detail-item remote">
+                                        <i class="fas fa-wifi"></i>
+                                        <span>Remote Available</span>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if skill.availability %}
+                                    <div class="detail-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>{{ skill.availability }}</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="skill-footer">
+                                <div class="user-info">
+                                    <i class="fas fa-user"></i>
+                                    <span>{{ skill.user.get_full_name|default:skill.user.username }}</span>
+                                </div>
+                                <div class="skill-date">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>{{ skill.created_at|date:"M d, Y" }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category-footer">
                             <div class="skill-category">{{ skill.get_category_display }}</div>
-                        </div>
-                        
-                        <h3 class="skill-title">{{ skill.title }}</h3>
-                        
-                        <p class="skill-description">{{ skill.description|truncatewords:20 }}</p>
-                        
-                        <div class="skill-details">
-                            {% if skill.location %}
-                                <div class="detail-item">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>{{ skill.location }}</span>
-                                </div>
-                            {% endif %}
-                            
-                            {% if skill.is_remote %}
-                                <div class="detail-item remote">
-                                    <i class="fas fa-wifi"></i>
-                                    <span>Remote Available</span>
-                                </div>
-                            {% endif %}
-                            
-                            {% if skill.availability %}
-                                <div class="detail-item">
-                                    <i class="fas fa-clock"></i>
-                                    <span>{{ skill.availability }}</span>
-                                </div>
-                            {% endif %}
-                        </div>
-                        
-                        <div class="skill-footer">
-                            <div class="user-info">
-                                <i class="fas fa-user"></i>
-                                <span>{{ skill.user.get_full_name|default:skill.user.username }}</span>
-                            </div>
-                            <div class="skill-date">
-                                <i class="fas fa-calendar"></i>
-                                <span>{{ skill.created_at|date:"M d, Y" }}</span>
-                            </div>
                         </div>
                     </div>
                 </a>
@@ -228,7 +233,7 @@
     }
 
     .add-skill-btn, .my-skills-btn {
-        background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+        background-image: linear-gradient(to right, #6441a5, #2a0845);
         color: white;
         padding: 12px 25px;
         border-radius: 8px;
@@ -293,7 +298,7 @@
     }
 
     .filter-btn {
-        background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+        background-image: linear-gradient(to right, #6441a5, #2a0845);
         color: white;
         padding: 10px 20px;
         border: none;
@@ -360,13 +365,12 @@
         grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
         gap: 25px;
         margin-bottom: 40px;
-        grid-auto-rows: 1fr;
     }
 
     .skill-card-link {
         text-decoration: none;
         color: inherit;
-        display: block;
+        display: flex;
         height: 100%;
         transition: transform 0.3s ease;
     }
@@ -385,9 +389,9 @@
         transition: all 0.3s ease;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
+        width: 100%;
         cursor: pointer;
+        min-height: 400px;
     }
 
     .skill-card-link:hover .skill-card {
@@ -396,9 +400,23 @@
 
     .skill-header {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         margin-bottom: 15px;
+    }
+
+    .skill-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .skill-category-footer {
+        margin-top: auto;
+        padding-top: 15px;
+        border-top: 1px solid #e9ecef;
+        display: flex;
+        justify-content: center;
     }
 
     .skill-type {
@@ -412,22 +430,24 @@
     }
 
     .skill-type.offer {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        background: linear-gradient(135deg, #3a7bd5 0%, #3a6073 100%);
         color: white;
     }
 
     .skill-type.request {
-        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        background: linear-gradient(135deg, #fd746c 0%, #ff9068 100%);
         color: white;
     }
 
     .skill-category {
-        background: #f8f9fa;
-        color: #6c757d;
-        padding: 6px 12px;
-        border-radius: 15px;
+        background: linear-gradient(to right, #6441a5, #2a0845);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
         font-size: 0.875rem;
-        font-weight: 500;
+        font-weight: 600;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
     }
 
     .skill-title {
@@ -475,7 +495,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         padding-top: 15px;
         border-top: 1px solid #e9ecef;
         font-size: 0.9rem;
@@ -495,7 +515,7 @@
     }
 
     .view-btn {
-        background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+        background-image: linear-gradient(to right, #6441a5, #2a0845);
         color: white;
         padding: 10px 20px;
         border-radius: 8px;
@@ -547,7 +567,7 @@
     }
 
     .add-first-skill-btn {
-        background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+        background-image: linear-gradient(to right, #6441a5, #2a0845);
         color: white;
         padding: 15px 30px;
         border-radius: 8px;
