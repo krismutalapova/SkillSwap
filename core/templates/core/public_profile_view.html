@@ -118,9 +118,9 @@
                                 <i class="fas fa-edit"></i> Edit Profile
                             </a>
                         {% else %}
-                            <button class="contact-btn" onclick="showContactForm()">
+                            <a href="{% url 'send_message_to_user' user_id=profile.user.id %}" class="contact-btn" style="text-decoration: none;">
                                 <i class="fas fa-envelope"></i> Message {{ profile.user.first_name|default:"User" }}
-                            </button>
+                            </a>
                         {% endif %}
                     </div>
                 </div>
@@ -223,23 +223,6 @@
         <a href="{% url 'search' %}" class="back-btn">
             <i class="fas fa-arrow-left"></i> Back to Browse
         </a>
-    </div>
-</div>
-
-<!-- Contact Form Modal -->
-<div id="contactModal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3><i class="fas fa-envelope"></i> Contact {{ profile.user.first_name|default:"User" }}</h3>
-            <button class="close-btn" onclick="hideContactForm()">&times;</button>
-        </div>
-        <div class="modal-body">
-            <p>Want to connect with <strong>{{ profile.user.first_name|default:profile.user.username }}</strong>?</p>
-        
-        </div>
-        <div class="modal-actions">
-            <button onclick="hideContactForm()" class="btn-secondary">Close</button>
-        </div>
     </div>
 </div>
 
@@ -708,93 +691,6 @@
         color: white;
     }
 
-    /* Modal Styles - Same as skill_detail.html */
-    .modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-    }
-
-    .modal-content {
-        background: white;
-        border-radius: 15px;
-        padding: 0;
-        max-width: 500px;
-        width: 90%;
-        max-height: 90vh;
-        overflow-y: auto;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .modal-header {
-        background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
-        color: white;
-        padding: 20px;
-        border-radius: 15px 15px 0 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .modal-header h3 {
-        margin: 0;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .close-btn {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1.5rem;
-        cursor: pointer;
-        padding: 0;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        transition: background-color 0.3s ease;
-    }
-
-    .close-btn:hover {
-        background: rgba(255, 255, 255, 0.2);
-    }
-
-    .modal-body {
-        padding: 25px;
-    }
-
-    .modal-body p {
-        margin-bottom: 15px;
-        line-height: 1.6;
-    }
-
-    .modal-body ul {
-        margin-left: 20px;
-        margin-bottom: 20px;
-    }
-
-    .modal-body li {
-        margin-bottom: 8px;
-    }
-
-    .modal-actions {
-        display: flex;
-        gap: 15px;
-        justify-content: flex-end;
-        padding: 0 25px 25px 25px;
-    }
-
     .btn-secondary,
     .btn-primary {
         padding: 10px 20px;
@@ -853,22 +749,4 @@
         }
     }
 </style>
-
-<script>
-    function showContactForm() {
-        document.getElementById('contactModal').style.display = 'flex';
-    }
-
-    function hideContactForm() {
-        document.getElementById('contactModal').style.display = 'none';
-    }
-
-    // Close modal when clicking outside
-    window.onclick = function(event) {
-        const modal = document.getElementById('contactModal');
-        if (event.target === modal) {
-            hideContactForm();
-        }
-    }
-</script>
 {% endblock %}

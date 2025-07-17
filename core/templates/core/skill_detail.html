@@ -113,9 +113,9 @@
                     {% if not can_edit %}
                         <div class="contact-section">
                             {% if user.is_authenticated %}
-                                <button class="contact-btn" onclick="showContactForm()">
+                                <a href="{% url 'send_message' skill_id=skill.id %}" class="contact-btn">
                                     <i class="fas fa-envelope"></i> Message {{ skill.user.first_name|default:skill.user.username|default:"User" }}
-                                </button>
+                                </a>
                             {% else %}
                                 <a href="{% url 'login' %}" class="login-to-contact-btn">
                                     <i class="fas fa-sign-in-alt"></i> Login to Connect
@@ -160,9 +160,9 @@
                         </div>
                     {% endif %}
                     {% if not can_edit and user.is_authenticated %}
-                        <button class="rate-skill-btn" onclick="showRatingModal()">
-                            <i class="fas fa-thumbs-up"></i> Rate this skill
-                        </button>
+                        <a href="{% url 'rate_skill' skill_id=skill.id %}" class="rate-skill-btn">
+                            <i class="fas fa-star"></i> Rate this skill
+                        </a>
                     {% endif %}
                 </div>
             </div>
