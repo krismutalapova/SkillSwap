@@ -15,6 +15,7 @@ venv/
 .venv/
 ENV/
 env/
+skillswap_env/
 
 # VS Code
 .vscode/
@@ -36,6 +37,9 @@ media/
 
 # Project documentation
 docs_scripts/
+
+# GitHub config
+.github/
 
 # Others
 *.swp
