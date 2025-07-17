@@ -111,12 +111,11 @@
                         <div class="contact-section">
                             {% if user.is_authenticated %}
                                 <button class="contact-btn" onclick="showContactForm()">
-                                    <i class="fas fa-envelope"></i> Contact {{ skill.user.first_name|default:"User" }}
+                                    <i class="fas fa-envelope"></i> Message {{ skill.user.first_name|default:skill.user.username|default:"User" }}
                                 </button>
-                                <p class="contact-note">Get in touch to arrange a skill exchange!</p>
                             {% else %}
                                 <a href="{% url 'login' %}" class="login-to-contact-btn">
-                                    <i class="fas fa-sign-in-alt"></i> Login to Contact
+                                    <i class="fas fa-sign-in-alt"></i> Login to Connect
                                 </a>
                             {% endif %}
                         </div>
@@ -136,6 +135,29 @@
                         </div>
                     {% endif %}
                 </div>
+
+                <!-- Skill Rating -->
+                <div class="skill-rating">
+                    <h4><i class="fas fa-star"></i> Skill Rating</h4>
+                    <div class="rating-display">
+                        <div class="stars">
+                            <i class="fas fa-star active"></i>
+                            <i class="fas fa-star active"></i>
+                            <i class="fas fa-star active"></i>
+                            <i class="fas fa-star active"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-info">
+                            <span class="rating-value">4.2</span>
+                            <span class="rating-count">(18 reviews)</span>
+                        </div>
+                    </div>
+                    {% if not can_edit and user.is_authenticated %}
+                        <button class="rate-skill-btn" onclick="showRatingModal()">
+                            <i class="fas fa-thumbs-up"></i> Rate this skill
+                        </button>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
@@ -146,15 +168,21 @@
             <h3><i class="fas fa-user"></i> More skills by {{ skill.user.first_name|default:"this user" }}</h3>
             <div class="skills-grid">
                 {% for other_skill in other_skills %}
-                    <div class="skill-card mini">
-                        <div class="skill-type {{ other_skill.skill_type }}">
-                            <i class="fas fa-{% if other_skill.skill_type == 'offer' %}hand-holding-heart{% else %}search{% endif %}"></i>
-                            {{ other_skill.get_skill_type_display }}
+                    <a href="{% url 'skill_detail' other_skill.pk %}" class="skill-card-link">
+                        <div class="skill-card mini">
+                            <div class="skill-content">
+                                <div class="skill-type {{ other_skill.skill_type }}">
+                                    <i class="fas fa-{% if other_skill.skill_type == 'offer' %}hand-holding-heart{% else %}search{% endif %}"></i>
+                                    {{ other_skill.get_skill_type_display }}
+                                </div>
+                                <h4>{{ other_skill.title }}</h4>
+                                <p>{{ other_skill.description|truncatewords:15 }}</p>
+                            </div>
+                            <div class="skill-meta">
+                                <div class="category">{{ other_skill.get_category_display }}</div>
+                            </div>
                         </div>
-                        <h4><a href="{% url 'skill_detail' other_skill.pk %}">{{ other_skill.title }}</a></h4>
-                        <p>{{ other_skill.description|truncatewords:15 }}</p>
-                        <div class="category">{{ other_skill.get_category_display }}</div>
-                    </div>
+                    </a>
                 {% endfor %}
             </div>
         </div>
@@ -165,11 +193,6 @@
         <a href="{% url 'skill_list' %}" class="back-btn">
             <i class="fas fa-arrow-left"></i> Back to Skills
         </a>
-        {% if user.is_authenticated and not can_edit %}
-            <a href="{% url 'skill_create' %}" class="add-skill-btn">
-                <i class="fas fa-plus"></i> Add Your Skill
-            </a>
-        {% endif %}
     </div>
 </div>
 
@@ -183,16 +206,37 @@
             </div>
             <div class="modal-body">
                 <p>Want to connect about "<strong>{{ skill.title }}</strong>"?</p>
-                <p>Contact details will be available in a future messaging feature. For now, you can:</p>
-                <ul>
-                    <li>Bookmark this skill for later</li>
-                    <li>Create your own skill listing</li>
-                    <li>Browse more skills</li>
-                </ul>
             </div>
             <div class="modal-actions">
                 <button onclick="hideContactForm()" class="btn-secondary">Close</button>
-                <a href="{% url 'skill_create' %}" class="btn-primary">Add My Skill</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rating Modal -->
+    <div id="ratingModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-star"></i> Rate "{{ skill.title }}"</h3>
+                <button class="close-btn" onclick="hideRatingModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>How would you rate this skill offering?</p>
+                <div class="rating-input">
+                    <div class="interactive-stars">
+                        <i class="fas fa-star" data-rating="1"></i>
+                        <i class="fas fa-star" data-rating="2"></i>
+                        <i class="fas fa-star" data-rating="3"></i>
+                        <i class="fas fa-star" data-rating="4"></i>
+                        <i class="fas fa-star" data-rating="5"></i>
+                    </div>
+                    <p class="rating-text">Click a star to rate</p>
+                </div>
+                <textarea class="rating-comment" placeholder="Share your experience (optional)..." rows="3"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button onclick="hideRatingModal()" class="btn-secondary">Cancel</button>
+                <button onclick="submitRating()" class="btn-primary" disabled>Submit Rating</button>
             </div>
         </div>
     </div>
@@ -500,6 +544,136 @@
         width: 16px;
     }
 
+    .skill-rating {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 20px;
+        border: 2px solid #e9ecef;
+    }
+
+    .skill-rating h4 {
+        color: #333;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1.1rem;
+    }
+
+    .skill-rating h4 i {
+        color: #ffc107;
+    }
+
+    .rating-display {
+        margin-bottom: 15px;
+    }
+
+    .stars {
+        display: flex;
+        gap: 3px;
+        margin-bottom: 8px;
+    }
+
+    .stars i {
+        color: #dee2e6;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+    }
+
+    .stars i.active {
+        color: #ffc107;
+    }
+
+    .rating-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+    }
+
+    .rating-value {
+        font-weight: 600;
+        color: #333;
+        font-size: 1.1rem;
+    }
+
+    .rating-count {
+        color: #6c757d;
+    }
+
+    .rate-skill-btn {
+        background: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .rate-skill-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+    }
+
+    .rating-input {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .interactive-stars {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        margin-bottom: 10px;
+    }
+
+    .interactive-stars i {
+        color: #dee2e6;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .interactive-stars i:hover,
+    .interactive-stars i.hover {
+        color: #ffc107;
+        transform: scale(1.1);
+    }
+
+    .interactive-stars i.selected {
+        color: #ffc107;
+    }
+
+    .rating-text {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    .rating-comment {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 0.9rem;
+        resize: vertical;
+        transition: border-color 0.3s ease;
+    }
+
+    .rating-comment:focus {
+        outline: none;
+        border-color: #667eea;
+    }
+
     .related-skills {
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(10px);
@@ -523,8 +697,33 @@
 
     .skills-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         gap: 20px;
+        align-items: start;
+    }
+
+    /* Responsive grid adjustments */
+    @media (min-width: 1200px) {
+        .skills-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 1199px) {
+        .skills-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .skill-card-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .skill-card-link:hover {
+        transform: translateY(-5px);
     }
 
     .skill-card.mini {
@@ -533,25 +732,25 @@
         padding: 20px;
         border: 2px solid #e9ecef;
         transition: all 0.3s ease;
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
-    .skill-card.mini:hover {
-        transform: translateY(-3px);
+    .skill-card-link:hover .skill-card.mini {
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
         border-color: #667eea;
     }
 
     .skill-card.mini h4 {
         margin: 15px 0 10px 0;
-    }
-
-    .skill-card.mini h4 a {
         color: #333;
-        text-decoration: none;
         font-weight: 600;
     }
 
-    .skill-card.mini h4 a:hover {
+    .skill-card-link:hover .skill-card.mini h4 {
         color: #667eea;
     }
 
@@ -569,6 +768,20 @@
         font-size: 0.8rem;
         font-weight: 500;
         display: inline-block;
+        margin-top: auto;
+    }
+
+    .skill-card.mini .skill-meta {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .skill-card.mini .skill-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
     }
 
     .navigation-actions {
@@ -757,6 +970,8 @@
 </style>
 
 <script>
+    let selectedRating = 0;
+
     function showContactForm() {
         document.getElementById('contactModal').style.display = 'flex';
     }
@@ -765,11 +980,110 @@
         document.getElementById('contactModal').style.display = 'none';
     }
 
+    function showRatingModal() {
+        document.getElementById('ratingModal').style.display = 'flex';
+        initializeRatingStars();
+    }
+
+    function hideRatingModal() {
+        document.getElementById('ratingModal').style.display = 'none';
+        resetRating();
+    }
+
+    function initializeRatingStars() {
+        const stars = document.querySelectorAll('.interactive-stars i');
+        
+        stars.forEach((star, index) => {
+            star.addEventListener('mouseenter', () => {
+                highlightStars(index + 1);
+            });
+            
+            star.addEventListener('mouseleave', () => {
+                highlightStars(selectedRating);
+            });
+            
+            star.addEventListener('click', () => {
+                selectedRating = index + 1;
+                highlightStars(selectedRating);
+                updateRatingText();
+                enableSubmitButton();
+            });
+        });
+    }
+
+    function highlightStars(count) {
+        const stars = document.querySelectorAll('.interactive-stars i');
+        stars.forEach((star, index) => {
+            if (index < count) {
+                star.classList.add('hover');
+                star.classList.add('selected');
+            } else {
+                star.classList.remove('hover');
+                star.classList.remove('selected');
+            }
+        });
+    }
+
+    function updateRatingText() {
+        const ratingTexts = {
+            1: 'Poor - Not satisfied',
+            2: 'Fair - Below expectations',
+            3: 'Good - Met expectations',
+            4: 'Very Good - Exceeded expectations',
+            5: 'Excellent - Outstanding!'
+        };
+        
+        const textElement = document.querySelector('.rating-text');
+        textElement.textContent = ratingTexts[selectedRating] || 'Click a star to rate';
+        textElement.style.color = selectedRating > 0 ? '#ffc107' : '#6c757d';
+        textElement.style.fontWeight = selectedRating > 0 ? '600' : 'normal';
+    }
+
+    function enableSubmitButton() {
+        const submitBtn = document.querySelector('.modal-actions .btn-primary');
+        submitBtn.disabled = selectedRating === 0;
+        submitBtn.style.opacity = selectedRating > 0 ? '1' : '0.6';
+    }
+
+    function resetRating() {
+        selectedRating = 0;
+        const stars = document.querySelectorAll('.interactive-stars i');
+        stars.forEach(star => {
+            star.classList.remove('hover', 'selected');
+        });
+        updateRatingText();
+        enableSubmitButton();
+        document.querySelector('.rating-comment').value = '';
+    }
+
+    function submitRating() {
+        if (selectedRating === 0) return;
+        
+        const comment = document.querySelector('.rating-comment').value;
+        
+        // Here you would typically send the rating to your backend
+        console.log('Rating submitted:', {
+            rating: selectedRating,
+            comment: comment
+        });
+        
+        // Show success message
+        alert(`Thank you for rating this skill ${selectedRating} star${selectedRating > 1 ? 's' : ''}!`);
+        
+        hideRatingModal();
+    }
+
     // Close modal when clicking outside
     window.onclick = function(event) {
-        const modal = document.getElementById('contactModal');
-        if (event.target === modal) {
+        const contactModal = document.getElementById('contactModal');
+        const ratingModal = document.getElementById('ratingModal');
+        
+        if (event.target === contactModal) {
             hideContactForm();
+        }
+        
+        if (event.target === ratingModal) {
+            hideRatingModal();
         }
     }
 </script>

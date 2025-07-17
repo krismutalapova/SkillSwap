@@ -95,61 +95,55 @@
     {% if skills %}
         <div class="skills-grid">
             {% for skill in skills %}
-                <div class="skill-card">
-                    <div class="skill-header">
-                        <div class="skill-type {{ skill.skill_type }}">
-                            <i class="fas fa-{% if skill.skill_type == 'offer' %}hand-holding-heart{% else %}search{% endif %}"></i>
-                            {{ skill.get_skill_type_display }}
-                        </div>
-                        <div class="skill-category">{{ skill.get_category_display }}</div>
-                    </div>
-                    
-                    <h3 class="skill-title">
-                        <a href="{% url 'skill_detail' skill.pk %}">{{ skill.title }}</a>
-                    </h3>
-                    
-                    <p class="skill-description">{{ skill.description|truncatewords:20 }}</p>
-                    
-                    <div class="skill-details">
-                        {% if skill.location %}
-                            <div class="detail-item">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>{{ skill.location }}</span>
+                <a href="{% url 'skill_detail' skill.pk %}" class="skill-card-link">
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <div class="skill-type {{ skill.skill_type }}">
+                                <i class="fas fa-{% if skill.skill_type == 'offer' %}hand-holding-heart{% else %}search{% endif %}"></i>
+                                {{ skill.get_skill_type_display }}
                             </div>
-                        {% endif %}
+                            <div class="skill-category">{{ skill.get_category_display }}</div>
+                        </div>
                         
-                        {% if skill.is_remote %}
-                            <div class="detail-item remote">
-                                <i class="fas fa-wifi"></i>
-                                <span>Remote Available</span>
-                            </div>
-                        {% endif %}
+                        <h3 class="skill-title">{{ skill.title }}</h3>
                         
-                        {% if skill.availability %}
-                            <div class="detail-item">
-                                <i class="fas fa-clock"></i>
-                                <span>{{ skill.availability }}</span>
+                        <p class="skill-description">{{ skill.description|truncatewords:20 }}</p>
+                        
+                        <div class="skill-details">
+                            {% if skill.location %}
+                                <div class="detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>{{ skill.location }}</span>
+                                </div>
+                            {% endif %}
+                            
+                            {% if skill.is_remote %}
+                                <div class="detail-item remote">
+                                    <i class="fas fa-wifi"></i>
+                                    <span>Remote Available</span>
+                                </div>
+                            {% endif %}
+                            
+                            {% if skill.availability %}
+                                <div class="detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>{{ skill.availability }}</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="skill-footer">
+                            <div class="user-info">
+                                <i class="fas fa-user"></i>
+                                <span>{{ skill.user.get_full_name|default:skill.user.username }}</span>
                             </div>
-                        {% endif %}
-                    </div>
-                    
-                    <div class="skill-footer">
-                        <div class="user-info">
-                            <i class="fas fa-user"></i>
-                            <span>{{ skill.user.get_full_name|default:skill.user.username }}</span>
-                        </div>
-                        <div class="skill-date">
-                            <i class="fas fa-calendar"></i>
-                            <span>{{ skill.created_at|date:"M d, Y" }}</span>
+                            <div class="skill-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>{{ skill.created_at|date:"M d, Y" }}</span>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="skill-actions">
-                        <a href="{% url 'skill_detail' skill.pk %}" class="view-btn">
-                            <i class="fas fa-eye"></i> View Details
-                        </a>
-                    </div>
-                </div>
+                </a>
             {% endfor %}
         </div>
 
@@ -369,6 +363,18 @@
         grid-auto-rows: 1fr;
     }
 
+    .skill-card-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        height: 100%;
+        transition: transform 0.3s ease;
+    }
+
+    .skill-card-link:hover {
+        transform: translateY(-5px);
+    }
+
     .skill-card {
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(10px);
@@ -381,10 +387,10 @@
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
+        cursor: pointer;
     }
 
-    .skill-card:hover {
-        transform: translateY(-5px);
+    .skill-card-link:hover .skill-card {
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
     }
 
@@ -426,17 +432,13 @@
 
     .skill-title {
         margin-bottom: 15px;
-    }
-
-    .skill-title a {
         color: #333;
-        text-decoration: none;
         font-size: 1.3rem;
         font-weight: 600;
         transition: color 0.3s ease;
     }
 
-    .skill-title a:hover {
+    .skill-card-link:hover .skill-title {
         color: #667eea;
     }
 

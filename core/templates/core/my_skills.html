@@ -51,62 +51,62 @@
             <div class="skills-grid">
                 {% for skill in skills %}
                     <div class="skill-card">
-                        <div class="skill-header">
-                            <div class="skill-type {{ skill.skill_type }}">
-                                <i class="fas fa-{% if skill.skill_type == 'offer' %}hand-holding-heart{% else %}search{% endif %}"></i>
-                                {{ skill.get_skill_type_display }}
-                            </div>
-                            <div class="skill-status active">
-                                <i class="fas fa-circle"></i> Active
-                            </div>
-                        </div>
-                        
-                        <h3 class="skill-title">
-                            <a href="{% url 'skill_detail' skill.pk %}">{{ skill.title }}</a>
-                        </h3>
-                        
-                        <div class="skill-category">
-                            <i class="fas fa-tag"></i>
-                            {{ skill.get_category_display }}
-                        </div>
-                        
-                        <p class="skill-description">{{ skill.description|truncatewords:15 }}</p>
-                        
-                        <div class="skill-details">
-                            {% if skill.location %}
-                                <div class="detail-item">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>{{ skill.location }}</span>
+                        <a href="{% url 'skill_detail' skill.pk %}" class="skill-card-clickable-area">
+                            <div class="skill-header">
+                                <div class="skill-type {{ skill.skill_type }}">
+                                    <i class="fas fa-{% if skill.skill_type == 'offer' %}hand-holding-heart{% else %}search{% endif %}"></i>
+                                    {{ skill.get_skill_type_display }}
                                 </div>
-                            {% endif %}
+                                <div class="skill-status active">
+                                    <i class="fas fa-circle"></i> Active
+                                </div>
+                            </div>
                             
-                            {% if skill.is_remote %}
-                                <div class="detail-item remote">
-                                    <i class="fas fa-wifi"></i>
-                                    <span>Remote Available</span>
-                                </div>
-                            {% endif %}
+                            <h3 class="skill-title">{{ skill.title }}</h3>
                             
-                            {% if skill.availability %}
-                                <div class="detail-item">
-                                    <i class="fas fa-clock"></i>
-                                    <span>{{ skill.availability }}</span>
-                                </div>
-                            {% endif %}
-                        </div>
-                        
-                        <div class="skill-meta">
-                            <div class="created-date">
-                                <i class="fas fa-calendar-plus"></i>
-                                Created {{ skill.created_at|date:"M d, Y" }}
+                            <div class="skill-category">
+                                <i class="fas fa-tag"></i>
+                                {{ skill.get_category_display }}
                             </div>
-                            {% if skill.updated_at != skill.created_at %}
-                                <div class="updated-date">
-                                    <i class="fas fa-edit"></i>
-                                    Updated {{ skill.updated_at|date:"M d, Y" }}
+                            
+                            <p class="skill-description">{{ skill.description|truncatewords:15 }}</p>
+                        
+                            <div class="skill-details">
+                                {% if skill.location %}
+                                    <div class="detail-item">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>{{ skill.location }}</span>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if skill.is_remote %}
+                                    <div class="detail-item remote">
+                                        <i class="fas fa-wifi"></i>
+                                        <span>Remote Available</span>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if skill.availability %}
+                                    <div class="detail-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>{{ skill.availability }}</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="skill-meta">
+                                <div class="created-date">
+                                    <i class="fas fa-calendar-plus"></i>
+                                    Created {{ skill.created_at|date:"M d, Y" }}
                                 </div>
-                            {% endif %}
-                        </div>
+                                {% if skill.updated_at != skill.created_at %}
+                                    <div class="updated-date">
+                                        <i class="fas fa-edit"></i>
+                                        Updated {{ skill.updated_at|date:"M d, Y" }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </a>
                         
                         <div class="skill-actions">
                             <a href="{% url 'skill_detail' skill.pk %}" class="action-btn view">
@@ -281,6 +281,14 @@
         padding: 25px;
         border: 2px solid #e9ecef;
         transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .skill-card-clickable-area {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        cursor: pointer;
     }
 
     .skill-card:hover {
