@@ -6,10 +6,6 @@
         <!-- User Header -->
         <div class="user-header">
             <div class="user-meta">
-                <div class="member-since">
-                    <i class="fas fa-calendar-alt"></i>
-                    Member since {{ profile.user.date_joined|date:"M Y" }}
-                </div>
                 <div class="user-location">
                     <i class="fas fa-map-marker-alt"></i>
                     {% if profile.city and profile.country %}
@@ -18,6 +14,10 @@
                         Location not specified
                     {% endif %}
                 </div>
+                <div class="member-since">
+                    <i class="fas fa-calendar-alt"></i>
+                    Member since {{ profile.user.date_joined|date:"M Y" }}
+                </div>  
             </div>
         </div>
 

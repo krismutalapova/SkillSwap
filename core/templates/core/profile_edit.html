@@ -1,132 +1,659 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<div style="max-width: 1000px; margin: 0 auto; padding: 20px;">
+<div class="container">
     <!-- Messages Display -->
     {% if messages %}
         {% for message in messages %}
             {% if message.tags == 'error' %}
-                <div style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); color: white; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);">
+                <div class="popup-notification" style="
+                    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); 
+                    color: white; 
+                    padding: 15px 20px; 
+                    margin-bottom: 20px; 
+                    border-radius: 8px;
+                    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+                    ">
                     <div style="display: flex; align-items: center;">
-                        <i class="fas fa-exclamation-circle" style="font-size: 18px; margin-right: 10px;"></i>
-                        <span>{{ message }}</span>
+                        <i class="fas fa-exclamation-circle" style="font-size: 20px; margin-right: 10px;"></i>
+                        <div>
+                            <strong>{{ message }}</strong>
+                        </div>
                     </div>
                 </div>
             {% elif message.tags == 'success' %}
-                <div style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);">
+                <div class="popup-notification" style="
+                    background: linear-gradient(135deg, #28a745 0%, #20c997 100%); 
+                    color: white; 
+                    padding: 15px 20px; 
+                    margin-bottom: 20px; 
+                    border-radius: 8px;
+                    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+                    ">
                     <div style="display: flex; align-items: center;">
-                        <i class="fas fa-check-circle" style="font-size: 18px; margin-right: 10px;"></i>
-                        <span>{{ message }}</span>
+                        <i class="fas fa-check-circle" style="font-size: 20px; margin-right: 10px;"></i>
+                        <div>
+                            <strong>{{ message }}</strong>
+                        </div>
                     </div>
                 </div>
             {% endif %}
         {% endfor %}
     {% endif %}
 
-    <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 15px; padding: 30px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
-        <h2 style="text-align: center; color: #333; margin-bottom: 30px;">Edit Profile</h2>
-        
+    <div class="user-detail-card">
+        <!-- Form Header -->
+        <div class="user-header">
+            <div class="user-meta">
+                <div class="user-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    {% if profile.city and profile.country %}
+                        {{ profile.city }}, {{ profile.country }}
+                    {% else %}
+                        Location not specified
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- User Name -->
+        <h1 class="user-name">
+            {% if profile.user.first_name and profile.user.last_name %}
+                {{ profile.user.first_name }} {{ profile.user.last_name }}
+            {% else %}
+                {{ profile.user.username }}
+            {% endif %}
+            <span style="color: #667eea; font-size: 18px; font-weight: 500; margin-left: 8px;">(Editing)</span>
+        </h1>
+
+        <!-- Edit Form -->
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">Profile Picture:</label>
-                
-                {% if form.instance.profile_picture %}
-                    <div style="margin-bottom: 10px;">
-                        <p style="color: #666; font-size: 14px; margin-bottom: 5px;">Current picture:</p>
-                        <img src="{{ form.instance.profile_picture.url }}" alt="Current Profile Picture" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd;">
-                    </div>
-                {% endif %}
-                
-                {{ form.profile_picture }}
-                {% if form.profile_picture.errors %}
-                    {% for error in form.profile_picture.errors %}
-                        <div style="color: #dc3545; font-size: 14px; margin-top: 5px;">
-                            <i class="fas fa-exclamation-circle" style="margin-right: 5px;"></i>{{ error }}
+            <!-- User Info Grid -->
+            <div class="user-info-grid">
+                <div class="user-content">
+                    <div class="description-section">
+                        <h3><i class="fas fa-user-circle"></i> About Me</h3>
+                        <div class="form-field">
+                            <textarea name="bio" rows="5" class="form-textarea" placeholder="Tell others about yourself, your interests, and background...">{{ form.bio.value|default:'' }}</textarea>
+                            {% if form.bio.errors %}
+                                <div class="field-error">
+                                    {% for error in form.bio.errors %}
+                                        <i class="fas fa-exclamation-circle"></i>{{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
-                    {% endfor %}
-                {% endif %}
-                {% if form.profile_picture.help_text %}
-                    <small style="color: #666; display: block; margin-top: 5px;">{{ form.profile_picture.help_text }}</small>
-                {% endif %}
-                <small style="color: #666; display: block; margin-top: 5px;">Choose a new image to upload. Recommended: square image, max 2MB.</small>
-            </div>
-            
-            <div style="display: flex; gap: 15px; margin-bottom: 20px;">
-                <div style="flex: 1;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">City:</label>
-                    <input type="text" name="city" value="{{ form.city.value|default:'' }}" placeholder="e.g., Stockholm" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;">
-                    {% if form.city.errors %}
-                        {% for error in form.city.errors %}
-                            <div style="color: #dc3545; font-size: 14px; margin-top: 5px;">
-                                <i class="fas fa-exclamation-circle" style="margin-right: 5px;"></i>{{ error }}
+                    </div>
+
+                    <div class="details-section">
+                        <h3><i class="fas fa-info-circle"></i> Profile Details</h3>
+                        <div class="details-grid">
+                            <div class="detail-item">
+                                <div class="detail-label">
+                                    <i class="fas fa-map-marker-alt"></i> City
+                                </div>
+                                <div class="form-field">
+                                    <input type="text" name="city" value="{{ form.city.value|default:'' }}" 
+                                           class="form-input" placeholder="e.g., Stockholm">
+                                    {% if form.city.errors %}
+                                        <div class="field-error">
+                                            {% for error in form.city.errors %}
+                                                <i class="fas fa-exclamation-circle"></i>{{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
                             </div>
-                        {% endfor %}
-                    {% endif %}
-                    <small style="color: #666; display: block; margin-top: 5px;">Your current city</small>
-                </div>
-                
-                <div style="flex: 1;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">Country:</label>
-                    <input type="text" name="country" value="{{ form.country.value|default:'' }}" placeholder="e.g., Sweden" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;">
-                    {% if form.country.errors %}
-                        {% for error in form.country.errors %}
-                            <div style="color: #dc3545; font-size: 14px; margin-top: 5px;">
-                                <i class="fas fa-exclamation-circle" style="margin-right: 5px;"></i>{{ error }}
+
+                            <div class="detail-item">
+                                <div class="detail-label">
+                                    <i class="fas fa-globe"></i> Country
+                                </div>
+                                <div class="form-field">
+                                    <input type="text" name="country" value="{{ form.country.value|default:'' }}" 
+                                           class="form-input" placeholder="e.g., Sweden">
+                                    {% if form.country.errors %}
+                                        <div class="field-error">
+                                            {% for error in form.country.errors %}
+                                                <i class="fas fa-exclamation-circle"></i>{{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
                             </div>
-                        {% endfor %}
-                    {% endif %}
-                    <small style="color: #666; display: block; margin-top: 5px;">Your current country</small>
+
+                            <div class="detail-item">
+                                <div class="detail-label">
+                                    <i class="fas fa-venus-mars"></i> Gender
+                                </div>
+                                <div class="form-field">
+                                    <select name="gender" class="form-select">
+                                        <option value="">Select gender (optional)</option>
+                                        <option value="M" {% if form.gender.value == 'M' %}selected{% endif %}>Male</option>
+                                        <option value="F" {% if form.gender.value == 'F' %}selected{% endif %}>Female</option>
+                                        <option value="O" {% if form.gender.value == 'O' %}selected{% endif %}>Other</option>
+                                        <option value="P" {% if form.gender.value == 'P' %}selected{% endif %}>Prefer not to say</option>
+                                    </select>
+                                    {% if form.gender.errors %}
+                                        <div class="field-error">
+                                            {% for error in form.gender.errors %}
+                                                <i class="fas fa-exclamation-circle"></i>{{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Photo Sidebar -->
+                <div class="user-sidebar">
+                    <div class="user-card">
+                        <div class="user-info">
+                            {% if profile.profile_picture %}
+                                <img src="{{ profile.profile_picture.url }}" 
+                                     alt="{{ profile.user.get_full_name|default:profile.user.username }}" 
+                                     class="user-avatar">
+                            {% else %}
+                                <div class="user-avatar-placeholder">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            {% endif %}
+                            
+                            <div class="user-details">
+                                <h4 class="user-name-small">
+                                    {% if profile.user.first_name and profile.user.last_name %}
+                                        {{ profile.user.first_name }} {{ profile.user.last_name }}
+                                    {% else %}
+                                        {{ profile.user.username }}
+                                    {% endif %}
+                                </h4>
+                                <p class="user-username-small">
+                                    <i class="fas fa-user"></i>
+                                    @{{ profile.user.username }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="photo-section">
+                            <h4 style="margin-bottom: 10px; color: #333; font-size: 1rem;">
+                                <i class="fas fa-camera" style="margin-right: 8px; color: #667eea;"></i>
+                                Profile Picture
+                            </h4>
+                            <div class="form-field">
+                                {{ form.profile_picture }}
+                                {% if form.profile_picture.errors %}
+                                    <div class="field-error">
+                                        {% for error in form.profile_picture.errors %}
+                                            <i class="fas fa-exclamation-circle"></i>{{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <small class="field-help">Square image recommended, max 2MB</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">Gender:</label>
-                <select name="gender" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;">
-                    <option value="">Select gender (optional)</option>
-                    <option value="M" {% if form.gender.value == 'M' %}selected{% endif %}>Male</option>
-                    <option value="F" {% if form.gender.value == 'F' %}selected{% endif %}>Female</option>
-                    <option value="O" {% if form.gender.value == 'O' %}selected{% endif %}>Other</option>
-                    <option value="P" {% if form.gender.value == 'P' %}selected{% endif %}>Prefer not to say</option>
-                </select>
-                <small style="color: #666; display: block; margin-top: 5px;">Optional: Help others know how to address you</small>
-            </div>
-            
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">About Me:</label>
-                <textarea name="bio" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; resize: vertical;">{{ form.bio.value|default:'' }}</textarea>
-                <small style="color: #666; display: block; margin-top: 5px;">Tell others about yourself, your interests, and background.</small>
-            </div>
-            
-            <!-- Skills Management Section -->
-            <div style="margin-bottom: 30px;">
-                <h3 style="color: #333; margin-bottom: 15px;">Skills:</h3>
-                <p style="color: #666; margin-bottom: 15px;">Edit skills you offer or need separately.</p>
-                <a href="{% url 'my_skills' %}" style="
-                    display: block;
-                    background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
-                    color: white;
-                    padding: 15px 20px;
-                    border-radius: 12px;
-                    text-align: center;
-                    text-decoration: none;
-                    font-weight: 700;
-                    font-size: 1.1rem;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
-                    border: none;
-                    cursor: pointer;
-                " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 123, 255, 0.4)'; this.style.backgroundImage='linear-gradient(109.6deg,  rgba(68,34,102,1) 11.2%, rgba(34,102,153,1) 100.1% )';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0, 123, 255, 0.3)'; this.style.backgroundImage='linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% )';">
-                    <i class="fas fa-tools" style="margin-right: 10px; font-size: 1.2rem;"></i> 
-                        Manage My Skills
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <button type="submit" class="save-btn">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+                <a href="{% url 'profile_view' %}" class="cancel-btn">
+                    <i class="fas fa-times"></i> Cancel
                 </a>
-            </div>
-            
-            <div style="text-align: center;">
-                <button type="submit" style="background-image: linear-gradient(117deg, #2C7744 0%, #76b852 100%); color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; margin-right: 10px; font-size: 16px;">Save Changes</button>
-                <a href="{% url 'profile_view' %}" style="background-color: #6c757d; color: white; padding: 12px 30px; text-decoration: none; border-radius: 8px; display: inline-block; font-size: 16px;">Cancel</a>
             </div>
         </form>
     </div>
+
+    <!-- Skills Management Section -->
+    <div class="skills-management">
+        <div class="skills-header">
+            <h3><i class="fas fa-tools"></i> Skills Management</h3>
+            <p>Add, edit, or remove your skills</p>
+        </div>
+        
+        <div class="manage-skills-section">
+            <a href="{% url 'my_skills' %}" class="manage-skills-btn">
+                <i class="fas fa-cog"></i> Manage Your Skills
+            </a>
+        </div>
+    </div>
+
+    <!-- Navigation Actions -->
+    <div class="navigation-actions">
+        <a href="{% url 'profile_view' %}" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Profile
+        </a>
+    </div>
 </div>
+
+<style>
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .user-detail-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .user-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #f8f9fa;
+    }
+
+    .user-meta {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .member-since,
+    .user-location {
+        padding: 8px 15px;
+        border-radius: 15px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #f8f9fa;
+        color: #495057;
+    }
+
+    .member-since i,
+    .user-location i {
+        color: #667eea;
+    }
+
+    .user-name {
+        color: #333;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 30px;
+        line-height: 1.2;
+    }
+
+    .user-info-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 40px;
+    }
+
+    .user-content h3 {
+        color: #333;
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .user-content h3 i {
+        color: #667eea;
+    }
+
+    .description-section {
+        margin-bottom: 30px;
+    }
+
+    .details-section h3 {
+        margin-bottom: 20px;
+    }
+
+    .details-grid {
+        display: grid;
+        gap: 15px;
+    }
+
+    .detail-item {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 15px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        border-left: 3px solid #667eea;
+    }
+
+    .detail-label {
+        font-weight: 600;
+        color: #495057;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .detail-label i {
+        color: #667eea;
+        width: 16px;
+    }
+
+    .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
+        box-sizing: border-box;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-textarea {
+        resize: vertical;
+        min-height: 120px;
+        font-family: inherit;
+        line-height: 1.5;
+    }
+
+    .field-error {
+        color: #dc3545;
+        font-size: 0.875rem;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .field-help {
+        color: #6c757d;
+        font-size: 0.875rem;
+    }
+
+    .user-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .user-card {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 25px;
+        border: 2px solid #e9ecef;
+    }
+
+    .user-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .user-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+        border: 3px solid #667eea;
+    }
+
+    .user-avatar-placeholder {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+
+    .user-name-small {
+        color: #333;
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .user-username-small {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .photo-section {
+        border-top: 2px solid #e9ecef;
+        padding-top: 20px;
+    }
+
+    .photo-section input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 2px dashed #667eea;
+        border-radius: 10px;
+        background: #f8f9fa;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: 2px solid #f8f9fa;
+    }
+
+    .save-btn,
+    .cancel-btn {
+        padding: 15px 30px;
+        border-radius: 15px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border: none;
+        cursor: pointer;
+    }
+
+    .save-btn {
+        background-image: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+    }
+
+    .cancel-btn {
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        border: 2px solid #6c757d;
+    }
+
+    .save-btn:hover,
+    .cancel-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .cancel-btn:hover {
+        background: #6c757d;
+        color: white;
+    }
+
+    .skills-management {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .skills-header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .skills-header h3 {
+        color: #333;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-size: 1.5rem;
+    }
+
+    .skills-header h3 i {
+        color: #667eea;
+    }
+
+    .skills-header p {
+        color: #6c757d;
+        font-size: 1.1rem;
+    }
+
+    .manage-skills-section {
+        text-align: center;
+    }
+
+    .manage-skills-btn {
+        background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+        color: white;
+        padding: 15px 30px;
+        border-radius: 15px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .manage-skills-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .navigation-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .back-btn,
+    .browse-btn {
+        padding: 12px 25px;
+        border-radius: 15px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-btn {
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        border: 2px solid #667eea;
+    }
+
+    .browse-btn {
+        background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+        color: white;
+    }
+
+    .back-btn:hover,
+    .browse-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .back-btn:hover {
+        background: #667eea;
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        .user-info-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .user-name {
+            font-size: 2rem;
+        }
+
+        .detail-item {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .save-btn,
+        .cancel-btn {
+            justify-content: center;
+        }
+
+        .navigation-actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .back-btn,
+        .browse-btn {
+            text-align: center;
+            justify-content: center;
+        }
+
+        .skills-header h3 {
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+</style>
 {% endblock %}

@@ -136,7 +136,7 @@ def profile_edit(request):
     else:
         form = ProfileForm(instance=profile)
 
-    return render(request, "core/profile_edit.html", {"form": form})
+    return render(request, "core/profile_edit.html", {"form": form, "profile": profile})
 
 
 def custom_404(request, exception):
