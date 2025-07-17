@@ -7,7 +7,7 @@ register = template.Library()
 @register.inclusion_tag("core/star_rating.html")
 def star_rating(rating, show_value=True, show_count=True, count=0):
     """
-    Display star rating with proper filled/half/empty stars
+    Display star rating with proper filled stars
     """
     rating = float(rating) if rating else 0
     full_stars = int(floor(rating))
