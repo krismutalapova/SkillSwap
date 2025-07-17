@@ -126,7 +126,7 @@ def custom_500(request):
 
 
 def search(request):
-    # Get all users with complete profiles only
+    # Get all users
     users_with_profiles = []
     users = (
         User.objects.filter(is_active=True)
@@ -137,16 +137,15 @@ def search(request):
     for user in users:
         try:
             profile = user.profile
-            # Only include users with complete profiles
-            if profile.is_profile_complete:
-                users_with_profiles.append({"user": user, "profile": profile})
+            # Include all users with profiles (complete or incomplete)
+            users_with_profiles.append({"user": user, "profile": profile})
         except Profile.DoesNotExist:
             continue
 
     context = {
         "users_with_profiles": users_with_profiles,
         "total_users": len(users_with_profiles),
-        "show_complete_only": True,
+        "show_complete_only": False,
     }
     return render(request, "core/search.html", context)
 
