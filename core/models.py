@@ -105,6 +105,19 @@ class Profile(models.Model):
         else:
             return "critical_missing"
 
+    def update_skills_from_skill_objects(self):
+        offered_skills = self.user.skills.filter(
+            skill_type="offer", is_active=True
+        ).values_list("title", flat=True)
+
+        needed_skills = self.user.skills.filter(
+            skill_type="request", is_active=True
+        ).values_list("title", flat=True)
+
+        self.skills_offered = ", ".join(offered_skills)
+        self.skills_needed = ", ".join(needed_skills)
+        self.save()
+
 
 class Skill(models.Model):
     SKILL_TYPES = [
@@ -161,3 +174,13 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
+
+
+@receiver(post_save, sender=Skill)
+def update_profile_skills_on_save(sender, instance, **kwargs):
+    instance.user.profile.update_skills_from_skill_objects()
+
+
+@receiver(models.signals.post_delete, sender=Skill)
+def update_profile_skills_on_delete(sender, instance, **kwargs):
+    instance.user.profile.update_skills_from_skill_objects()
