@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile, Skill
+from .models import Profile, Skill, Message, Rating, Message, Rating
 
 
 class NameCompletionForm(forms.ModelForm):
@@ -150,3 +150,66 @@ class SkillForm(forms.ModelForm):
                 "Description must be at least 10 characters long."
             )
         return description.strip() if description else description
+
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ("subject", "message")
+        widgets = {
+            "subject": forms.TextInput(
+                attrs={
+                    "placeholder": "Subject",
+                    "class": "form-control",
+                    "maxlength": "200",
+                }
+            ),
+            "message": forms.Textarea(
+                attrs={
+                    "placeholder": "Write your message here...",
+                    "class": "form-control",
+                    "rows": 5,
+                    "maxlength": "1000",
+                }
+            ),
+        }
+
+    def clean_subject(self):
+        subject = self.cleaned_data.get("subject")
+        if subject and len(subject.strip()) < 3:
+            raise forms.ValidationError("Subject must be at least 3 characters long.")
+        return subject.strip() if subject else subject
+
+    def clean_message(self):
+        message = self.cleaned_data.get("message")
+        if message and len(message.strip()) < 10:
+            raise forms.ValidationError("Message must be at least 10 characters long.")
+        return message.strip() if message else message
+
+
+class RatingForm(forms.ModelForm):
+    rating = forms.ChoiceField(
+        choices=[(i, i) for i in range(1, 6)],
+        widget=forms.RadioSelect(attrs={"class": "rating-radio"}),
+        label="Your Rating",
+    )
+
+    class Meta:
+        model = Rating
+        fields = ("rating", "comment")
+        widgets = {
+            "comment": forms.Textarea(
+                attrs={
+                    "placeholder": "Share your experience (optional)...",
+                    "class": "form-control",
+                    "rows": 4,
+                    "maxlength": "500",
+                }
+            ),
+        }
+
+    def clean_comment(self):
+        comment = self.cleaned_data.get("comment")
+        if comment:
+            return comment.strip()
+        return comment
