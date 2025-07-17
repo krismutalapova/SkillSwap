@@ -8,6 +8,7 @@ A Django web platform for skill exchange and learning. Connect with others to te
 - **Profile Management**: Complete profiles with skills, bio, and profile pictures
 - **Skill Listings**: Create, browse, and manage skill offerings and requests
 - **Advanced Search**: Comprehensive filtering by type, category, location and gender
+- **Rating System**: Visual star ratings for skills and overall user ratings
 - **Optional Filtering**: All filters work independently - apply none, one, or multiple filters
 - **User Discovery**: Browse other users with quality-filtered results
 - **Modern Design**: Modern UI and responsive design
@@ -107,6 +108,13 @@ python tests/test_popup_messages.py
 - Search functionality across skill titles and descriptions
 - Unified search experience from home page to skills listing
 - Pagination for efficient browsing with filter state preservation
+
+### Rating System
+- Dynamic 1-5 star rating system for individual skills
+- Overall user rating calculations across offered skills
+- Visual star display with filled, half, and empty stars
+- Rating counts and averages with proper mathematical calculations
+- Template tag system for consistent rating display across platform
 
 ---
 
