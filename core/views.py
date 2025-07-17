@@ -58,7 +58,7 @@ def profile_view(request, user_id=None):
     if user_id:
         target_user = get_object_or_404(User, id=user_id)
         profile = get_object_or_404(Profile, user=target_user)
-        is_own_profile = False
+        is_own_profile = target_user == request.user
 
         offered_skills = Skill.objects.filter(user=target_user, skill_type="offer")
         requested_skills = Skill.objects.filter(user=target_user, skill_type="request")
