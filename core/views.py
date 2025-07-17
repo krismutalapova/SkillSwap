@@ -85,12 +85,6 @@ def profile_view(request, user_id=None):
 
         context = {
             "profile": profile,
-            "completion_percentage": profile.completion_percentage,
-            "is_complete": profile.is_profile_complete,
-            "missing_fields": profile.missing_required_fields,
-            "missing_critical_fields": profile.missing_critical_fields,
-            "missing_skills_only": profile.missing_skills_only,
-            "completion_status_type": profile.completion_status_type,
             "is_own_profile": True,
             "offered_skills": offered_skills,
             "requested_skills": requested_skills,
@@ -104,30 +98,9 @@ def profile_edit(request):
 
     if request.method == "POST":
         try:
-            # Check completion status before saving
-            was_complete_before = profile.is_profile_complete
-
             form = ProfileForm(request.POST, request.FILES, instance=profile)
             if form.is_valid():
                 form.save()
-
-                # Check if profile just became complete
-                profile.refresh_from_db()
-                is_complete_now = profile.is_profile_complete
-
-                if not was_complete_before and is_complete_now:
-                    # Profile just became complete
-                    messages.success(request, "profile_completed")
-                elif was_complete_before and is_complete_now:
-                    # Profile was complete and remains complete (just updated)
-                    messages.success(request, "profile_updated")
-                elif not was_complete_before and not is_complete_now:
-                    # Profile was incomplete and remains incomplete (but fields changed)
-                    messages.success(request, "profile_updated")
-                else:
-                    # Fallback (shouldn't happen in normal flow)
-                    messages.success(request, "Profile updated successfully!")
-
                 return redirect("profile_view")
             else:
                 messages.error(
@@ -204,11 +177,6 @@ def skill_create(request):
             skill.user = request.user
             skill.save()
 
-            skill_type_display = skill.get_skill_type_display().lower()
-            messages.success(
-                request,
-                f'Your {skill_type_display} "{skill.title}" has been created successfully!',
-            )
             return redirect("skill_detail", pk=skill.pk)
     else:
         # Prefill form with skill_type from URL parameter
@@ -327,9 +295,6 @@ def skill_edit(request, pk):
         form = SkillForm(request.POST, instance=skill)
         if form.is_valid():
             form.save()
-            messages.success(
-                request, f'Your skill "{skill.title}" has been updated successfully!'
-            )
             return redirect("skill_detail", pk=skill.pk)
     else:
         form = SkillForm(instance=skill)
@@ -352,9 +317,6 @@ def skill_delete(request, pk):
     if request.method == "POST":
         skill_title = skill.title
         skill.delete()
-        messages.success(
-            request, f'Your skill "{skill_title}" has been deleted successfully!'
-        )
         return redirect("skill_list")
 
     return render(request, "core/skill_delete.html", {"skill": skill})
@@ -412,7 +374,6 @@ def send_message(request, skill_id=None, user_id=None):
                 message.skill = skill
             message.save()
 
-            messages.success(request, f"Message sent to {receiver.first_name}!")
             return redirect(redirect_url, **redirect_kwargs)
     else:
         if skill:
@@ -505,7 +466,6 @@ def rate_skill(request, skill_id):
             rating.save()
 
             action = "updated" if existing_rating else "submitted"
-            messages.success(request, f"Rating {action} successfully!")
             return redirect("skill_detail", pk=skill.id)
     else:
         form = RatingForm(instance=existing_rating)
