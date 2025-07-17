@@ -180,6 +180,19 @@ class Skill(models.Model):
     def get_absolute_url(self):
         return reverse("skill_detail", kwargs={"pk": self.pk})
 
+    @property
+    def average_rating(self):
+        avg = self.ratings.aggregate(avg_rating=Avg("rating"))["avg_rating"]
+        return round(avg, 1) if avg else 0.0
+
+    @property
+    def rating_count(self):
+        return self.ratings.count()
+
+    @property
+    def star_range(self):
+        return range(1, 6)
+
 
 class Rating(models.Model):
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE, related_name="ratings")
