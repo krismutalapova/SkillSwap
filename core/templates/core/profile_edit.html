@@ -55,7 +55,7 @@
             <div style="display: flex; gap: 15px; margin-bottom: 20px;">
                 <div style="flex: 1;">
                     <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">City:</label>
-                    <input type="text" name="city" value="{{ form.city.value|default:'' }}" placeholder="e.g., Stockholm" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                    <input type="text" name="city" value="{{ form.city.value|default:'' }}" placeholder="e.g., Stockholm" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;">
                     {% if form.city.errors %}
                         {% for error in form.city.errors %}
                             <div style="color: #dc3545; font-size: 14px; margin-top: 5px;">
@@ -68,7 +68,7 @@
                 
                 <div style="flex: 1;">
                     <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">Country:</label>
-                    <input type="text" name="country" value="{{ form.country.value|default:'' }}" placeholder="e.g., Sweden" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                    <input type="text" name="country" value="{{ form.country.value|default:'' }}" placeholder="e.g., Sweden" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;">
                     {% if form.country.errors %}
                         {% for error in form.country.errors %}
                             <div style="color: #dc3545; font-size: 14px; margin-top: 5px;">
