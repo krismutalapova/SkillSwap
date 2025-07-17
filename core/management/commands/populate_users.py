@@ -10,7 +10,7 @@ Usage:
 import random
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-from core.models import Profile, Skill
+from core.models import Profile, Skill, Rating
 
 
 class Command(BaseCommand):
@@ -39,15 +39,26 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS(f"Creating {count} sample users..."))
 
         created_count = 0
+        all_users = []
         for i in range(count):
             try:
                 user_data = self.generate_user_data(i)
-                if self.create_user_and_profile(user_data):
+                user = self.create_user_and_profile(user_data)
+                if user:
+                    all_users.append(user)
                     created_count += 1
             except Exception as e:
                 self.stdout.write(
                     self.style.ERROR(f"Error creating user {i+1}: {str(e)}")
                 )
+
+        # Create ratings for skills after all users are created
+        if all_users:
+            self.stdout.write(self.style.SUCCESS("Creating skill ratings..."))
+            ratings_created = self.create_skill_ratings(all_users)
+            self.stdout.write(
+                self.style.SUCCESS(f"Created {ratings_created} ratings for skills")
+            )
 
         self.stdout.write(
             self.style.SUCCESS(
@@ -66,13 +77,14 @@ class Command(BaseCommand):
         )
 
         skill_count = Skill.objects.filter(user__in=sample_users).count()
+        rating_count = Rating.objects.filter(skill__user__in=sample_users).count()
         user_count = sample_users.count()
 
         sample_users.delete()
 
         self.stdout.write(
             self.style.SUCCESS(
-                f"Cleared {user_count} existing sample users and {skill_count} associated skills"
+                f"Cleared {user_count} existing sample users, {skill_count} associated skills, and {rating_count} ratings"
             )
         )
 
@@ -398,7 +410,7 @@ class Command(BaseCommand):
                     f"User {user_data['username']} already exists, skipping..."
                 )
             )
-            return False
+            return None
 
         user = User.objects.create_user(
             username=user_data["username"],
@@ -425,13 +437,13 @@ class Command(BaseCommand):
             self.stdout.write(
                 f"✓ Created user: {user.username} ({user.first_name} {user.last_name}) with {skills_created} skills"
             )
-            return True
+            return user
 
         except Profile.DoesNotExist:
             self.stdout.write(
                 self.style.ERROR(f"Profile not found for user {user.username}")
             )
-            return False
+            return None
 
     def create_user_skills(self, user, skills_data, profile_data):
         skills_created = 0
@@ -557,3 +569,64 @@ class Command(BaseCommand):
             skills_created += 1
 
         return skills_created
+
+    def create_skill_ratings(self, all_users):
+        """Create ratings for offered skills from other users"""
+        ratings_created = 0
+
+        # Get all offered skills
+        offered_skills = Skill.objects.filter(
+            user__in=all_users, skill_type="offer", is_active=True
+        )
+
+        if not offered_skills.exists():
+            return 0
+
+        rating_comments = [
+            "Great teacher! Very patient and knowledgeable.",
+            "Excellent experience. Learned a lot in a short time.",
+            "Really helpful and explained concepts clearly.",
+            "Fantastic mentor! Highly recommend.",
+            "Very professional and well-prepared lessons.",
+            "Amazing skills and great communication.",
+            "Super helpful and encouraging throughout.",
+            "Clear explanations and practical examples.",
+            "Patient and understanding teacher.",
+            "Exceeded my expectations! Great experience.",
+            "Knowledgeable and passionate about the subject.",
+            "Made learning fun and engaging.",
+            "Very responsive and accommodating.",
+            "Great attention to detail and quality.",
+            "Inspiring teacher with real-world experience.",
+        ]
+
+        for skill in offered_skills:
+            # Each skill gets 1-5 ratings from random users (excluding the skill owner)
+            num_ratings = random.randint(1, 5)
+            potential_raters = [u for u in all_users if u != skill.user]
+
+            if len(potential_raters) < num_ratings:
+                num_ratings = len(potential_raters)
+
+            raters = random.sample(potential_raters, num_ratings)
+
+            for rater in raters:
+                # Check if rating already exists (unique constraint)
+                if not Rating.objects.filter(skill=skill, user=rater).exists():
+                    # Generate rating with higher probability for good ratings
+                    rating_value = random.choices(
+                        [1, 2, 3, 4, 5],
+                        weights=[5, 10, 20, 35, 30],  # Weighted towards higher ratings
+                    )[0]
+
+                    # 70% chance of having a comment
+                    comment = ""
+                    if random.random() < 0.7:
+                        comment = random.choice(rating_comments)
+
+                    Rating.objects.create(
+                        skill=skill, user=rater, rating=rating_value, comment=comment
+                    )
+                    ratings_created += 1
+
+        return ratings_created
