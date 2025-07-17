@@ -56,12 +56,10 @@ class SignupView(View):
 @login_required
 def profile_view(request, user_id=None):
     if user_id:
-        # Public profile view
         target_user = get_object_or_404(User, id=user_id)
         profile = get_object_or_404(Profile, user=target_user)
         is_own_profile = False
 
-        # Get user's skills for display
         offered_skills = Skill.objects.filter(user=target_user, skill_type="offer")
         requested_skills = Skill.objects.filter(user=target_user, skill_type="request")
 
@@ -73,7 +71,6 @@ def profile_view(request, user_id=None):
         }
         return render(request, "core/public_profile_view.html", context)
     else:
-        # Own profile view
         profile = get_object_or_404(Profile, user=request.user)
 
         context = {
