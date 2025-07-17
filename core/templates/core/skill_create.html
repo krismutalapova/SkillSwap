@@ -121,7 +121,7 @@
                     <i class="fas fa-{% if is_edit %}save{% else %}plus{% endif %}"></i>
                     {% if is_edit %}Update Skill{% else %}Create Skill{% endif %}
                 </button>
-                <a href="{% if is_edit %}{% url 'skill_detail' skill.pk %}{% elif next_url == 'profile_view' %}{% url 'profile_view' %}{% elif next_url == 'my_skills' %}{% url 'my_skills' %}{% else %}{% url 'skill_list' %}{% endif %}" class="cancel-btn">
+                <a href="{% if is_edit %}{% url 'skill_detail' skill.pk %}{% elif next_url == 'profile_view' %}{% url 'profile_view' %}{% elif next_url == 'profile_edit' %}{% url 'profile_edit' %}{% elif next_url == 'my_skills' %}{% url 'my_skills' %}{% else %}{% url 'skill_list' %}{% endif %}" class="cancel-btn">
                     <i class="fas fa-times"></i> Cancel
                 </a>
             </div>
