@@ -117,7 +117,7 @@ class Profile(models.Model):
 
         self.skills_offered = ", ".join(offered_skills)
         self.skills_needed = ", ".join(needed_skills)
-        self.save()
+        self.save(update_fields=["skills_offered", "skills_needed"])
 
     @property
     def overall_rating(self):
@@ -212,4 +212,7 @@ def update_profile_skills_on_save(sender, instance, **kwargs):
 
 @receiver(models.signals.post_delete, sender=Skill)
 def update_profile_skills_on_delete(sender, instance, **kwargs):
-    instance.user.profile.update_skills_from_skill_objects()
+    try:
+        instance.user.profile.update_skills_from_skill_objects()
+    except Profile.DoesNotExist:
+        pass

@@ -418,7 +418,9 @@ class Command(BaseCommand):
             profile.save()
 
             # Create individual Skill objects
-            skills_created = self.create_user_skills(user, user_data["skills_data"])
+            skills_created = self.create_user_skills(
+                user, user_data["skills_data"], user_data["profile"]
+            )
 
             self.stdout.write(
                 f"✓ Created user: {user.username} ({user.first_name} {user.last_name}) with {skills_created} skills"
@@ -431,7 +433,7 @@ class Command(BaseCommand):
             )
             return False
 
-    def create_user_skills(self, user, skills_data):
+    def create_user_skills(self, user, skills_data, profile_data):
         skills_created = 0
 
         # Generate skill descriptions templates
@@ -479,17 +481,36 @@ class Command(BaseCommand):
 
             description = random.choice(offer_descriptions).format(skill=skill_title)
 
+            # Improved location and remote logic
+            delivery_type = random.choice(
+                ["online_only", "in_person_only", "both_options", "flexible"]
+            )
+
+            if delivery_type == "online_only":
+                location_choice = "Online"
+                is_remote = True
+            elif delivery_type == "in_person_only":
+                # In-person requires a specific location - use the user's location
+                location_choice = f"{profile_data['city']}, {profile_data['country']}"
+                is_remote = False
+            elif delivery_type == "both_options":
+                # Both options - provide location but also available online
+                location_choice = f"{profile_data['city']}, {profile_data['country']} (also available online)"
+                is_remote = True
+            else:  # flexible
+                # Can adapt to student's preference
+                location_choice = f"Flexible - {profile_data['city']}, {profile_data['country']} or online"
+                is_remote = True
+
             skill = Skill.objects.create(
                 user=user,
                 title=skill_title,
                 description=description,
                 skill_type="offer",
                 category=category,
-                location=random.choice(
-                    ["Online", "In-person", "Both online and in-person", ""]
-                ),
+                location=location_choice,
                 availability=random.choice(availability_options),
-                is_remote=random.choice([True, False]),
+                is_remote=is_remote,
             )
             skills_created += 1
 
@@ -502,17 +523,36 @@ class Command(BaseCommand):
 
             description = random.choice(request_descriptions).format(skill=skill_title)
 
+            # Improved location and remote
+            delivery_type = random.choice(
+                ["online_only", "in_person_only", "both_options", "flexible"]
+            )
+
+            if delivery_type == "online_only":
+                location_choice = "Online"
+                is_remote = True
+            elif delivery_type == "in_person_only":
+                # In-person requires a specific location - use the user's location
+                location_choice = f"{profile_data['city']}, {profile_data['country']}"
+                is_remote = False
+            elif delivery_type == "both_options":
+                # Both options - provide location but also available online
+                location_choice = f"{profile_data['city']}, {profile_data['country']} (also available online)"
+                is_remote = True
+            else:  # flexible
+                # Can adapt to teacher's preference
+                location_choice = f"Flexible - {profile_data['city']}, {profile_data['country']} or online"
+                is_remote = True
+
             skill = Skill.objects.create(
                 user=user,
                 title=skill_title,
                 description=description,
                 skill_type="request",
                 category=category,
-                location=random.choice(
-                    ["Online", "In-person", "Both online and in-person", ""]
-                ),
+                location=location_choice,
                 availability=random.choice(availability_options),
-                is_remote=random.choice([True, False]),
+                is_remote=is_remote,
             )
             skills_created += 1
 
