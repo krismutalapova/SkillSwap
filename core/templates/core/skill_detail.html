@@ -94,12 +94,10 @@
                         
                         <div class="user-details">
                             <h4 class="user-name">{{ skill.user.get_full_name|default:skill.user.username }}</h4>
-                            {% if skill.user.profile.city and skill.user.profile.country %}
-                                <p class="user-location">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    {{ skill.user.profile.city }}, {{ skill.user.profile.country }}
-                                </p>
-                            {% endif %}
+                            <p class="user-location">
+                                <i class="fas fa-user"></i>
+                                @{{ skill.user.username }}
+                            </p>
                             <p class="member-since">
                                 <i class="fas fa-calendar"></i>
                                 Member since {{ skill.user.date_joined|date:"M Y" }}
