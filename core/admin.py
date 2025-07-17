@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Skill, Rating
+from .models import Profile, Skill, Rating, Message
 
 
 @admin.register(Profile)
@@ -108,3 +108,35 @@ class RatingAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         return super().get_queryset(request).select_related("skill", "user")
+
+
+@admin.register(Message)
+class MessageAdmin(admin.ModelAdmin):
+    list_display = (
+        "sender",
+        "receiver",
+        "skill",
+        "subject",
+        "is_read",
+        "created_at",
+    )
+    list_filter = ("is_read", "created_at")
+    search_fields = (
+        "sender__username",
+        "receiver__username",
+        "subject",
+        "skill__title",
+    )
+    readonly_fields = ("created_at",)
+
+    fieldsets = (
+        ("Message Information", {"fields": ("sender", "receiver", "skill")}),
+        ("Content", {"fields": ("subject", "message")}),
+        ("Status", {"fields": ("is_read",)}),
+        ("Timestamp", {"fields": ("created_at",), "classes": ("collapse",)}),
+    )
+
+    def get_queryset(self, request):
+        return (
+            super().get_queryset(request).select_related("sender", "receiver", "skill")
+        )
