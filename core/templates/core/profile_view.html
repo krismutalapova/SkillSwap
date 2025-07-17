@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<div style="max-width: 1000px; margin: 0 auto; padding: 20px;">
+<div class="container">
     <!-- Popup Notifications -->
     <style>
         .popup-notification {
@@ -191,155 +192,875 @@
         </div>
     {% endif %}
 
-    <!-- Basic Info & About Me -->
-    <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); margin-bottom: 20px;">
-        <h2 style="text-align: center; margin: 0 0 20px 0; color: #333;">
+    <div class="user-detail-card">
+        <!-- User Header -->
+        <div class="user-header">
+            <div class="user-meta">
+                <div class="member-since">
+                    <i class="fas fa-calendar-alt"></i>
+                    Member since {{ profile.user.date_joined|date:"M Y" }}
+                </div>
+                <div class="user-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    {% if profile.city and profile.country %}
+                        {{ profile.city }}, {{ profile.country }}
+                    {% else %}
+                        Location not specified
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- User Name -->
+        <h1 class="user-name">
             {% if profile.user.first_name and profile.user.last_name %}
                 {{ profile.user.first_name }} {{ profile.user.last_name }}
-                <small style="color: #666; font-size: 14px; display: block; margin-top: 5px;">@{{ profile.user.username }}</small>
             {% else %}
                 {{ profile.user.username }}
             {% endif %}
-        </h2>
-        
-        <div style="display: flex; gap: 20px; align-items: flex-start;">
-            <div style="flex-shrink: 0; position: relative;">
-                <a href="{% url 'profile_edit' %}" style="text-decoration: none; display: block; position: relative;" title="Click to edit profile">
-                    {% if profile.profile_picture %}
-                        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #667eea; transition: all 0.3s ease; cursor: pointer;">
-                    {% else %}
-                        <div style="width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%); display: flex; align-items: center; justify-content: center; border: 3px solid #667eea; transition: all 0.3s ease; cursor: pointer;">
-                            <i class="fas fa-user" style="font-size: 60px; color: #999;"></i>
-                        </div>
-                    {% endif %}
-                    <div style="position: absolute; top: 0; left: 0; width: 150px; height: 150px; border-radius: 50%; background: rgba(102, 126, 234, 0.8); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; color: white; font-weight: bold; font-size: 14px; text-align: center; flex-direction: column;">
-                        <i class="fas fa-edit" style="font-size: 24px; margin-bottom: 5px;"></i>
-                        <span>Edit Profile</span>
+            <span style="color: #667eea; font-size: 18px; font-weight: 500; margin-left: 8px;">(You)</span>
+        </h1>
+
+        <!-- User Info Grid -->
+        <div class="user-info-grid">
+            <div class="user-content">
+                <div class="description-section">
+                    <h3><i class="fas fa-user-circle"></i> About Me</h3>
+                    <div class="description-content">
+                        {% if profile.bio %}
+                            {{ profile.bio|linebreaks }}
+                        {% else %}
+                            <em style="color: #999;">You haven't written about yourself yet. <a href="{% url 'profile_edit' %}">Add a bio</a></em>
+                        {% endif %}
                     </div>
-                </a>
-                <style>
-                    a[title="Click to edit profile"]:hover div:last-child {
-                        opacity: 1;
-                    }
-                    a[title="Click to edit profile"]:hover img,
-                    a[title="Click to edit profile"]:hover > div:first-child {
-                        transform: scale(1.05);
-                        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-                    }
-                    
-                    .skill-action-btn:hover {
-                        background: rgba(255,255,255,0.3) !important;
-                        transform: translateY(-2px);
-                        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-                    }
-                </style>
-            </div>
-            
-            <div style="flex: 1;">
-                <div style="margin-bottom: 15px;">
-                    {% if profile.user.first_name and profile.user.last_name %}
-                        <strong style="color: #17a2b8;">Full Name:</strong> {{ profile.user.first_name }} {{ profile.user.last_name }}<br>
-                    {% endif %}
-                    <strong style="color: #17a2b8;">Username:</strong> {{ profile.user.username }}<br>
-                    <strong style="color: #17a2b8;">City:</strong> 
-                    {% if profile.city %}
-                        {{ profile.city }}
-                    {% else %}
-                        <span style="color: #999;">Not specified</span>
-                    {% endif %}<br>
-                    <strong style="color: #17a2b8;">Country:</strong> 
-                    {% if profile.country %}
-                        {{ profile.country }}
-                    {% else %}
-                        <span style="color: #999;">Not specified</span>
-                    {% endif %}<br>
-                    <strong style="color: #17a2b8;">Gender:</strong> 
-                    {% if profile.gender %}
-                        {{ profile.get_gender_display }}
-                    {% else %}
-                        <span style="color: #999;">Not specified</span>
-                    {% endif %}
+                </div>
+
+                <div class="details-section">
+                    <h3><i class="fas fa-info-circle"></i> Profile Details</h3>
+                    <div class="details-grid">
+                        {% if profile.gender %}
+                            <div class="detail-item">
+                                <div class="detail-label">
+                                    <i class="fas fa-venus-mars"></i> Gender
+                                </div>
+                                <div class="detail-value">{{ profile.get_gender_display }}</div>
+                            </div>
+                        {% endif %}
+
+                        <div class="detail-item">
+                            <div class="detail-label">
+                                <i class="fas fa-calendar-plus"></i> Joined
+                            </div>
+                            <div class="detail-value">{{ profile.user.date_joined|date:"M d, Y" }}</div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-label">
+                                <i class="fas fa-star"></i> Overall Rating
+                            </div>
+                            <div class="detail-value">
+                                {% if profile.overall_rating > 0 %}
+                                    <span class="rating-stars">
+                                        {% for i in "12345" %}
+                                            {% if forloop.counter <= profile.overall_rating|floatformat:0 %}
+                                                <i class="fas fa-star" style="color: #ffc107;"></i>
+                                            {% else %}
+                                                <i class="far fa-star" style="color: #dee2e6;"></i>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </span>
+                                    <span style="margin-left: 8px; color: #6c757d;">{{ profile.overall_rating|floatformat:1 }}/5</span>
+                                {% else %}
+                                    <span style="color: #6c757d;">No ratings yet</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div style="margin-top: 20px;">
-            <h3 style="color: #17a2b8; margin-bottom: 15px;">About me:</h3>
-            <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 60px;">
-                {% if profile.bio %}
-                    {{ profile.bio }}
-                {% else %}
-                    <em style="color: #999;">No bio provided yet.</em>
-                {% endif %}
+            <!-- User Photo Sidebar -->
+            <div class="user-sidebar">
+                <div class="user-card">
+                    <div class="user-info">
+                        {% if profile.profile_picture %}
+                            <img src="{{ profile.profile_picture.url }}" 
+                                 alt="{{ profile.user.get_full_name|default:profile.user.username }}" 
+                                 class="user-avatar">
+                        {% else %}
+                            <div class="user-avatar-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="user-details">
+                            <h4 class="user-name-small">
+                                {% if profile.user.first_name and profile.user.last_name %}
+                                    {{ profile.user.first_name }} {{ profile.user.last_name }}
+                                {% else %}
+                                    {{ profile.user.username }}
+                                {% endif %}
+                            </h4>
+                            <p class="user-username-small">
+                                <i class="fas fa-user"></i>
+                                @{{ profile.user.username }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="contact-section">
+                        <a href="{% url 'profile_edit' %}" class="contact-btn" style="text-decoration: none;">
+                            <i class="fas fa-edit"></i> Edit Profile
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Profile Stats -->
+                <div class="meta-info">
+                    <div class="meta-item">
+                        <i class="fas fa-handshake"></i>
+                        <span>{{ offered_skills.count }} skills offered</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-search"></i>
+                        <span>{{ requested_skills.count }} skills requested</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Skills & Feedback -->
-    <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
-        <a href="{% url 'my_skills' %}" class="skill-management" style="
-            display: block;
-            background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            margin-bottom: 20px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.3rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
-            border: none;
-            cursor: pointer;
-        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 123, 255, 0.4)'; this.style.backgroundImage='linear-gradient(109.6deg,  rgba(68,34,102,1) 11.2%, rgba(34,102,153,1) 100.1% )';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0, 123, 255, 0.3)'; this.style.backgroundImage='linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% )';">
-            <i class="fas fa-tools" style="margin-right: 10px; font-size: 1.4rem;"></i> Manage My Skills
-        </a>
-
-        <div style="margin-bottom: 20px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <h3 style="color: #17a2b8; margin: 0;">Skills I need help with:</h3>
-            </div>
-            <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 80px;">
-                {% if profile.skills_needed %}
-                    {{ profile.skills_needed }}
-                {% else %}
-                    <em style="color: #999;">No skills specified yet. <a href="{% url 'skill_create' %}?type=request">Add your first skill request</a></em>
-                {% endif %}
-            </div>
+    <!-- User Skills -->
+    <div class="user-skills">
+        <div class="skills-header">
+            <h3><i class="fas fa-tools"></i> My Skills</h3>
+            <a href="{% url 'skill_create' %}" class="add-skill-btn">
+                <i class="fas fa-plus"></i> Add New Skill
+            </a>
         </div>
-
-        <div style="margin-bottom: 20px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <h3 style="color: #17a2b8; margin: 0;">Skills I can help with:</h3>
-            </div>
-            <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 80px;">
-                {% if profile.skills_offered %}
-                    {{ profile.skills_offered }}
-                {% else %}
-                    <em style="color: #999;">No skills specified yet. <a href="{% url 'skill_create' %}?type=offer">Add your first skill offering</a></em>
-                {% endif %}
-            </div>
-        </div>
-
-        <div>
-            <h3 style="color: #17a2b8; margin-bottom: 15px;">Feedback received</h3>
-            <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px;">
-                <div style="margin-bottom: 10px;">
-                    <strong>Overall</strong>
-                    <div style="color: #ffc107; font-size: 18px;">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+        
+        <div class="skills-sections">
+            <!-- Skills Offered -->
+            {% if offered_skills %}
+                <div class="skills-section">
+                    <h4><i class="fas fa-hand-holding-heart"></i> Skills I Offer</h4>
+                    <div class="skills-grid">
+                        {% for skill in offered_skills %}
+                            <div class="skill-card mini offer">
+                                <a href="{% url 'skill_detail' skill.pk %}" class="skill-card-clickable-area">
+                                    <div class="skill-content">
+                                        <div class="skill-type offer">
+                                            <i class="fas fa-hand-holding-heart"></i>
+                                            {{ skill.get_skill_type_display }}
+                                        </div>
+                                        <h5>{{ skill.title }}</h5>
+                                        <p>{{ skill.description|truncatewords:15 }}</p>
+                                    </div>
+                                    <div class="skill-meta">
+                                        <div class="category">{{ skill.get_category_display }}</div>
+                                        {% if skill.is_remote %}
+                                            <div class="remote-tag">
+                                                <i class="fas fa-wifi"></i> Remote Available
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </a>
+                                
+                                <div class="skill-actions">
+                                    <a href="{% url 'skill_detail' skill.pk %}" class="action-btn view">
+                                        <i class="fas fa-eye"></i> View
+                                    </a>
+                                    <a href="{% url 'skill_edit' skill.pk %}?next=profile_view" class="action-btn edit">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <a href="{% url 'skill_delete' skill.pk %}" class="action-btn delete">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
-                <div style="color: #666; font-size: 14px;">
-                    <strong>Completed SkillSwaps:</strong> 0
+            {% endif %}
+
+            <!-- Skills Requested -->
+            {% if requested_skills %}
+                <div class="skills-section">
+                    <h4><i class="fas fa-search"></i> Skills I Need</h4>
+                    <div class="skills-grid">
+                        {% for skill in requested_skills %}
+                            <div class="skill-card mini request">
+                                <a href="{% url 'skill_detail' skill.pk %}" class="skill-card-clickable-area">
+                                    <div class="skill-content">
+                                        <div class="skill-type request">
+                                            <i class="fas fa-search"></i>
+                                            {{ skill.get_skill_type_display }}
+                                        </div>
+                                        <h5>{{ skill.title }}</h5>
+                                        <p>{{ skill.description|truncatewords:15 }}</p>
+                                    </div>
+                                    <div class="skill-meta">
+                                        <div class="category">{{ skill.get_category_display }}</div>
+                                        {% if skill.is_remote %}
+                                            <div class="remote-tag">
+                                                <i class="fas fa-wifi"></i> Remote Available
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </a>
+                                
+                                <div class="skill-actions">
+                                    <a href="{% url 'skill_detail' skill.pk %}" class="action-btn view">
+                                        <i class="fas fa-eye"></i> View
+                                    </a>
+                                    <a href="{% url 'skill_edit' skill.pk %}?next=profile_view" class="action-btn edit">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <a href="{% url 'skill_delete' skill.pk %}" class="action-btn delete">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
+            {% endif %}
+
+            {% if not offered_skills and not requested_skills %}
+                <div class="no-skills">
+                    <div class="no-skills-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <p>You haven't added any skills yet.</p>
+                    <div class="empty-actions">
+                        <a href="{% url 'skill_create' %}?type=offer" class="primary-btn">
+                            <i class="fas fa-plus"></i> Offer a Skill
+                        </a>
+                        <a href="{% url 'skill_create' %}?type=request" class="secondary-btn">
+                            <i class="fas fa-search"></i> Request a Skill
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
         </div>
+    </div>
+
+    <!-- Navigation Actions -->
+    <div class="navigation-actions">
+        <a href="{% url 'search' %}" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Browse
+        </a>
+        <a href="{% url 'my_skills' %}" class="manage-skills-btn">
+            <i class="fas fa-cog"></i> Manage All Skills
+        </a>
     </div>
 </div>
+
+<style>
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .user-detail-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .user-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #f8f9fa;
+    }
+
+    .user-meta {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .member-since,
+    .user-location {
+        padding: 8px 15px;
+        border-radius: 15px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #f8f9fa;
+        color: #495057;
+    }
+
+    .member-since i,
+    .user-location i {
+        color: #667eea;
+    }
+
+    .user-name {
+        color: #333;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 30px;
+        line-height: 1.2;
+    }
+
+    .user-info-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 40px;
+    }
+
+    .user-content h3 {
+        color: #333;
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .user-content h3 i {
+        color: #667eea;
+    }
+
+    .description-section {
+        margin-bottom: 30px;
+    }
+
+    .description-content {
+        color: #555;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        border-left: 4px solid #667eea;
+    }
+
+    .details-section h3 {
+        margin-bottom: 20px;
+    }
+
+    .details-grid {
+        display: grid;
+        gap: 15px;
+    }
+
+    .detail-item {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 15px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        border-left: 3px solid #667eea;
+    }
+
+    .detail-label {
+        font-weight: 600;
+        color: #495057;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .detail-label i {
+        color: #667eea;
+        width: 16px;
+    }
+
+    .detail-value {
+        color: #333;
+    }
+
+    .user-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .user-card {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 25px;
+        border: 2px solid #e9ecef;
+    }
+
+    .user-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .user-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+        border: 3px solid #667eea;
+    }
+
+    .user-avatar-placeholder {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+
+    .user-name-small {
+        color: #333;
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .user-username-small {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .contact-section {
+        text-align: center;
+    }
+
+    .contact-btn {
+        background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .contact-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .meta-info {
+        background: #e9ecef;
+        border-radius: 10px;
+        padding: 15px;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+    }
+
+    .meta-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .meta-item i {
+        color: #667eea;
+        width: 16px;
+    }
+
+    .user-skills {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .skills-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .skills-header h3 {
+        color: #333;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .skills-header h3 i {
+        color: #667eea;
+    }
+
+    .add-skill-btn {
+        background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+        color: white;
+        padding: 10px 20px;
+        border-radius: 15px;
+        text-decoration: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .add-skill-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .skills-sections {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .skills-section h4 {
+        color: #333;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.2rem;
+    }
+
+    .skills-section h4 i {
+        color: #667eea;
+    }
+
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+        align-items: start;
+    }
+
+    /* Responsive grid adjustments */
+    @media (min-width: 1200px) {
+        .skills-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 1199px) {
+        .skills-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .skill-card-clickable-area {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        flex: 1;
+    }
+
+    .skill-card.mini {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 20px;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+        position: relative;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .skill-card-clickable-area:hover ~ .skill-actions,
+    .skill-card.mini:hover {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        border-color: #667eea;
+    }
+
+    .skill-card.mini .skill-type {
+        padding: 6px 12px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 10px;
+        width: fit-content;
+    }
+
+    .skill-card.mini .skill-type.offer {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+    }
+
+    .skill-card.mini .skill-type.request {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        color: white;
+    }
+
+    .skill-card.mini h5 {
+        margin: 0 0 10px 0;
+        font-size: 1.1rem;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .skill-card-clickable-area:hover h5 {
+        color: #667eea;
+    }
+
+    .skill-card.mini p {
+        color: #666;
+        margin-bottom: 15px;
+        line-height: 1.5;
+        font-size: 0.9rem;
+    }
+
+    .skill-card.mini .category {
+        background: #667eea;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 10px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        display: inline-block;
+        margin-bottom: 10px;
+        margin-top: auto;
+    }
+
+    .skill-card.mini .skill-meta {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .skill-card.mini .skill-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .remote-tag {
+        background: rgba(40, 167, 69, 0.1);
+        color: #28a745;
+        padding: 4px 8px;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .skill-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #e9ecef;
+    }
+
+    .action-btn {
+        flex: 1;
+        padding: 8px 12px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-align: center;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    .action-btn.view {
+        background: #667eea;
+        color: white;
+    }
+
+    .action-btn.edit {
+        background: #ffc107;
+        color: #212529;
+    }
+
+    .action-btn.delete {
+        background: #dc3545;
+        color: white;
+    }
+
+    .action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .no-skills {
+        text-align: center;
+        padding: 40px;
+        color: #6c757d;
+    }
+
+    .no-skills-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        color: #dee2e6;
+    }
+
+    .empty-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+        padding: 12px 25px;
+        border-radius: 15px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .primary-btn {
+        background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+        color: white;
+    }
+
+    .secondary-btn {
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        border: 2px solid #667eea;
+    }
+
+    .primary-btn:hover,
+    .secondary-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .secondary-btn:hover {
+        background: #667eea;
+        color: white;
+    }
+
+    .navigation-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .back-btn,
+    .manage-skills-btn {
+        padding: 12px 25px;
+        border-radius: 15px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-btn {
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        border: 2px solid #667eea;
+    }
+
+    .manage-skills-btn {
+        background-image: linear-gradient(109.6deg,  rgba(102,51,153,1) 11.2%, rgba(69,179,224,1) 100.1% );
+        color: white;
+    }
+
+    .back-btn:hover,
+    .manage-skills-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .back-btn:hover {
+        background: #667eea;
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        .user-info-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .user-name {
+            font-size: 2rem;
+        }
+
+        .detail-item {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .navigation-actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .back-btn,
+        .manage-skills-btn {
+            text-align: center;
+            justify-content: center;
+        }
+
+        .skills-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .skills-header {
+            flex-direction: column;
+            gap: 15px;
+            align-items: stretch;
+        }
+
+        .add-skill-btn {
+            justify-content: center;
+        }
+    }
+</style>
 {% endblock %}

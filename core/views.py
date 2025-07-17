@@ -73,6 +73,9 @@ def profile_view(request, user_id=None):
     else:
         profile = get_object_or_404(Profile, user=request.user)
 
+        offered_skills = Skill.objects.filter(user=request.user, skill_type="offer")
+        requested_skills = Skill.objects.filter(user=request.user, skill_type="request")
+
         context = {
             "profile": profile,
             "completion_percentage": profile.completion_percentage,
@@ -82,6 +85,8 @@ def profile_view(request, user_id=None):
             "missing_skills_only": profile.missing_skills_only,
             "completion_status_type": profile.completion_status_type,
             "is_own_profile": True,
+            "offered_skills": offered_skills,
+            "requested_skills": requested_skills,
         }
         return render(request, "core/profile_view.html", context)
 
