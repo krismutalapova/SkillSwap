@@ -28,6 +28,9 @@
             {% else %}
                 {{ profile.user.username }}
             {% endif %}
+            {% if is_own_profile %}
+                <span style="color: #667eea; font-size: 18px; font-weight: 500; margin-left: 8px;">(You)</span>
+            {% endif %}
         </h1>
 
         <!-- User Info Grid -->
@@ -95,19 +98,23 @@
                                     {{ profile.user.username }}
                                 {% endif %}
                             </h4>
-                            {% if profile.city and profile.country %}
-                                <p class="user-location-small">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    {{ profile.city }}, {{ profile.country }}
-                                </p>
-                            {% endif %}
+                            <p class="user-location-small">
+                                <i class="fas fa-user"></i>
+                                @{{ profile.user.username }}
+                            </p>
                         </div>
                     </div>
 
                     <div class="contact-section">
-                        <button class="contact-btn" onclick="showContactForm()">
-                            <i class="fas fa-envelope"></i> Message {{ profile.user.first_name|default:"User" }}
-                        </button>
+                        {% if is_own_profile %}
+                            <a href="{% url 'profile_edit' %}" class="contact-btn" style="text-decoration: none;">
+                                <i class="fas fa-edit"></i> Edit Profile
+                            </a>
+                        {% else %}
+                            <button class="contact-btn" onclick="showContactForm()">
+                                <i class="fas fa-envelope"></i> Message {{ profile.user.first_name|default:"User" }}
+                            </button>
+                        {% endif %}
                     </div>
                 </div>
 
