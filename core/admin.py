@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Skill
+from .models import Profile, Skill, Rating
 
 
 @admin.register(Profile)
@@ -80,3 +80,31 @@ class SkillAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         return super().get_queryset(request).select_related("user")
+
+
+@admin.register(Rating)
+class RatingAdmin(admin.ModelAdmin):
+    list_display = (
+        "skill",
+        "user",
+        "rating",
+        "created_at",
+    )
+    list_filter = ("rating", "created_at", "skill__skill_type", "skill__category")
+    search_fields = (
+        "skill__title",
+        "user__username",
+        "user__first_name",
+        "user__last_name",
+        "comment",
+    )
+    readonly_fields = ("created_at",)
+
+    fieldsets = (
+        ("Rating Information", {"fields": ("skill", "user", "rating")}),
+        ("Comment", {"fields": ("comment",)}),
+        ("Timestamp", {"fields": ("created_at",), "classes": ("collapse",)}),
+    )
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related("skill", "user")
