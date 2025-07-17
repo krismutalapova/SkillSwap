@@ -15,6 +15,11 @@ from .views import (
     skill_edit,
     skill_delete,
     my_skills,
+    send_message,
+    inbox,
+    sent_messages,
+    view_message,
+    rate_skill,
 )
 
 
@@ -49,6 +54,14 @@ urlpatterns = [
     path("skills/<int:pk>/edit/", skill_edit, name="skill_edit"),
     path("skills/<int:pk>/delete/", skill_delete, name="skill_delete"),
     path("my-skills/", my_skills, name="my_skills"),
+    # Messaging URLs
+    path("skills/<int:skill_id>/message/", send_message, name="send_message"),
+    path("message/<int:user_id>/", send_message, name="send_message_to_user"),
+    path("inbox/", inbox, name="inbox"),
+    path("sent/", sent_messages, name="sent_messages"),
+    path("messages/<int:message_id>/", view_message, name="view_message"),
+    # Rating URLs
+    path("skills/<int:skill_id>/rate/", rate_skill, name="rate_skill"),
     # Test URLs
     path("test-404/", lambda request: render(request, "404.html"), name="test_404"),
     path("test-500/", lambda request: render(request, "500.html"), name="test_500"),

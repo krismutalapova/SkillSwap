@@ -6,8 +6,15 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q
-from .forms import ProfileForm, CustomUserCreationForm, NameCompletionForm, SkillForm
-from .models import Profile, Skill
+from .forms import (
+    ProfileForm,
+    CustomUserCreationForm,
+    NameCompletionForm,
+    SkillForm,
+    MessageForm,
+    RatingForm,
+)
+from .models import Profile, Skill, Message, Rating
 
 
 def home(request):
@@ -366,3 +373,146 @@ def my_skills(request):
     }
 
     return render(request, "core/my_skills.html", context)
+
+
+# Messaging Views
+
+
+@login_required
+def send_message(request, skill_id=None, user_id=None):
+    skill = None
+    receiver = None
+
+    if skill_id:
+        # Skill-specific message
+        skill = get_object_or_404(Skill, id=skill_id)
+        receiver = skill.user
+        redirect_url = "skill_detail"
+        redirect_kwargs = {"pk": skill.id}
+    elif user_id:
+        # General message to user
+        receiver = get_object_or_404(User, id=user_id)
+        redirect_url = "public_profile_view"
+        redirect_kwargs = {"user_id": user_id}
+    else:
+        messages.error(request, "Invalid message request.")
+        return redirect("home")
+
+    if receiver == request.user:
+        messages.error(request, "You cannot send a message to yourself.")
+        return redirect(redirect_url, **redirect_kwargs)
+
+    if request.method == "POST":
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = request.user
+            message.receiver = receiver
+            if skill:
+                message.skill = skill
+            message.save()
+
+            messages.success(request, f"Message sent to {receiver.first_name}!")
+            return redirect(redirect_url, **redirect_kwargs)
+    else:
+        if skill:
+            initial_subject = f"Interested in: {skill.title}"
+        else:
+            initial_subject = f"Message from {request.user.first_name}"
+        form = MessageForm(initial={"subject": initial_subject})
+
+    context = {
+        "form": form,
+        "skill": skill,
+        "receiver": receiver,
+    }
+    return render(request, "core/send_message.html", context)
+
+
+@login_required
+def inbox(request):
+    received_messages = Message.objects.filter(receiver=request.user).order_by(
+        "-created_at"
+    )
+
+    # Pagination
+    paginator = Paginator(received_messages, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        "messages": page_obj,
+        "unread_count": received_messages.filter(is_read=False).count(),
+    }
+    return render(request, "core/inbox.html", context)
+
+
+@login_required
+def sent_messages(request):
+    sent_messages = Message.objects.filter(sender=request.user).order_by("-created_at")
+
+    # Pagination
+    paginator = Paginator(sent_messages, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        "messages": page_obj,
+    }
+    return render(request, "core/sent_messages.html", context)
+
+
+@login_required
+def view_message(request, message_id):
+    """View a specific message"""
+    message = get_object_or_404(Message, id=message_id)
+
+    # Check if user is sender or receiver
+    if message.sender != request.user and message.receiver != request.user:
+        messages.error(request, "You don't have permission to view this message.")
+        return redirect("inbox")
+
+    # Mark as read if user is the receiver
+    if message.receiver == request.user and not message.is_read:
+        message.is_read = True
+        message.save()
+
+    context = {
+        "message": message,
+    }
+    return render(request, "core/view_message.html", context)
+
+
+# Rating Views
+
+
+@login_required
+def rate_skill(request, skill_id):
+    skill = get_object_or_404(Skill, id=skill_id)
+
+    if skill.user == request.user:
+        messages.error(request, "You cannot rate your own skill.")
+        return redirect("skill_detail", pk=skill.id)
+
+    existing_rating = Rating.objects.filter(skill=skill, user=request.user).first()
+
+    if request.method == "POST":
+        form = RatingForm(request.POST, instance=existing_rating)
+        if form.is_valid():
+            rating = form.save(commit=False)
+            rating.skill = skill
+            rating.user = request.user
+            rating.save()
+
+            action = "updated" if existing_rating else "submitted"
+            messages.success(request, f"Rating {action} successfully!")
+            return redirect("skill_detail", pk=skill.id)
+    else:
+        form = RatingForm(instance=existing_rating)
+
+    context = {
+        "form": form,
+        "skill": skill,
+        "existing_rating": existing_rating,
+    }
+    return render(request, "core/rate_skill.html", context)
