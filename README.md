@@ -15,6 +15,7 @@ A Django web platform for skill exchange and learning. Connect with others to te
 
 ## Quick Start
 
+### First Time Setup
 ```bash
 # Setup environment
 python -m venv skillswap_env
@@ -24,8 +25,24 @@ pip install django pillow
 # Initialize database
 python manage.py migrate
 python manage.py createsuperuser
+```
 
-# Run server
+### Development (Convenience Scripts)
+```bash
+# Start development server (auto-activates environment)
+./dev-server.sh
+
+# Run Django commands (auto-activates environment)
+./manage.sh migrate
+./manage.sh createsuperuser
+./manage.sh populate_users --count 15
+./manage.sh sync_profile_skills
+```
+
+### Manual Method
+```bash
+# If you prefer to activate manually
+source skillswap_env/bin/activate
 python manage.py runserver
 ```
 
@@ -44,6 +61,22 @@ skillswap/
 
 ## Commands
 
+### Using Convenience Scripts (Recommended)
+```bash
+# Populate test users
+./manage.sh populate_users --count 15
+
+# Sync profile skills from individual Skill objects
+./manage.sh sync_profile_skills
+
+# Run tests
+python tests/test_popup_messages.py
+
+# Start development server
+./dev-server.sh
+```
+
+### Manual Commands (with virtual environment activated)
 ```bash
 # Populate test users
 python manage.py populate_users --count 15
