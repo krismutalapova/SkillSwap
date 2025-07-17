@@ -137,7 +137,6 @@ def search(request):
     for user in users:
         try:
             profile = user.profile
-            # Include all users with profiles (complete or incomplete)
             users_with_profiles.append({"user": user, "profile": profile})
         except Profile.DoesNotExist:
             continue
@@ -154,6 +153,7 @@ def search(request):
 @login_required
 def skill_create(request):
     next_url = request.GET.get("next", "skill_list")
+    skill_type = request.GET.get("type", "").strip()
 
     if request.method == "POST":
         form = SkillForm(request.POST)
@@ -169,7 +169,11 @@ def skill_create(request):
             )
             return redirect("skill_detail", pk=skill.pk)
     else:
-        form = SkillForm()
+        # Prefill form with skill_type from URL parameter
+        initial_data = {}
+        if skill_type in ["offer", "request"]:
+            initial_data["skill_type"] = skill_type
+        form = SkillForm(initial=initial_data)
 
     context = {
         "form": form,
