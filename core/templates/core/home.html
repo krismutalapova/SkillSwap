@@ -16,75 +16,9 @@
     </div>
 
     <!-- Search Section -->
+     <div class="container">
     {% if user.is_authenticated %}
-    <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.2);">
-        <h3 style="margin: 0 0 20px 0; color: #333; text-align: center; font-size: 1.8em;">
-            <i class="fas fa-search" style="margin-right: 10px; color: #667eea;"></i>
-            Find Skills & SkillSwappers
-        </h3>
-        <p style="text-align: center; color: #666; margin-bottom: 25px;">Search for skills and connect with community members</p>
-        
-        <!-- Filters Section -->
-        <div class="filters-card" style="background: rgba(248, 249, 250, 0.8); border-radius: 15px; padding: 25px; margin-bottom: 20px;">
-            <form method="get" action="{% url 'skill_list' %}" class="filters-form">
-                <div class="filter-row" style="display: flex; gap: 20px; align-items: end; flex-wrap: wrap; margin-bottom: 20px;">
-                    <div class="filter-group" style="flex: 1; min-width: 200px;">
-                        <label for="search" style="display: block; margin-bottom: 5px; font-weight: 600; color: #333;"><i class="fas fa-search"></i> Search:</label>
-                        <input type="text" id="search" name="search" placeholder="Search skills by title or description..." style="width: 100%; padding: 10px 15px; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: border-color 0.3s ease;">
-                    </div>
-                    
-                    <div class="filter-group" style="flex: 1; min-width: 150px;">
-                        <label for="type" style="display: block; margin-bottom: 5px; font-weight: 600; color: #333;"><i class="fas fa-exchange-alt"></i> Type:</label>
-                        <select id="type" name="type" style="width: 100%; padding: 10px 15px; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: border-color 0.3s ease;">
-                            <option value="">All Types</option>
-                            <option value="offer">Skills Offered</option>
-                            <option value="request">Skills Requested</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group" style="flex: 1; min-width: 150px;">
-                        <label for="category" style="display: block; margin-bottom: 5px; font-weight: 600; color: #333;"><i class="fas fa-tag"></i> Category:</label>
-                        <select id="category" name="category" style="width: 100%; padding: 10px 15px; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: border-color 0.3s ease;">
-                            <option value="">All Categories</option>
-                            {% for value, label in categories %}
-                                <option value="{{ value }}">{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                
-                <!-- Additional filters -->
-                <div class="advanced-filters" style="display: flex; gap: 20px; align-items: end; flex-wrap: wrap; margin-bottom: 20px; padding-top: 20px; border-top: 1px solid #e1e5e9;">
-                    <div class="filter-group" style="flex: 1; min-width: 150px;">
-                        <label for="location" style="display: block; margin-bottom: 5px; font-weight: 600; color: #333;"><i class="fas fa-map-marker-alt"></i> Location:</label>
-                        <input type="text" id="location" name="location" placeholder="City or region..." style="width: 100%; padding: 10px 15px; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: border-color 0.3s ease;">
-                    </div>
-                    
-                    <div class="filter-group" style="flex: 1; min-width: 150px;">
-                        <label for="gender" style="display: block; margin-bottom: 5px; font-weight: 600; color: #333;"><i class="fas fa-users"></i> Gender:</label>
-                        <select id="gender" name="gender" style="width: 100%; padding: 10px 15px; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: border-color 0.3s ease;">
-                            <option value="">Any Gender</option>
-                            {% for value, label in gender_choices %}
-                                <option value="{{ value }}">{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                
-                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                    <button type="submit" style="background-image: linear-gradient(to right, #6441a5, #2a0845); color: white; padding: 12px 25px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 220px; text-align: center; height: 50px; font-size: 1rem;">
-                        <i class="fas fa-search"></i> Search Skills
-                    </button>
-                </div>
-            </form>
-        </div>
-        
-        <div style="text-align: center;">
-            <a href="{% url 'search' %}" style="background-image: linear-gradient(117deg, #2C7744 0%, #76b852 100%); color: white; text-decoration: none; padding: 12px 25px; border-radius: 8px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3); min-width: 220px; text-align: center; height: 50px; font-size: 1rem;">
-                <i class="fas fa-users"></i>
-                See All Users
-            </a>
-        </div>
+    {% include 'core/components/skill_filters.html' with search_query=search_query current_type=current_type current_category=current_category current_location=current_location current_gender=current_gender categories=categories gender_choices=gender_choices show_search_button=True show_active_filters=False %}
     </div>
     {% endif %}
 </div>
