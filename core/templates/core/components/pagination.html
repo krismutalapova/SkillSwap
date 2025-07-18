@@ -1,0 +1,40 @@
+{% comment %}
+Pagination Component
+Provides pagination controls for paginated content.
+
+Parameters:
+- page_obj: The page object from Django's paginator
+- base_url: Base URL for pagination links (optional, defaults to current page)
+{% endcomment %}
+
+{% if page_obj.has_other_pages %}
+<div class="pagination-container">
+    <nav class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}{% if request.GET.gender %}&gender={{ request.GET.gender }}{% endif %}" class="page-link">
+                <i class="fas fa-angle-double-left"></i>
+            </a>
+            <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}{% if request.GET.gender %}&gender={{ request.GET.gender }}{% endif %}" class="page-link">
+                <i class="fas fa-angle-left"></i>
+            </a>
+        {% endif %}
+
+        <span class="page-info">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}{% if request.GET.gender %}&gender={{ request.GET.gender }}{% endif %}" class="page-link">
+                <i class="fas fa-angle-right"></i>
+            </a>
+            <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}{% if request.GET.gender %}&gender={{ request.GET.gender }}{% endif %}" class="page-link">
+                <i class="fas fa-angle-double-right"></i>
+            </a>
+        {% endif %}
+    </nav>
+</div>
+
+<div class="results-info">
+    Showing {{ page_obj.start_index }} - {{ page_obj.end_index }} of {{ page_obj.paginator.count }} results
+</div>
+{% endif %}

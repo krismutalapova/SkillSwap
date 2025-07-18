@@ -1,0 +1,73 @@
+{% comment %}
+Skill Card Component
+Displays a skill as a card with consistent styling.
+
+Parameters:
+- skill: The skill object to display
+- show_user: Whether to show user information (default: True)
+- card_class: Additional CSS classes for the card (e.g., "mini")
+{% endcomment %}
+
+{% load rating_extras %}
+
+<a href="{% url 'skill_detail' skill.pk %}" class="skill-card-link">
+    <div class="skill-card {% if card_class %}{{ card_class }}{% endif %}">
+        <div class="skill-header">
+            <h4 class="skill-title">{{ skill.title }}</h4>
+            <span class="skill-type skill-type-{{ skill.skill_type }}">
+                {% if skill.skill_type == 'offer' %}
+                    <i class="fas fa-hand-holding-heart"></i> Offering
+                {% else %}
+                    <i class="fas fa-search"></i> Looking for
+                {% endif %}
+            </span>
+        </div>
+        
+        <div class="skill-content">
+            <p class="skill-description">{{ skill.description|truncatechars:120 }}</p>
+            
+            <div class="skill-meta">
+                <span class="category">
+                    <i class="fas fa-tag"></i>
+                    {{ skill.get_category_display }}
+                </span>
+                
+                {% if skill.average_rating > 0 %}
+                    <div class="rating-display">
+                        {% star_rating skill.average_rating show_value=False show_count=False %}
+                        <span class="rating-text">({{ skill.rating_count }})</span>
+                    </div>
+                {% endif %}
+            </div>
+            
+            {% if show_user %}
+            <div class="skill-user">
+                <i class="fas fa-user"></i>
+                {% if skill.user.first_name and skill.user.last_name %}
+                    {{ skill.user.first_name }} {{ skill.user.last_name }}
+                {% else %}
+                    {{ skill.user.username }}
+                {% endif %}
+                
+                {% if skill.user.profile.city %}
+                    <span class="user-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        {{ skill.user.profile.city }}
+                    </span>
+                {% endif %}
+            </div>
+            {% endif %}
+            
+            <div class="skill-footer">
+                <span class="skill-availability">
+                    <i class="fas fa-clock"></i>
+                    {{ skill.get_availability_display }}
+                </span>
+                <span class="skill-date">
+                    <i class="fas fa-calendar"></i>
+                    {{ skill.created_at|date:"M d" }}
+                </span>
+            </div>
+        </div>
+    </div>
+</a>

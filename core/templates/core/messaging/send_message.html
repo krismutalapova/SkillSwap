@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="message-form-card">
+        <div class="form-header">
+            <h2><i class="fas fa-envelope"></i> Send Message</h2>
+            {% if skill %}
+                <p>Contact {{ receiver.first_name }} {{ receiver.last_name }} about: <strong>{{ skill.title }}</strong></p>
+            {% else %}
+                <p>Send a message to {{ receiver.first_name }} {{ receiver.last_name }}</p>
+            {% endif %}
+        </div>
+
+        <form method="post" class="message-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.subject.id_for_label }}">Subject</label>
+                {{ form.subject }}
+                {% if form.subject.errors %}
+                    <div class="error-messages">
+                        {% for error in form.subject.errors %}
+                            <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.message.id_for_label }}">Message</label>
+                {{ form.message }}
+                {% if form.message.errors %}
+                    <div class="error-messages">
+                        {% for error in form.message.errors %}
+                            <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+                {% if skill %}
+                    <a href="{% url 'skill_detail' pk=skill.id %}" class="btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                {% else %}
+                    <a href="{% url 'public_profile_view' user_id=receiver.id %}" class="btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .message-form-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .form-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .form-header h2 {
+        color: #333;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .form-header h2 i {
+        color: #667eea;
+    }
+
+    .form-header p {
+        color: #6c757d;
+        margin: 0;
+    }
+
+    .message-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        color: #333;
+    }
+
+    .form-control {
+        padding: 12px 15px;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.9);
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .error-messages {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .error {
+        color: #dc3545;
+        font-size: 0.875rem;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: 12px 25px;
+        border-radius: 15px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+        background-image: linear-gradient(to right, #6441a5, #2a0845);
+        color: white;
+    }
+
+    .btn-secondary {
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        border: 2px solid #667eea;
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-secondary:hover {
+        background: #667eea;
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 15px;
+        }
+
+        .message-form-card {
+            padding: 25px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+{% endblock %}

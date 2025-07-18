@@ -1,0 +1,114 @@
+{% comment %}
+Skill Filter Component
+Provides a unified filter form for skills with search, type, category, location, and gender filters.
+
+Parameters:
+- action_url: Where the form should submit (default: skill_list)
+- search_query: Current search term
+- current_type: Currently selected skill type
+- current_category: Currently selected category
+- current_location: Currently selected location
+- current_gender: Currently selected gender
+- categories: List of category choices
+- gender_choices: List of gender choices
+- show_search_button: Whether to show the search button (default: True)
+- show_active_filters: Whether to show active filters section (default: True)
+- no_card_wrapper: If True, don't wrap in filters-card div (for when parent has styling)
+{% endcomment %}
+
+{% load core_extras %}
+
+{% if not no_card_wrapper %}
+<div class="filters-card">
+{% endif %}
+    <form method="get" action="{% if action_url %}{% url action_url %}{% else %}{% url 'skill_list' %}{% endif %}" class="filters-form">
+        <div class="filter-row">
+            <div class="filter-group">
+                <label for="search"><i class="fas fa-search"></i> Search:</label>
+                <input type="text" id="search" name="search" 
+                       value="{% if search_query and search_query != 'None' %}{{ search_query }}{% endif %}" 
+                       placeholder="Search skills by title or description...">
+            </div>
+            
+            <div class="filter-group">
+                <label for="type"><i class="fas fa-exchange-alt"></i> Type:</label>
+                <select id="type" name="type">
+                    <option value="">All Types</option>
+                    <option value="offer" {% if current_type == 'offer' %}selected{% endif %}>Skills Offered</option>
+                    <option value="request" {% if current_type == 'request' %}selected{% endif %}>Skills Requested</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="category"><i class="fas fa-tag"></i> Category:</label>
+                <select id="category" name="category">
+                    <option value="">All Categories</option>
+                    {% for value, label in categories %}
+                        <option value="{{ value }}" {% if current_category == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        
+        <div class="filter-row">
+            <div class="filter-group">
+                <label for="location"><i class="fas fa-map-marker-alt"></i> Location:</label>
+                <input type="text" id="location" name="location" 
+                       value="{% if current_location and current_location != 'None' %}{{ current_location }}{% endif %}" 
+                       placeholder="City or region...">
+            </div>
+            
+            <div class="filter-group">
+                <label for="gender"><i class="fas fa-users"></i> Gender:</label>
+                <select id="gender" name="gender">
+                    <option value="">Any Gender</option>
+                    {% for value, label in gender_choices %}
+                        <option value="{{ value }}" {% if current_gender == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            {% if show_search_button %}
+            <div class="filter-group">
+                <label>&nbsp;</label>
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+            {% else %}
+            <div class="filter-group">
+                <label>&nbsp;</label>
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-filter"></i> Filter
+                </button>
+            </div>
+            {% endif %}
+        </div>
+    </form>
+    
+    {% if show_active_filters != False and search_query or current_type or current_category or current_location or current_gender %}
+        <div class="active-filters">
+            <span class="filter-label">Active filters:</span>
+            {% if search_query %}
+                <span class="filter-tag">Search: "{{ search_query }}"</span>
+            {% endif %}
+            {% if current_type %}
+                <span class="filter-tag">Type: {% if current_type == 'offer' %}Offered{% else %}Requested{% endif %}</span>
+            {% endif %}
+            {% if current_category %}
+                <span class="filter-tag">Category: {{ categories|get_category_name:current_category }}</span>
+            {% endif %}
+            {% if current_location %}
+                <span class="filter-tag">Location: "{{ current_location }}"</span>
+            {% endif %}
+            {% if current_gender %}
+                <span class="filter-tag">Gender: {% if current_gender == 'M' %}Male{% elif current_gender == 'F' %}Female{% else %}{{ current_gender }}{% endif %}</span>
+            {% endif %}
+            <a href="{% if action_url %}{% url action_url %}{% else %}{% url 'skill_list' %}{% endif %}" class="clear-filters">
+                <i class="fas fa-times"></i> Clear all
+            </a>
+        </div>
+    {% endif %}
+{% if not no_card_wrapper %}
+</div>
+{% endif %}

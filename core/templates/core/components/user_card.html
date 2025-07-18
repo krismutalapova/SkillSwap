@@ -1,0 +1,97 @@
+{% comment %}
+User Card Component
+Displays a user profile as a card with consistent styling.
+
+Parameters:
+- profile: The user profile to display
+- show_skills: Whether to show user skills (default: True)
+- show_contact_button: Whether to show contact button (default: False)
+{% endcomment %}
+
+{% load rating_extras %}
+
+<div class="user-card">
+    <div class="user-header">
+        {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
+        {% else %}
+            <div class="profile-pic-placeholder">
+                <i class="fas fa-user"></i>
+            </div>
+        {% endif %}
+        
+        <div class="user-info">
+            <h4 class="user-name">
+                {% if profile.user.first_name and profile.user.last_name %}
+                    {{ profile.user.first_name }} {{ profile.user.last_name }}
+                {% else %}
+                    {{ profile.user.username }}
+                {% endif %}
+            </h4>
+            
+            {% if profile.city and profile.country %}
+                <p class="user-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{ profile.city }}, {{ profile.country }}
+                </p>
+            {% endif %}
+            
+            {% if profile.overall_rating > 0 %}
+                <div class="user-rating">
+                    {% star_rating profile.overall_rating show_value=False show_count=False %}
+                    <span class="rating-text">({{ profile.total_ratings }})</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    {% if profile.bio %}
+        <div class="user-bio">
+            <p>{{ profile.bio|truncatechars:150 }}</p>
+        </div>
+    {% endif %}
+    
+    {% if show_skills %}
+        <div class="user-skills">
+            {% if profile.skills_offered.exists %}
+                <div class="skills-section">
+                    <h6><i class="fas fa-hand-holding-heart"></i> Offers</h6>
+                    <div class="skills-list">
+                        {% for skill in profile.skills_offered.all|slice:":3" %}
+                            <span class="skill-tag skill-offer">{{ skill.title }}</span>
+                        {% endfor %}
+                        {% if profile.skills_offered.count > 3 %}
+                            <span class="skill-tag more">+{{ profile.skills_offered.count|add:"-3" }} more</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            
+            {% if profile.skills_needed.exists %}
+                <div class="skills-section">
+                    <h6><i class="fas fa-search"></i> Looking for</h6>
+                    <div class="skills-list">
+                        {% for skill in profile.skills_needed.all|slice:":3" %}
+                            <span class="skill-tag skill-request">{{ skill.title }}</span>
+                        {% endfor %}
+                        {% if profile.skills_needed.count > 3 %}
+                            <span class="skill-tag more">+{{ profile.skills_needed.count|add:"-3" }} more</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+    
+    <div class="user-footer">
+        <a href="{% url 'public_profile_view' profile.user.username %}" class="profile-link">
+            <i class="fas fa-eye"></i> View Profile
+        </a>
+        
+        {% if show_contact_button and user.is_authenticated and user != profile.user %}
+            <a href="{% url 'send_message' profile.user.username %}" class="contact-btn">
+                <i class="fas fa-envelope"></i> Contact
+            </a>
+        {% endif %}
+    </div>
+</div>

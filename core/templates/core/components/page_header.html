@@ -1,0 +1,29 @@
+{% comment %}
+Page Header Component
+Provides a consistent page header with title, subtitle, and optional actions.
+
+Parameters:
+- title: Page title
+- subtitle: Optional subtitle text
+- icon: Optional FontAwesome icon class
+- actions: Optional list of action buttons/links
+{% endcomment %}
+
+<div class="page-header">
+    <div class="header-content">
+        <h1 class="page-title">
+            {% if icon %}<i class="{{ icon }}"></i>{% endif %}
+            {{ title }}
+        </h1>
+        
+        {% if subtitle %}
+            <p class="page-subtitle">{{ subtitle }}</p>
+        {% endif %}
+    </div>
+    
+    {% if actions %}
+        <div class="header-actions">
+            {{ actions }}
+        </div>
+    {% endif %}
+</div>

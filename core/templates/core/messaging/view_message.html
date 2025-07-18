@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="message-detail-card">
+        <div class="message-header">
+            <div class="message-participants">
+                {% if message.sender == user %}
+                    <h3><i class="fas fa-paper-plane"></i> Message to {{ message.receiver.first_name }} {{ message.receiver.last_name }}</h3>
+                {% else %}
+                    <h3><i class="fas fa-envelope"></i> Message from {{ message.sender.first_name }} {{ message.sender.last_name }}</h3>
+                {% endif %}
+            </div>
+            <div class="message-date">
+                {{ message.created_at|date:"F d, Y" }} at {{ message.created_at|time:"H:i" }}
+            </div>
+        </div>
+
+        {% if message.skill %}
+            <div class="skill-context">
+                <div class="skill-info">
+                    <i class="fas fa-tag"></i>
+                    <span>About skill: <strong>{{ message.skill.title }}</strong></span>
+                    <a href="{% url 'skill_detail' pk=message.skill.id %}" class="view-skill-link">
+                        View Skill <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="message-content">
+            <div class="message-subject">
+                <h4>{{ message.subject }}</h4>
+            </div>
+            <div class="message-body">
+                {{ message.message|linebreaks }}
+            </div>
+        </div>
+
+        {% if message.receiver == user and message.skill %}
+            <div class="message-actions">
+                <a href="{% url 'send_message' skill_id=message.skill.id %}" class="btn-primary">
+                    <i class="fas fa-reply"></i> Reply
+                </a>
+                {% if message.skill.skill_type == "offer" %}
+                    <a href="{% url 'rate_skill' skill_id=message.skill.id %}" class="btn-secondary">
+                        <i class="fas fa-star"></i> Rate Skill
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <div class="navigation-actions">
+            {% if message.sender == user %}
+                <a href="{% url 'sent_messages' %}" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Sent
+                </a>
+            {% else %}
+                <a href="{% url 'inbox' %}" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Inbox
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .message-detail-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .message-header {
+        border-bottom: 2px solid #f8f9fa;
+        padding-bottom: 20px;
+        margin-bottom: 25px;
+    }
+
+    .message-participants h3 {
+        color: #333;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .message-participants h3 i {
+        color: #667eea;
+    }
+
+    .message-date {
+        color: #6c757d;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .skill-context {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(69, 179, 224, 0.1) 100%);
+        border-radius: 15px;
+        padding: 15px 20px;
+        margin-bottom: 25px;
+        border-left: 4px solid #667eea;
+    }
+
+    .skill-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #333;
+        font-weight: 500;
+    }
+
+    .skill-info i {
+        color: #667eea;
+    }
+
+    .view-skill-link {
+        margin-left: auto;
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .view-skill-link:hover {
+        color: #5a6fd8;
+        transform: translateX(2px);
+    }
+
+    .message-content {
+        margin-bottom: 30px;
+    }
+
+    .message-subject h4 {
+        color: #333;
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+        font-weight: 600;
+    }
+
+    .message-body {
+        color: #555;
+        line-height: 1.7;
+        font-size: 1.1rem;
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 15px;
+        border-left: 4px solid #667eea;
+    }
+
+    .message-actions {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 25px;
+        padding-top: 20px;
+        border-top: 2px solid #f8f9fa;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: 12px 20px;
+        border-radius: 15px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+        background-image: linear-gradient(to right, #6441a5, #2a0845);
+        color: white;
+    }
+
+    .btn-secondary {
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        border: 2px solid #667eea;
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-secondary:hover {
+        background: #667eea;
+        color: white;
+    }
+
+    .navigation-actions {
+        display: flex;
+        justify-content: center;
+    }
+
+    .back-btn {
+        padding: 12px 25px;
+        border-radius: 15px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        border: 2px solid #667eea;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        background: #667eea;
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 15px;
+        }
+
+        .message-detail-card {
+            padding: 25px;
+        }
+
+        .message-actions {
+            flex-direction: column;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            justify-content: center;
+        }
+
+        .skill-info {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .view-skill-link {
+            margin-left: 0;
+        }
+    }
+</style>
+{% endblock %}

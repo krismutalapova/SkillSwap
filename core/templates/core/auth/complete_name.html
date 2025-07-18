@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 70vh;">
+    <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 15px; padding: 40px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); max-width: 450px; width: 100%;">
+        <!-- Header -->
+        <div style="text-align: center; margin-bottom: 30px;">
+            <div style="margin-bottom: 20px;">
+                <div style="width: 60px; height: 60px; background-image: linear-gradient(to right, #6441a5, #2a0845); border-radius: 15px; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 28px;">
+                    <i class="fas fa-user-edit"></i>
+                </div>
+                <h1 style="margin: 0; color: #333; font-size: 28px; font-weight: 600;">
+                    <span style="background-image: linear-gradient(to right, #6441a5, #2a0845); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Complete Your Profile</span>
+                </h1>
+            </div>
+            <p style="color: #666; font-size: 16px; margin: 0;">Please add your first and last name to complete your SkillSwap profile. These names will be permanent and cannot be changed later.</p>
+        </div>
+
+        <!-- Error Messages -->
+        {% if form.errors %}
+            <div style="color: #dc3545; margin-bottom: 20px; text-align: left; background: rgba(220, 53, 69, 0.1); padding: 15px; border-radius: 8px; border: 1px solid rgba(220, 53, 69, 0.2);">
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
+                    <strong>Please fix the following errors:</strong>
+                </div>
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        <p style="margin: 5px 0 5px 24px;">
+                            {% if field == 'first_name' %}<strong>First Name:</strong> {% endif %}
+                            {% if field == 'last_name' %}<strong>Last Name:</strong> {% endif %}
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- First Name Field -->
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; color: #333; font-weight: 500;">
+                    <i class="fas fa-id-card" style="margin-right: 8px; color: #667eea;"></i>First Name
+                </label>
+                <input type="text" name="first_name" placeholder="Enter your first name" required 
+                       style="width: 100%; padding: 12px 16px; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 16px; transition: all 0.3s ease; background: #fff;" 
+                       value="{{ form.first_name.value|default:'' }}">
+                <small style="display: block; text-align: left; color: #666; margin-top: 5px; font-size: 14px;">
+                    <i class="fas fa-info-circle" style="margin-right: 5px;"></i>
+                    Your real first name (cannot be changed later)
+                </small>
+            </div>
+
+            <!-- Last Name Field -->
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; margin-bottom: 8px; color: #333; font-weight: 500;">
+                    <i class="fas fa-id-card" style="margin-right: 8px; color: #667eea;"></i>Last Name
+                </label>
+                <input type="text" name="last_name" placeholder="Enter your last name" required 
+                       style="width: 100%; padding: 12px 16px; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 16px; transition: all 0.3s ease; background: #fff;" 
+                       value="{{ form.last_name.value|default:'' }}">
+                <small style="display: block; text-align: left; color: #666; margin-top: 5px; font-size: 14px;">
+                    <i class="fas fa-info-circle" style="margin-right: 5px;"></i>
+                    Your real last name (cannot be changed later)
+                </small>
+            </div>
+
+            <!-- Update Button -->
+            <div style="margin-bottom: 20px;">
+                <button type="submit" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);">
+                    <i class="fas fa-check" style="margin-right: 8px;"></i>
+                    Complete Profile
+                </button>
+            </div>
+        </form>
+        
+        <!-- Skip Option -->
+        <div style="text-align: center;">
+            <p style="color: #666; margin-bottom: 15px; font-size: 14px;">You can also complete this later from your profile</p>
+            <a href="{% url 'profile_view' %}" style="display: inline-block; padding: 10px 20px; background: transparent; color: #666; border: 2px solid #ddd; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">
+                <i class="fas fa-arrow-left" style="margin-right: 8px;"></i>
+                Skip for Now
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Add focus effects to input fields
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputs = document.querySelectorAll('input[type="text"]');
+        
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#667eea';
+                this.style.boxShadow = '0 0 0 3px rgba(102, 126, 234, 0.1)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.style.borderColor = '#e1e5e9';
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // Button hover effects
+        const submitBtn = document.querySelector('button[type="submit"]');
+        if (submitBtn) {
+            submitBtn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 6px 20px rgba(40, 167, 69, 0.4)';
+            });
+            
+            submitBtn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 4px 15px rgba(40, 167, 69, 0.3)';
+            });
+        }
+
+        const skipBtn = document.querySelector('a[href*="profile"]');
+        if (skipBtn) {
+            skipBtn.addEventListener('mouseenter', function() {
+                this.style.borderColor = '#667eea';
+                this.style.color = '#667eea';
+                this.style.transform = 'translateY(-1px)';
+            });
+            
+            skipBtn.addEventListener('mouseleave', function() {
+                this.style.borderColor = '#ddd';
+                this.style.color = '#666';
+                this.style.transform = 'translateY(0)';
+            });
+        }
+    });
+</script>
+{% endblock %}
