@@ -36,7 +36,8 @@ media/
 !*/migrations/__init__.py
 
 # Project documentation
-docs_scripts/
+# Development docs
+docs/
 
 # GitHub config
 .github/
