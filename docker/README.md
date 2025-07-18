@@ -116,7 +116,7 @@ docker-compose up --build
 
 ## Development vs Demo
 
-This Docker setup is optimized for presentations and demos. For development work, continue using your local virtual environment setup with the convenience scripts (`./dev-server.sh`, `./manage.sh`).
+This Docker setup is optimized for presentations and demos. For development work, continue using your local virtual environment setup with the convenience scripts (`dev/dev-server.sh`, `dev/manage.sh`).
 
 ## Technical Details
 
