@@ -43,13 +43,13 @@ def complete_name(request):
     else:
         form = NameCompletionForm(instance=request.user)
 
-    return render(request, "core/complete_name.html", {"form": form})
+    return render(request, "core/auth/complete_name.html", {"form": form})
 
 
 class SignupView(View):
     def get(self, request):
         form = CustomUserCreationForm()
-        return render(request, "core/signup.html", {"form": form})
+        return render(request, "core/auth/signup.html", {"form": form})
 
     def post(self, request):
         form = CustomUserCreationForm(request.POST)
@@ -57,7 +57,7 @@ class SignupView(View):
             user = form.save()
             login(request, user)
             return redirect("profile_view")
-        return render(request, "core/signup.html", {"form": form})
+        return render(request, "core/auth/signup.html", {"form": form})
 
 
 @login_required
@@ -76,7 +76,7 @@ def profile_view(request, user_id=None):
             "offered_skills": offered_skills,
             "requested_skills": requested_skills,
         }
-        return render(request, "core/public_profile_view.html", context)
+        return render(request, "core/profiles/public_profile_view.html", context)
     else:
         profile = get_object_or_404(Profile, user=request.user)
 
@@ -89,7 +89,7 @@ def profile_view(request, user_id=None):
             "offered_skills": offered_skills,
             "requested_skills": requested_skills,
         }
-        return render(request, "core/profile_view.html", context)
+        return render(request, "core/profiles/profile_view.html", context)
 
 
 @login_required
@@ -122,7 +122,7 @@ def profile_edit(request):
 
     return render(
         request,
-        "core/profile_edit.html",
+        "core/profiles/profile_edit.html",
         {
             "form": form,
             "profile": profile,
@@ -189,7 +189,7 @@ def skill_create(request):
         "form": form,
         "next_url": next_url,
     }
-    return render(request, "core/skill_create.html", context)
+    return render(request, "core/skills/skill_create.html", context)
 
 
 def skill_list(request):
@@ -266,7 +266,7 @@ def skill_list(request):
         "total_skills": skills.count(),
     }
 
-    return render(request, "core/skill_list.html", context)
+    return render(request, "core/skills/skill_list.html", context)
 
 
 def skill_detail(request, pk):
@@ -282,7 +282,7 @@ def skill_detail(request, pk):
         "can_edit": request.user == skill.user,
     }
 
-    return render(request, "core/skill_detail.html", context)
+    return render(request, "core/skills/skill_detail.html", context)
 
 
 @login_required
@@ -306,7 +306,7 @@ def skill_edit(request, pk):
         "next_url": next_url,
     }
 
-    return render(request, "core/skill_create.html", context)
+    return render(request, "core/skills/skill_create.html", context)
 
 
 @login_required
@@ -319,7 +319,7 @@ def skill_delete(request, pk):
         skill.delete()
         return redirect("skill_list")
 
-    return render(request, "core/skill_delete.html", {"skill": skill})
+    return render(request, "core/skills/skill_delete.html", {"skill": skill})
 
 
 @login_required
@@ -334,7 +334,7 @@ def my_skills(request):
         "requests_count": skills.filter(skill_type="request").count(),
     }
 
-    return render(request, "core/my_skills.html", context)
+    return render(request, "core/skills/my_skills.html", context)
 
 
 # Messaging Views
@@ -387,7 +387,7 @@ def send_message(request, skill_id=None, user_id=None):
         "skill": skill,
         "receiver": receiver,
     }
-    return render(request, "core/send_message.html", context)
+    return render(request, "core/messaging/send_message.html", context)
 
 
 @login_required
@@ -405,7 +405,7 @@ def inbox(request):
         "messages": page_obj,
         "unread_count": received_messages.filter(is_read=False).count(),
     }
-    return render(request, "core/inbox.html", context)
+    return render(request, "core/messaging/inbox.html", context)
 
 
 @login_required
@@ -420,7 +420,7 @@ def sent_messages(request):
     context = {
         "messages": page_obj,
     }
-    return render(request, "core/sent_messages.html", context)
+    return render(request, "core/messaging/sent_messages.html", context)
 
 
 @login_required
@@ -441,7 +441,7 @@ def view_message(request, message_id):
     context = {
         "message": message,
     }
-    return render(request, "core/view_message.html", context)
+    return render(request, "core/messaging/view_message.html", context)
 
 
 # Rating Views
@@ -475,4 +475,4 @@ def rate_skill(request, skill_id):
         "skill": skill,
         "existing_rating": existing_rating,
     }
-    return render(request, "core/rate_skill.html", context)
+    return render(request, "core/components/rate_skill.html", context)

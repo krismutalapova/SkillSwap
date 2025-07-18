@@ -4,7 +4,7 @@ from math import floor, ceil
 register = template.Library()
 
 
-@register.inclusion_tag("core/star_rating.html")
+@register.inclusion_tag("core/components/star_rating.html")
 def star_rating(rating, show_value=True, show_count=True, count=0):
     """
     Display star rating with proper filled stars
