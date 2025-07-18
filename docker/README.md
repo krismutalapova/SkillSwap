@@ -14,7 +14,8 @@ This single command will:
 - Build the Docker image with all dependencies
 - Set up the database with migrations
 - Create admin user (admin/admin123)
-- Populate 25 demo users with complete profiles and skills
+- Create 6 consistent demo users for presentations
+- Add 15 additional random users for variety
 - Start the development server on http://localhost:8000
 
 ### Demo Credentials
@@ -47,18 +48,26 @@ docker-compose up --build
 ## Demo Features Included
 
 ### Pre-populated Data
-- 25 diverse user profiles with realistic information
+- **6 Consistent Demo Users**: Same named users every time for reliable presentations
+- **15 Random Users**: Additional variety with different profiles each restart
 - Skills across all categories (Technology, Languages, Music, etc.)
 - Complete location data (various cities and countries)
 - Profile pictures and bio information
 - Realistic skill offers and requests
-- Sample ratings and reviews
+- Cross-user ratings demonstrating the rating system
 
-### Demo User Types
-- **Sarah Martinez** - Web developer offering Django lessons, seeking Italian
-- **Marco Rossi** - Italian teacher offering language lessons, seeking tech skills
-- **Emma Johnson** - Designer offering UI/UX lessons, seeking photography
-- **And 22 more diverse profiles...**
+### Demo User Types (Consistent Every Time)
+- **Sarah Martinez** (sarah_martinez) - Full-stack developer offering Django lessons, seeking Italian
+- **Marco Rossi** (marco_rossi) - Italian teacher offering language lessons, seeking web development
+- **Emma Johnson** (emma_johnson) - UI/UX Designer offering design lessons, seeking photography
+- **Liam Chen** (liam_chen) - Professional photographer offering photo skills, seeking German
+- **Sofia Andersson** (sofia_andersson) - Chef offering Nordic cooking, seeking business skills
+- **Alex Müller** (alex_müller) - Business consultant offering marketing, seeking guitar lessons
+- **Plus 15 random users for additional variety...**
+
+### Demo User Credentials
+- **All demo users password**: `demo123`
+- **Admin access**: admin / admin123
 
 ## Presentation Workflow
 
@@ -69,8 +78,9 @@ docker-compose up --build
 4. **Test Key Flows**: Login, browse skills, filter users
 
 ### During Presentation
-- **Clean Environment**: Fresh data every time you restart
-- **Predictable Demo**: Same users and skills for consistent demo flow
+- **Consistent Demo Users**: Same 6 named users every time for predictable demos
+- **Rich User Stories**: Each demo user has detailed background and realistic skills
+- **Cross-User Ratings**: Demo users have rated each other to show rating system
 - **No Dependencies**: Works on any machine with Docker
 - **Quick Reset**: `docker-compose restart` for fresh demo state
 

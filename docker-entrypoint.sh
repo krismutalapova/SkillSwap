@@ -20,9 +20,13 @@ else:
     print('Superuser already exists')
 EOF
 
-# Populate demo data
-echo "Populating demo data..."
-python manage.py populate_users --count 25 --clear
+# Create demo users for presentations
+echo "Creating consistent demo users..."
+python manage.py create_demo_users --clear
+
+# Create additional random users for variety
+echo "Adding variety with random users..."
+python manage.py populate_users --count 15
 
 # Sync profile skills
 echo "Syncing profile skills..."

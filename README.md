@@ -53,10 +53,19 @@ docker-compose up --build
 
 **What you get:**
 - ✅ Complete environment in 30 seconds
-- ✅ 25 realistic users with diverse profiles
-- ✅ 100+ skills across all categories  
-- ✅ Star ratings and community interactions
+- ✅ 6 consistent demo users for presentations
+- ✅ 15 additional random users for variety  
+- ✅ 50+ skills across all categories with realistic ratings
+- ✅ Cross-user ratings demonstrating trust system
 - ✅ Admin access: http://localhost:8000/admin/ (`admin`/`admin123`)
+
+**Demo Users** (password: `demo123`):
+- **Sarah Martinez** - Django developer ↔ Italian learner
+- **Marco Rossi** - Italian teacher ↔ Web dev student  
+- **Emma Johnson** - UI/UX designer ↔ Photography student
+- **Liam Chen** - Photographer ↔ German learner
+- **Sofia Andersson** - Chef ↔ Business student
+- **Alex Müller** - Business consultant ↔ Guitar student
 
 🌐 **Access:** http://localhost:8000
 
@@ -77,8 +86,9 @@ pip install django pillow
 python manage.py migrate
 python manage.py createsuperuser
 
-# 4. Populate demo data (optional)
-python manage.py populate_users --count 20
+# 4. Setup demo data (choose one option)
+./setup-demo.sh                    # Consistent demo users for presentations
+python manage.py populate_users --count 20  # Random users for development
 
 # 5. Start development server
 python manage.py runserver
