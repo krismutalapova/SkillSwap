@@ -87,7 +87,7 @@ python manage.py migrate
 python manage.py createsuperuser
 
 # 4. Setup demo data (choose one option)
-./setup-demo.sh                    # Consistent demo users for presentations
+dev/setup-demo.sh                  # Consistent demo users for presentations
 python manage.py populate_users --count 20  # Random users for development
 
 # 5. Start development server
@@ -96,8 +96,8 @@ python manage.py runserver
 
 **Convenience Scripts** (for ongoing development):
 ```bash
-./dev-server.sh                    # Auto-activates env and starts server
-./manage.sh migrate                 # Run Django commands with auto-env
+dev/dev-server.sh                  # Auto-activates env and starts server
+dev/manage.sh migrate               # Run Django commands with auto-env
 ./manage.sh populate_users --count 15
 ```
 
