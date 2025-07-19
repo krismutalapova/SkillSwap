@@ -24,8 +24,11 @@ skillswap_env/
 .DS_Store
 Thumbs.db
 
-# Static and media
-static/
+# Static files - only ignore collected static, not source static
+staticfiles/           # Django's collectstatic output directory
+static_root/           # Alternative collectstatic directory name
+
+# Media files (user uploads)
 media/
 
 # Environment variables
@@ -37,7 +40,7 @@ media/
 
 # Project documentation
 # Development docs
-docs/
+dev_docs/
 
 # GitHub config
 .github/
