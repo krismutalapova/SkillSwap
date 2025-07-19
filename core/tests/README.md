@@ -15,7 +15,7 @@ python manage.py test
 
 To run tests from a specific file:
 ```bash
-python tests/test_popup_messages.py
+python core/tests/test_popup_messages.py
 ```
 
 ## Test Categories:
