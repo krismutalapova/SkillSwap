@@ -1,0 +1,121 @@
+<!-- User Sidebar Component -->
+<div class="user-sidebar">
+    <div class="{% if sidebar_type == 'profile' %}profile-user-card{% else %}user-card{% endif %}">
+        <div class="user-info">
+            {% if profile_picture %}
+                {% if show_profile_link %}
+                    <a href="{% url 'users_profile_view' user_obj.id %}" class="avatar-link">
+                        <img src="{{ profile_picture.url }}" 
+                             alt="{{ user_obj.get_full_name|default:user_obj.username }}" 
+                             class="{% if sidebar_type == 'profile' %}profile-user-avatar{% else %}user-avatar{% endif %}">
+                    </a>
+                {% else %}
+                    <img src="{{ profile_picture.url }}" 
+                         alt="{{ user_obj.get_full_name|default:user_obj.username }}" 
+                         class="{% if sidebar_type == 'profile' %}profile-user-avatar{% else %}user-avatar{% endif %}">
+                {% endif %}
+            {% else %}
+                {% if show_profile_link %}
+                    <a href="{% url 'users_profile_view' user_obj.id %}" class="avatar-link">
+                        <div class="primary-gradient profile-user-avatar-placeholder">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </a>
+                {% else %}
+                    <div class="primary-gradient profile-user-avatar-placeholder">
+                        <i class="fas fa-user"></i>
+                    </div>
+                {% endif %}
+            {% endif %}
+            
+            <div class="profile-user-details">
+                <h4 class="profile-user-name-small">
+                    {{ user_obj.get_full_name|default:user_obj.username }}
+                </h4>
+                <p class="user-location">
+                    <i class="fas fa-user"></i>
+                    @{{ user_obj.username }}
+                </p>
+                {% if show_member_since %}
+                    <p class="member-since">
+                        <i class="fas fa-calendar"></i>
+                        Member since {{ user_obj.date_joined|date:"M Y" }}
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Action Button Section -->
+        {% if show_action_button %}
+            <div class="profile-contact-section">
+                {% if is_own_profile %}
+                    <a href="{% url 'my_profile_edit' %}" class="primary-gradient contact-btn">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </a>
+                {% elif action_type == 'message_user' %}
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'send_message_to_user' user_id=user_obj.id %}" class="primary-gradient contact-btn">
+                            <i class="fas fa-envelope"></i> Message {{ user_obj.first_name|default:"User" }}
+                        </a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="primary-gradient login-to-contact-btn">
+                            <i class="fas fa-sign-in-alt"></i> Login to Connect
+                        </a>
+                    {% endif %}
+                {% elif action_type == 'message_skill' %}
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'send_message' skill_id=skill_obj.id %}" class="primary-gradient contact-btn">
+                            <i class="fas fa-envelope"></i> Message {{ user_obj.first_name|default:user_obj.username|default:"User" }}
+                        </a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="primary-gradient login-to-contact-btn">
+                            <i class="fas fa-sign-in-alt"></i> Login to Connect
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Meta Information Section -->
+    {% if meta_items %}
+        <div class="meta-info">
+            {% for meta_item in meta_items %}
+                <div class="meta-item">
+                    <i class="{{ meta_item.icon }}"></i>
+                    <span>{{ meta_item.text }}</span>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Ratings Section -->
+    {% if show_skill_rating and skill_obj %}
+        <div class="skill-rating">
+            <h4><i class="fas fa-star"></i> Skill Rating</h4>
+            {% if skill_obj.rating_count > 0 %}
+                <div class="rating-display">
+                    {% load rating_extras %}
+                    {% star_rating skill_obj.average_rating show_value=True show_count=True count=skill_obj.rating_count %}
+                </div>
+            {% else %}
+                <div class="rating-display">
+                    <div class="stars">
+                        {% for star_num in skill_obj.star_range %}
+                            <i class="fas fa-star"></i>
+                        {% endfor %}
+                    </div>
+                    <div class="rating-info">
+                        <span class="rating-value">No ratings yet</span>
+                        <span class="rating-count">Be the first to rate!</span>
+                    </div>
+                </div>
+            {% endif %}
+            {% if not is_own_profile and not can_edit and user.is_authenticated %}
+                <a href="{% url 'rate_skill' skill_id=skill_obj.id %}" class="rate-skill-btn">
+                    <i class="fas fa-star"></i> Rate this skill
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
