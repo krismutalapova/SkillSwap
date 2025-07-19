@@ -1,0 +1,142 @@
+/* Component Pages CSS */
+/* Rate Skill and other components */
+
+/* Rating Form Styles */
+.rating-form-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.rating-form-card .form-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.rating-form-card .form-header h2 {
+    color: #333;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.rating-form-card .form-header h2 i {
+    color: #ffc107;
+}
+
+.skill-info h3 {
+    color: #333;
+    margin: 0 0 5px 0;
+    font-size: 1.3rem;
+}
+
+.skill-info p {
+    color: #6c757d;
+    margin: 0;
+}
+
+.rating-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.rating-section {
+    text-align: center;
+}
+
+.rating-label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.star-rating-input {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.star-input {
+    display: none;
+}
+
+.star-label {
+    cursor: pointer;
+    font-size: 2.5rem;
+    color: #dee2e6;
+    transition: all 0.3s ease;
+    transform: scale(1);
+}
+
+.star-label:hover {
+    transform: scale(1.1);
+}
+
+.rating-text {
+    color: #6c757d;
+    font-weight: 500;
+    margin-bottom: 10px;
+    min-height: 20px;
+}
+
+.rating-form .form-control {
+    padding: 12px 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+    resize: vertical;
+    min-height: 100px;
+}
+
+.rating-form .form-control:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Rating-specific button styles */
+.rating-form .btn-primary {
+    background: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%);
+    color: white;
+}
+
+.existing-rating-notice {
+    background: rgba(102, 126, 234, 0.1);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 20px;
+    color: #667eea;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.existing-rating-notice i {
+    color: #667eea;
+}
+
+/* Mobile Responsive for Rating */
+@media (max-width: 768px) {
+    .rating-form-card {
+        padding: 25px;
+    }
+
+    .star-label {
+        font-size: 2rem;
+    }
+}
