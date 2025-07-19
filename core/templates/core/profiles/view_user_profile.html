@@ -3,90 +3,9 @@
 
 {% block content %}
 <div class="container">
-    <div class="user-detail-card">
-        <!-- User Header -->
-        <div class="user-header">
-            <div class="user-meta">
-                <div class="user-location">
-                    <i class="fas fa-map-marker-alt"></i>
-                    {% if profile.city and profile.country %}
-                        {{ profile.city }}, {{ profile.country }}
-                    {% else %}
-                        Location not specified
-                    {% endif %}
-                </div>
-                <div class="member-since">
-                    <i class="fas fa-calendar-alt"></i>
-                    Member since {{ profile.user.date_joined|date:"M Y" }}
-                </div>  
-            </div>
-        </div>
-
-        <!-- User Name -->
-        <h1 class="user-name">
-            {% if profile.user.first_name and profile.user.last_name %}
-                {{ profile.user.first_name }} {{ profile.user.last_name }}
-            {% else %}
-                {{ profile.user.username }}
-            {% endif %}
-            {% if is_own_profile %}
-                <span class="own-profile-indicator">(You)</span>
-            {% endif %}
-        </h1>
-
-        <!-- User Info Grid -->
-        <div class="user-info-grid">
-            <div class="user-content">
-                <div class="description-section">
-                    <h3><i class="fas fa-user-circle"></i> About Me</h3>
-                    <div class="description-content">
-                        {% if profile.bio %}
-                            {{ profile.bio|linebreaks }}
-                        {% else %}
-                            <em class="no-bio-message">This user hasn't written about themselves yet.</em>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div class="details-section">
-                    <h3><i class="fas fa-info-circle"></i> Profile Details</h3>
-                    <div class="details-grid">
-                        {% if profile.gender %}
-                            <div class="detail-item">
-                                <div class="detail-label">
-                                    <i class="fas fa-venus-mars"></i> Gender
-                                </div>
-                                <div class="detail-value">{{ profile.get_gender_display }}</div>
-                            </div>
-                        {% endif %}
-
-                        <div class="detail-item">
-                            <div class="detail-label">
-                                <i class="fas fa-calendar-plus"></i> Joined
-                            </div>
-                            <div class="detail-value">{{ profile.user.date_joined|date:"M d, Y" }}</div>
-                        </div>
-
-                        <div class="detail-item">
-                            <div class="detail-label">
-                                <i class="fas fa-star"></i> Overall Rating
-                            </div>
-                            <div class="detail-value">
-                                {% if profile.overall_rating > 0 %}
-                                    {% star_rating profile.overall_rating show_value=True show_count=False %}
-                                {% else %}
-                                    <span class="no-ratings-message">No ratings yet</span>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- User Info Sidebar -->
-            {% include 'core/components/user_info_sidebar.html' with sidebar_type='profile' user_obj=profile.user profile_picture=profile.profile_picture show_profile_link=False show_member_since=False show_action_button=True is_own_profile=is_own_profile action_type='message_user' meta_items=profile_meta_items %}
-        </div>
-    </div>
+    
+    <!-- User Detail Card -->
+    {% include 'core/components/user_detail_card.html' with profile=profile is_own_profile=is_own_profile sidebar_action_type='message_user' profile_meta_items=profile_meta_items %}
 
     <!-- User Skills -->
     {% include 'core/components/user_skills_section.html' with section_title=profile.user.first_name|default:"This user"|add:"'s Skills" use_card_layout=True user_display_name=profile.user.first_name|default:"This user" offered_skills=offered_skills requested_skills=requested_skills is_own_profile=is_own_profile show_add_button=False show_empty_actions=False %}
