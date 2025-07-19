@@ -387,13 +387,13 @@
     margin-right: auto;
 }
 
-.pagination-container {
+.inbox.pagination-container {
     margin-top: 25px;
     display: flex;
     justify-content: center;
 }
 
-.pagination {
+.inbox.pagination {
     display: flex;
     align-items: center;
     gap: 10px;
