@@ -178,7 +178,7 @@ class Skill(models.Model):
         return f"{self.get_skill_type_display()}: {self.title}"
 
     def get_absolute_url(self):
-        return reverse("skill_detail", kwargs={"pk": self.pk})
+        return reverse("skill_detail_page", kwargs={"pk": self.pk})
 
     @property
     def average_rating(self):
