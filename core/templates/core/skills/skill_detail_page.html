@@ -93,22 +93,6 @@
     {% include 'core/components/navigation_actions.html' with back_url='skills_list_search' back_text='Back to Skills' show_manage_skills=False %}
 </div>
 
-<!-- Contact Form Modal (hidden by default) -->
-{% if user.is_authenticated and not can_edit %}
-    <div id="contactModal" class="modal hide">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-envelope"></i> Contact {{ skill.user.first_name|default:"User" }}</h3>
-                <button class="close-btn" onclick="hideContactForm()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Want to connect about "<strong>{{ skill.title }}</strong>"?</p>
-            </div>
-            <div class="modal-actions">
-                <button onclick="hideContactForm()" class="btn-secondary">Close</button>
-            </div>
-        </div>
-    </div>
 
     <!-- Rating Modal -->
     <div id="ratingModal" class="modal hide">
@@ -137,23 +121,9 @@
             </div>
         </div>
     </div>
-{% endif %}
 
 <script>
     let selectedRating = 0;
-
-    function showContactForm() {
-        const modal = document.getElementById('contactModal');
-        modal.classList.remove('hide');
-        modal.classList.add('show');
-    }
-
-    function hideContactForm() {
-        const modal = document.getElementById('contactModal');
-        modal.classList.remove('show');
-        modal.classList.add('hide');
-    }
-
     function showRatingModal() {
         const modal = document.getElementById('ratingModal');
         modal.classList.remove('hide');
@@ -261,12 +231,7 @@
 
     // Close modal when clicking outside
     window.onclick = function(event) {
-        const contactModal = document.getElementById('contactModal');
         const ratingModal = document.getElementById('ratingModal');
-        
-        if (event.target === contactModal) {
-            hideContactForm();
-        }
         
         if (event.target === ratingModal) {
             hideRatingModal();

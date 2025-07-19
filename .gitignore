@@ -25,8 +25,8 @@ skillswap_env/
 Thumbs.db
 
 # Static files - only ignore collected static, not source static
-staticfiles/           # Django's collectstatic output directory
-static_root/           # Alternative collectstatic directory name
+staticfiles/
+static_root/
 
 # Media files (user uploads)
 media/

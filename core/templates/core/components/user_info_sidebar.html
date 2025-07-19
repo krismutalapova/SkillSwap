@@ -1,3 +1,4 @@
+{% load rating_extras %}
 <!-- User Sidebar Component -->
 <div class="user-sidebar">
     <div class="{% if sidebar_type == 'profile' %}profile-user-card{% else %}user-card{% endif %}">
@@ -95,7 +96,6 @@
             <h4><i class="fas fa-star"></i> Skill Rating</h4>
             {% if skill_obj.rating_count > 0 %}
                 <div class="rating-display">
-                    {% load rating_extras %}
                     {% star_rating skill_obj.average_rating show_value=True show_count=True count=skill_obj.rating_count %}
                 </div>
             {% else %}
@@ -111,8 +111,8 @@
                     </div>
                 </div>
             {% endif %}
-            {% if not is_own_profile and not can_edit and user.is_authenticated %}
-                <a href="{% url 'rate_skill' skill_id=skill_obj.id %}" class="rate-skill-btn">
+            {% if not can_edit and user.is_authenticated %}
+                <a href="javascript:void(0);" onclick="showRatingModal()" class="rate-skill-btn">
                     <i class="fas fa-star"></i> Rate this skill
                 </a>
             {% endif %}

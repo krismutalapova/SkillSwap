@@ -1080,3 +1080,128 @@
     }
 }
 
+/* Skill Rating Section in Sidebar */
+.skill-rating {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.skill-rating h4 {
+    margin: 0 0 15px 0;
+    font-size: 1.1rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.skill-rating h4 i {
+    color: #ffc107;
+}
+
+.skill-rating .rating-display {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.skill-rating .stars {
+    display: flex;
+    gap: 3px;
+}
+
+.skill-rating .stars i {
+    font-size: 1.2rem;
+    color: #ddd;
+}
+
+.skill-rating .stars i.active {
+    color: #ffc107;
+}
+
+.skill-rating .rating-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.skill-rating .rating-value {
+    font-weight: 600;
+    color: #333;
+    font-size: 1rem;
+}
+
+.skill-rating .rating-count {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.rate-skill-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #ffc107;
+    color: #333;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    min-height: 48px;
+}
+
+.rate-skill-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+    text-decoration: none;
+    color: #333;
+    background: #ffca28;
+}
+
+.star-rating-display .stars {
+    display: flex;
+    gap: 3px;
+}
+
+.star-rating-display .stars i {
+    font-size: 1.2rem;
+    color: #ddd;
+}
+
+.star-rating-display .stars i.active {
+    color: #ffc107;
+}
+
+.star-rating-display {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.star-rating-display .rating-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.star-rating-display .rating-value {
+    font-weight: 600;
+    color: #333;
+    font-size: 1rem;
+}
+
+.star-rating-display .rating-count {
+    font-size: 0.9rem;
+    color: #666;
+}
+
