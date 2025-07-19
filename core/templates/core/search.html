@@ -33,53 +33,53 @@
     <!-- Users Grid -->
     {% if users_with_profiles %}
         <div class="users-grid">
-            {% for user_profile in users_with_profiles %}
-            <a href="{% url 'users_profile_view' user_profile.user.id %}" class="user-card-link">
+            {% for view_user_profile in users_with_profiles %}
+            <a href="{% url 'view_user_profile' view_user_profile.user.id %}" class="user-card-link">
                 <div class="user-card">
                 
                 <!-- User Header -->
                     <div class="user-card-header">
                         <div class="user-card-avatar-container">
-                            {% if user_profile.profile.profile_picture %}
-                                <img src="{{ user_profile.profile.profile_picture.url }}" alt="Profile" class="user-card-avatar-image">
+                            {% if view_user_profile.profile.profile_picture %}
+                                <img src="{{ view_user_profile.profile.profile_picture.url }}" alt="Profile" class="user-card-avatar-image">
                             {% else %}
-                                {{ user_profile.user.first_name.0 }}{{ user_profile.user.last_name.0 }}
+                                {{ view_user_profile.user.first_name.0 }}{{ view_user_profile.user.last_name.0 }}
                             {% endif %}
                         </div>
                         <div class="user-card-details">
                             <h3 class="user-card-name">
-                                {{ user_profile.user.first_name }} {{ user_profile.user.last_name }}
-                                {% if user_profile.user == user %}
+                                {{ view_user_profile.user.first_name }} {{ view_user_profile.user.last_name }}
+                                {% if view_user_profile.user == user %}
                                     <span class="current-user-indicator">(You)</span>
                                 {% endif %}
                             </h3>
                             <p class="user-card-username">
                                 <i class="fas fa-user"></i>
-                                @{{ user_profile.user.username }}
+                                @{{ view_user_profile.user.username }}
                             </p>
                         </div>
                     </div>
 
                     <!-- Bio -->
-                    {% if user_profile.profile.bio %}
+                    {% if view_user_profile.profile.bio %}
                     <div class="user-card-bio">
-                        <p>{{ user_profile.profile.bio|truncatewords:20 }}</p>
+                        <p>{{ view_user_profile.profile.bio|truncatewords:20 }}</p>
                     </div>
                     {% endif %}
 
                     <!-- Skills Offered -->
-                    {% if user_profile.profile.skills_offered %}
+                    {% if view_user_profile.profile.skills_offered %}
                     <div class="user-card-skills-section">
                         <h4 class="user-card-skills-title offered">
                             <i class="fas fa-star"></i>
                             Skills Offered
                         </h4>
                         <div class="user-card-skills-container">
-                            {% with skills_offered=user_profile.profile.skills_offered|split:","|slice:":3" %}
+                            {% with skills_offered=view_user_profile.profile.skills_offered|split:","|slice:":3" %}
                                 {% for skill in skills_offered %}
                                 <span class="user-card-skill-tag offered">{{ skill }}</span>
                                 {% endfor %}
-                                {% with total_skills=user_profile.profile.skills_offered|split:","|length %}
+                                {% with total_skills=view_user_profile.profile.skills_offered|split:","|length %}
                                     {% if total_skills > 3 %}
                                     <span class="user-card-skill-tag more">+{{ total_skills|add:"-3" }} more</span>
                                     {% endif %}
@@ -90,18 +90,18 @@
                     {% endif %}
 
                     <!-- Skills Needed -->
-                    {% if user_profile.profile.skills_needed %}
+                    {% if view_user_profile.profile.skills_needed %}
                     <div class="user-card-skills-section needed">
                         <h4 class="user-card-skills-title needed">
                             <i class="fas fa-lightbulb"></i>
                             Looking to Learn
                         </h4>
                         <div class="user-card-skills-container">
-                            {% with skills_needed=user_profile.profile.skills_needed|split:","|slice:":2" %}
+                            {% with skills_needed=view_user_profile.profile.skills_needed|split:","|slice:":2" %}
                                 {% for skill in skills_needed %}
                                 <span class="user-card-skill-tag needed">{{ skill }}</span>
                                 {% endfor %}
-                                {% with total_needed=user_profile.profile.skills_needed|split:","|length %}
+                                {% with total_needed=view_user_profile.profile.skills_needed|split:","|length %}
                                     {% if total_needed > 2 %}
                                     <span class="user-card-skill-tag more">+{{ total_needed|add:"-2" }} more</span>
                                     {% endif %}
@@ -114,7 +114,7 @@
                     <!-- Action Button -->
                     <div class="user-card-action-button-container">
                         <button class="user-card-action-button">
-                            {% if user_profile.user == user %}
+                            {% if view_user_profile.user == user %}
                                 <i class="fas fa-user"></i>
                                 View Profile
                             {% else %}
