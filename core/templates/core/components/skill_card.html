@@ -10,7 +10,7 @@ Parameters:
 
 {% load rating_extras %}
 
-<a href="{% url 'skill_detail' skill.pk %}" class="skill-card-link">
+<a href="{% url 'skill_detail_page' skill.pk %}" class="skill-card-link">
     <div class="skill-card {% if card_class %}{{ card_class }}{% endif %}">
         <div class="skill-header">
             <h4 class="skill-title">{{ skill.title }}</h4>

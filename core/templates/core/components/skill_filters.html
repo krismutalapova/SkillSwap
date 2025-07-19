@@ -3,7 +3,7 @@ Skill Filter Component
 Provides a unified filter form for skills with search, type, category, location, and gender filters.
 
 Parameters:
-- action_url: Where the form should submit (default: skill_list)
+- action_url: Where the form should submit (default: skills_list_search)
 - search_query: Current search term
 - current_type: Currently selected skill type
 - current_category: Currently selected category
@@ -21,7 +21,7 @@ Parameters:
 {% if not no_card_wrapper %}
 <div class="filters-card">
 {% endif %}
-    <form method="get" action="{% if action_url %}{% url action_url %}{% else %}{% url 'skill_list' %}{% endif %}" class="filters-form">
+    <form method="get" action="{% if action_url %}{% url action_url %}{% else %}{% url 'skills_list_search' %}{% endif %}" class="filters-form">
         <div class="filter-row">
             <div class="filter-group">
                 <label for="search"><i class="fas fa-search"></i> Search:</label>
@@ -104,7 +104,7 @@ Parameters:
             {% if current_gender %}
                 <span class="filter-tag">Gender: {% if current_gender == 'M' %}Male{% elif current_gender == 'F' %}Female{% else %}{{ current_gender }}{% endif %}</span>
             {% endif %}
-            <a href="{% if action_url %}{% url action_url %}{% else %}{% url 'skill_list' %}{% endif %}" class="clear-filters">
+            <a href="{% if action_url %}{% url action_url %}{% else %}{% url 'skills_list_search' %}{% endif %}" class="clear-filters">
                 <i class="fas fa-times"></i> Clear all
             </a>
         </div>
