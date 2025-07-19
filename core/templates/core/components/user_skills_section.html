@@ -12,7 +12,7 @@
     <div class="skills-container">
         <!-- Skills Offered -->
         {% if offered_skills %}
-            <div class="compact-skills-section">
+            <div class="{% if use_card_layout %}skills-section{% else %}compact-skills-section{% endif %}">
                 <h4><i class="fas fa-hand-holding-heart"></i> 
                     {% if is_own_profile %}
                         Skills I Offer ({{ offered_skills.count }})
@@ -20,25 +20,52 @@
                         Skills {{ user_name|default:"User" }} Offers ({{ offered_skills.count }})
                     {% endif %}
                 </h4>
-                <div class="compact-skills-tiles">
-                    {% for skill in offered_skills %}
-                        <div class="compact-skill-tile offer">
-                            <a href="{% url 'skill_detail_page' skill.pk %}" class="compact-skill-tile-link">
-                                <div class="compact-skill-tile-content">
-                                    <i class="fas fa-hand-holding-heart"></i>
-                                    <span class="compact-skill-title">{{ skill.title }}</span>
-                                    <span class="compact-skill-category">{{ skill.get_category_display }}</span>
+                {% if use_card_layout %}
+                    <div class="profile-skills-grid">
+                        {% for skill in offered_skills %}
+                            <a href="{% url 'skill_detail_page' skill.pk %}" class="skill-card-link">
+                                <div class="skill-card mini offer">
+                                    <div class="skill-content">
+                                        <div class="skill-type offer">
+                                            <i class="fas fa-hand-holding-heart"></i>
+                                            {{ skill.get_skill_type_display }}
+                                        </div>
+                                        <h5>{{ skill.title }}</h5>
+                                        <p>{{ skill.description|truncatewords:15 }}</p>
+                                    </div>
+                                    <div class="skill-meta">
+                                        <div class="category">{{ skill.get_category_display }}</div>
+                                        {% if skill.is_remote %}
+                                            <div class="remote-tag">
+                                                <i class="fas fa-wifi"></i> Remote Available
+                                            </div>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </a>
-                        </div>
-                    {% endfor %}
-                </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="compact-skills-tiles">
+                        {% for skill in offered_skills %}
+                            <div class="compact-skill-tile offer">
+                                <a href="{% url 'skill_detail_page' skill.pk %}" class="compact-skill-tile-link">
+                                    <div class="compact-skill-tile-content">
+                                        <i class="fas fa-hand-holding-heart"></i>
+                                        <span class="compact-skill-title">{{ skill.title }}</span>
+                                        <span class="compact-skill-category">{{ skill.get_category_display }}</span>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
         {% endif %}
 
         <!-- Skills Requested -->
         {% if requested_skills %}
-            <div class="compact-skills-section">
+            <div class="{% if use_card_layout %}skills-section{% else %}compact-skills-section{% endif %}">
                 <h4><i class="fas fa-search"></i> 
                     {% if is_own_profile %}
                         Skills I Need ({{ requested_skills.count }})
@@ -46,19 +73,46 @@
                         Skills {{ user_name|default:"User" }} Needs ({{ requested_skills.count }})
                     {% endif %}
                 </h4>
-                <div class="compact-skills-tiles">
-                    {% for skill in requested_skills %}
-                        <div class="compact-skill-tile request">
-                            <a href="{% url 'skill_detail_page' skill.pk %}" class="compact-skill-tile-link">
-                                <div class="compact-skill-tile-content">
-                                    <i class="fas fa-search"></i>
-                                    <span class="compact-skill-title">{{ skill.title }}</span>
-                                    <span class="compact-skill-category">{{ skill.get_category_display }}</span>
+                {% if use_card_layout %}
+                    <div class="profile-skills-grid">
+                        {% for skill in requested_skills %}
+                            <a href="{% url 'skill_detail_page' skill.pk %}" class="skill-card-link">
+                                <div class="skill-card mini request">
+                                    <div class="skill-content">
+                                        <div class="skill-type request">
+                                            <i class="fas fa-search"></i>
+                                            {{ skill.get_skill_type_display }}
+                                        </div>
+                                        <h5>{{ skill.title }}</h5>
+                                        <p>{{ skill.description|truncatewords:15 }}</p>
+                                    </div>
+                                    <div class="skill-meta">
+                                        <div class="category">{{ skill.get_category_display }}</div>
+                                        {% if skill.is_remote %}
+                                            <div class="remote-tag">
+                                                <i class="fas fa-wifi"></i> Remote Available
+                                            </div>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </a>
-                        </div>
-                    {% endfor %}
-                </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="compact-skills-tiles">
+                        {% for skill in requested_skills %}
+                            <div class="compact-skill-tile request">
+                                <a href="{% url 'skill_detail_page' skill.pk %}" class="compact-skill-tile-link">
+                                    <div class="compact-skill-tile-content">
+                                        <i class="fas fa-search"></i>
+                                        <span class="compact-skill-title">{{ skill.title }}</span>
+                                        <span class="compact-skill-category">{{ skill.get_category_display }}</span>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
         {% endif %}
 
@@ -68,7 +122,7 @@
                 <div class="no-skills-icon">
                     <i class="fas fa-info-circle"></i>
                 </div>
-                <p>{{ empty_message|default:"You haven't added any skills yet." }}</p>
+                <p>{% if empty_message %}{{ empty_message }}{% elif user_display_name %}{{ user_display_name }} hasn't added any skills yet.{% else %}You haven't added any skills yet.{% endif %}</p>
                 {% if show_empty_actions %}
                     <div class="empty-actions">
                         <a href="{% url 'add_skill' %}?type=offer&next={{ next_page|default:'view_my_profile' }}" class="{% if use_gradient_button %}primary-gradient {% endif %}primary-btn">
