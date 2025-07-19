@@ -173,74 +173,7 @@
     </div>
 
     <!-- User Skills -->
-    <div class="user-skills">
-        <div class="skills-header">
-            <h3><i class="fas fa-tools"></i> My Skills</h3>
-            <a href="{% url 'add_skill' %}?next=edit_my_profile" class="primary-gradient add-my-skill-btn">
-                <i class="fas fa-plus"></i> Add New Skill
-            </a>
-        </div>
-        
-        <div class="my-skills-container">
-            <!-- Skills Offered -->
-            {% if offered_skills %}
-                <div class="my-skills-section">
-                    <h4><i class="fas fa-hand-holding-heart"></i> Skills I Offer ({{ offered_skills.count }})</h4>
-                    <div class="my-skills-tiles">
-                        {% for skill in offered_skills %}
-                            <div class="my-skill-tile offer">
-                                <a href="{% url 'skill_detail_page' skill.pk %}" class="my-skill-tile-link">
-                                    <div class="my-skill-tile-content">
-                                        <i class="fas fa-hand-holding-heart"></i>
-                                        <span class="my-skill-title">{{ skill.title }}</span>
-                                        <span class="my-skill-category">{{ skill.get_category_display }}</span>
-                                    </div>
-                                </a>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endif %}
-
-            <!-- Skills Requested -->
-            {% if requested_skills %}
-                <div class="my-skills-section">
-                    <h4><i class="fas fa-search"></i> Skills I Need ({{ requested_skills.count }})</h4>
-                    <div class="my-skills-tiles">
-                        {% for skill in requested_skills %}
-                            <div class="my-skill-tile request">
-                                <a href="{% url 'skill_detail_page' skill.pk %}" class="my-skill-tile-link">
-                                    <div class="my-skill-tile-content">
-                                        <i class="fas fa-search"></i>
-                                        <span class="my-skill-title">{{ skill.title }}</span>
-                                        <span class="my-skill-category">{{ skill.get_category_display }}</span>
-                                    </div>
-                                </a>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endif %}
-
-            {% if not offered_skills and not requested_skills %}
-                <div class="no-skills">
-                    <div class="no-skills-icon">
-                        <i class="fas fa-info-circle"></i>
-                    </div>
-                    <p>You haven't added any skills yet.</p>
-                    <div class="empty-actions">
-                        <a href="{% url 'add_skill' %}?type=offer&next=edit_my_profile" class="primary-gradient primary-btn">
-                            <i class="fas fa-plus"></i> Offer a Skill
-                        </a>
-                        <a href="{% url 'add_skill' %}?type=request&next=edit_my_profile" class="secondary-btn">
-                            <i class="fas fa-search"></i> Request a Skill
-                        </a>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-    </div>
-
+    {% include 'core/components/user_skills_section.html' with section_title="My Skills" show_add_button=True next_page="edit_my_profile" empty_message="You haven't added any skills yet." show_empty_actions=True use_gradient_button=True is_own_profile=True %}
     <!-- Navigation Actions -->
     <div class="navigation-actions">
         <a href="{% url 'view_my_profile' %}" class="back-btn">

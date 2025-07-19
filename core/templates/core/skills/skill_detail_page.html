@@ -85,29 +85,8 @@
     </div>
 
     <!-- Other Skills by Same User -->
-    {% if other_skills %}
-        <div class="user-skills">
-            <h3><i class="fas fa-user"></i> More skills by {{ skill.user.first_name|default:"this user" }}</h3>
-            <div class="skills-grid">
-                {% for other_skill in other_skills %}
-                    <a href="{% url 'skill_detail_page' other_skill.pk %}" class="skill-card-link">
-                        <div class="skill-card mini">
-                            <div class="skill-content">
-                                <div class="skill-type {{ other_skill.skill_type }}">
-                                    <i class="fas fa-{% if other_skill.skill_type == 'offer' %}hand-holding-heart{% else %}search{% endif %}"></i>
-                                    {{ other_skill.get_skill_type_display }}
-                                </div>
-                                <h4>{{ other_skill.title }}</h4>
-                                <p>{{ other_skill.description|truncatewords:15 }}</p>
-                            </div>
-                            <div class="skill-meta">
-                                <div class="category">{{ other_skill.get_category_display }}</div>
-                            </div>
-                        </div>
-                    </a>
-                {% endfor %}
-            </div>
-        </div>
+    {% if offered_skills or requested_skills %}
+        {% include 'core/components/user_skills_section.html' with section_title="More skills by "|add:skill.user.first_name|default:"this user" show_add_button=False show_empty_actions=False is_own_profile=False user_name=skill.user.first_name|default:"this user" %}
     {% endif %}
 
     <!-- Back to Browse -->
