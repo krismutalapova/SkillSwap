@@ -40,7 +40,7 @@
     flex-wrap: wrap;
 }
 
-.add-skill-btn, .my-skills-btn {
+.add-skill-btn {
     padding: 12px 25px;
     border-radius: 8px;
     text-decoration: none;
@@ -52,12 +52,7 @@
     gap: 8px;
 }
 
-.my-skills-btn {
-    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-    color: #333;
-}
-
-.add-skill-btn:hover, .my-skills-btn:hover {
+.add-skill-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
@@ -1106,11 +1101,6 @@ textarea.form-control {
     border: 2px solid #667eea;
 }
 
-.add-skill-btn {
-    background-image: linear-gradient(to right, #6441a5, #2a0845);
-    color: white;
-}
-
 .back-btn:hover,
 .add-skill-btn:hover {
     transform: translateY(-2px);
@@ -1452,7 +1442,7 @@ textarea.form-control {
         align-items: center;
     }
 
-    .add-skill-btn, .my-skills-btn {
+    .add-skill-btn {
         width: 200px;
         text-align: center;
     }

@@ -324,21 +324,14 @@
 }
 
 /* Personal Profile View Styles */
-.my-skills {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 30px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-.my-skills-container{
+
+.skills-container {
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
-.my-skills-section h4 {
+.compact-skills-section h4 {
     color: #333;
     margin-bottom: 15px;
     display: flex;
@@ -347,19 +340,19 @@
     font-size: 1.2rem;
 }
 
-.my-skills-section h4 i {
+.compact-skills-section h4 i {
     color: #667eea;
 }
 
 /* Skills Tiles */
-.my-skills-tiles {
+.compact-skills-tiles {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     align-items: flex-start;
 }
 
-.my-skill-tile {
+.compact-skill-tile {
     background: #f8f9fa;
     border-radius: 12px;
     border: 2px solid #e9ecef;
@@ -373,21 +366,21 @@
     flex: 1;
 }
 
-.my-skill-tile:hover {
+.compact-skill-tile:hover {
     border-color: #667eea;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
 }
 
-.my-skill-tile.offer {
+.compact-skill-tile.offer {
     border-left: 4px solid #4facfe;
 }
 
-.my-skill-tile.request {
+.compact-skill-tile.request {
     border-left: 4px solid #fa709a;
 }
 
-.my-skill-tile-link {
+.compact-skill-tile-link {
     text-decoration: none;
     color: inherit;
     display: flex;
@@ -396,28 +389,28 @@
     padding: 12px 15px;
 }
 
-.my-skill-tile-content {
+.compact-skill-tile-content {
     display: flex;
     align-items: center;
     gap: 10px;
     flex: 1;
 }
 
-.my-skill-tile-content i {
+.compact-skill-tile-content i {
     font-size: 1rem;
     width: 16px;
     text-align: center;
 }
 
-.my-skill-tile.offer .my-skill-tile-content i {
+.compact-skill-tile.offer .compact-skill-tile-content i {
     color: #4facfe;
 }
 
-.my-skill-tile.request .my-skill-tile-content i {
+.compact-skill-tile.request .compact-skill-tile-content i {
     color: #fa709a;
 }
 
-.my-skill-title {
+.compact-skill-title {
     font-weight: 600;
     color: #333;
     font-size: 0.95rem;
@@ -425,11 +418,11 @@
     flex: 1;
 }
 
-.my-skill-tile-link:hover .my-skill-title {
+.compact-skill-tile-link:hover .compact-skill-title {
     color: #667eea;
 }
 
-.my-skill-category {
+.compact-skill-category {
     background: #667eea;
     color: white;
     padding: 3px 8px;
