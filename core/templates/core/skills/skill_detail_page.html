@@ -89,12 +89,8 @@
         {% include 'core/components/user_skills_section.html' with section_title="More skills by "|add:skill.user.first_name|default:"this user" show_add_button=False show_empty_actions=False is_own_profile=False user_name=skill.user.first_name|default:"this user" %}
     {% endif %}
 
-    <!-- Back to Browse -->
-    <div class="navigation-actions">
-        <a href="{% url 'skills_list_search' %}" class="back-btn">
-            <i class="fas fa-arrow-left"></i> Back to Skills
-        </a>
-    </div>
+    <!-- Navigation Actions Component -->
+    {% include 'core/components/navigation_actions.html' with back_url='skills_list_search' back_text='Back to Skills' show_manage_skills=False %}
 </div>
 
 <!-- Contact Form Modal (hidden by default) -->
