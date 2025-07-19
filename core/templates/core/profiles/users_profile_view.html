@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% load rating_extras %}
+
+{% block content %}
+<div class="container">
+    <div class="user-detail-card">
+        <!-- User Header -->
+        <div class="user-header">
+            <div class="user-meta">
+                <div class="user-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    {% if profile.city and profile.country %}
+                        {{ profile.city }}, {{ profile.country }}
+                    {% else %}
+                        Location not specified
+                    {% endif %}
+                </div>
+                <div class="member-since">
+                    <i class="fas fa-calendar-alt"></i>
+                    Member since {{ profile.user.date_joined|date:"M Y" }}
+                </div>  
+            </div>
+        </div>
+
+        <!-- User Name -->
+        <h1 class="user-name">
+            {% if profile.user.first_name and profile.user.last_name %}
+                {{ profile.user.first_name }} {{ profile.user.last_name }}
+            {% else %}
+                {{ profile.user.username }}
+            {% endif %}
+            {% if is_own_profile %}
+                <span class="own-profile-indicator">(You)</span>
+            {% endif %}
+        </h1>
+
+        <!-- User Info Grid -->
+        <div class="user-info-grid">
+            <div class="user-content">
+                <div class="description-section">
+                    <h3><i class="fas fa-user-circle"></i> About Me</h3>
+                    <div class="description-content">
+                        {% if profile.bio %}
+                            {{ profile.bio|linebreaks }}
+                        {% else %}
+                            <em class="no-bio-message">This user hasn't written about themselves yet.</em>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h3><i class="fas fa-info-circle"></i> Profile Details</h3>
+                    <div class="details-grid">
+                        {% if profile.gender %}
+                            <div class="detail-item">
+                                <div class="detail-label">
+                                    <i class="fas fa-venus-mars"></i> Gender
+                                </div>
+                                <div class="detail-value">{{ profile.get_gender_display }}</div>
+                            </div>
+                        {% endif %}
+
+                        <div class="detail-item">
+                            <div class="detail-label">
+                                <i class="fas fa-calendar-plus"></i> Joined
+                            </div>
+                            <div class="detail-value">{{ profile.user.date_joined|date:"M d, Y" }}</div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-label">
+                                <i class="fas fa-star"></i> Overall Rating
+                            </div>
+                            <div class="detail-value">
+                                {% if profile.overall_rating > 0 %}
+                                    {% star_rating profile.overall_rating show_value=True show_count=False %}
+                                {% else %}
+                                    <span class="no-ratings-message">No ratings yet</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Info Sidebar -->
+            {% include 'core/components/user_info_sidebar.html' with sidebar_type='profile' user_obj=profile.user profile_picture=profile.profile_picture show_profile_link=False show_member_since=False show_action_button=True is_own_profile=is_own_profile action_type='message_user' meta_items=profile_meta_items %}
+        </div>
+    </div>
+
+    <!-- User Skills -->
+    <div class="user-skills">
+        <div class="skills-header">
+            <h3><i class="fas fa-tools"></i> {{ profile.user.first_name|default:"This user" }}'s Skills</h3>
+        </div>
+        <div class="skills-container">
+            <!-- Skills Offered -->
+            {% if offered_skills %}
+                <div class="skills-section">
+                    <h4><i class="fas fa-hand-holding-heart"></i> Skills Offered</h4>
+                    <div class="profile-skills-grid">
+                        {% for skill in offered_skills %}
+                            <a href="{% url 'skill_detail_page' skill.pk %}" class="skill-card-link">
+                                <div class="skill-card mini offer">
+                                    <div class="skill-content">
+                                        <div class="skill-type offer">
+                                            <i class="fas fa-hand-holding-heart"></i>
+                                            {{ skill.get_skill_type_display }}
+                                        </div>
+                                        <h5>{{ skill.title }}</h5>
+                                        <p>{{ skill.description|truncatewords:15 }}</p>
+                                    </div>
+                                    <div class="skill-meta">
+                                        <div class="category">{{ skill.get_category_display }}</div>
+                                        {% if skill.is_remote %}
+                                            <div class="remote-tag">
+                                                <i class="fas fa-wifi"></i> Remote Available
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Skills Requested -->
+            {% if requested_skills %}
+                <div class="skills-section">
+                    <h4><i class="fas fa-search"></i> Skills Requested</h4>
+                    <div class="profile-skills-grid">
+                        {% for skill in requested_skills %}
+                            <a href="{% url 'skill_detail_page' skill.pk %}" class="skill-card-link">
+                                <div class="skill-card mini request">
+                                    <div class="skill-content">
+                                        <div class="skill-type request">
+                                            <i class="fas fa-search"></i>
+                                            {{ skill.get_skill_type_display }}
+                                        </div>
+                                        <h5>{{ skill.title }}</h5>
+                                        <p>{{ skill.description|truncatewords:15 }}</p>
+                                    </div>
+                                    <div class="skill-meta">
+                                        <div class="category">{{ skill.get_category_display }}</div>
+                                        {% if skill.is_remote %}
+                                            <div class="remote-tag">
+                                                <i class="fas fa-wifi"></i> Remote Available
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if not offered_skills and not requested_skills %}
+                <div class="no-skills">
+                    <div class="no-skills-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <p>{{ profile.user.first_name|default:"This user" }} hasn't added any skills yet.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Back to Browse -->
+    <div class="navigation-actions">
+        <a href="{% url 'search' %}" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Browse
+        </a>
+    </div>
+</div>
+{% endblock %}

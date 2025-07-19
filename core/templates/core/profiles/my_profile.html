@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+{% load rating_extras %}
+
+{% block content %}
+<div class="container">
+
+    <div class="user-detail-card">
+        <!-- User Header -->
+        <div class="user-header">
+            <div class="user-meta">
+                <div class="user-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    {% if profile.city and profile.country %}
+                        {{ profile.city }}, {{ profile.country }}
+                    {% else %}
+                        Location not specified
+                    {% endif %}
+                </div>
+                <div class="member-since">
+                    <i class="fas fa-calendar-alt"></i>
+                    Member since {{ profile.user.date_joined|date:"M Y" }}
+                </div>     
+            </div>
+        </div>
+
+        <!-- User Name -->
+        <h1 class="user-name">
+            {% if profile.user.first_name and profile.user.last_name %}
+                {{ profile.user.first_name }} {{ profile.user.last_name }}
+            {% else %}
+                {{ profile.user.username }}
+            {% endif %}
+            <span class="own-profile-indicator">(You)</span>
+        </h1>
+
+        <!-- User Info Grid -->
+        <div class="user-info-grid">
+            <div class="user-content">
+                <div class="description-section">
+                    <h3><i class="fas fa-user-circle"></i> About Me</h3>
+                    <div class="description-content">
+                        {% if profile.bio %}
+                            {{ profile.bio|linebreaks }}
+                        {% else %}
+                            <em class="no-bio-message">You haven't written about yourself yet. <a href="{% url 'my_profile_edit' %}">Add a bio</a></em>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h3><i class="fas fa-info-circle"></i> Profile Details</h3>
+                    <div class="details-grid">
+                        {% if profile.gender %}
+                            <div class="detail-item">
+                                <div class="detail-label">
+                                    <i class="fas fa-venus-mars"></i> Gender
+                                </div>
+                                <div class="detail-value">{{ profile.get_gender_display }}</div>
+                            </div>
+                        {% endif %}
+
+                        <div class="detail-item">
+                            <div class="detail-label">
+                                <i class="fas fa-calendar-plus"></i> Joined
+                            </div>
+                            <div class="detail-value">{{ profile.user.date_joined|date:"M d, Y" }}</div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-label">
+                                <i class="fas fa-star"></i> Overall Rating
+                            </div>
+                            <div class="detail-value">
+                                {% if profile.overall_rating > 0 %}
+                                    {% star_rating profile.overall_rating show_value=True show_count=False %}
+                                {% else %}
+                                    <span class="no-ratings-message">No ratings yet</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Photo Sidebar -->
+            <div class="user-sidebar">
+                <div class="profile-user-card">
+                    <div class="profile-user-info">
+                        {% if profile.profile_picture %}
+                            <img src="{{ profile.profile_picture.url }}" 
+                                 alt="{{ profile.user.get_full_name|default:profile.user.username }}" 
+                                 class="profile-user-avatar">
+                        {% else %}
+                            <div class="primary-gradient profile-user-avatar-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        {% endif %}
+
+                        <div class="profile-user-details">
+                            <h4 class="profile-user-name-small">
+                                {% if profile.user.first_name and profile.user.last_name %}
+                                    {{ profile.user.first_name }} {{ profile.user.last_name }}
+                                {% else %}
+                                    {{ profile.user.username }}
+                                {% endif %}
+                            </h4>
+                            <p class="profile-user-username-small">
+                                <i class="fas fa-user"></i>
+                                @{{ profile.user.username }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="profile-contact-section">
+                        <a href="{% url 'my_profile_edit' %}" class="primary-gradient contact-btn">
+                            <i class="fas fa-edit"></i> Edit Profile
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Profile Stats -->
+                <div class="meta-info">
+                    <div class="meta-item">
+                        <i class="fas fa-handshake"></i>
+                        <span>{{ offered_skills.count }} skills offered</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-search"></i>
+                        <span>{{ requested_skills.count }} skills requested</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Skills -->
+    <div class="my-skills">
+        <div class="skills-header">
+            <h3><i class="fas fa-tools"></i> My Skills</h3>
+            <a href="{% url 'add_skill' %}?next=my_profile" class="primary-gradient add-my-skill-btn">
+                <i class="fas fa-plus"></i> Add New Skill
+            </a>
+        </div>
+        
+        <div class="my-skills-container">
+            <!-- Skills Offered -->
+            {% if offered_skills %}
+                <div class="my-skills-section">
+                    <h4><i class="fas fa-hand-holding-heart"></i> Skills I Offer ({{ offered_skills.count }})</h4>
+                    <div class="my-skills-tiles">
+                        {% for skill in offered_skills %}
+                            <div class="my-skill-tile offer">
+                                <a href="{% url 'skill_detail_page' skill.pk %}" class="my-skill-tile-link">
+                                    <div class="my-skill-tile-content">
+                                        <i class="fas fa-hand-holding-heart"></i>
+                                        <span class="my-skill-title">{{ skill.title }}</span>
+                                        <span class="my-skill-category">{{ skill.get_category_display }}</span>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Skills Requested -->
+            {% if requested_skills %}
+                <div class="my-skills-section">
+                    <h4><i class="fas fa-search"></i> Skills I Need ({{ requested_skills.count }})</h4>
+                    <div class="my-skills-tiles">
+                        {% for skill in requested_skills %}
+                            <div class="my-skill-tile request">
+                                <a href="{% url 'skill_detail_page' skill.pk %}" class="my-skill-tile-link">
+                                    <div class="my-skill-tile-content">
+                                        <i class="fas fa-search"></i>
+                                        <span class="my-skill-title">{{ skill.title }}</span>
+                                        <span class="my-skill-category">{{ skill.get_category_display }}</span>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if not offered_skills and not requested_skills %}
+                <div class="no-skills">
+                    <div class="no-skills-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <p>You haven't added any skills yet.</p>
+                    <div class="empty-actions">
+                        <a href="{% url 'add_skill' %}?type=offer&next=my_profile" class="primary-btn">
+                            <i class="fas fa-plus"></i> Offer a Skill
+                        </a>
+                        <a href="{% url 'add_skill' %}?type=request&next=my_profile" class="secondary-btn">
+                            <i class="fas fa-search"></i> Request a Skill
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Navigation Actions -->
+    <div class="navigation-actions">
+        <a href="{% url 'search' %}" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Browse
+        </a>
+        <a href="{% url 'my_skills' %}" class="manage-skills-btn">
+            <i class="fas fa-cog"></i> Manage All Skills
+        </a>
+    </div>
+</div>
+{% endblock %}
