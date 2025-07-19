@@ -4,7 +4,7 @@
         <div class="user-info">
             {% if profile_picture %}
                 {% if show_profile_link %}
-                    <a href="{% url 'users_profile_view' user_obj.id %}" class="avatar-link">
+                    <a href="{% url 'view_user_profile' user_obj.id %}" class="avatar-link">
                         <img src="{{ profile_picture.url }}" 
                              alt="{{ user_obj.get_full_name|default:user_obj.username }}" 
                              class="{% if sidebar_type == 'profile' %}profile-user-avatar{% else %}user-avatar{% endif %}">
@@ -16,7 +16,7 @@
                 {% endif %}
             {% else %}
                 {% if show_profile_link %}
-                    <a href="{% url 'users_profile_view' user_obj.id %}" class="avatar-link">
+                    <a href="{% url 'view_user_profile' user_obj.id %}" class="avatar-link">
                         <div class="primary-gradient profile-user-avatar-placeholder">
                             <i class="fas fa-user"></i>
                         </div>
@@ -49,7 +49,7 @@
         {% if show_action_button %}
             <div class="profile-contact-section">
                 {% if is_own_profile %}
-                    <a href="{% url 'my_profile_edit' %}" class="primary-gradient contact-btn">
+                    <a href="{% url 'edit_my_profile' %}" class="primary-gradient contact-btn">
                         <i class="fas fa-edit"></i> Edit Profile
                     </a>
                 {% elif action_type == 'message_user' %}
