@@ -1,0 +1,85 @@
+<!-- User Skills Component -->
+<div class="user-skills">
+    <div class="skills-header">
+        <h3><i class="fas fa-tools"></i> {{ section_title|default:"My Skills" }}</h3>
+        {% if show_add_button %}
+            <a href="{% url 'add_skill' %}?next={{ next_page|default:'view_my_profile' }}" class="primary-gradient add-skill-btn">
+                <i class="fas fa-plus"></i> Add New Skill
+            </a>
+        {% endif %}
+    </div>
+    
+    <div class="skills-container">
+        <!-- Skills Offered -->
+        {% if offered_skills %}
+            <div class="compact-skills-section">
+                <h4><i class="fas fa-hand-holding-heart"></i> 
+                    {% if is_own_profile %}
+                        Skills I Offer ({{ offered_skills.count }})
+                    {% else %}
+                        Skills {{ user_name|default:"User" }} Offers ({{ offered_skills.count }})
+                    {% endif %}
+                </h4>
+                <div class="compact-skills-tiles">
+                    {% for skill in offered_skills %}
+                        <div class="compact-skill-tile offer">
+                            <a href="{% url 'skill_detail_page' skill.pk %}" class="compact-skill-tile-link">
+                                <div class="compact-skill-tile-content">
+                                    <i class="fas fa-hand-holding-heart"></i>
+                                    <span class="compact-skill-title">{{ skill.title }}</span>
+                                    <span class="compact-skill-category">{{ skill.get_category_display }}</span>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Skills Requested -->
+        {% if requested_skills %}
+            <div class="compact-skills-section">
+                <h4><i class="fas fa-search"></i> 
+                    {% if is_own_profile %}
+                        Skills I Need ({{ requested_skills.count }})
+                    {% else %}
+                        Skills {{ user_name|default:"User" }} Needs ({{ requested_skills.count }})
+                    {% endif %}
+                </h4>
+                <div class="compact-skills-tiles">
+                    {% for skill in requested_skills %}
+                        <div class="compact-skill-tile request">
+                            <a href="{% url 'skill_detail_page' skill.pk %}" class="compact-skill-tile-link">
+                                <div class="compact-skill-tile-content">
+                                    <i class="fas fa-search"></i>
+                                    <span class="compact-skill-title">{{ skill.title }}</span>
+                                    <span class="compact-skill-category">{{ skill.get_category_display }}</span>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Empty State -->
+        {% if not offered_skills and not requested_skills %}
+            <div class="no-skills">
+                <div class="no-skills-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <p>{{ empty_message|default:"You haven't added any skills yet." }}</p>
+                {% if show_empty_actions %}
+                    <div class="empty-actions">
+                        <a href="{% url 'add_skill' %}?type=offer&next={{ next_page|default:'view_my_profile' }}" class="{% if use_gradient_button %}primary-gradient {% endif %}primary-btn">
+                            <i class="fas fa-plus"></i> Offer a Skill
+                        </a>
+                        <a href="{% url 'add_skill' %}?type=request&next={{ next_page|default:'view_my_profile' }}" class="secondary-btn">
+                            <i class="fas fa-search"></i> Request a Skill
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>
