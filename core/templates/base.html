@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/components.css' %}">
+    <link rel="stylesheet" href="{% static 'css/error-pages.css' %}">
+    <link rel="stylesheet" href="{% static 'css/auth-pages.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile-pages.css' %}">
+    <link rel="stylesheet" href="{% static 'css/skill-pages.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home-pages.css' %}">
+    <link rel="stylesheet" href="{% static 'css/messaging-pages.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search-page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/component-pages.css' %}">
+    {% block head %}{% endblock %}
     <style>
         * {
             margin: 0;
@@ -22,6 +31,11 @@
             line-height: 1.6;
             display: flex;
             flex-direction: column;
+        }
+        
+        .primary-gradient {
+            background-image: linear-gradient(to right, #6441a5, #2a0845);
+            color: white;
         }
         
         .main-content {
@@ -58,13 +72,11 @@
         .logo-icon {
             width: 40px;
             height: 40px;
-            background-image: linear-gradient(to right, #6441a5, #2a0845);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-right: 12px;
-            color: white;
             font-size: 20px;
         }
         
@@ -113,8 +125,6 @@
         }
         
         .login-btn {
-            background-image: linear-gradient(to right, #6441a5, #2a0845);
-            color: white;
             text-decoration: none;
             padding: 10px 20px;
             border-radius: 15px;
@@ -163,8 +173,6 @@
         }
 
         .profile-btn-gradient {
-            background-image: linear-gradient(to right, #6441a5, #2a0845);
-            color: white;
             text-decoration: none;
             padding: 10px 20px;
             border-radius: 15px;
@@ -261,12 +269,12 @@
     <header class="header">
         <div class="header-container">
             <a href="/" class="logo">
-                <div class="logo-icon"><i class="fas fa-exchange-alt"></i></div>
+                <div class="primary-gradient logo-icon"><i class="fas fa-exchange-alt"></i></div>
                 <span class="logo-text">SkillSwap</span>
             </a>
             
             <nav class="nav-items">
-                <a href="{% url 'skill_list' %}" class="nav-link">
+                <a href="{% url 'skills_list_search' %}" class="nav-link">
                     <i class="fas fa-list" style="margin-right: 5px;"></i>Skills
                 </a>
                 <a href="{% url 'search' %}" class="nav-link">
@@ -276,7 +284,7 @@
                     <a href="{% url 'inbox' %}" class="nav-link">
                         <i class="fas fa-inbox" style="margin-right: 5px;"></i>Messages
                     </a>
-                    <a href="{% url 'profile_view' %}" class="profile-btn-gradient">
+                    <a href="{% url 'my_profile' %}" class="primary-gradient profile-btn-gradient">
                         <i class="fas fa-user" style="margin-right: 5px;"></i> My Profile
                     </a>
                     <form method="post" action="{% url 'logout' %}" style="display:inline;">
@@ -287,7 +295,7 @@
                     </form>
                 {% else %}
                     <a href="{% url 'signup' %}" class="signup-btn">Sign Up</a>
-                    <a href="{% url 'login' %}" class="login-btn">Login</a>
+                    <a href="{% url 'login' %}" class="primary-gradient login-btn">Login</a>
                 {% endif %}
             </nav>
         </div>
@@ -300,7 +308,7 @@
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-logo">
-                <div class="logo-icon"><i class="fas fa-exchange-alt"></i></div>
+                <div class="primary-gradient logo-icon"><i class="fas fa-exchange-alt"></i></div>
                 <span class="logo-text">SkillSwap</span>
             </div>
             
@@ -347,13 +355,11 @@
             .footer-logo .logo-icon {
                 width: 35px;
                 height: 35px;
-                background-image: linear-gradient(to right, #6441a5, #2a0845);
                 border-radius: 8px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 margin-right: 10px;
-                color: white;
                 font-size: 16px;
             }
             

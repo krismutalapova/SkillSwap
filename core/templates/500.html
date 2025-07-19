@@ -1,82 +1,48 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div style="max-width: 1000px; margin: 0 auto; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 70vh;">
-    <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 15px; padding: 40px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); max-width: 500px; width: 100%; text-align: center;">
+
+<div class="error-container">
+    <div class="error-card">
         
-        <div style="margin-bottom: 30px;">
-            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 36px;">
+        <div class="error-icon-container">
+            <div class="error-icon">
                 <i class="fas fa-exclamation-triangle"></i>
             </div>
-            <h1 style="margin: 0; color: #333; font-size: 48px; font-weight: 700; margin-bottom: 10px;">500</h1>
-            <h2 style="margin: 0; color: #666; font-size: 24px; font-weight: 500;">Server Error</h2>
+            <h1 class="error-title">500</h1>
+            <h2 class="error-subtitle">Server Error</h2>
         </div>
 
-        <div style="margin-bottom: 30px;">
-            <p style="color: #666; font-size: 16px; line-height: 1.6; margin-bottom: 15px;">
+        <div class="error-message">
+            <p class="error-text">
                 Sorry! Something went wrong on our server. We're working to fix the issue as quickly as possible.
             </p>
-            <p style="color: #999; font-size: 14px;">
-                <i class="fas fa-info-circle" style="margin-right: 5px;"></i>
+            <p class="error-details">
+                <i class="fas fa-info-circle info-icon-spacing"></i>
                 Error 500 - Internal server error occurred while processing your request.
             </p>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
-            <a href="{% url 'home' %}" style="display: inline-block; padding: 14px 30px; background-image: linear-gradient(to right, #6441a5, #2a0845); color: white; border: none; border-radius: 8px; text-decoration: none; font-size: 16px; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);">
-                <i class="fas fa-home" style="margin-right: 8px;"></i>
+        <div class="action-buttons">
+            <a href="{% url 'home' %}" class="primary-gradient btn-primary-home">
+                <i class="fas fa-home icon-spacing"></i>
                 Go to Home Page
             </a>
             
-            <button onclick="window.location.reload()" style="display: inline-block; padding: 12px 24px; background: transparent; color: #667eea; border: 2px solid #667eea; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
-                <i class="fas fa-redo" style="margin-right: 8px;"></i>
+            <button onclick="window.location.reload()" class="btn-secondary">
+                <i class="fas fa-redo icon-spacing"></i>
                 Try Again
             </button>
         </div>
 
-        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e1e5e9;">
-            <p style="color: #999; font-size: 14px; margin-bottom: 10px;">
+        <div class="help-section">
+            <p class="help-title">
                 <strong>What can you do?</strong>
             </p>
-            <p style="color: #999; font-size: 14px; line-height: 1.5;">
+            <p class="help-text">
                 Try refreshing the page, go back to the home page, or contact support if the problem persists.
             </p>
         </div>
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const homeBtn = document.querySelector('a[href*="home"]');
-        const retryBtn = document.querySelector('button[onclick*="reload"]');
-        
-        if (homeBtn) {
-            homeBtn.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-2px)';
-                this.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.4)';
-            });
-            
-            homeBtn.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-                this.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.3)';
-            });
-        }
-        
-        if (retryBtn) {
-            retryBtn.addEventListener('mouseenter', function() {
-                this.style.background = '#667eea';
-                this.style.color = 'white';
-                this.style.transform = 'translateY(-2px)';
-                this.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.3)';
-            });
-            
-            retryBtn.addEventListener('mouseleave', function() {
-                this.style.background = 'transparent';
-                this.style.color = '#667eea';
-                this.style.transform = 'translateY(0)';
-                this.style.boxShadow = 'none';
-            });
-        }
-    });
-</script>
 {% endblock %}
