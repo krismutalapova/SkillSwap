@@ -297,6 +297,17 @@
     color: #667eea;
 }
 
+.skills-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.skills-header h3 {
+    margin-bottom: 0;
+}
+
 .skills-container {
     display: flex;
     flex-direction: column;
@@ -777,12 +788,21 @@
 }
 
 /* Navigation Actions */
-.navigation-actions {
+.profile.navigation-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 15px;
+}
+
+/* Ensure desktop layout is maintained */
+@media (min-width: 769px) {
+    .navigation-actions {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
 }
 
 .back-btn,
@@ -953,14 +973,6 @@
     color: #dee2e6;
 }
 
-.navigation-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
 .back-btn,
 .add-my-skill-btn {
     padding: 12px 25px;
@@ -1064,18 +1076,6 @@
 
     .save-btn,
     .cancel-btn {
-        justify-content: center;
-    }
-
-    .navigation-actions {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .back-btn,
-    .manage-skills-btn,
-    .edit-profile-btn {
-        text-align: center;
         justify-content: center;
     }
 }
