@@ -135,7 +135,7 @@
     color: white;
 }
 
-.navigation-actions {
+.inbox.navigation-actions {
     display: flex;
     justify-content: center;
 }
