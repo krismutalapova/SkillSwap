@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+{% load rating_extras %}
+
+{% block content %}
+<div class="container">
+    <div class="skill-detail-card">
+        <!-- Skill Header -->
+        <div class="skill-header">
+            <div class="skill-meta">
+                <div class="skill-type {{ skill.skill_type }}">
+                    <i class="fas fa-{% if skill.skill_type == 'offer' %}hand-holding-heart{% else %}search{% endif %}"></i>
+                    {{ skill.get_skill_type_display }}
+                </div>
+                <div class="skill-category">
+                    <i class="fas fa-tag"></i>
+                    {{ skill.get_category_display }}
+                </div>
+            </div>
+            
+            {% if can_edit %}
+                <div class="skill-actions">
+                    <a href="{% url 'skill_edit' skill.pk %}" class="edit-btn">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a href="{% url 'delete_skill' skill.pk %}" class="delete-btn">
+                        <i class="fas fa-trash"></i> Delete
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Skill Title -->
+        <h1 class="skill-title">{{ skill.title }}</h1>
+
+        <!-- Skill Info Grid -->
+        <div class="skill-info-grid">
+            <div class="skill-content">
+                <div class="description-section">
+                    <h3><i class="fas fa-align-left"></i> Description</h3>
+                    <div class="description-content">{{ skill.description|linebreaks }}</div>
+                </div>
+
+                {% if skill.location or skill.availability or skill.is_remote %}
+                    <div class="details-section">
+                        <h3><i class="fas fa-info-circle"></i> Details</h3>
+                        <div class="details-grid">
+                            {% if skill.location %}
+                                <div class="detail-item">
+                                    <div class="detail-label">
+                                        <i class="fas fa-map-marker-alt"></i> Location
+                                    </div>
+                                    <div class="detail-value">{{ skill.location }}</div>
+                                </div>
+                            {% endif %}
+
+                            {% if skill.availability %}
+                                <div class="detail-item">
+                                    <div class="detail-label">
+                                        <i class="fas fa-clock"></i> Availability
+                                    </div>
+                                    <div class="detail-value">{{ skill.availability }}</div>
+                                </div>
+                            {% endif %}
+
+                            <div class="detail-item">
+                                <div class="detail-label">
+                                    <i class="fas fa-wifi"></i> Remote Option
+                                </div>
+                                <div class="detail-value {% if skill.is_remote %}available{% else %}not-available{% endif %}">
+                                    {% if skill.is_remote %}
+                                        <i class="fas fa-check"></i> Available online
+                                    {% else %}
+                                        <i class="fas fa-times"></i> In-person only
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- User Info Sidebar -->
+            {% include 'core/components/user_info_sidebar.html' with sidebar_type='skill' user_obj=skill.user profile_picture=skill.user.profile.profile_picture show_profile_link=True show_member_since=True show_action_button=True action_type='message_skill' skill_obj=skill meta_items=skill_meta_items show_skill_rating=True can_edit=can_edit %}
+        </div>
+    </div>
+
+    <!-- Other Skills by Same User -->
+    {% if other_skills %}
+        <div class="user-skills">
+            <h3><i class="fas fa-user"></i> More skills by {{ skill.user.first_name|default:"this user" }}</h3>
+            <div class="skills-grid">
+                {% for other_skill in other_skills %}
+                    <a href="{% url 'skill_detail_page' other_skill.pk %}" class="skill-card-link">
+                        <div class="skill-card mini">
+                            <div class="skill-content">
+                                <div class="skill-type {{ other_skill.skill_type }}">
+                                    <i class="fas fa-{% if other_skill.skill_type == 'offer' %}hand-holding-heart{% else %}search{% endif %}"></i>
+                                    {{ other_skill.get_skill_type_display }}
+                                </div>
+                                <h4>{{ other_skill.title }}</h4>
+                                <p>{{ other_skill.description|truncatewords:15 }}</p>
+                            </div>
+                            <div class="skill-meta">
+                                <div class="category">{{ other_skill.get_category_display }}</div>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Back to Browse -->
+    <div class="navigation-actions">
+        <a href="{% url 'skills_list_search' %}" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Skills
+        </a>
+    </div>
+</div>
+
+<!-- Contact Form Modal (hidden by default) -->
+{% if user.is_authenticated and not can_edit %}
+    <div id="contactModal" class="modal hide">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-envelope"></i> Contact {{ skill.user.first_name|default:"User" }}</h3>
+                <button class="close-btn" onclick="hideContactForm()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Want to connect about "<strong>{{ skill.title }}</strong>"?</p>
+            </div>
+            <div class="modal-actions">
+                <button onclick="hideContactForm()" class="btn-secondary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rating Modal -->
+    <div id="ratingModal" class="modal hide">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-star"></i> Rate "{{ skill.title }}"</h3>
+                <button class="close-btn" onclick="hideRatingModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>How would you rate this skill offering?</p>
+                <div class="rating-input">
+                    <div class="interactive-stars">
+                        <i class="fas fa-star" data-rating="1"></i>
+                        <i class="fas fa-star" data-rating="2"></i>
+                        <i class="fas fa-star" data-rating="3"></i>
+                        <i class="fas fa-star" data-rating="4"></i>
+                        <i class="fas fa-star" data-rating="5"></i>
+                    </div>
+                    <p class="rating-text">Click a star to rate</p>
+                </div>
+                <textarea class="rating-comment" placeholder="Share your experience (optional)..." rows="3"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button onclick="hideRatingModal()" class="btn-secondary">Cancel</button>
+                <button onclick="submitRating()" class="btn-primary" disabled>Submit Rating</button>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<script>
+    let selectedRating = 0;
+
+    function showContactForm() {
+        const modal = document.getElementById('contactModal');
+        modal.classList.remove('hide');
+        modal.classList.add('show');
+    }
+
+    function hideContactForm() {
+        const modal = document.getElementById('contactModal');
+        modal.classList.remove('show');
+        modal.classList.add('hide');
+    }
+
+    function showRatingModal() {
+        const modal = document.getElementById('ratingModal');
+        modal.classList.remove('hide');
+        modal.classList.add('show');
+        initializeRatingStars();
+    }
+
+    function hideRatingModal() {
+        const modal = document.getElementById('ratingModal');
+        modal.classList.remove('show');
+        modal.classList.add('hide');
+        resetRating();
+    }
+
+    function initializeRatingStars() {
+        const stars = document.querySelectorAll('.interactive-stars i');
+        
+        stars.forEach((star, index) => {
+            star.addEventListener('mouseenter', () => {
+                highlightStars(index + 1);
+            });
+            
+            star.addEventListener('mouseleave', () => {
+                highlightStars(selectedRating);
+            });
+            
+            star.addEventListener('click', () => {
+                selectedRating = index + 1;
+                highlightStars(selectedRating);
+                updateRatingText();
+                enableSubmitButton();
+            });
+        });
+    }
+
+    function highlightStars(count) {
+        const stars = document.querySelectorAll('.interactive-stars i');
+        stars.forEach((star, index) => {
+            if (index < count) {
+                star.classList.add('hover');
+                star.classList.add('selected');
+            } else {
+                star.classList.remove('hover');
+                star.classList.remove('selected');
+            }
+        });
+    }
+
+    function updateRatingText() {
+        const ratingTexts = {
+            1: 'Poor - Not satisfied',
+            2: 'Fair - Below expectations',
+            3: 'Good - Met expectations',
+            4: 'Very Good - Exceeded expectations',
+            5: 'Excellent - Outstanding!'
+        };
+        
+        const textElement = document.querySelector('.rating-text');
+        textElement.textContent = ratingTexts[selectedRating] || 'Click a star to rate';
+        
+        if (selectedRating > 0) {
+            textElement.classList.add('rating-selected');
+        } else {
+            textElement.classList.remove('rating-selected');
+        }
+    }
+
+    function enableSubmitButton() {
+        const submitBtn = document.querySelector('.modal-actions .btn-primary');
+        submitBtn.disabled = selectedRating === 0;
+        
+        if (selectedRating > 0) {
+            submitBtn.classList.add('btn-enabled');
+        } else {
+            submitBtn.classList.remove('btn-enabled');
+        }
+    }
+
+    function resetRating() {
+        selectedRating = 0;
+        const stars = document.querySelectorAll('.interactive-stars i');
+        stars.forEach(star => {
+            star.classList.remove('hover', 'selected');
+        });
+        updateRatingText();
+        enableSubmitButton();
+        document.querySelector('.rating-comment').value = '';
+    }
+
+    function submitRating() {
+        if (selectedRating === 0) return;
+        
+        const comment = document.querySelector('.rating-comment').value;
+        
+        console.log('Rating submitted:', {
+            rating: selectedRating,
+            comment: comment
+        });
+        
+        // Show success message
+        alert(`Thank you for rating this skill ${selectedRating} star${selectedRating > 1 ? 's' : ''}!`);
+        
+        hideRatingModal();
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        const contactModal = document.getElementById('contactModal');
+        const ratingModal = document.getElementById('ratingModal');
+        
+        if (event.target === contactModal) {
+            hideContactForm();
+        }
+        
+        if (event.target === ratingModal) {
+            hideRatingModal();
+        }
+    }
+</script>
+{% endblock %}
