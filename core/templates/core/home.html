@@ -2,136 +2,25 @@
 {% load core_extras %}
 
 {% block content %}
-<div style="max-width: 1000px; margin: 0 auto; padding: 40px 20px;">
-    <div style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.2); text-align: center; margin-bottom: 30px;">
-        <h1 style="color: #333; font-size: 3em; margin-bottom: 20px; background-image: linear-gradient(to right, #6441a5, #2a0845); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Welcome to SkillSwap!</h1>
-        <p style="color: #666; font-size: 1.2em; margin-bottom: 30px; line-height: 1.6;">Connect with your community and exchange skills with neighbors. Learn something new while helping others!</p>
+<div class="hero-section">
+    <div class="features-section">
+        <h1 class="hero-title">Welcome to SkillSwap!</h1>
+        <p class="hero-subtitle">Connect with your community and exchange skills with neighbors. Learn something new while helping others!</p>
         
         {% if not user.is_authenticated %}
-            <div style="margin-top: 30px;">
-                <a href="{% url 'signup' %}" style="background-image: linear-gradient(to right, #6441a5, #2a0845); color: white; text-decoration: none; padding: 15px 30px; border-radius: 25px; font-weight: 500; margin-right: 15px; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);">Get Started</a>
-                <a href="{% url 'login' %}" style="background: transparent; color: #667eea; text-decoration: none; padding: 15px 30px; border: 2px solid #667eea; border-radius: 25px; font-weight: 500; display: inline-block; transition: all 0.3s ease;">Login</a>
+            <div class="hero-actions">
+                <a href="{% url 'signup' %}" class="primary-gradient hero-btn primary">Get Started</a>
+                <a href="{% url 'login' %}" class="hero-btn secondary">Login</a>
             </div>
         {% endif %}
     </div>
 
     <!-- Search Section -->
-     <div class="container">
+    <div class="container">
     {% if user.is_authenticated %}
     {% include 'core/components/skill_filters.html' with search_query=search_query current_type=current_type current_category=current_category current_location=current_location current_gender=current_gender categories=categories gender_choices=gender_choices show_search_button=True show_active_filters=False %}
     </div>
     {% endif %}
 </div>
 
-<style>
-    .filters-card input:focus,
-    .filters-card select:focus {
-        outline: none;
-        border-color: #667eea !important;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
-
-    .filters-card input:disabled,
-    .filters-card select:disabled {
-        background-color: #f8f9fa;
-        color: #6c757d;
-        cursor: not-allowed;
-    }
-
-    .filters-card button:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-    }
-
-    .filters-card a:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
-    }
-
-    @media (max-width: 768px) {
-        /* Container adjustments */
-        div[style*="max-width: 1000px"] {
-            padding: 20px 15px !important;
-        }
-        
-        div[style*="text-align: center"] h1 {
-            font-size: 2.2em !important;
-            margin-bottom: 15px !important;
-        }
-        
-        div[style*="text-align: center"] p {
-            font-size: 1.1em !important;
-            margin-bottom: 20px !important;
-        }
-        
-        /* Filter layout */
-        .filter-row,
-        .advanced-filters {
-            flex-direction: column;
-            align-items: stretch !important;
-            gap: 15px !important;
-        }
-
-        .filter-group {
-            min-width: auto !important;
-            margin-bottom: 10px;
-        }
-        
-        /* Button adjustments */
-        div[style*="min-width: 220px"] {
-            min-width: 100% !important;
-            margin-bottom: 10px;
-        }
-        
-        /* Form container */
-        div[style*="padding: 30px"] {
-            padding: 20px !important;
-        }
-        
-        /* Filters card */
-        .filters-card {
-            padding: 20px !important;
-        }
-    }
-    
-    @media (max-width: 480px) {
-        /* Extra small screens */
-        div[style*="max-width: 1000px"] {
-            padding: 15px 10px !important;
-        }
-        
-        div[style*="text-align: center"] h1 {
-            font-size: 1.8em !important;
-            margin-bottom: 12px !important;
-        }
-        
-        div[style*="text-align: center"] p {
-            font-size: 1em !important;
-            margin-bottom: 15px !important;
-        }
-        
-        div[style*="padding: 40px"] {
-            padding: 20px !important;
-        }
-        
-        .filters-card {
-            padding: 15px !important;
-        }
-        
-        /* Smaller form inputs */
-        .filters-card input,
-        .filters-card select {
-            padding: 8px 12px !important;
-            font-size: 0.9rem !important;
-        }
-        
-        /* Button sizing */
-        button[type="submit"],
-        a[style*="min-width: 220px"] {
-            padding: 10px 20px !important;
-            font-size: 0.9rem !important;
-            height: 45px !important;
-        }
-    }
-</style>
 {% endblock %}
