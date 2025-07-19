@@ -60,8 +60,6 @@
 }
 
 .search-btn {
-    background-image: linear-gradient(to right, #667eea, #764ba2);
-    color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 8px;
@@ -414,7 +412,7 @@
 }
 
 /* Pagination Components */
-.pagination-container {
+.skills.pagination-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -422,7 +420,7 @@
     margin-bottom: 15px;
 }
 
-.pagination {
+.skills.pagination {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -464,6 +462,73 @@
     font-weight: 500;
     text-align: center;
     margin-bottom: 20px;
+}
+
+/* Updated Pagination Component Styles */
+.pagination-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    gap: 15px;
+}
+
+.pagination-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.pagination-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #667eea;
+    text-decoration: none;
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.pagination-link:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-1px);
+    text-decoration: none;
+    box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+}
+
+.pagination-info {
+    color: #333;
+    font-weight: 600;
+    padding: 0 20px;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.pagination-results-info {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Active Filters Section */
@@ -719,15 +784,15 @@
         gap: 20px;
     }
     
-    .pagination-container {
+    .skills.pagination-container {
         flex-direction: column;
         gap: 15px;
         text-align: center;
         margin-top: 25px;
         margin-bottom: 10px;
     }
-    
-    .pagination {
+
+    .skills.pagination {
         justify-content: center;
     }
     
@@ -744,5 +809,64 @@
     .user-footer {
         flex-direction: column;
         gap: 10px;
+    }
+}
+
+/* Responsive pagination styles */
+@media (max-width: 768px) {
+    .pagination-container {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        margin-top: 25px;
+        margin-bottom: 10px;
+    }
+
+    .pagination-nav {
+        justify-content: center;
+        padding: 12px 16px;
+        gap: 6px;
+    }
+    
+    .pagination-link {
+        width: 36px;
+        height: 36px;
+        font-size: 12px;
+    }
+    
+    .pagination-info {
+        order: -1;
+        margin-bottom: 10px;
+        padding: 0 10px;
+        font-size: 0.9rem;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 8px 16px;
+        border-radius: 20px;
+        color: #333;
+        font-weight: 600;
+    }
+    
+    .pagination-results-info {
+        font-size: 0.85rem;
+        margin-bottom: 15px;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pagination-nav {
+        padding: 10px 12px;
+        gap: 4px;
+    }
+    
+    .pagination-link {
+        width: 32px;
+        height: 32px;
+        font-size: 11px;
+    }
+    
+    .pagination-info {
+        font-size: 0.85rem;
+        padding: 6px 12px;
     }
 }
