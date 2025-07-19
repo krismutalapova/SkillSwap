@@ -1,0 +1,10 @@
+<div class="profile navigation-actions">
+    <a href="{{ back_url }}" class="back-btn">
+        <i class="fas fa-arrow-left"></i> {{ back_text|default:"Back" }}
+    </a>
+    {% if show_manage_skills %}
+        <a href="{% url 'my_skills' %}" class="{% if use_gradient %}primary-gradient {% endif %}manage-skills-btn">
+            <i class="fas fa-cog"></i> Manage All Skills
+        </a>
+    {% endif %}
+</div>
