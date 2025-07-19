@@ -42,17 +42,17 @@ Perfect for presentations, demos, or quick evaluation:
 
 ```bash
 # One-command setup with realistic demo data
-docker-compose up --build
+docker-compose -f docker/docker-compose.yml up --build
 ```
 
 ### **Local Demo Setup**
 
 ```bash
 # Use the convenience script
-./setup-demo.sh
+dev/setup-demo.sh
 
 # Then start server
-./dev-server.sh
+dev/dev-server.sh
 ```
 
 **What you get:**
@@ -102,7 +102,7 @@ python manage.py runserver
 ```bash
 dev/dev-server.sh                  # Auto-activates env and starts server
 dev/manage.sh migrate               # Run Django commands with auto-env
-./manage.sh populate_users --count 15
+dev/manage.sh populate_users --count 15
 ```
 
 ## Technical Architecture
@@ -148,7 +148,7 @@ python manage.py cleanup_profiles
 ### **Testing & Quality**
 ```bash
 # Run custom test suite
-python tests/test_popup_messages.py
+python core/tests/test_popup_messages.py
 
 # Django development server
 python manage.py runserver
@@ -194,7 +194,7 @@ skillswap/
 ### **Docker Production**
 ```bash
 # Production-ready containerized deployment
-docker-compose -f docker-compose.prod.yml up -d
+docker-compose -f docker/docker-compose.prod.yml up -d
 ```
 
 ### **Traditional Deployment**
