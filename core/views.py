@@ -33,13 +33,13 @@ def home(request):
 def complete_name(request):
     """Allow existing users without names to add them (one-time only)"""
     if request.user.first_name and request.user.last_name:
-        return redirect("my_profile")
+        return redirect("view_my_profile")
 
     if request.method == "POST":
         form = NameCompletionForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect("my_profile")
+            return redirect("view_my_profile")
     else:
         form = NameCompletionForm(instance=request.user)
 
@@ -56,7 +56,7 @@ class SignupView(View):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("my_profile")
+            return redirect("view_my_profile")
         return render(request, "core/auth/signup.html", {"form": form})
 
 
@@ -86,22 +86,22 @@ def _prepare_profile_context(target_user, is_own_profile):
 
 
 @login_required
-def my_profile(request):
+def view_my_profile(request):
     context = _prepare_profile_context(request.user, is_own_profile=True)
-    return render(request, "core/profiles/my_profile.html", context)
+    return render(request, "core/profiles/view_my_profile.html", context)
 
 
 @login_required
-def users_profile_view(request, user_id):
+def view_user_profile(request, user_id):
     target_user = get_object_or_404(User, id=user_id)
     is_own_profile = target_user == request.user
 
     context = _prepare_profile_context(target_user, is_own_profile)
-    return render(request, "core/profiles/users_profile_view.html", context)
+    return render(request, "core/profiles/view_user_profile.html", context)
 
 
 @login_required
-def my_profile_edit(request):
+def edit_my_profile(request):
     profile = get_object_or_404(Profile, user=request.user)
 
     if request.method == "POST":
@@ -109,7 +109,7 @@ def my_profile_edit(request):
             form = ProfileForm(request.POST, request.FILES, instance=profile)
             if form.is_valid():
                 form.save()
-                return redirect("my_profile")
+                return redirect("view_my_profile")
             else:
                 messages.error(
                     request, "Please correct the errors below and try again."
@@ -130,7 +130,7 @@ def my_profile_edit(request):
 
     return render(
         request,
-        "core/profiles/my_profile_edit.html",
+        "core/profiles/edit_my_profile.html",
         {
             "form": form,
             "profile": profile,
@@ -379,7 +379,7 @@ def send_message(request, skill_id=None, user_id=None):
     elif user_id:
         # General message to user
         receiver = get_object_or_404(User, id=user_id)
-        redirect_url = "users_profile_view"
+        redirect_url = "view_user_profile"
         redirect_kwargs = {"user_id": user_id}
     else:
         messages.error(request, "Invalid message request.")

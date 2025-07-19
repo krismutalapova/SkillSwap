@@ -165,7 +165,7 @@
                 <button type="submit" class="save-btn">
                     <i class="fas fa-save"></i> Save Changes
                 </button>
-                <a href="{% url 'my_profile' %}" class="cancel-btn">
+                <a href="{% url 'view_my_profile' %}" class="cancel-btn">
                     <i class="fas fa-times"></i> Cancel
                 </a>
             </div>
@@ -176,7 +176,7 @@
     <div class="user-skills">
         <div class="skills-header">
             <h3><i class="fas fa-tools"></i> My Skills</h3>
-            <a href="{% url 'add_skill' %}?next=my_profile_edit" class="primary-gradient add-my-skill-btn">
+            <a href="{% url 'add_skill' %}?next=edit_my_profile" class="primary-gradient add-my-skill-btn">
                 <i class="fas fa-plus"></i> Add New Skill
             </a>
         </div>
@@ -229,10 +229,10 @@
                     </div>
                     <p>You haven't added any skills yet.</p>
                     <div class="empty-actions">
-                        <a href="{% url 'add_skill' %}?type=offer&next=my_profile_edit" class="primary-gradient primary-btn">
+                        <a href="{% url 'add_skill' %}?type=offer&next=edit_my_profile" class="primary-gradient primary-btn">
                             <i class="fas fa-plus"></i> Offer a Skill
                         </a>
-                        <a href="{% url 'add_skill' %}?type=request&next=my_profile_edit" class="secondary-btn">
+                        <a href="{% url 'add_skill' %}?type=request&next=edit_my_profile" class="secondary-btn">
                             <i class="fas fa-search"></i> Request a Skill
                         </a>
                     </div>
@@ -243,7 +243,7 @@
 
     <!-- Navigation Actions -->
     <div class="navigation-actions">
-        <a href="{% url 'my_profile' %}" class="back-btn">
+        <a href="{% url 'view_my_profile' %}" class="back-btn">
             <i class="fas fa-arrow-left"></i> Back to Profile
         </a>
         <a href="{% url 'my_skills' %}" class="primary-gradient manage-skills-btn">
