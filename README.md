@@ -8,36 +8,30 @@ SkillSwap enables users to discover others in their community, share expertise, 
 ![Python](https://img.shields.io/badge/Python-3.11+-blue)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-## ✨ Key Features
+## Key Features
 
-### 🧑‍🤝‍🧑 **Smart User Discovery**
+### **Smart User Discovery**
 - Browse community members with complete profiles
 - Advanced filtering by skills, location, and user preferences
 - Optional combinable filters (apply one, multiple, or none)
 - Intelligent search across skill titles and descriptions
 
-### 🎯 **Skill Management System**
+### **Skill Management System**
 - **Offer Skills**: Share your expertise (Programming, Music, Cooking, Languages, etc.)
 - **Request Skills**: Find what you want to learn
 - **Categories**: Technology, Art, Language, Sports, Lifestyle, and more
 - **Personal Dashboard**: Manage all your skills in one place
 
-### ⭐ **Dynamic Rating System**
+### **Dynamic Rating System**
 - Star-based ratings (1-5) for individual skills
 - Calculated overall user ratings across all offerings
 - Visual feedback with filled, half, and empty stars
 - Community-driven trust building
 
-### 👤 **Complete Profile Experience**
-- Profile completion tracking with smart guidance
-- Bio, location, and profile picture management
-- Skills showcase with offerings and requests
-- Real-time completion status notifications
 
-### 🎨 **Modern User Experience**
+### **Modern UX**
 - **Glassmorphism Design**: Contemporary, accessible interface
 - **Responsive Layout**: Seamless mobile and desktop experience
-- **Smart Notifications**: Auto-dismissing feedback system
 - **Intuitive Navigation**: User-focused design patterns
 
 ## 🚀 Quick Start
@@ -49,6 +43,16 @@ Perfect for presentations, demos, or quick evaluation:
 ```bash
 # One-command setup with realistic demo data
 docker-compose up --build
+```
+
+### **Local Demo Setup**
+
+```bash
+# Use the convenience script
+./setup-demo.sh
+
+# Then start server
+./dev-server.sh
 ```
 
 **What you get:**
@@ -101,9 +105,9 @@ dev/manage.sh migrate               # Run Django commands with auto-env
 ./manage.sh populate_users --count 15
 ```
 
-## 🏗️ Technical Architecture
+## Technical Architecture
 
-### **Django MVT Excellence**
+### **Django Project MVT Structure**
 - **Single-App Architecture**: Focused, maintainable codebase
 - **Model Layer**: Efficient relationships with computed properties
 - **View Layer**: Function-based views with class-based authentication
@@ -126,17 +130,6 @@ User (Django Auth) → Profile (Extended user data)
 - **Template Tags**: Reusable rating and utility components
 - **Media Handling**: Secure file uploads with Pillow
 - **Responsive Design**: Mobile-first CSS with glassmorphism
-
-## 📊 Platform Statistics
-
-| Feature | Implementation |
-|---------|---------------|
-| **Models** | User, Profile, Skill, Rating, Message |
-| **Views** | 15+ function-based views + custom auth |
-| **Templates** | Inheritance-based with 20+ templates |
-| **Categories** | Technology, Art, Language, Sports, Lifestyle+ |
-| **Filters** | Type, Category, Location, Search, Gender |
-| **Rating System** | 1-5 stars with mathematical averaging |
 
 ## 🛠️ Development Commands
 
@@ -164,25 +157,36 @@ python manage.py runserver
 python manage.py collectstatic
 ```
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 skillswap/
-├── 📁 core/                    # Main application
-│   ├── models.py              # User, Profile, Skill, Rating, Message
-│   ├── views.py               # Function-based views + SignupView
-│   ├── forms.py               # Custom forms with validation
-│   ├── admin.py               # Django admin configuration
-│   ├── urls.py                # URL routing patterns
-│   ├── 📁 templates/core/     # HTML templates with inheritance
-│   ├── 📁 templatetags/       # Custom template filters and tags
-│   ├── 📁 management/commands/ # populate_users, sync_profile_skills
-│   └── 📁 migrations/         # Database schema versions
-├── 📁 skillswap/              # Project configuration
-├── 📁 static/                 # CSS, JavaScript, images
-├── 📁 media/                  # User-uploaded files
-├── 📁 tests/                  # Custom test suite
-└── 🐳 docker-compose.yml      # Container orchestration
+├── 📁 core/                     # Main Django application
+│   ├── models.py                # User, Profile, Skill, Rating, Message
+│   ├── views.py                 # Function-based views
+│   ├── forms.py                 # Custom forms with validation
+│   ├── admin.py                 # Django admin configuration
+│   ├── urls.py                  # URL routing patterns
+│   ├── 📁 templates/core/       # HTML templates with inheritance
+│   ├── 📁 templatetags/         # Custom template filters and tags
+│   ├── 📁 management/commands/  # populate_users, sync_profile_skills
+│   ├── 📁 tests/                # Custom test suite
+│   └── 📁 migrations/           # Database schema versions
+├── 📁 skillswap/                # Django project configuration
+├── 📁 static/                   # CSS, JavaScript, images
+├── 📁 media/                    # User-uploaded files (profile pics)
+├── 📁 dev/                      # Development utilities
+│   ├── dev-server.sh            # Auto-start development server
+│   ├── manage.sh                # Django command wrapper
+│   ├── setup-demo.sh            # Demo data setup
+│   └── demo-*.sh                # Demo management scripts
+├── 🐳 docker/                   # Docker configuration
+│   ├── docker-compose.yml       # Container orchestration
+│   ├── Dockerfile               # Container definition
+│   └── docker-entrypoint.sh     # Container startup script
+├── manage.py                    # Django management script
+├── requirements.txt             # Python dependencies
+└── db.sqlite3                   # SQLite database
 ```
 
 ## 🚀 Deployment & Production
