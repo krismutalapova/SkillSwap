@@ -280,9 +280,14 @@ def skills_list_search(request):
 def skill_detail_page(request, pk):
     skill = get_object_or_404(Skill, pk=pk, is_active=True)
 
-    other_skills = Skill.objects.filter(user=skill.user, is_active=True).exclude(pk=pk)[
-        :3
-    ]
+    other_skills_queryset = Skill.objects.filter(
+        user=skill.user, is_active=True
+    ).exclude(pk=pk)
+
+    offered_skills = other_skills_queryset.filter(skill_type="offer")[:3]
+    requested_skills = other_skills_queryset.filter(skill_type="request")[:3]
+
+    other_skills = other_skills_queryset[:3]
 
     # Prepare meta items for the sidebar
     skill_meta_items = [
@@ -303,6 +308,8 @@ def skill_detail_page(request, pk):
     context = {
         "skill": skill,
         "other_skills": other_skills,
+        "offered_skills": offered_skills,
+        "requested_skills": requested_skills,
         "can_edit": request.user == skill.user,
         "skill_meta_items": skill_meta_items,
     }
