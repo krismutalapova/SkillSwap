@@ -33,13 +33,13 @@ def home(request):
 def complete_name(request):
     """Allow existing users without names to add them (one-time only)"""
     if request.user.first_name and request.user.last_name:
-        return redirect("profile_view")
+        return redirect("my_profile")
 
     if request.method == "POST":
         form = NameCompletionForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect("profile_view")
+            return redirect("my_profile")
     else:
         form = NameCompletionForm(instance=request.user)
 
@@ -56,12 +56,12 @@ class SignupView(View):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("profile_view")
+            return redirect("my_profile")
         return render(request, "core/auth/signup.html", {"form": form})
 
 
 @login_required
-def profile_view(request, user_id=None):
+def my_profile(request, user_id=None):
     if user_id:
         target_user = get_object_or_404(User, id=user_id)
         profile = get_object_or_404(Profile, user=target_user)
@@ -70,13 +70,26 @@ def profile_view(request, user_id=None):
         offered_skills = Skill.objects.filter(user=target_user, skill_type="offer")
         requested_skills = Skill.objects.filter(user=target_user, skill_type="request")
 
+        # Prepare meta items for the sidebar
+        profile_meta_items = [
+            {
+                "icon": "fas fa-handshake",
+                "text": f"{offered_skills.count()} skills offered",
+            },
+            {
+                "icon": "fas fa-search",
+                "text": f"{requested_skills.count()} skills requested",
+            },
+        ]
+
         context = {
             "profile": profile,
             "is_own_profile": is_own_profile,
             "offered_skills": offered_skills,
             "requested_skills": requested_skills,
+            "profile_meta_items": profile_meta_items,
         }
-        return render(request, "core/profiles/public_profile_view.html", context)
+        return render(request, "core/profiles/users_profile_view.html", context)
     else:
         profile = get_object_or_404(Profile, user=request.user)
 
@@ -89,11 +102,11 @@ def profile_view(request, user_id=None):
             "offered_skills": offered_skills,
             "requested_skills": requested_skills,
         }
-        return render(request, "core/profiles/profile_view.html", context)
+        return render(request, "core/profiles/my_profile.html", context)
 
 
 @login_required
-def profile_edit(request):
+def my_profile_edit(request):
     profile = get_object_or_404(Profile, user=request.user)
 
     if request.method == "POST":
@@ -101,7 +114,7 @@ def profile_edit(request):
             form = ProfileForm(request.POST, request.FILES, instance=profile)
             if form.is_valid():
                 form.save()
-                return redirect("profile_view")
+                return redirect("my_profile")
             else:
                 messages.error(
                     request, "Please correct the errors below and try again."
@@ -122,7 +135,7 @@ def profile_edit(request):
 
     return render(
         request,
-        "core/profiles/profile_edit.html",
+        "core/profiles/my_profile_edit.html",
         {
             "form": form,
             "profile": profile,
@@ -166,8 +179,8 @@ def search(request):
 
 # Skill Views
 @login_required
-def skill_create(request):
-    next_url = request.GET.get("next", "skill_list")
+def add_skill(request):
+    next_url = request.GET.get("next", "skills_list_search")
     skill_type = request.GET.get("type", "").strip()
 
     if request.method == "POST":
@@ -177,7 +190,7 @@ def skill_create(request):
             skill.user = request.user
             skill.save()
 
-            return redirect("skill_detail", pk=skill.pk)
+            return redirect("skill_detail_page", pk=skill.pk)
     else:
         # Prefill form with skill_type from URL parameter
         initial_data = {}
@@ -189,10 +202,10 @@ def skill_create(request):
         "form": form,
         "next_url": next_url,
     }
-    return render(request, "core/skills/skill_create.html", context)
+    return render(request, "core/skills/add_skill.html", context)
 
 
-def skill_list(request):
+def skills_list_search(request):
     skills = Skill.objects.filter(is_active=True).select_related("user__profile")
 
     # Get filter parameters and clean them
@@ -266,36 +279,53 @@ def skill_list(request):
         "total_skills": skills.count(),
     }
 
-    return render(request, "core/skills/skill_list.html", context)
+    return render(request, "core/skills/skills_list_search.html", context)
 
 
-def skill_detail(request, pk):
+def skill_detail_page(request, pk):
     skill = get_object_or_404(Skill, pk=pk, is_active=True)
 
     other_skills = Skill.objects.filter(user=skill.user, is_active=True).exclude(pk=pk)[
         :3
     ]
 
+    # Prepare meta items for the sidebar
+    skill_meta_items = [
+        {
+            "icon": "fas fa-calendar-plus",
+            "text": f"Posted {skill.created_at.strftime('%b %d, %Y')}",
+        }
+    ]
+
+    if skill.updated_at != skill.created_at:
+        skill_meta_items.append(
+            {
+                "icon": "fas fa-edit",
+                "text": f"Updated {skill.updated_at.strftime('%b %d, %Y')}",
+            }
+        )
+
     context = {
         "skill": skill,
         "other_skills": other_skills,
         "can_edit": request.user == skill.user,
+        "skill_meta_items": skill_meta_items,
     }
 
-    return render(request, "core/skills/skill_detail.html", context)
+    return render(request, "core/skills/skill_detail_page.html", context)
 
 
 @login_required
 def skill_edit(request, pk):
     """Edit an existing skill listing"""
     skill = get_object_or_404(Skill, pk=pk, user=request.user)
-    next_url = request.GET.get("next", "skill_detail")
+    next_url = request.GET.get("next", "skill_detail_page")
 
     if request.method == "POST":
         form = SkillForm(request.POST, instance=skill)
         if form.is_valid():
             form.save()
-            return redirect("skill_detail", pk=skill.pk)
+            return redirect("skill_detail_page", pk=skill.pk)
     else:
         form = SkillForm(instance=skill)
 
@@ -306,20 +336,20 @@ def skill_edit(request, pk):
         "next_url": next_url,
     }
 
-    return render(request, "core/skills/skill_create.html", context)
+    return render(request, "core/skills/add_skill.html", context)
 
 
 @login_required
-def skill_delete(request, pk):
+def delete_skill(request, pk):
     """Delete a skill listing"""
     skill = get_object_or_404(Skill, pk=pk, user=request.user)
 
     if request.method == "POST":
         skill_title = skill.title
         skill.delete()
-        return redirect("skill_list")
+        return redirect("skills_list_search")
 
-    return render(request, "core/skills/skill_delete.html", {"skill": skill})
+    return render(request, "core/skills/delete_skill.html", {"skill": skill})
 
 
 @login_required
@@ -349,12 +379,12 @@ def send_message(request, skill_id=None, user_id=None):
         # Skill-specific message
         skill = get_object_or_404(Skill, id=skill_id)
         receiver = skill.user
-        redirect_url = "skill_detail"
+        redirect_url = "skill_detail_page"
         redirect_kwargs = {"pk": skill.id}
     elif user_id:
         # General message to user
         receiver = get_object_or_404(User, id=user_id)
-        redirect_url = "public_profile_view"
+        redirect_url = "users_profile_view"
         redirect_kwargs = {"user_id": user_id}
     else:
         messages.error(request, "Invalid message request.")
@@ -453,7 +483,7 @@ def rate_skill(request, skill_id):
 
     if skill.user == request.user:
         messages.error(request, "You cannot rate your own skill.")
-        return redirect("skill_detail", pk=skill.id)
+        return redirect("skill_detail_page", pk=skill.id)
 
     existing_rating = Rating.objects.filter(skill=skill, user=request.user).first()
 
@@ -466,7 +496,7 @@ def rate_skill(request, skill_id):
             rating.save()
 
             action = "updated" if existing_rating else "submitted"
-            return redirect("skill_detail", pk=skill.id)
+            return redirect("skill_detail_page", pk=skill.id)
     else:
         form = RatingForm(instance=existing_rating)
 
