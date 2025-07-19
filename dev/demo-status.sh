@@ -4,9 +4,13 @@ echo "SkillSwap Demo - Available Test Users"
 echo "===================================="
 echo ""
 
+# Get the project root directory (parent of dev/)
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$PROJECT_DIR"
+
 # Check if container is running
-if ! docker-compose ps | grep -q "Up"; then
-    echo "❌ Demo is not running. Start with: ./demo-start.sh"
+if ! docker-compose -f docker/docker-compose.yml ps | grep -q "Up"; then
+    echo "❌ Demo is not running. Start with: dev/demo-start.sh"
     exit 1
 fi
 

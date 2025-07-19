@@ -4,6 +4,10 @@ echo "SkillSwap Demo Users Setup"
 echo "=========================="
 echo ""
 
+# Get the project root directory (parent of dev/)
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$PROJECT_DIR"
+
 # Check if we're in the right directory
 if [ ! -f "manage.py" ]; then
     echo "❌ Error: manage.py not found. Please run this script from the project root."
@@ -58,5 +62,5 @@ echo "   • Demo users password: demo123"
 echo "   • Admin panel: admin / admin123"
 echo ""
 echo "🎯 Ready for your presentation!"
-echo "   Start server: ./dev-server.sh"
+echo "   Start server: dev/dev-server.sh"
 echo "   Visit: http://localhost:8000"
