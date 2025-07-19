@@ -82,54 +82,8 @@
                 </div>
             </div>
 
-            <!-- User Photo Sidebar -->
-            <div class="user-sidebar">
-                <div class="profile-user-card">
-                    <div class="profile-user-info">
-                        {% if profile.profile_picture %}
-                            <img src="{{ profile.profile_picture.url }}" 
-                                 alt="{{ profile.user.get_full_name|default:profile.user.username }}" 
-                                 class="profile-user-avatar">
-                        {% else %}
-                            <div class="primary-gradient profile-user-avatar-placeholder">
-                                <i class="fas fa-user"></i>
-                            </div>
-                        {% endif %}
-
-                        <div class="profile-user-details">
-                            <h4 class="profile-user-name-small">
-                                {% if profile.user.first_name and profile.user.last_name %}
-                                    {{ profile.user.first_name }} {{ profile.user.last_name }}
-                                {% else %}
-                                    {{ profile.user.username }}
-                                {% endif %}
-                            </h4>
-                            <p class="profile-user-username-small">
-                                <i class="fas fa-user"></i>
-                                @{{ profile.user.username }}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="profile-contact-section">
-                        <a href="{% url 'my_profile_edit' %}" class="primary-gradient contact-btn">
-                            <i class="fas fa-edit"></i> Edit Profile
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Profile Stats -->
-                <div class="meta-info">
-                    <div class="meta-item">
-                        <i class="fas fa-handshake"></i>
-                        <span>{{ offered_skills.count }} skills offered</span>
-                    </div>
-                    <div class="meta-item">
-                        <i class="fas fa-search"></i>
-                        <span>{{ requested_skills.count }} skills requested</span>
-                    </div>
-                </div>
-            </div>
+            <!-- User Info Sidebar -->
+            {% include 'core/components/user_info_sidebar.html' with sidebar_type='profile' user_obj=profile.user profile_picture=profile.profile_picture show_profile_link=False show_member_since=False show_action_button=True action_type='edit_profile' meta_items=profile_meta_items %}
         </div>
     </div>
 
