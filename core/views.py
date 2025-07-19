@@ -60,49 +60,44 @@ class SignupView(View):
         return render(request, "core/auth/signup.html", {"form": form})
 
 
+def _prepare_profile_context(target_user, is_own_profile):
+    profile = get_object_or_404(Profile, user=target_user)
+    offered_skills = Skill.objects.filter(user=target_user, skill_type="offer")
+    requested_skills = Skill.objects.filter(user=target_user, skill_type="request")
+
+    profile_meta_items = [
+        {
+            "icon": "fas fa-handshake",
+            "text": f"{offered_skills.count()} skills offered",
+        },
+        {
+            "icon": "fas fa-search",
+            "text": f"{requested_skills.count()} skills requested",
+        },
+    ]
+
+    return {
+        "profile": profile,
+        "is_own_profile": is_own_profile,
+        "offered_skills": offered_skills,
+        "requested_skills": requested_skills,
+        "profile_meta_items": profile_meta_items,
+    }
+
+
 @login_required
-def my_profile(request, user_id=None):
-    if user_id:
-        target_user = get_object_or_404(User, id=user_id)
-        profile = get_object_or_404(Profile, user=target_user)
-        is_own_profile = target_user == request.user
+def my_profile(request):
+    context = _prepare_profile_context(request.user, is_own_profile=True)
+    return render(request, "core/profiles/my_profile.html", context)
 
-        offered_skills = Skill.objects.filter(user=target_user, skill_type="offer")
-        requested_skills = Skill.objects.filter(user=target_user, skill_type="request")
 
-        # Prepare meta items for the sidebar
-        profile_meta_items = [
-            {
-                "icon": "fas fa-handshake",
-                "text": f"{offered_skills.count()} skills offered",
-            },
-            {
-                "icon": "fas fa-search",
-                "text": f"{requested_skills.count()} skills requested",
-            },
-        ]
+@login_required
+def users_profile_view(request, user_id):
+    target_user = get_object_or_404(User, id=user_id)
+    is_own_profile = target_user == request.user
 
-        context = {
-            "profile": profile,
-            "is_own_profile": is_own_profile,
-            "offered_skills": offered_skills,
-            "requested_skills": requested_skills,
-            "profile_meta_items": profile_meta_items,
-        }
-        return render(request, "core/profiles/users_profile_view.html", context)
-    else:
-        profile = get_object_or_404(Profile, user=request.user)
-
-        offered_skills = Skill.objects.filter(user=request.user, skill_type="offer")
-        requested_skills = Skill.objects.filter(user=request.user, skill_type="request")
-
-        context = {
-            "profile": profile,
-            "is_own_profile": True,
-            "offered_skills": offered_skills,
-            "requested_skills": requested_skills,
-        }
-        return render(request, "core/profiles/my_profile.html", context)
+    context = _prepare_profile_context(target_user, is_own_profile)
+    return render(request, "core/profiles/users_profile_view.html", context)
 
 
 @login_required
