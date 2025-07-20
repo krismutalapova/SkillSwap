@@ -25,64 +25,17 @@
                 {% if use_card_layout %}
                     <div class="profile-skills-grid">
                         {% for skill in offered_skills %}
-                            <a href="{% url 'skill_detail_page' skill.pk %}" class="skill-card-link">
-                                <div class="skill-card offer">
-                                    <div class="skill-header">
-                                        <h4 class="skill-title">{{ skill.title }}</h4>
-                                        <span class="skill-type offer">
-                                            <i class="fas fa-hand-holding-heart"></i> Offering
-                                        </span>
-                                    </div>
-                                    <div class="skill-content">
-                                        <p class="skill-description">{{ skill.description|truncatechars:120 }}</p>
-                                        <div class="skill-meta">
-                                            <span class="category">
-                                                <i class="fas fa-tag"></i>
-                                                {{ skill.get_category_display }}
-                                            </span>
-                
-                                            {% if skill.average_rating > 0 %}
-                                                <div class="rating-display">
-                                                    {% star_rating skill.average_rating show_value=False show_count=False %}
-                                                    <span class="rating-text">({{ skill.rating_count }})</span>
-                                                </div>
-                                            {% endif %}
-                                        </div> 
-                                         <div class="skill-footer">
-                                            {% if skill.availability %}
-                                            <span class="skill-availability">
-                                                <i class="fas fa-clock"></i>
-                                                {{ skill.availability }}
-                                            </span>
-                                            {% else %}
-                                            <span class="skill-availability">
-                                                <i class="fas fa-clock"></i>
-                                                {% if skill.is_active %}Available{% else %}Not available{% endif %}
-                                            </span>
-                                            {% endif %}
-                                            {% if skill.is_remote %}
-                                                <span class="remote-tag">
-                                                    <i class="fas fa-wifi"></i> Remote Available
-                                                </span>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
+                            {% include 'core/components/skill_card.html' with skill=skill show_user=False %}
                         {% endfor %}
                     </div>
                 {% else %}
                     <div class="compact-skills-tiles">
                         {% for skill in offered_skills %}
-                            <div class="compact-skill-tile offer">
-                                <a href="{% url 'skill_detail_page' skill.pk %}" class="compact-skill-tile-link">
-                                    <div class="compact-skill-tile-content">
-                                        <i class="fas fa-hand-holding-heart"></i>
-                                        <span class="compact-skill-title">{{ skill.title }}</span>
-                                        <span class="compact-skill-category">{{ skill.get_category_display }}</span>
-                                    </div>
-                                </a>
-                            </div>
+                            <a href="{% url 'skill_detail_page' skill.pk %}" class="compact-skill-tile offer">
+                                <i class="fas fa-hand-holding-heart"></i>
+                                <span class="compact-skill-title">{{ skill.title }}</span>
+                                <span class="compact-skill-category">{{ skill.get_category_display }}</span>
+                            </a>
                         {% endfor %}
                     </div>
                 {% endif %}
@@ -102,64 +55,17 @@
                 {% if use_card_layout %}
                     <div class="profile-skills-grid">
                         {% for skill in requested_skills %}
-                            <a href="{% url 'skill_detail_page' skill.pk %}" class="skill-card-link">
-                                <div class="skill-card request">
-                                    <div class="skill-header">
-                                        <h4 class="skill-title">{{ skill.title }}</h4>
-                                        <span class="skill-type request">
-                                            <i class="fas fa-search"></i> Looking for
-                                        </span>
-                                    </div>
-                                    <div class="skill-content">
-                                        <p class="skill-description">{{ skill.description|truncatechars:120 }}</p>
-                                        <div class="skill-meta">
-                                            <span class="category">
-                                                <i class="fas fa-tag"></i>
-                                                {{ skill.get_category_display }}
-                                            </span>
-                
-                                            {% if skill.average_rating > 0 %}
-                                                <div class="rating-display">
-                                                    {% star_rating skill.average_rating show_value=False show_count=False %}
-                                                    <span class="rating-text">({{ skill.rating_count }})</span>
-                                                </div>
-                                            {% endif %}
-                                        </div> 
-                                         <div class="skill-footer">
-                                            {% if skill.availability %}
-                                            <span class="skill-availability">
-                                                <i class="fas fa-clock"></i>
-                                                {{ skill.availability }}
-                                            </span>
-                                            {% else %}
-                                            <span class="skill-availability">
-                                                <i class="fas fa-clock"></i>
-                                                {% if skill.is_active %}Available{% else %}Not available{% endif %}
-                                            </span>
-                                            {% endif %}
-                                            {% if skill.is_remote %}
-                                                <span class="remote-tag">
-                                                    <i class="fas fa-wifi"></i> Remote Available
-                                                </span>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
+                            {% include 'core/components/skill_card.html' with skill=skill show_user=False %}
                         {% endfor %}
                     </div>
                 {% else %}
                     <div class="compact-skills-tiles">
                         {% for skill in requested_skills %}
-                            <div class="compact-skill-tile request">
-                                <a href="{% url 'skill_detail_page' skill.pk %}" class="compact-skill-tile-link">
-                                    <div class="compact-skill-tile-content">
-                                        <i class="fas fa-search"></i>
-                                        <span class="compact-skill-title">{{ skill.title }}</span>
-                                        <span class="compact-skill-category">{{ skill.get_category_display }}</span>
-                                    </div>
-                                </a>
-                            </div>
+                            <a href="{% url 'skill_detail_page' skill.pk %}" class="compact-skill-tile request">
+                                <i class="fas fa-search"></i>
+                                <span class="compact-skill-title">{{ skill.title }}</span>
+                                <span class="compact-skill-category">{{ skill.get_category_display }}</span>
+                            </a>
                         {% endfor %}
                     </div>
                 {% endif %}
