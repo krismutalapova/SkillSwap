@@ -1,5 +1,5 @@
 <div class="profile navigation-actions">
-    <a href="{{ back_url }}" class="back-btn">
+    <a href="{% url back_url %}" class="back-btn">
         <i class="fas fa-arrow-left"></i> {{ back_text|default:"Back" }}
     </a>
     {% if show_manage_skills %}
