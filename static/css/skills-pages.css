@@ -128,7 +128,7 @@
 }
 
 .secondary-btn:hover {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-image: linear-gradient(to right, #6441a5, #2a0845);
     color: white;
 }
 
@@ -170,7 +170,7 @@
 }
 
 .stat-icon.total {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-image: linear-gradient(to right, #6441a5, #2a0845);
 }
 
 /* Skill List Page */
