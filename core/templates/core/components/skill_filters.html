@@ -34,8 +34,8 @@ Parameters:
                 <label for="type"><i class="fas fa-exchange-alt"></i> Type:</label>
                 <select id="type" name="type">
                     <option value="">All Types</option>
-                    <option value="offer" {% if current_type == 'offer' %}selected{% endif %}>Skills Offered</option>
-                    <option value="request" {% if current_type == 'request' %}selected{% endif %}>Skills Requested</option>
+                    <option value="offer" {% if current_type == 'offer' %}selected{% endif %}>I want to learn</option>
+                    <option value="request" {% if current_type == 'request' %}selected{% endif %}>I want to teach</option>
                 </select>
             </div>
             
@@ -72,7 +72,7 @@ Parameters:
             <div class="filter-group">
                 <label>&nbsp;</label>
                 <button type="submit" class="primary-gradient search-btn">
-                    <i class="fas fa-search"></i> Search
+                    <i class="fas fa-search"></i> Search Skills
                 </button>
             </div>
             {% else %}
