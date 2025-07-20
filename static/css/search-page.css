@@ -213,11 +213,11 @@
 }
 
  .user-card-skills-title.offered i {
-    color: #28a745;
+ color: #3a7bd5;
 }
 
  .user-card-skills-title.needed i {
-    color: #ffc107;
+    color: #fd746c;
 }
 
  .user-card-skills-container {
@@ -234,13 +234,13 @@
 }
 
  .user-card-skill-tag.offered {
-    background: rgba(40, 167, 69, 0.1);
-    color: #28a745;
+    background: rgb(102, 126, 234, 0.2);
+    color: #3a7bd5;
 }
 
  .user-card-skill-tag.needed {
-    background: rgba(255, 193, 7, 0.1);
-    color: #ffc107;
+    background: #ff906840;
+    color: #fd746c;
 }
 
  .user-card-skill-tag.more {

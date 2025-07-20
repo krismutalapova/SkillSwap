@@ -223,7 +223,6 @@
 .skill-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 15px;
 }
 
@@ -253,12 +252,12 @@
 }
 
 .skill-type.offer {
-    background: linear-gradient(135deg, #3a7bd5 0%, #3a6073 100%);
+    background: linear-gradient(135deg, #3a7bd5bd 0%, #3a6073 100%);
     color: white;
 }
 
 .skill-type.request {
-    background: linear-gradient(135deg, #fd746c 0%, #ff9068 100%);
+    background: linear-gradient(135deg, #fd746ce0 0%, #ff9068d6 100%);
     color: white;
 }
 
@@ -289,17 +288,12 @@
 
 /* Skill category */
 .skill-category {
-    background: linear-gradient(to right, #6441a5, #2a0845);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 /* Skill title */
@@ -809,6 +803,12 @@ textarea.form-control {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.checkbox-container i {
+    color: #667eea;
+    width: 16px;
+    margin-right: 8px
 }
 
 .checkbox-label {
@@ -1448,7 +1448,7 @@ textarea.form-control {
     padding: 25px;
     margin-bottom: 25px;
     position: relative;
-    opacity: 0.8;
+    opacity: 2;
 }
 
 .skill-preview::before {
@@ -1484,12 +1484,24 @@ textarea.form-control {
     font-weight: 600;
     margin: 0;
 }
+.edit-btn {
+    background: white;
+    color: #6441a5;
+    padding: 10px 20px;
+    border: #6441a5 2px solid;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(238, 90, 82, 0.3);
+}
 
 .delete-btn {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-    color: white;
-    padding: 12px 30px;
-    border: none;
+    background: white;
+    color: #fa709a;
+    padding: 10px 20px;
+    border: 2px solid #fa709a;
     border-radius: 8px;
     font-size: 1rem;
     font-weight: 600;
