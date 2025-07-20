@@ -19,7 +19,7 @@
         {% if message.skill %}
             <div class="skill-context">
                 <div class="skill-info">
-                    <i class="fas fa-tag"></i>
+                    <i class="{{ message.skill.get_category_icon }}"></i>
                     <span>About skill: <strong>{{ message.skill.title }}</strong></span>
                     <a href="{% url 'skill_detail_page' pk=message.skill.id %}" class="view-skill-link">
                         View Skill <i class="fas fa-external-link-alt"></i>

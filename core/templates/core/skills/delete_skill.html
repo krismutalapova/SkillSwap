@@ -20,7 +20,7 @@
             <h3 class="skill-title">{{ skill.title }}</h3>
             
             <div class="skill-category">
-                <i class="fas fa-tag"></i>
+                <i class="{{ skill.get_category_icon }}"></i>
                 {{ skill.get_category_display }}
             </div>
             

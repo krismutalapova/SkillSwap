@@ -27,7 +27,7 @@
                             <div class="message-subject">{{ message.subject }}</div>
                             {% if message.skill %}
                                 <div class="skill-reference">
-                                    <i class="fas fa-tag"></i> About: {{ message.skill.title }}
+                                    <i class="{{ message.skill.get_category_icon }}"></i> About: {{ message.skill.title }}
                                 </div>
                             {% endif %}
                         </div>

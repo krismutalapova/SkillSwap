@@ -28,7 +28,7 @@ Parameters:
             
             <div class="skill-meta">
                 <span class="category">
-                    <i class="fas fa-tag"></i>
+                    <i class="{{ skill.get_category_icon }}"></i>
                     {{ skill.get_category_display }}
                 </span>
                 
@@ -71,10 +71,11 @@ Parameters:
                     {% if skill.is_active %}Available{% else %}Not available{% endif %}
                 </span>
                 {% endif %}
-                <span class="skill-date">
-                    <i class="fas fa-calendar"></i>
-                    {{ skill.created_at|date:"M d" }}
-                </span>
+                {% if skill.is_remote %}
+                    <span class="remote-tag">
+                        <i class="fas fa-wifi"></i> Remote Available
+                    </span>
+                {% endif %}
             </div>
         </div>
     </div>
