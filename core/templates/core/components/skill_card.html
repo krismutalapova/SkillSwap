@@ -41,14 +41,15 @@ Parameters:
             </div>
             
             {% if show_user %}
-            <div class="skill-user">
-                <i class="fas fa-user"></i>
-                {% if skill.user.first_name and skill.user.last_name %}
-                    {{ skill.user.first_name }} {{ skill.user.last_name }}
-                {% else %}
-                    {{ skill.user.username }}
-                {% endif %}
-                
+            <div class="skill-card-user-details">
+                <span class="skill-card-user-name">
+                    <i class="fas fa-user"></i>
+                    {% if skill.user.first_name and skill.user.last_name %}
+                        {{ skill.user.first_name }} {{ skill.user.last_name }}
+                    {% else %}
+                        {{ skill.user.username }}
+                    {% endif %}
+                </span>
                 {% if skill.user.profile.city %}
                     <span class="user-location">
                         <i class="fas fa-map-marker-alt"></i>
