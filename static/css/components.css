@@ -95,6 +95,8 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .skill-card:hover {
@@ -128,12 +130,12 @@
 }
 
 .skill-type-offer {
-    background: linear-gradient(135deg, #3a7bd5 0%, #3a6073 100%);
+    background: linear-gradient(135deg, #3a7bd5bd 0%, #3a6073 100%);
     color: white;
 }
 
 .skill-type-request {
-    background: linear-gradient(135deg, #fd746c 0%, #ff9068 100%);
+    background: linear-gradient(135deg, #fd746ce0 0%, #ff9068d6 100%);
     color: white;
 }
 
@@ -141,20 +143,25 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    flex-grow: 1;
 }
 
 .skill-description {
     color: #666;
     line-height: 1.5;
     margin: 0;
+    min-height: 3rem;
+    flex-shrink: 0;
 }
 
 .skill-meta {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
+    min-height: 2rem;
+    flex-shrink: 0;
 }
 
 .category {
@@ -170,6 +177,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    margin-left: auto;
 }
 
 .rating-text {
@@ -184,6 +192,9 @@
     border-top: 1px solid #e9ecef;
     color: #6c757d;
     font-size: 0.9rem;
+    min-height: 2.5rem;
+    flex-shrink: 0;
+    margin-top: auto;
 }
 
 .skill-card-user-name {
@@ -204,12 +215,16 @@
 
 .skill-footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    gap: 15px;
     padding-top: 10px;
     border-top: 1px solid #eee;
     font-size: 0.85rem;
     color: #888;
+    min-height: 2rem;
+    flex-shrink: 0;
+    margin-top: auto;
 }
 
 .skill-availability,
@@ -217,6 +232,19 @@
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+.remote-tag {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
 }
 
 /* User Card Components */

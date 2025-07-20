@@ -371,16 +371,21 @@
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 10px;
     min-width: 200px;
     max-width: 300px;
     flex: 1;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: inherit;
 }
 
 .compact-skill-tile:hover {
     border-color: #667eea;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
+    text-decoration: none;
+    color: inherit;
 }
 
 .compact-skill-tile.offer {
@@ -391,33 +396,17 @@
     border-left: 4px solid #fa709a;
 }
 
-.compact-skill-tile-link {
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    align-items: center;
-    flex: 1;
-    padding: 12px 15px;
-}
-
-.compact-skill-tile-content {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex: 1;
-}
-
-.compact-skill-tile-content i {
+.compact-skill-tile i {
     font-size: 1rem;
     width: 16px;
     text-align: center;
 }
 
-.compact-skill-tile.offer .compact-skill-tile-content i {
+.compact-skill-tile.offer i {
     color: #4facfe;
 }
 
-.compact-skill-tile.request .compact-skill-tile-content i {
+.compact-skill-tile.request i {
     color: #fa709a;
 }
 
@@ -425,17 +414,16 @@
     font-weight: 600;
     color: #333;
     font-size: 0.95rem;
-    margin-right: 8px;
     flex: 1;
 }
 
-.compact-skill-tile-link:hover .compact-skill-title {
+.compact-skill-tile:hover .compact-skill-title {
     color: #667eea;
 }
 
 .compact-skill-category {
-    background: #667eea;
-    color: white;
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
     padding: 3px 8px;
     border-radius: 8px;
     font-size: 0.75rem;
