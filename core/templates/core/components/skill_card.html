@@ -59,10 +59,17 @@ Parameters:
             {% endif %}
             
             <div class="skill-footer">
+                {% if skill.availability %}
                 <span class="skill-availability">
                     <i class="fas fa-clock"></i>
-                    {{ skill.get_availability_display }}
+                    {{ skill.availability }}
                 </span>
+                {% else %}
+                <span class="skill-availability">
+                    <i class="fas fa-clock"></i>
+                    {% if skill.is_active %}Available{% else %}Not available{% endif %}
+                </span>
+                {% endif %}
                 <span class="skill-date">
                     <i class="fas fa-calendar"></i>
                     {{ skill.created_at|date:"M d" }}
