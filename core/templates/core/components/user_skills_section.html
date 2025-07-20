@@ -1,3 +1,5 @@
+{% load rating_extras %}
+
 <!-- User Skills Component -->
 <div class="user-skills">
     <div class="skills-header">
@@ -24,22 +26,46 @@
                     <div class="profile-skills-grid">
                         {% for skill in offered_skills %}
                             <a href="{% url 'skill_detail_page' skill.pk %}" class="skill-card-link">
-                                <div class="skill-card mini offer">
-                                    <div class="skill-content">
-                                        <div class="skill-type offer">
-                                            <i class="fas fa-hand-holding-heart"></i>
-                                            {{ skill.get_skill_type_display }}
-                                        </div>
-                                        <h5>{{ skill.title }}</h5>
-                                        <p>{{ skill.description|truncatewords:15 }}</p>
+                                <div class="skill-card offer">
+                                    <div class="skill-header">
+                                        <h4 class="skill-title">{{ skill.title }}</h4>
+                                        <span class="skill-type offer">
+                                            <i class="fas fa-hand-holding-heart"></i> Offering
+                                        </span>
                                     </div>
-                                    <div class="skill-meta">
-                                        <div class="category">{{ skill.get_category_display }}</div>
-                                        {% if skill.is_remote %}
-                                            <div class="remote-tag">
-                                                <i class="fas fa-wifi"></i> Remote Available
-                                            </div>
-                                        {% endif %}
+                                    <div class="skill-content">
+                                        <p class="skill-description">{{ skill.description|truncatechars:120 }}</p>
+                                        <div class="skill-meta">
+                                            <span class="category">
+                                                <i class="fas fa-tag"></i>
+                                                {{ skill.get_category_display }}
+                                            </span>
+                
+                                            {% if skill.average_rating > 0 %}
+                                                <div class="rating-display">
+                                                    {% star_rating skill.average_rating show_value=False show_count=False %}
+                                                    <span class="rating-text">({{ skill.rating_count }})</span>
+                                                </div>
+                                            {% endif %}
+                                        </div> 
+                                         <div class="skill-footer">
+                                            {% if skill.availability %}
+                                            <span class="skill-availability">
+                                                <i class="fas fa-clock"></i>
+                                                {{ skill.availability }}
+                                            </span>
+                                            {% else %}
+                                            <span class="skill-availability">
+                                                <i class="fas fa-clock"></i>
+                                                {% if skill.is_active %}Available{% else %}Not available{% endif %}
+                                            </span>
+                                            {% endif %}
+                                            {% if skill.is_remote %}
+                                                <span class="remote-tag">
+                                                    <i class="fas fa-wifi"></i> Remote Available
+                                                </span>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                             </a>
@@ -77,22 +103,46 @@
                     <div class="profile-skills-grid">
                         {% for skill in requested_skills %}
                             <a href="{% url 'skill_detail_page' skill.pk %}" class="skill-card-link">
-                                <div class="skill-card mini request">
-                                    <div class="skill-content">
-                                        <div class="skill-type request">
-                                            <i class="fas fa-search"></i>
-                                            {{ skill.get_skill_type_display }}
-                                        </div>
-                                        <h5>{{ skill.title }}</h5>
-                                        <p>{{ skill.description|truncatewords:15 }}</p>
+                                <div class="skill-card request">
+                                    <div class="skill-header">
+                                        <h4 class="skill-title">{{ skill.title }}</h4>
+                                        <span class="skill-type request">
+                                            <i class="fas fa-search"></i> Looking for
+                                        </span>
                                     </div>
-                                    <div class="skill-meta">
-                                        <div class="category">{{ skill.get_category_display }}</div>
-                                        {% if skill.is_remote %}
-                                            <div class="remote-tag">
-                                                <i class="fas fa-wifi"></i> Remote Available
-                                            </div>
-                                        {% endif %}
+                                    <div class="skill-content">
+                                        <p class="skill-description">{{ skill.description|truncatechars:120 }}</p>
+                                        <div class="skill-meta">
+                                            <span class="category">
+                                                <i class="fas fa-tag"></i>
+                                                {{ skill.get_category_display }}
+                                            </span>
+                
+                                            {% if skill.average_rating > 0 %}
+                                                <div class="rating-display">
+                                                    {% star_rating skill.average_rating show_value=False show_count=False %}
+                                                    <span class="rating-text">({{ skill.rating_count }})</span>
+                                                </div>
+                                            {% endif %}
+                                        </div> 
+                                         <div class="skill-footer">
+                                            {% if skill.availability %}
+                                            <span class="skill-availability">
+                                                <i class="fas fa-clock"></i>
+                                                {{ skill.availability }}
+                                            </span>
+                                            {% else %}
+                                            <span class="skill-availability">
+                                                <i class="fas fa-clock"></i>
+                                                {% if skill.is_active %}Available{% else %}Not available{% endif %}
+                                            </span>
+                                            {% endif %}
+                                            {% if skill.is_remote %}
+                                                <span class="remote-tag">
+                                                    <i class="fas fa-wifi"></i> Remote Available
+                                                </span>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                             </a>
