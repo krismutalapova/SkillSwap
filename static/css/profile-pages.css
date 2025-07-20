@@ -886,7 +886,7 @@
 
 .skill-card.mini .skill-type {
     padding: 6px 12px;
-    border-radius: 15px;
+    border-radius: 8px;
     font-size: 0.8rem;
     font-weight: 600;
     display: flex;
@@ -928,7 +928,7 @@
     background: #667eea;
     color: white;
     padding: 5px 10px;
-    border-radius: 10px;
+    border-radius: 8px;
     font-size: 0.8rem;
     font-weight: 500;
     display: inline-block;

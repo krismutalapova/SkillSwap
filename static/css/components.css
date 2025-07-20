@@ -133,15 +133,13 @@
 }
 
 .skill-type-offer {
-    background: linear-gradient(135deg, #4f9cf9, #667eea);
+    background: linear-gradient(135deg, #3a7bd5 0%, #3a6073 100%);
     color: white;
-    border: 2px solid #4f9cf9;
 }
 
 .skill-type-request {
-    background: linear-gradient(135deg, #ff8a80, #ff7043);
+    background: linear-gradient(135deg, #fd746c 0%, #ff9068 100%);
     color: white;
-    border: 2px solid #ff8a80;
 }
 
 .skill-content {
