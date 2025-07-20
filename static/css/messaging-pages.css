@@ -142,7 +142,7 @@
 
 .back-btn {
     padding: 12px 25px;
-    border-radius: 15px;
+    border-radius: 12px;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
@@ -151,14 +151,14 @@
     gap: 8px;
     background: rgba(255, 255, 255, 0.9);
     color: #333;
-    border: 2px solid #667eea;
+    border: 2px solid #6441a5;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .back-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    background: #667eea;
+    background-image: linear-gradient(to right, #6441a5, #2a0845);
     color: white;
 }
 

@@ -42,7 +42,7 @@
 
 .add-skill-btn {
     padding: 12px 25px;
-    border-radius: 8px;
+    border-radius: 12px;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
@@ -503,12 +503,13 @@
     gap: 15px;
     justify-content: center;
     flex-wrap: wrap;
+    padding-top: 20px;
 }
 
 .primary-btn,
 .secondary-btn {
     padding: 15px 30px;
-    border-radius: 8px;
+    border-radius: 12px;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
@@ -528,6 +529,11 @@
 .secondary-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.secondary-btn:hover {
+    background: linear-gradient(to right, #6441a5, #2a0845);
+    color: white;
 }
 
 /* Pagination */
@@ -1066,7 +1072,7 @@ textarea.form-control {
 .contact-btn {
     padding: 12px 20px;
     border: none;
-    border-radius: 15px;
+    border-radius: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1159,7 +1165,7 @@ textarea.form-control {
 .back-btn,
 .add-skill-btn {
     padding: 12px 25px;
-    border-radius: 15px;
+    border-radius: 12px;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
@@ -1182,7 +1188,7 @@ textarea.form-control {
 }
 
 .back-btn:hover {
-    background: #667eea;
+    background-image: linear-gradient(to right, #6441a5, #2a0845);
     color: white;
 }
 
