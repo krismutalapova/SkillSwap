@@ -151,6 +151,20 @@ class Skill(models.Model):
         ("other", "Other"),
     ]
 
+    SKILL_CATEGORY_ICONS = [
+        ("technology", "fa-solid fa-code"),
+        ("languages", "fa-regular fa-comment"),
+        ("music", "fa-solid fa-music"),
+        ("sports", "fa-regular fa-futbol"),
+        ("cooking", "fa-solid fa-burger"),
+        ("crafts", "fa-solid fa-paint-brush"),
+        ("academic", "fa-solid fa-book"),
+        ("business", "fa-solid fa-briefcase"),
+        ("health", "fa-solid fa-spa"),
+        ("fashion", "fa-solid fa-tshirt"),
+        ("other", "fa-solid fa-tag"),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="skills")
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -158,6 +172,10 @@ class Skill(models.Model):
     category = models.CharField(
         max_length=20, choices=SKILL_CATEGORIES, default="other"
     )
+    category_icon = models.CharField(
+        max_length=50, choices=SKILL_CATEGORY_ICONS, default="fa-solid fa-tag"
+    )
+
     location = models.CharField(
         max_length=200, blank=True, help_text="Where can this skill be taught/learned?"
     )
@@ -179,6 +197,10 @@ class Skill(models.Model):
 
     def get_absolute_url(self):
         return reverse("skill_detail_page", kwargs={"pk": self.pk})
+
+    def get_category_icon(self):
+        icon_dict = dict(self.SKILL_CATEGORY_ICONS)
+        return icon_dict.get(self.category, "fa-solid fa-tag")
 
     @property
     def average_rating(self):
