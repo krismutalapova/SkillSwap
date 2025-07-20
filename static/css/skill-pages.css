@@ -751,6 +751,10 @@
     font-size: 2rem;
 }
 
+.card-header h2 i {
+    margin-right: 10px;
+}
+
 .skill-form {
     max-width: 100%;
 }
