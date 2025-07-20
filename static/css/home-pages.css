@@ -1,4 +1,13 @@
-/* Home and Landing Pages Styles */
+/* SkillSwap Home Page Styles */
+
+/* Container styles to match skill-pages.css */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Homepage Header */
 
 /* Hero Section */
 .hero-section {
@@ -9,6 +18,18 @@
     text-align: center;
     padding: 60px 20px;
     min-height: 70vh;
+}
+
+.hero-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 40px 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 30px;
+    width: 100%;
+    text-align: center;
 }
 
 .hero-title {
@@ -36,16 +57,18 @@
 }
 
 .hero-btn {
-    text-decoration: none;
-    padding: 15px 30px;
-    border-radius: 25px;
-    font-weight: 500;
-    display: inline-block;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
     transition: all 0.3s ease;
-    font-size: 16px;
+    white-space: nowrap;
+    text-decoration: none;
 }
 
-.hero-btn.primary {
+.primary-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
@@ -73,7 +96,7 @@
     backdrop-filter: blur(10px);
     border-radius: 20px;
     margin: 30px auto;
-    max-width: 1000px;
+    max-width: 1200px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 

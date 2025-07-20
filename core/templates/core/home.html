@@ -3,24 +3,28 @@
 
 {% block content %}
 <div class="hero-section">
-    <div class="features-section">
-        <h1 class="hero-title">Welcome to SkillSwap!</h1>
-        <p class="hero-subtitle">Connect with your community and exchange skills with neighbors. Learn something new while helping others!</p>
-        
-        {% if not user.is_authenticated %}
+    <div class="container">
+        <div class="hero-card">
+            <h1 class="hero-title">Welcome to SkillSwap!</h1>
+            <p class="hero-subtitle">Connect with your community and exchange skills with neighbors. Learn something new while helping others!</p>
+            
             <div class="hero-actions">
-                <a href="{% url 'signup' %}" class="primary-gradient hero-btn primary">Get Started</a>
-                <a href="{% url 'login' %}" class="hero-btn secondary">Login</a>
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'signup' %}" class="primary-gradient hero-btn primary">Get Started</a>
+                    <a href="{% url 'login' %}" class="hero-btn secondary">Login</a>
+                {% endif %}
+                <a href="{% url 'search' %}" class=".primary-gradient hero-btn {% if user.is_authenticated %}primary primary-gradient{% else %}secondary{% endif %}">
+                    <i class="fa-solid fa-users"></i>
+                    Browse All Users
+                </a>
             </div>
+        </div>
+        
+        {% if user.is_authenticated %}
+        <!-- Search Section -->
+        {% include 'core/components/skill_filters.html' with search_query=search_query current_type=current_type current_category=current_category current_location=current_location current_gender=current_gender categories=categories gender_choices=gender_choices show_search_button=True show_active_filters=False %}
         {% endif %}
     </div>
-
-    <!-- Search Section -->
-    <div class="container">
-    {% if user.is_authenticated %}
-    {% include 'core/components/skill_filters.html' with search_query=search_query current_type=current_type current_category=current_category current_location=current_location current_gender=current_gender categories=categories gender_choices=gender_choices show_search_button=True show_active_filters=False %}
-    </div>
-    {% endif %}
 </div>
 
 {% endblock %}
