@@ -1,11 +1,6 @@
 /* SkillSwap Home Page Styles */
 
-/* Container styles to match skill-pages.css */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
+/* SkillSwap Home Page Styles */
 
 /* Homepage Header */
 
@@ -65,12 +60,6 @@
     transition: all 0.3s ease;
     white-space: nowrap;
     text-decoration: none;
-}
-
-.primary-gradient {
-    background-image: linear-gradient(to right, #6441a5, #2a0845);
-    color: white;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
 .hero-btn.secondary {
@@ -194,18 +183,6 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
     padding: 20px 0;
-}
-
-.user-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    text-decoration: none;
-    color: inherit;
 }
 
 .user-card:hover {

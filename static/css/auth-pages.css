@@ -54,12 +54,6 @@
     gap: 20px;
 }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
 .form-label {
     font-weight: 600;
     color: #333;

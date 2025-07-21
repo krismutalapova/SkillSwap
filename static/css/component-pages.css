@@ -10,7 +10,7 @@
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0 auto 60px auto;
 }
 
 .rating-form-card .form-header {
@@ -81,13 +81,6 @@
 
 .star-label:hover {
     transform: scale(1.1);
-}
-
-.rating-text {
-    color: #6c757d;
-    font-weight: 500;
-    margin-bottom: 10px;
-    min-height: 20px;
 }
 
 .rating-form .form-control {
