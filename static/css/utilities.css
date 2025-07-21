@@ -42,6 +42,49 @@
   box-shadow: var(--shadow-hover-strong);
 }
 
+/* Additional card utilities for common patterns */
+.form-card {
+  background: var(--color-background-glass);
+  backdrop-filter: var(--glass-backdrop-filter);
+  border: var(--glass-border);
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-card);
+  padding: var(--space-4xl);
+  margin-bottom: var(--space-4xl);
+}
+
+.detail-card {
+  background: var(--color-background-glass);
+  backdrop-filter: var(--glass-backdrop-filter);
+  border: var(--glass-border);
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-large);
+  padding: var(--space-4xl);
+}
+
+.stats-card {
+  background: var(--color-background-glass);
+  backdrop-filter: var(--glass-backdrop-filter);
+  border: var(--glass-border);
+  box-shadow: var(--shadow-light-soft);
+  border-radius: var(--radius-card);
+  padding: var(--space-xl);
+  transition: var(--transition-all);
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+}
+
+.section-card {
+  background: var(--color-background-glass);
+  backdrop-filter: var(--glass-backdrop-filter);
+  border-radius: var(--radius-card);
+  padding: var(--space-2xl);
+  margin-bottom: var(--space-2xl);
+  box-shadow: var(--shadow-light-soft);
+}
+
 /* ==========================================================================
    BUTTON UTILITIES
    ========================================================================== */
@@ -63,6 +106,18 @@
 }
 
 .btn-primary {
+  display: inline-block;
+  padding: var(--button-padding);
+  border-radius: var(--radius-button);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-all);
+  border: none;
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
   background: var(--color-primary-gradient);
   color: var(--color-text-white);
   box-shadow: var(--shadow-button-primary);
@@ -120,6 +175,183 @@
 .btn-large {
   padding: var(--button-padding-large);
   font-size: var(--font-size-lg);
+}
+
+/* Additional button variants for common patterns */
+.btn-warning {
+  display: inline-block;
+  padding: var(--button-padding);
+  border-radius: var(--radius-button);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-all);
+  border: none;
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  color: var(--color-text-primary);
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+}
+
+.btn-warning:hover {
+  transform: var(--transform-hover-up);
+  box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.btn-gradient-danger {
+  display: inline-block;
+  padding: var(--button-padding);
+  border-radius: var(--radius-button);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-all);
+  border: none;
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  color: var(--color-text-white);
+  box-shadow: 0 4px 15px rgba(238, 90, 82, 0.3);
+}
+
+.btn-gradient-danger:hover {
+  transform: var(--transform-hover-up);
+  box-shadow: 0 6px 20px rgba(238, 90, 82, 0.4);
+  color: var(--color-text-white);
+  text-decoration: none;
+}
+
+.btn-muted {
+  background: var(--color-text-light);
+  color: var(--color-text-white);
+  box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+  border: none;
+  cursor: pointer;
+  padding: var(--button-padding);
+  border-radius: var(--radius-button);
+  font-weight: var(--font-weight-medium);
+  transition: var(--transition-all);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-muted:hover {
+  transform: var(--transform-hover-up);
+  box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+  background: var(--color-border-default);
+  color: var(--color-text-white);
+  text-decoration: none;
+}
+
+/* Navigation and action button variants */
+.back-btn {
+  display: inline-block;
+  padding: var(--button-padding);
+  border-radius: var(--radius-button);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-all);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  background: var(--color-background-glass);
+  color: var(--color-text-primary);
+  border: 2px solid var(--color-border-light);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-button);
+}
+
+.back-btn:hover {
+  transform: var(--transform-hover-up);
+  box-shadow: var(--shadow-button-hover);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.manage-skills-btn {
+  display: inline-block;
+  padding: var(--button-padding);
+  border-radius: var(--radius-button);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-all);
+  border: none;
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  background: var(--color-primary-gradient);
+  color: var(--color-text-white);
+  box-shadow: var(--shadow-button-primary);
+}
+
+.manage-skills-btn:hover {
+  transform: var(--transform-hover-up);
+  box-shadow: var(--shadow-button-primary-hover);
+  color: var(--color-text-white);
+}
+
+.edit-profile-btn {
+  display: inline-block;
+  padding: var(--button-padding);
+  border-radius: var(--radius-button);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-all);
+  border: none;
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  background: var(--color-info-gradient);
+  color: var(--color-text-white);
+  box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+}
+
+.edit-profile-btn:hover {
+  transform: var(--transform-hover-up);
+  box-shadow: 0 6px 20px rgba(23, 162, 184, 0.4);
+  color: var(--color-text-white);
+}
+
+.contact-btn {
+  display: inline-block;
+  padding: var(--button-padding);
+  border-radius: var(--radius-button);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-all);
+  border: none;
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  background: var(--color-primary-gradient);
+  color: var(--color-text-white);
+  box-shadow: var(--shadow-button-primary);
+  width: 100%;
+  justify-content: center;
+  margin-bottom: var(--space-sm);
+}
+
+.contact-btn:hover {
+  transform: var(--transform-hover-up);
+  box-shadow: var(--shadow-button-primary-hover);
+  color: var(--color-text-white);
 }
 
 /* ==========================================================================
@@ -313,6 +545,613 @@
 .pr-md { padding-right: var(--space-md); }
 .pr-lg { padding-right: var(--space-lg); }
 .pr-xl { padding-right: var(--space-xl); }
+
+/* ==========================================================================
+   USER INFO UTILITIES
+   ========================================================================== */
+
+/* Horizontal user info for cards */
+.user-info {
+  flex-grow: 1;
+}
+
+/* Centered vertical user info for sidebars/profiles */
+.user-info-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+/* Inline user info with date/metadata */
+.user-info-inline,
+.skill-date {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* ==========================================================================
+   SIDEBAR & GRID UTILITIES
+   ========================================================================== */
+
+/* User sidebar layout */
+.user-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Description sections */
+.description-section {
+  margin-bottom: var(--space-xl);
+}
+
+/* Details grid layout */
+.details-grid {
+  display: grid;
+  gap: var(--space-md);
+}
+
+/* Detail item variants */
+.detail-item {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--color-background-muted);
+  border-radius: var(--radius-card);
+  border-left: 3px solid var(--color-secondary);
+}
+
+.detail-item-inline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.detail-item-inline i {
+  color: var(--color-secondary);
+  width: 16px;
+}
+
+.detail-item-inline.remote {
+  color: var(--color-success);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Detail labels and values */
+.detail-label {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.detail-label i {
+  color: var(--color-secondary);
+  width: 16px;
+}
+
+.detail-value {
+  color: var(--color-text-primary);
+}
+
+.detail-value.remote {
+  color: var(--color-success);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Meta items for profile displays */
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.meta-item:last-child {
+  margin-bottom: 0;
+}
+
+.meta-item i {
+  color: var(--color-secondary);
+  width: 16px;
+}
+
+/* ==========================================================================
+   USER COMPONENT UTILITIES
+   ========================================================================== */
+
+/* User info grid layouts */
+.user-info-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-2xl);
+}
+
+/* User name variants */
+.user-name-small,
+.profile-user-name-small {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-xs);
+}
+
+/* User location variants */
+.user-location {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* Badge-style user location for profile cards */
+.user-location-badge {
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: var(--color-background-muted);
+  color: var(--color-text-secondary);
+}
+
+/* Member since badge */
+.member-since {
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: var(--color-background-muted);
+  color: var(--color-text-secondary);
+}
+
+/* User username display */
+.user-username {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.member-since i,
+.user-location-badge i,
+.user-username i {
+  color: var(--color-secondary);
+}
+
+/* Skills container layout */
+.skills-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* Profile card styling */
+.profile-user-card {
+  background: var(--color-background-muted);
+  border-radius: var(--radius-card-lg);
+  padding: var(--space-lg);
+  border: 2px solid var(--color-border-light);
+}
+
+/* Rate skill button */
+.rate-skill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  background: var(--color-warning);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-button);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  transition: var(--transition-all);
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  min-height: 48px;
+}
+
+.rate-skill-btn:hover {
+  transform: var(--transform-hover-up);
+  box-shadow: var(--shadow-hover-light);
+}
+
+/* ==========================================================================
+   SKILL TILE UTILITIES
+   ========================================================================== */
+
+/* Compact skills tiles layout */
+.compact-skills-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: flex-start;
+}
+
+/* Compact skill tile component */
+.compact-skill-tile {
+  background: var(--color-background-muted);
+  border-radius: var(--radius-card);
+  border: 2px solid var(--color-border-light);
+  transition: var(--transition-all);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 200px;
+  max-width: 300px;
+  flex: 1;
+  padding: var(--space-sm) var(--space-md);
+  text-decoration: none;
+  color: inherit;
+}
+
+.compact-skill-tile:hover {
+  border-color: var(--color-secondary);
+  box-shadow: var(--shadow-hover-light);
+  transform: var(--transform-hover-up);
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Skill tile variants */
+.compact-skill-tile.offer {
+  border-left: 4px solid var(--color-skill-offer);
+}
+
+.compact-skill-tile.request {
+  border-left: 4px solid var(--color-skill-request);
+}
+
+/* Skill tile icons */
+.compact-skill-tile i {
+  font-size: var(--font-size-md);
+  width: 16px;
+  text-align: center;
+}
+
+.compact-skill-tile.offer i {
+  color: var(--color-skill-offer);
+}
+
+.compact-skill-tile.request i {
+  color: var(--color-skill-request);
+}
+
+/* Skill tile content */
+.compact-skill-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--color-text-primary);
+}
+
+.compact-skill-tile:hover .compact-skill-title {
+    color: var(--color-primary);
+}
+
+/* ===================================================
+   CONTENT UTILITIES
+   =================================================== */
+
+/* Description content component */
+.description-content {
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    background: var(--color-background-muted);
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid var(--color-primary);
+}
+
+/* User content headings */
+.user-content h3 {
+    color: var(--color-text-primary);
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-content h3 i {
+    color: var(--color-primary);
+}
+
+/* User name title */
+.detail-user-name {
+    color: var(--color-text-primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    line-height: 1.2;
+    padding-bottom: 10px;
+}
+
+/* ===================================================
+   RATING UTILITIES
+   =================================================== */
+
+/* Star rating display system */
+.star-rating-display {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.star-rating-display .stars {
+    display: flex;
+    gap: 2px;
+}
+
+.star-rating-display .stars i {
+    color: var(--color-border-muted);
+    font-size: 1rem;
+}
+
+.star-rating-display .stars i.active {
+    color: var(--color-accent-gold);
+}
+
+.star-rating-display .rating-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.star-rating-display .rating-value {
+    font-weight: 600;
+    color: var(--color-text-primary);
+    font-size: 1rem;
+}
+
+.star-rating-display .rating-count {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+/* ===================================================
+   SKILL COMPONENTS
+   =================================================== */
+
+/* Skill footer component */
+.skill-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: var(--space-sm);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border-muted);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    min-height: 2rem;
+    flex-shrink: 0;
+}
+
+/* Skill footer layout variants */
+.skill-footer.justify-start {
+    justify-content: flex-start;
+}
+
+.skill-footer.margin-top-auto {
+    margin-top: auto;
+}
+
+/* Rating text component */
+.rating-text {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    margin: 10px 0;
+    transition: var(--transition-all);
+}
+
+.rating-text.rating-selected {
+    color: var(--color-text-primary);
+}
+
+.rating-text.with-weight {
+    font-weight: 500;
+}
+
+.rating-text.min-height {
+    min-height: 20px;
+}
+
+/* User skills section component */
+.user-skills {
+    background: var(--color-background-glass);
+    backdrop-filter: var(--glass-backdrop-filter);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow-light);
+}
+
+/* Skills header component */
+.skills-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.skills-header h3 {
+    color: var(--color-text-primary);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.skills-header h3 i {
+    color: var(--color-primary);
+}
+
+/* ===================================================
+   USER CARD COMPONENTS
+   =================================================== */
+
+/* Profile picture components */
+.profile-pic,
+.profile-pic-placeholder {
+    width: var(--profile-pic-size);
+    height: var(--profile-pic-size);
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.profile-pic-placeholder {
+    background: var(--color-primary-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-white);
+    font-size: 24px;
+}
+
+/* User name components */
+.user-name {
+    color: var(--color-text-primary);
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-semibold);
+    margin: 0 0 5px 0;
+}
+
+/* User rating display */
+.user-rating {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+/* User bio component */
+.user-bio {
+    margin-bottom: var(--space-md);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+}
+
+/* Skills section components */
+.skills-section {
+    margin-bottom: var(--space-sm);
+}
+
+.skills-section h6 {
+    color: var(--color-text-primary);
+    font-size: 0.9rem;
+    font-weight: var(--font-weight-semibold);
+    margin: 0 0 8px 0;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+}
+
+/* Skill tag components */
+.skill-tag {
+    padding: 4px 10px;
+    border-radius: var(--radius-md);
+    font-size: 0.8rem;
+    font-weight: var(--font-weight-medium);
+}
+
+.skill-tag.skill-offer {
+    background: rgba(79, 156, 249, 0.1);
+    color: #4f9cf9;
+    border: 1px solid rgba(79, 156, 249, 0.3);
+}
+
+.skill-tag.skill-request {
+    background: rgba(255, 138, 128, 0.1);
+    color: #ff8a80;
+    border: 1px solid rgba(255, 138, 128, 0.3);
+}
+
+.skill-tag.more {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary-border);
+}
+
+/* Remote tag component */
+.remote-tag {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-medium);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+}
+
+/* User footer component */
+.user-footer {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Profile link component */
+.profile-link {
+    padding: 8px 15px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: var(--font-weight-medium);
+    transition: var(--transition-all);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary-border);
+}
+
+.profile-link:hover {
+    background: var(--color-primary);
+    color: var(--color-text-white);
+    text-decoration: none;
+    transform: var(--transform-hover-up);
+}.compact-skill-category {
+  background: var(--color-secondary-bg);
+  color: var(--color-secondary);
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: var(--radius-small);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
 
 /* ==========================================================================
    FORM UTILITIES
