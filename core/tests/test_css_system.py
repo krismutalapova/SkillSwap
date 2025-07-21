@@ -74,7 +74,6 @@ class CSSVariableTests(TestCase):
         with open(utilities_path, "r") as f:
             content = f.read()
 
-        # Test for essential utility classes
         required_classes = [
             ".glass-card",
             ".btn-primary",

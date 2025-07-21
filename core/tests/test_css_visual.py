@@ -25,9 +25,6 @@ from django.test import override_settings
 class VisualRegressionTests(StaticLiveServerTestCase):
     """
     Visual regression tests to catch UI changes during refactoring
-
-    Note: These tests require Selenium and ChromeDriver
-    Uncomment imports and methods below when ready to use
     """
 
     def setUp(self):
@@ -148,7 +145,6 @@ class PerformanceTests(StaticLiveServerTestCase):
             "/static/css/utilities.css",
             "/static/css/base.css",
             "/static/css/components.css",
-            # Add other CSS files as needed
         ]
 
         total_size = 0
@@ -158,10 +154,9 @@ class PerformanceTests(StaticLiveServerTestCase):
                 if response.status_code == 200:
                     total_size += len(response.content)
             except:
-                pass  # File might not exist yet
+                pass
 
-        # Total CSS should be under 200KB (reasonable for a design system)
-        max_total_size = 200000  # 200KB
+        max_total_size = 200000
         self.assertLess(
             total_size,
             max_total_size,
@@ -182,18 +177,16 @@ class PerformanceTests(StaticLiveServerTestCase):
                 if response.status_code == 200:
                     content = response.content.decode()
 
-                    # Basic checks for common CSS syntax errors
                     open_braces = content.count("{")
                     close_braces = content.count("}")
                     self.assertEqual(
                         open_braces, close_braces, f"Unmatched braces in {css_file}"
                     )
 
-                    # Check for unterminated CSS variables
                     var_starts = content.count("var(--")
                     var_ends = content.count(")")
                     self.assertGreaterEqual(
                         var_ends, var_starts, f"Possible unclosed var() in {css_file}"
                     )
             except:
-                pass  # File might not exist yet
+                pass
