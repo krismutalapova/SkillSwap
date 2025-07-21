@@ -48,6 +48,10 @@
   --color-success-text: #155724;
   --color-success-gradient: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-light) 100%);
   --color-success-shadow: rgba(40, 167, 69, 0.3);
+
+  /* Skill Type Colors */
+  --color-offer-gradient: linear-gradient(135deg, #3a7bd5bd 0%, #3a6073 100%);
+  --color-request-gradient: linear-gradient(135deg, #fd746ce0 0%, #ff9068d6 100%);
   
   --color-danger: #dc3545;
   --color-danger-bg: #f8d7da;
@@ -95,13 +99,14 @@
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 12px;
-  --space-lg: 16px;
-  --space-xl: 20px;
+  --space-lg: 20px;  /* Updated to match original filter gap */
+  --space-xl: 25px;  /* Updated to match filters-card padding */
   --space-2xl: 24px;
   --space-3xl: 32px;
   --space-4xl: 40px;
   --space-5xl: 48px;
   --space-6xl: 64px;
+  --space-xxl: 30px;  /* Updated to match filters-card margin-bottom */
   
   /* Common spacing patterns */
   --space-section: var(--space-4xl);
@@ -113,10 +118,14 @@
      BORDER RADIUS
      --------------------------------- */
   
+    /* Border Radius */
+  --radius-xs: 4px;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 15px;
   --radius-xl: 20px;
+  --radius-pill: 20px;
+  --radius-card: var(--radius-lg);
   
   /* Component-specific radius */
   --radius-button: var(--radius-md);
@@ -254,4 +263,17 @@
   --logo-font-size: var(--font-size-2xl);
   --logo-font-size-mobile: var(--font-size-lg);
   --logo-font-size-footer: var(--font-size-xl);
+  
+  /* Components */
+  --filter-group-min-width: 200px;
+  --shadow-glass-card: 0 8px 32px var(--shadow-footer);
+  --shadow-card: 0 4px 20px var(--shadow-footer);
+  --shadow-card-hover: 0 8px 30px rgba(0, 0, 0, 0.15);
+  --shadow-card-hover-mild: 0 6px 25px rgba(0, 0, 0, 0.15);
+  --transform-hover-lift: translateY(-2px);
+  --transform-card-hover: translateY(-5px);
+  --shadow-hover-button: 0 4px 15px var(--color-secondary-medium);
+  --skill-description-min-height: 3rem;
+  --skill-meta-min-height: 2rem;
+  --profile-pic-size: 60px;
 }
