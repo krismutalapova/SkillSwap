@@ -276,4 +276,16 @@
   --skill-description-min-height: 3rem;
   --skill-meta-min-height: 2rem;
   --profile-pic-size: 60px;
+  
+  /* Phase 3.2: Component-specific variables */
+  --icon-btn-size: 40px;
+  --icon-btn-size-sm: 32px;
+  --icon-btn-size-lg: 48px;
+  --badge-padding: var(--space-xs) var(--space-sm);
+  --status-dot-size: 8px;
+  --progress-bar-height: 8px;
+  --card-grid-min-width: 300px;
+  --card-grid-min-width-sm: 250px;
+  --card-grid-min-width-lg: 400px;
+  --transition-base: all var(--transition-normal);
 }

@@ -362,6 +362,254 @@
   width: 100%;
 }
 
+/* Enhanced form patterns for Phase 3.2 */
+.form-group-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--form-gap);
+}
+
+.form-group-horizontal .form-label {
+  margin-bottom: 0;
+  min-width: 120px;
+  flex-shrink: 0;
+}
+
+.form-section {
+  background: var(--color-background-glass);
+  padding: var(--space-xl);
+  border-radius: var(--radius-card);
+  border: var(--glass-border);
+  margin-bottom: var(--space-component);
+}
+
+.form-section-title {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* ==========================================================================
+   PHASE 3.2: COMPONENT-SPECIFIC MIXINS/PATTERNS
+   ========================================================================== */
+
+/* Card hover effect patterns */
+.card-hover-lift {
+  transition: var(--transition-all);
+}
+
+.card-hover-lift:hover {
+  transform: var(--transform-hover-lift);
+  box-shadow: var(--shadow-card-hover-mild);
+}
+
+.card-hover-strong {
+  transition: var(--transition-all);
+}
+
+.card-hover-strong:hover {
+  transform: var(--transform-card-hover);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.card-hover-scale {
+  transition: var(--transition-all);
+}
+
+.card-hover-scale:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-card-hover-mild);
+}
+
+/* Icon button patterns */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-all);
+  text-decoration: none;
+}
+
+.icon-btn-primary {
+  background: var(--color-secondary);
+  color: var(--color-text-white);
+}
+
+.icon-btn-primary:hover {
+  background: var(--color-primary-start);
+  transform: var(--transform-hover-lift);
+  color: var(--color-text-white);
+}
+
+.icon-btn-secondary {
+  background: var(--color-background-glass);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-default);
+}
+
+.icon-btn-secondary:hover {
+  background: var(--color-secondary-light);
+  color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  transform: var(--transform-hover-lift);
+}
+
+.icon-btn-danger {
+  background: var(--color-danger);
+  color: var(--color-text-white);
+}
+
+.icon-btn-danger:hover {
+  background: #c82333;
+  transform: var(--transform-hover-lift);
+  color: var(--color-text-white);
+}
+
+.icon-btn-sm {
+  width: 32px;
+  height: 32px;
+  font-size: var(--font-size-sm);
+}
+
+.icon-btn-lg {
+  width: 48px;
+  height: 48px;
+  font-size: var(--font-size-lg);
+}
+
+/* Badge and tag patterns */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+}
+
+.badge-primary {
+  background: var(--color-secondary-light);
+  color: var(--color-secondary);
+}
+
+.badge-success {
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
+}
+
+.badge-danger {
+  background: var(--color-danger-bg);
+  color: var(--color-danger-text);
+}
+
+.badge-pill {
+  border-radius: var(--radius-pill);
+}
+
+/* Status indicators */
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: var(--space-xs);
+}
+
+.status-dot-active {
+  background: var(--color-success);
+}
+
+.status-dot-inactive {
+  background: var(--color-text-muted);
+}
+
+.status-dot-warning {
+  background: var(--color-warning);
+}
+
+/* Link button patterns */
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  transition: var(--transition-all);
+}
+
+.link-btn-primary {
+  background: var(--color-secondary-light);
+  color: var(--color-secondary);
+  border: 1px solid var(--color-secondary-medium);
+}
+
+.link-btn-primary:hover {
+  background: var(--color-secondary);
+  color: var(--color-text-white);
+  transform: var(--transform-hover-lift);
+  text-decoration: none;
+}
+
+.link-btn-ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-default);
+}
+
+.link-btn-ghost:hover {
+  background: var(--color-background-glass);
+  color: var(--color-text-primary);
+  border-color: var(--color-secondary);
+  transform: var(--transform-hover-lift);
+  text-decoration: none;
+}
+
+/* Progress and loading patterns */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--color-border-default);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-primary-gradient);
+  border-radius: var(--radius-pill);
+  transition: width 0.3s ease;
+}
+
+/* Card layout patterns */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-component);
+}
+
+.card-grid-sm {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.card-grid-lg {
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+}
+
 /* ==========================================================================
    BORDER RADIUS UTILITIES
    ========================================================================== */
