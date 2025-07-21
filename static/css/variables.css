@@ -72,9 +72,11 @@
      SHADOWS
      --------------------------------- */
   
-  --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
-  --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.1);
-  --shadow-strong: 0 8px 32px rgba(0, 0, 0, 0.1);
+      /* Shadows - glassmorphism depth effects */
+    --shadow-light: rgba(255, 255, 255, 0.1);
+    --shadow-dark: rgba(0, 0, 0, 0.2);
+    --shadow-footer: rgba(0, 0, 0, 0.1);
+    --shadow-blur-large: 20px;
   --shadow-focus: 0 0 0 3px var(--color-secondary-light);
   --shadow-hover-light: 0 4px 15px var(--color-secondary-medium);
   --shadow-hover-strong: 0 6px 20px rgba(0, 0, 0, 0.2);
