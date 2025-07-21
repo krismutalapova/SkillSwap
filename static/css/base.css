@@ -19,6 +19,7 @@ body {
 .primary-gradient {
     background-image: var(--color-primary-gradient);
     color: var(--color-text-white);
+    box-shadow: var(--shadow-button-primary);
 }
 
 .main-content {
