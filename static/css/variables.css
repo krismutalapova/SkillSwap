@@ -1,0 +1,255 @@
+/* Centralized design tokens for consistent theming and maintainability */
+
+:root {
+  /* ---------------------------------
+     COLOR PALETTE
+     --------------------------------- */
+  
+  /* Primary Brand Colors */
+  --color-primary-start: #6441a5;
+  --color-primary-end: #2a0845;
+  --color-primary-gradient: linear-gradient(to right, var(--color-primary-start), var(--color-primary-end));
+  
+  /* Secondary Brand Colors */
+  --color-secondary: #667eea;
+  --color-secondary-light: rgba(102, 126, 234, 0.1);
+  --color-secondary-medium: rgba(102, 126, 234, 0.3);
+  --color-secondary-strong: rgba(102, 126, 234, 0.4);
+  
+  /* Background Colors */
+  --color-background-main: linear-gradient(359.5deg, rgba(115,122,205,1) 8.8%, rgba(186,191,248,1) 77.4%);
+  --color-background-glass: rgba(255, 255, 255, 0.95);
+  --color-background-glass-light: rgba(255, 255, 255, 0.9);
+  --color-background-glass-strong: rgba(248, 249, 250, 0.9);
+  --color-background-white: #ffffff;
+  --color-background-muted: #f8f9fa;
+  
+  /* Text Colors */
+  --color-text-primary: #333333;
+  --color-text-secondary: #666666;
+  --color-text-muted: #999999;
+  --color-text-light: #6c757d;
+  --color-text-white: #ffffff;
+  --color-text-gradient: var(--color-primary-gradient);
+  
+  /* Border Colors */
+  --color-border-light: rgba(255, 255, 255, 0.2);
+  --color-border-medium: rgba(255, 255, 255, 0.3);
+  --color-border-default: #e1e5e9;
+  --color-border-muted: #e9ecef;
+  --color-border-focus: var(--color-secondary);
+  --color-border-divider: rgba(0, 0, 0, 0.1);
+  
+  /* Status Colors */
+  --color-success: #28a745;
+  --color-success-light: #20c997;
+  --color-success-bg: #d4edda;
+  --color-success-border: #c3e6cb;
+  --color-success-text: #155724;
+  --color-success-gradient: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-light) 100%);
+  --color-success-shadow: rgba(40, 167, 69, 0.3);
+  
+  --color-danger: #dc3545;
+  --color-danger-bg: #f8d7da;
+  --color-danger-border: #f5c6cb;
+  --color-danger-text: #721c24;
+  
+  --color-warning: #ffc107;
+  --color-info: #17a2b8;
+  
+  /* Button Colors */
+  --color-button-logout-start: #6c757d;
+  --color-button-logout-end: #495057;
+  --color-button-logout-gradient: linear-gradient(135deg, var(--color-button-logout-start) 0%, var(--color-button-logout-end) 100%);
+  --color-button-logout-shadow: rgba(108, 117, 125, 0.3);
+  --color-button-logout-shadow-hover: rgba(108, 117, 125, 0.4);
+  
+  /* Skill Type Colors */
+  --color-skill-offer: #007bff;
+  --color-skill-request: #fd7e14;
+  
+  /* ---------------------------------
+     SHADOWS
+     --------------------------------- */
+  
+  --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --shadow-strong: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --shadow-focus: 0 0 0 3px var(--color-secondary-light);
+  --shadow-hover-light: 0 4px 15px var(--color-secondary-medium);
+  --shadow-hover-strong: 0 6px 20px rgba(0, 0, 0, 0.2);
+  
+  /* Button Shadows */
+  --shadow-button-primary: 0 2px 10px var(--color-secondary-medium);
+  --shadow-button-primary-hover: 0 4px 15px var(--color-secondary-strong);
+  --shadow-button-logout: 0 2px 10px var(--color-button-logout-shadow);
+  --shadow-button-logout-hover: 0 4px 15px var(--color-button-logout-shadow-hover);
+  
+  /* ---------------------------------
+     SPACING SYSTEM
+     --------------------------------- */
+  
+  /* Base spacing scale (following 4px grid system) */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 20px;
+  --space-2xl: 24px;
+  --space-3xl: 32px;
+  --space-4xl: 40px;
+  --space-5xl: 48px;
+  --space-6xl: 64px;
+  
+  /* Common spacing patterns */
+  --space-section: var(--space-4xl);
+  --space-component: var(--space-xl);
+  --space-element: var(--space-md);
+  --space-tight: var(--space-sm);
+  
+  /* ---------------------------------
+     BORDER RADIUS
+     --------------------------------- */
+  
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 15px;
+  --radius-xl: 20px;
+  
+  /* Component-specific radius */
+  --radius-button: var(--radius-md);
+  --radius-card: var(--radius-lg);
+  --radius-modal: var(--radius-xl);
+  --radius-input: var(--radius-sm);
+  --radius-logo: var(--radius-sm);
+  
+  /* ---------------------------------
+     TYPOGRAPHY
+     --------------------------------- */
+  
+  /* Font Families */
+  --font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+  /* Font Sizes */
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-base: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 28px;
+  --font-size-heading: 1.5rem;
+  
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.6;
+  
+  /* ---------------------------------
+     LAYOUT & CONTAINERS
+     --------------------------------- */
+  
+  /* Container widths */
+  --container-max-width: 1200px;
+  --container-padding: var(--space-xl);
+  --container-padding-mobile: var(--space-md);
+  
+  /* Card dimensions */
+  --card-padding: var(--space-xl);
+  --card-padding-large: var(--space-5xl);
+  --card-min-height: auto;
+  
+  /* Header/Footer */
+  --header-padding: 15px 0;
+  --footer-padding: 30px 0 20px 0;
+  
+  /* ---------------------------------
+     TRANSITIONS & ANIMATIONS
+     --------------------------------- */
+  
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Common transition patterns */
+  --transition-all: all var(--transition-normal);
+  --transition-transform: transform var(--transition-normal);
+  --transition-opacity: opacity var(--transition-normal);
+  --transition-colors: color var(--transition-normal), background-color var(--transition-normal), border-color var(--transition-normal);
+  
+  /* Hover transforms */
+  --transform-hover-up: translateY(-2px);
+  --transform-hover-down: translateY(2px);
+  
+  /* ---------------------------------
+     Z-INDEX SCALE
+     --------------------------------- */
+  
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-popover: 600;
+  --z-tooltip: 700;
+  
+  /* ---------------------------------
+     GLASSMORPHISM EFFECTS
+     --------------------------------- */
+  
+  --glass-background: var(--color-background-glass);
+  --glass-backdrop-filter: blur(10px);
+  --glass-border: 1px solid var(--color-border-light);
+  
+  /* Combined glassmorphism patterns */
+  --glass-card-light: var(--glass-background) var(--glass-backdrop-filter);
+  --glass-card-strong: var(--color-background-glass-strong) var(--glass-backdrop-filter);
+  
+  /* ---------------------------------
+     RESPONSIVE BREAKPOINTS
+     --------------------------------- */
+  
+  /* Breakpoint definitions (for use in media queries) */
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1400px;
+  
+  /* ---------------------------------
+     COMPONENT-SPECIFIC VARIABLES
+     --------------------------------- */
+  
+  /* Navigation */
+  --nav-gap: var(--space-xl);
+  --nav-gap-mobile: var(--space-sm);
+  --nav-link-padding: var(--space-sm) var(--space-lg);
+  --nav-link-padding-mobile: 6px 10px;
+  
+  /* Buttons */
+  --button-padding: 10px 20px;
+  --button-padding-small: 6px 10px;
+  --button-padding-large: var(--space-base) var(--space-2xl);
+  --button-min-width: auto;
+  
+  /* Forms */
+  --form-field-padding: var(--space-md) 15px;
+  --form-field-border-width: 2px;
+  --form-gap: var(--space-xl);
+  
+  /* Logo */
+  --logo-icon-size: 40px;
+  --logo-icon-size-small: 30px;
+  --logo-icon-size-footer: 35px;
+  --logo-font-size: var(--font-size-2xl);
+  --logo-font-size-mobile: var(--font-size-lg);
+  --logo-font-size-footer: var(--font-size-xl);
+}
