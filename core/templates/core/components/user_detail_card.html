@@ -4,7 +4,7 @@
     <!-- User Header -->
     <div class="user-header">
         <div class="user-meta">
-            <div class="user-location">
+            <div class="user-location-badge">
                 <i class="fas fa-map-marker-alt"></i>
                 {% if profile.city and profile.country %}
                     {{ profile.city }}, {{ profile.country }}
@@ -225,7 +225,7 @@
             <button type="submit" class="save-btn">
                 <i class="fas fa-save"></i> Save Changes
             </button>
-            <a href="{% url 'view_my_profile' %}" class="cancel-btn">
+            <a href="{% url 'view_my_profile' %}" class="btn btn-muted">
                 <i class="fas fa-times"></i> Cancel
             </a>
         </div>

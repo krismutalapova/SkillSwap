@@ -2,7 +2,7 @@
 <!-- User Sidebar Component -->
 <div class="user-sidebar">
     <div class="{% if sidebar_type == 'profile' %}profile-user-card{% else %}user-card{% endif %}">
-        <div class="user-info">
+        <div class="user-info-centered">
             {% if profile_picture %}
                 {% if show_profile_link %}
                     <a href="{% url 'view_user_profile' user_obj.id %}" class="avatar-link">
@@ -33,7 +33,7 @@
                 <h4 class="profile-user-name-small">
                     {{ user_obj.get_full_name|default:user_obj.username }}
                 </h4>
-                <p class="user-location">
+                <p class="user-username">
                     <i class="fas fa-user"></i>
                     @{{ user_obj.username }}
                 </p>
@@ -50,27 +50,27 @@
         {% if show_action_button %}
             <div class="profile-contact-section">
                 {% if is_own_profile %}
-                    <a href="{% url 'edit_my_profile' %}" class="primary-gradient contact-btn">
+                                        <a href="{% url 'edit_my_profile' %}" class="contact-btn">
                         <i class="fas fa-edit"></i> Edit Profile
                     </a>
                 {% elif action_type == 'message_user' %}
                     {% if user.is_authenticated %}
-                        <a href="{% url 'send_message_to_user' user_id=user_obj.id %}" class="primary-gradient contact-btn">
+                        <a href="{% url 'send_message_to_user' user_id=user_obj.id %}" class="contact-btn">
                             <i class="fas fa-envelope"></i> Message {{ user_obj.first_name|default:"User" }}
                         </a>
                     {% else %}
                         <a href="{% url 'login' %}" class="primary-gradient login-to-contact-btn">
-                            <i class="fas fa-sign-in-alt"></i> Login to Connect
+                            <i class="fas fa-sign-in-alt"></i> Login to Message
                         </a>
                     {% endif %}
                 {% elif action_type == 'message_skill' %}
                     {% if user.is_authenticated %}
-                        <a href="{% url 'send_message' skill_id=skill_obj.id %}" class="primary-gradient contact-btn">
-                            <i class="fas fa-envelope"></i> Message {{ user_obj.first_name|default:user_obj.username|default:"User" }}
+                        <a href="{% url 'send_message' skill_id=skill_obj.id %}" class="contact-btn">
+                            <i class="fas fa-envelope"></i> Contact About This Skill
                         </a>
                     {% else %}
                         <a href="{% url 'login' %}" class="primary-gradient login-to-contact-btn">
-                            <i class="fas fa-sign-in-alt"></i> Login to Connect
+                            <i class="fas fa-sign-in-alt"></i> Login to Contact
                         </a>
                     {% endif %}
                 {% endif %}
