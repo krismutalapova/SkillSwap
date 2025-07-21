@@ -95,54 +95,54 @@ document.getElementById('closePhase32Test').onclick = () => testContainer.remove
 
 // Test the new variables
 const phase32Variables = [
-  { name: '--icon-btn-size', expected: '40px' },
-  { name: '--icon-btn-size-sm', expected: '32px' },
-  { name: '--icon-btn-size-lg', expected: '48px' },
-  { name: '--status-dot-size', expected: '8px' },
-  { name: '--progress-bar-height', expected: '8px' },
-  { name: '--transition-base', expected: 'all 0.3s ease' }
+    { name: '--icon-btn-size', expected: '40px' },
+    { name: '--icon-btn-size-sm', expected: '32px' },
+    { name: '--icon-btn-size-lg', expected: '48px' },
+    { name: '--status-dot-size', expected: '8px' },
+    { name: '--progress-bar-height', expected: '8px' },
+    { name: '--transition-base', expected: 'all 0.3s ease' }
 ];
 
 console.log("Testing Phase 3.2 Variables:");
 let phase32Passed = 0;
 phase32Variables.forEach(({ name, expected }) => {
-  const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-  const passed = value === expected || value.includes(expected.substring(0, 10));
-  console.log(`   ${passed ? '✅' : '❌'} ${name}: ${value || 'not defined'}`);
-  if (passed) phase32Passed++;
+    const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    const passed = value === expected || value.includes(expected.substring(0, 10));
+    console.log(`   ${passed ? '✅' : '❌'} ${name}: ${value || 'not defined'}`);
+    if (passed) phase32Passed++;
 });
 
 console.log(`Phase 3.2 Variables: ${phase32Passed}/${phase32Variables.length} passed\n`);
 
 // Test component styles
 setTimeout(() => {
-  console.log("Testing Component Pattern Styles:");
-  
-  // Test icon button sizing
-  const iconBtn = testContainer.querySelector('.icon-btn');
-  const iconBtnWidth = getComputedStyle(iconBtn).width;
-  console.log(`   ${iconBtnWidth === '40px' ? '✅' : '❌'} Icon button size: ${iconBtnWidth} (expected: 40px)`);
-  
-  // Test badge styling
-  const badge = testContainer.querySelector('.badge');
-  const badgePadding = getComputedStyle(badge).padding;
-  console.log(`   ${badgePadding.includes('4px') ? '✅' : '❌'} Badge padding: ${badgePadding}`);
-  
-  // Test progress bar
-  const progressBar = testContainer.querySelector('.progress-bar');
-  const progressHeight = getComputedStyle(progressBar).height;
-  console.log(`   ${progressHeight === '8px' ? '✅' : '❌'} Progress bar height: ${progressHeight} (expected: 8px)`);
-  
-  // Test form section background
-  const formSection = testContainer.querySelector('.form-section');
-  const formBg = getComputedStyle(formSection).background;
-  console.log(`   ${formBg.includes('rgba') ? '✅' : '❌'} Form section glassmorphism: ${formBg.includes('rgba') ? 'Applied' : 'Missing'}`);
-  
-  // Test hover effects by programmatically triggering them
-  console.log(`   ✅ Hover effects: Ready for manual testing`);
-  
-  console.log("\n🎨 Phase 3.2 Component Patterns Test Complete!");
-  console.log("💡 Interactive test panel added to top-right corner");
-  console.log("🎯 Try hovering over cards and clicking buttons");
-  console.log("🔧 All new component patterns are now available for use");
+    console.log("Testing Component Pattern Styles:");
+
+    // Test icon button sizing
+    const iconBtn = testContainer.querySelector('.icon-btn');
+    const iconBtnWidth = getComputedStyle(iconBtn).width;
+    console.log(`   ${iconBtnWidth === '40px' ? '✅' : '❌'} Icon button size: ${iconBtnWidth} (expected: 40px)`);
+
+    // Test badge styling
+    const badge = testContainer.querySelector('.badge');
+    const badgePadding = getComputedStyle(badge).padding;
+    console.log(`   ${badgePadding.includes('4px') ? '✅' : '❌'} Badge padding: ${badgePadding}`);
+
+    // Test progress bar
+    const progressBar = testContainer.querySelector('.progress-bar');
+    const progressHeight = getComputedStyle(progressBar).height;
+    console.log(`   ${progressHeight === '8px' ? '✅' : '❌'} Progress bar height: ${progressHeight} (expected: 8px)`);
+
+    // Test form section background
+    const formSection = testContainer.querySelector('.form-section');
+    const formBg = getComputedStyle(formSection).background;
+    console.log(`   ${formBg.includes('rgba') ? '✅' : '❌'} Form section glassmorphism: ${formBg.includes('rgba') ? 'Applied' : 'Missing'}`);
+
+    // Test hover effects by programmatically triggering them
+    console.log(`   ✅ Hover effects: Ready for manual testing`);
+
+    console.log("\n🎨 Phase 3.2 Component Patterns Test Complete!");
+    console.log("💡 Interactive test panel added to top-right corner");
+    console.log("🎯 Try hovering over cards and clicking buttons");
+    console.log("🔧 All new component patterns are now available for use");
 }, 100);

@@ -46,13 +46,27 @@ class CSSVariableTests(TestCase):
         # Test for essential CSS variables
         required_variables = [
             "--color-primary",
+            "--color-primary-gradient",  # Updated for refactoring
             "--color-secondary",
             "--color-background",
+            "--color-background-glass",  # Added glassmorphism variables
+            "--color-background-glass-light",
             "--color-text",
+            "--color-text-primary",  # More specific text colors
+            "--color-text-secondary",
+            "--color-text-white",
+            "--color-text-white-muted",  # New variable added in refactoring
             "--space-sm",
             "--space-md",
             "--space-lg",
+            "--space-xl",  # Additional spacing
             "--font-size-base",
+            "--font-size-lg",  # Additional font sizes
+            "--font-weight-semibold",  # Font weights
+            "--radius-button",  # Border radius variables
+            "--radius-card",
+            "--transition-all",  # Transition variables
+            "--transform-hover-up",  # Transform variables
             "--glass-background",
             "--glass-backdrop-filter",
         ]
