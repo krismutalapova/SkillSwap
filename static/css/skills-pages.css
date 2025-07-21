@@ -190,12 +190,6 @@
     margin-bottom: 20px;
 }
 
-.filter-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
 .filter-label {
     font-weight: 600;
     color: #333;

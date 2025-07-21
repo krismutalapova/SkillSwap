@@ -57,51 +57,7 @@
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Filters */
-.filters-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 25px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.filter-row {
-    display: flex;
-    gap: 20px;
-    align-items: end;
-    flex-wrap: wrap;
-}
-
-.filter-group {
-    flex: 1;
-    min-width: 200px;
-}
-
-.filter-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 600;
-    color: #333;
-}
-
-.filter-group input,
-.filter-group select {
-    width: 100%;
-    padding: 10px 15px;
-    border: 2px solid #e1e5e9;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-}
-
-.filter-group input:focus,
-.filter-group select:focus {
-    outline: none;
-    border-color: #667eea;
-}
-
+/* Page-specific filter button styling */
 .filter-btn {
     background-image: linear-gradient(to right, #6441a5, #2a0845);
     color: white;
@@ -117,42 +73,6 @@
 .filter-btn:hover {
     transform: translateY(-1px);
     box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
-}
-
-.active-filters {
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid #e1e5e9;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.filter-label {
-    font-weight: 600;
-    color: #333;
-}
-
-.filter-tag {
-    background: #667eea;
-    color: white;
-    padding: 5px 12px;
-    border-radius: 8px;
-    font-size: 0.875rem;
-}
-
-.clear-filters {
-    color: #dc3545;
-    text-decoration: none;
-    font-weight: 600;
-    padding: 5px 10px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-}
-
-.clear-filters:hover {
-    background: rgba(220, 53, 69, 0.1);
 }
 
 /* Results */
@@ -175,39 +95,7 @@
 }
 
 /* Skill cards */
-.skill-card-link {
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    height: 100%;
-    transition: transform 0.3s ease;
-}
-
-.skill-card-link:hover {
-    transform: translateY(-5px);
-}
-
-.skill-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    cursor: pointer;
-    min-height: 400px;
-}
-
-.skill-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
-    border-color: #667eea;
-}
-
+/* Page-specific skill card enhancements */
 .skill-card-clickable-area {
     text-decoration: none;
     color: inherit;
@@ -220,18 +108,7 @@
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
 }
 
-.skill-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-}
-
-.skill-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
+/* Page-specific skill content styling */
 .skill-category-footer {
     margin-top: auto;
     padding-top: 15px;
@@ -240,28 +117,7 @@
     justify-content: center;
 }
 
-/* Skill type badges */
-.skill-type {
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.skill-type.offer {
-    background: linear-gradient(135deg, #3a7bd5bd 0%, #3a6073 100%);
-    color: white;
-}
-
-.skill-type.request {
-    background: linear-gradient(135deg, #fd746ce0 0%, #ff9068d6 100%);
-    color: white;
-}
-
-/* Skill status */
+/* Page-specific skill status (not in components.css) */
 .skill-status.active {
     background: #28a745;
     color: white;
@@ -286,25 +142,7 @@
     gap: 5px;
 }
 
-/* Skill category */
-.skill-category {
-    background: rgba(102, 126, 234, 0.1);
-    color: #667eea;
-    padding: 5px 10px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-/* Skill title */
-.skill-title {
-    margin-bottom: 15px;
-    color: #333;
-    font-size: 1.3rem;
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
+/* Page-specific skill title enhancements */
 .skill-card-link:hover .skill-title,
 .skill-title a:hover {
     color: #667eea;
@@ -316,13 +154,6 @@
     font-size: 1.2rem;
     font-weight: 600;
     transition: color 0.3s ease;
-}
-
-/* Skill description */
-.skill-description {
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 20px;
 }
 
 /* Skill details */
@@ -903,12 +734,6 @@ textarea.form-control {
     margin-bottom: 30px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.skill-meta {
-    display: flex;
-    gap: 15px;
-    align-items: center;
 }
 
 .created-date {
@@ -1581,13 +1406,6 @@ textarea.form-control {
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-}
-
-/* Skill meta */
-.skill-meta {
-    margin-bottom: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #e9ecef;
 }
 
 .created-date,
