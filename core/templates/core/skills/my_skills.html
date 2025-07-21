@@ -43,7 +43,7 @@
         <div class="skills-section">
             <div class="section-header">
                 <h2>Your Skills</h2>
-                <a href="{% url 'add_skill' %}" class="primary-gradient add-skill-btn">
+                <a href="{% url 'add_skill' %}" class="btn btn-primary">
                     <i class="fas fa-plus"></i> Add New Skill
                 </a>
             </div>
@@ -69,7 +69,7 @@
                             
                                 <div class="skill-details">
                                     {% if skill.location %}
-                                        <div class="detail-item">
+                                        <div class="detail-item-inline">
                                             <i class="fas fa-map-marker-alt"></i>
                                             <span>{{ skill.location }}</span>
                                         </div>
@@ -106,13 +106,13 @@
                         </a>
                         
                         <div class="skill-actions">
-                            <a href="{% url 'skill_detail_page' skill.pk %}" class="primary-gradient action-btn view">
+                            <a href="{% url 'skill_detail_page' skill.pk %}" class="btn btn-primary">
                                 <i class="fas fa-eye"></i> View
                             </a>
-                            <a href="{% url 'skill_edit' skill.pk %}?next=my_skills" class="action-btn edit">
+                            <a href="{% url 'skill_edit' skill.pk %}?next=my_skills" class="btn btn-warning">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
-                            <a href="{% url 'delete_skill' skill.pk %}" class="action-btn delete">
+                            <a href="{% url 'delete_skill' skill.pk %}" class="btn btn-gradient-danger">
                                 <i class="fas fa-trash"></i> Delete
                             </a>
                         </div>
@@ -136,7 +136,7 @@
             <p>You haven't added any skills yet. Start by sharing a skill you can teach or requesting one you'd like to learn!</p>
             
             <div class="empty-actions">
-                <a href="{% url 'add_skill' %}" class="primary-gradient primary-btn">
+                <a href="{% url 'add_skill' %}" class="primary-btn">
                     <i class="fas fa-plus"></i> Add Your First Skill
                 </a>
                 <a href="{% url 'skills_list_search' %}" class="secondary-btn">
