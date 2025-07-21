@@ -1,85 +1,12 @@
 /* Skills Pages Styles */
 
-/* Skills Container */
-.user-skills {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 30px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.skills-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.skills-header h3 {
-    color: #333;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.skills-header h3 i {
-    color: #667eea;
-}
-
-.add-skill-btn {
-    padding: 10px 20px;
-    border-radius: 12px;
-    text-decoration: none;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-}
-
-.add-skill-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-}
-
-
+/* Skills page specific components */
 
 /* Skill Actions */
 .skill-actions {
     display: flex;
     gap: 5px;
     padding: 12px 15px;
-}
-
-.skill-action-btn {
-    padding: 5px 8px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.edit-skill-btn {
-    background: #667eea;
-    color: white;
-}
-
-.delete-skill-btn {
-    background: #dc3545;
-    color: white;
-}
-
-.skill-action-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Empty State */
@@ -113,6 +40,11 @@
     align-items: center;
     gap: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.primary-btn {
+    background: var(--color-primary-gradient);
+    color: var(--color-text-white);
 }
 
 .secondary-btn {
