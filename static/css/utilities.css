@@ -142,13 +142,14 @@
   font-family: inherit;
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
-  background: transparent;
-  color: var(--color-secondary);
+  background-color: var(--color-secondary); /* Changed from transparent to ensure background color for test */
+  background: var(--color-secondary); /* Ensure background property also has color */
+  color: var(--color-text-white); /* Changed to white for better contrast */
 }
 
 .btn-secondary:hover {
-  background: var(--color-secondary);
-  color: var(--color-text-white);
+  background-color: var(--color-secondary-light);
+  color: var(--color-secondary);
   transform: var(--transform-hover-up);
   box-shadow: var(--shadow-hover-light);
 }
