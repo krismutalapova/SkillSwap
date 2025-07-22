@@ -229,13 +229,6 @@
 
 /* User Card Components */
 .user-card {
-    background: var(--color-background-glass);
-    backdrop-filter: var(--glass-backdrop-filter);
-    border-radius: var(--radius-card);
-    padding: var(--space-lg);
-    box-shadow: var(--shadow-card);
-    border: var(--glass-border);
-    transition: var(--transition-base);
     cursor: pointer;
     display: flex;
     flex-direction: column;
