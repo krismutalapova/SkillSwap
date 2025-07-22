@@ -480,7 +480,7 @@ function createInteractiveShowcase() {
 }
 
 // ============================================================================
-// PHASE 4.6: COMPONENTS.CSS BUTTON CONSOLIDATION TEST
+//COMPONENTS.CSS BUTTON CONSOLIDATION TEST
 // ============================================================================
 
 function testComponentsButtonConsolidation() {
@@ -712,7 +712,152 @@ function testComponentsButtonConsolidation() {
     }
 
     return { passed, total: tests.length, success: failed === 0 };
-}// ============================================================================
+}
+
+// ============================================================================
+// PHASE 4.7: FINAL BUTTON CLEANUP CONSOLIDATION TESTS
+// ============================================================================
+
+function testPhase47FinalButtonCleanup() {
+    console.log("\n🔧 Phase 4.7: Final Button Cleanup");
+    console.log("-".repeat(50));
+
+    const tests = [];
+
+    // Test rate-skill buttons now use btn-warning
+    function testRateSkillButtons() {
+        const oldRateSkillButtons = document.querySelectorAll('.rate-skill-btn');
+        const warningButtons = document.querySelectorAll('.btn-warning');
+
+        console.log(`⚠️  Found ${oldRateSkillButtons.length} old .rate-skill-btn elements`);
+        console.log(`⚠️  Found ${warningButtons.length} .btn-warning elements`);
+
+        tests.push({
+            name: 'No old .rate-skill-btn classes remain',
+            pass: oldRateSkillButtons.length === 0
+        });
+
+        // Test warning button styling if present
+        warningButtons.forEach((btn, index) => {
+            const styles = getComputedStyle(btn);
+
+            tests.push({
+                name: `Warning Button ${index + 1} - Has warning background`,
+                pass: styles.backgroundImage.includes('gradient') || styles.backgroundColor.includes('rgb(255, 193, 7)')
+            });
+
+            tests.push({
+                name: `Warning Button ${index + 1} - Proper text color`,
+                pass: styles.color !== 'rgb(255, 255, 255)' // Should not be white
+            });
+        });
+    }
+
+    // Test delete buttons now use btn-outline-danger
+    function testDeleteButtons() {
+        const oldDeleteButtons = document.querySelectorAll('.delete-btn');
+        const outlineDangerButtons = document.querySelectorAll('.btn-outline-danger');
+
+        console.log(`🗑️  Found ${oldDeleteButtons.length} old .delete-btn elements`);
+        console.log(`🗑️  Found ${outlineDangerButtons.length} .btn-outline-danger elements`);
+
+        tests.push({
+            name: 'No old .delete-btn classes remain',
+            pass: oldDeleteButtons.length === 0
+        });
+
+        // Test outline-danger button styling if present
+        outlineDangerButtons.forEach((btn, index) => {
+            const styles = getComputedStyle(btn);
+
+            const hasWhiteBg = styles.backgroundColor === 'rgb(255, 255, 255)' || styles.backgroundColor === 'white';
+            const hasBorder = styles.borderWidth !== '0px' && styles.borderStyle !== 'none';
+            const hasCorrectBorderColor = styles.borderColor.includes('250, 112, 154') || styles.borderColor.includes('fa709a');
+
+            tests.push({
+                name: `Outline Danger Button ${index + 1} - White background`,
+                pass: hasWhiteBg
+            });
+
+            tests.push({
+                name: `Outline Danger Button ${index + 1} - Has border`,
+                pass: hasBorder
+            });
+
+            tests.push({
+                name: `Outline Danger Button ${index + 1} - Pink border color`,
+                pass: hasCorrectBorderColor
+            });
+        });
+    }
+
+    // Test dead CSS removal
+    function testDeadCSSRemoval() {
+        const deadClasses = [
+            '.rate-btn',
+            '.add-my-skill-btn'
+        ];
+
+        console.log(`💀 Checking for dead CSS classes...`);
+
+        deadClasses.forEach(className => {
+            const elements = document.querySelectorAll(className);
+
+            tests.push({
+                name: `Dead CSS: No ${className} elements`,
+                pass: elements.length === 0
+            });
+
+            if (elements.length > 0) {
+                console.log(`   ❌ Found ${elements.length} ${className} elements (should be 0)`);
+            }
+        });
+    }
+
+    // Test utility consolidation success
+    function testUtilityConsolidation() {
+        const utilityButtons = document.querySelectorAll('.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-outline-danger');
+        const oldButtons = document.querySelectorAll('.search-btn, .add-skill-btn, .cancel-btn, .see-all-users-btn, .rate-skill-btn, .delete-btn');
+
+        console.log(`✨ Found ${utilityButtons.length} utility button classes`);
+        console.log(`🗑️  Found ${oldButtons.length} old button classes`);
+
+        tests.push({
+            name: 'All old button classes removed',
+            pass: oldButtons.length === 0
+        });
+
+        tests.push({
+            name: 'Utility button classes in use',
+            pass: utilityButtons.length > 0
+        });
+    }
+
+    // Run all tests
+    testRateSkillButtons();
+    testDeleteButtons();
+    testDeadCSSRemoval();
+    testUtilityConsolidation();
+
+    // Calculate results
+    const passed = tests.filter(test => test.pass).length;
+    const failed = tests.filter(test => !test.pass).length;
+
+    // Display results
+    tests.forEach(test => {
+        console.log(`  ${test.pass ? '✅' : '❌'} ${test.name}`);
+    });
+
+    console.log(`\n📊 Phase 4.7 Final Button Cleanup: ${passed}/${tests.length} tests passed`);
+
+    if (failed > 0) {
+        console.log(`⚠️  ${failed} tests failed - check final button cleanup`);
+    }
+
+    return { passed, total: tests.length, success: failed === 0 };
+}
+
+// ============================================================================
 // MAIN TEST RUNNER
 // ============================================================================
 
@@ -725,6 +870,7 @@ function runComprehensiveTests() {
     const componentResults = testComponentIntegration();
     const buttonConsolidationResults = testButtonConsolidation();
     const componentsButtonResults = testComponentsButtonConsolidation();
+    const phase47Results = testPhase47FinalButtonCleanup();
     const performanceResults = testPerformance();
     const showcaseCreated = createInteractiveShowcase();
 
@@ -735,8 +881,8 @@ function runComprehensiveTests() {
     console.log("📊 COMPREHENSIVE TEST SUMMARY");
     console.log("=".repeat(65));
 
-    const totalPassed = variableResults.passed + utilityResults.passed + buttonConsolidationResults.passed + componentsButtonResults.passed;
-    const totalTests = variableResults.total + utilityResults.total + buttonConsolidationResults.total + componentsButtonResults.total;
+    const totalPassed = variableResults.passed + utilityResults.passed + buttonConsolidationResults.passed + componentsButtonResults.passed + phase47Results.passed;
+    const totalTests = variableResults.total + utilityResults.total + buttonConsolidationResults.total + componentsButtonResults.total + phase47Results.total;
     const overallPercentage = Math.round((totalPassed / totalTests) * 100);
 
     console.log(`🎯 Overall: ${totalPassed}/${totalTests} tests passed (${overallPercentage}%)`);
@@ -745,6 +891,7 @@ function runComprehensiveTests() {
     console.log(`🧩 Components: ${componentResults.working}/${componentResults.found} properly styled`);
     console.log(`🔧 Button Consolidation: ${buttonConsolidationResults.passed}/${buttonConsolidationResults.total} validation tests passed`);
     console.log(`🔩 Components Buttons: ${componentsButtonResults.passed}/${componentsButtonResults.total} Phase 4.6 tests passed`);
+    console.log(`🔬 Final Button Cleanup: ${phase47Results.passed}/${phase47Results.total} Phase 4.7 tests passed`);
     console.log(`✨ Showcase: ${showcaseCreated ? 'Created' : 'Failed'} (top-right corner)`);
 
     // Status indicator
