@@ -508,3 +508,23 @@ def rate_skill(request, skill_id):
         "existing_rating": existing_rating,
     }
     return render(request, "core/components/rate_skill.html", context)
+
+
+def css_test(request):
+    """CSS Design System Test Page"""
+    import os
+
+    # Read the CSS test script
+    test_script_path = os.path.join(
+        os.path.dirname(os.path.dirname(__file__)), "css_design_system_tests.js"
+    )
+    try:
+        with open(test_script_path, "r") as f:
+            css_test_script = f.read()
+    except FileNotFoundError:
+        css_test_script = "console.log('CSS test script not found');"
+
+    context = {
+        "css_test_script": css_test_script,
+    }
+    return render(request, "core/css_test.html", context)

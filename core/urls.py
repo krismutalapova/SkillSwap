@@ -21,6 +21,7 @@ from .views import (
     sent_messages,
     view_message,
     rate_skill,
+    css_test,
 )
 
 
@@ -65,6 +66,8 @@ urlpatterns = [
     path("messages/<int:message_id>/", view_message, name="view_message"),
     # Rating URLs
     path("skills/<int:skill_id>/rate/", rate_skill, name="rate_skill"),
+    # CSS Test URL
+    path("css-test/", css_test, name="css_test"),
     # Test URLs
     path("test-404/", lambda request: render(request, "404.html"), name="test_404"),
     path("test-500/", lambda request: render(request, "500.html"), name="test_500"),
