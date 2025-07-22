@@ -132,33 +132,6 @@
     text-align: center;
 }
 
-/* Buttons */
-.auth-submit-btn {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    color: white;
-}
-
-.auth-submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-
-.login-btn {
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-}
-
-.signup-btn, .complete-btn {
-    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
-}
-
 /* Auth Links */
 .auth-links {
     text-align: center;
@@ -201,36 +174,7 @@
     text-decoration: underline;
 }
 
-.secondary-btn {
-    display: inline-block;
-    padding: 12px 24px;
-    background: transparent;
-    color: #667eea;
-    border: 2px solid #667eea;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    margin: 0 5px;
-}
-
-.secondary-btn.signup {
-    color: #28a745;
-    border-color: #28a745;
-}
-
-.secondary-btn:hover {
-    background: #667eea;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-}
-
-.secondary-btn.signup:hover {
-    background: #28a745;
-    color: white;
-    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
-}
+/* Auth link buttons now use utility classes from utilities.css */
 
 /* Logout Success Page */
 .logout-success {
@@ -262,24 +206,6 @@
     margin-bottom: 25px;
 }
 
-.logout-login-btn {
-    display: inline-block;
-    padding: 14px 30px;
-    border: none;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    color: white;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-}
-
-.logout-login-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-}
-
 /* Complete Profile Form Specific Styles */
 .field-help {
     display: block;
@@ -291,34 +217,4 @@
 
 .field-help i {
     margin-right: 5px;
-}
-
-.complete-btn {
-    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
-}
-
-.complete-btn:hover {
-    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
-}
-
-.skip-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background: transparent;
-    color: #666;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.skip-btn i {
-    margin-right: 8px;
-}
-
-.skip-btn:hover {
-    border-color: #667eea;
-    color: #667eea;
 }

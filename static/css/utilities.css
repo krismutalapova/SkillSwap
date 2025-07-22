@@ -130,9 +130,20 @@
 }
 
 .btn-secondary {
+  display: inline-block;
+  padding: var(--button-padding);
+  border-radius: var(--radius-button);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-all);
+  border: 2px solid var(--color-secondary);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
   background: transparent;
   color: var(--color-secondary);
-  border: 2px solid var(--color-secondary);
 }
 
 .btn-secondary:hover {
@@ -142,7 +153,37 @@
   box-shadow: var(--shadow-hover-light);
 }
 
+/* Secondary button variants */
+.btn-secondary.profile {
+  color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.btn-secondary.login {
+  color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.btn-secondary.profile:hover,
+.btn-secondary.login:hover {
+  background: var(--color-secondary);
+  color: var(--color-text-white);
+  box-shadow: var(--shadow-hover-light);
+}
+
 .btn-success {
+  display: inline-block;
+  padding: var(--button-padding);
+  border-radius: var(--radius-button);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-all);
+  border: none;
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
   background: var(--color-success-gradient);
   color: var(--color-text-white);
   box-shadow: 0 4px 15px var(--color-success-shadow);
@@ -408,6 +449,15 @@
 .container-fluid {
   width: 100%;
   padding: 0 var(--container-padding);
+}
+
+/* Width utilities */
+.w-full {
+  width: 100%;
+}
+
+.w-auto {
+  width: auto;
 }
 
 /* ==========================================================================
@@ -1143,7 +1193,9 @@
     color: var(--color-text-white);
     text-decoration: none;
     transform: var(--transform-hover-up);
-}.compact-skill-category {
+}
+
+.compact-skill-category {
   background: var(--color-secondary-bg);
   color: var(--color-secondary);
   padding: var(--space-2xs) var(--space-xs);

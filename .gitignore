@@ -49,6 +49,9 @@ dev_docs/
 *.swp
 *.swo
 
+# Browser/HTTP files
+cookies.txt
+
 # Node/npm (if used)
 node_modules/
 

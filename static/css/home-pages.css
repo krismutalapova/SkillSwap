@@ -51,33 +51,6 @@
     justify-content: center;
 }
 
-.hero-btn {
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-    text-decoration: none;
-}
-
-.hero-btn.secondary {
-    background: rgba(255, 255, 255, 0.9);
-    color: #333;
-    border: 2px solid #667eea;
-}
-
-.hero-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-
-.hero-btn.secondary:hover {
-    background: #667eea;
-    color: white;
-}
-
 /* Features Section */
 .features-section {
     padding: 60px 20px;
@@ -308,10 +281,6 @@
     .hero-actions {
         flex-direction: column;
         align-items: stretch;
-    }
-
-    .hero-btn {
-        text-align: center;
     }
 
     .features-grid {
