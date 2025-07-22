@@ -794,7 +794,7 @@
 .compact-skill-tile {
   background: var(--color-background-muted);
   border-radius: var(--radius-card);
-  border: 2px solid var(--color-border-light);
+  border: 2px solid var(--color-border-light-strong);
   transition: var(--transition-all);
   position: relative;
   display: flex;
