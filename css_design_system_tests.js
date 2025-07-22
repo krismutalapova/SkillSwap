@@ -237,6 +237,117 @@ function testComponentIntegration() {
 }
 
 // ============================================================================
+// BUTTON CONSOLIDATION VALIDATION
+// ============================================================================
+
+function testButtonConsolidation() {
+    console.log("\n3️⃣.5 Button Consolidation Validation");
+    console.log("-".repeat(40));
+
+    const tests = [];
+    let passed = 0;
+
+    // Test 1: Check if logout button uses .btn-muted class
+    const logoutBtn = document.querySelector('.btn-muted');
+    const hasLogoutIcon = logoutBtn ? logoutBtn.querySelector('.fa-sign-out-alt') !== null : false;
+
+    tests.push({
+        name: "Logout button uses .btn-muted utility class",
+        result: logoutBtn !== null && hasLogoutIcon
+    });
+
+    if (logoutBtn) {
+        const styles = getComputedStyle(logoutBtn);
+
+        tests.push({
+            name: "Button has proper styling (background, radius, padding)",
+            result: styles.backgroundColor !== 'rgba(0, 0, 0, 0)' &&
+                styles.borderRadius === '8px' &&
+                styles.padding !== '0px'
+        });
+
+        tests.push({
+            name: "Button has hover effects (transition)",
+            result: (() => {
+                const transition = styles.transition || '';
+                const transitionDuration = styles.transitionDuration || '';
+
+                // Check if there's a valid transition (either full property or just duration)
+                const hasTransition = (transition &&
+                    transition !== 'none' &&
+                    transition !== 'all 0s ease 0s' &&
+                    (transition.includes('all') ||
+                        transition.includes('transform') ||
+                        transition.includes('background') ||
+                        transition.length > 10)) ||
+                    (transitionDuration &&
+                        transitionDuration !== '0s' &&
+                        transitionDuration !== 'none');
+
+                // Debug log for troubleshooting
+                if (!hasTransition) {
+                    console.log(`      🔍 Debug - Transition: "${transition}", Duration: "${transitionDuration}"`);
+                }
+
+                return hasTransition;
+            })()
+        });
+
+        // Test icon spacing
+        const icon = logoutBtn.querySelector('i');
+        if (icon) {
+            const iconStyles = getComputedStyle(icon);
+            tests.push({
+                name: "Icon has proper spacing",
+                result: iconStyles.marginRight !== '0px'
+            });
+        }
+    }
+
+    // Test 2: Verify old .logout-btn class is not defined
+    const testDiv = document.createElement('div');
+    testDiv.className = 'logout-btn';
+    testDiv.style.cssText = 'position: fixed; top: -1000px; left: -1000px; opacity: 0;';
+    document.body.appendChild(testDiv);
+
+    const testStyles = getComputedStyle(testDiv);
+    tests.push({
+        name: "Old .logout-btn class successfully removed",
+        result: testStyles.backgroundColor === 'rgba(0, 0, 0, 0)' ||
+            testStyles.backgroundColor === 'transparent'
+    });
+
+    document.body.removeChild(testDiv);
+
+    // Test 3: Check logout functionality
+    const form = logoutBtn?.closest('form');
+    tests.push({
+        name: "Logout functionality preserved (form + CSRF)",
+        result: form !== null &&
+            form.method.toLowerCase() === 'post' &&
+            form.querySelector('[name="csrfmiddlewaretoken"]') !== null
+    });
+
+    // Display results
+    tests.forEach((test, index) => {
+        const status = test.result ? '✅' : '❌';
+        const description = test.name;
+        console.log(`   ${status} ${description}`);
+        if (test.result) passed++;
+    });
+
+    console.log(`\n📊 Button Consolidation: ${passed}/${tests.length} validation tests passed`);
+
+    if (passed === tests.length) {
+        console.log("   🎉 Phase 4.5 consolidation successful!");
+    } else {
+        console.log("   ⚠️  Some consolidation issues detected");
+    }
+
+    return { passed, total: tests.length };
+}
+
+// ============================================================================
 // PERFORMANCE MONITORING
 // ============================================================================
 
@@ -327,6 +438,7 @@ function createInteractiveShowcase() {
                 <button class="btn-primary" style="font-size: 12px; padding: 6px 12px;">Primary</button>
                 <button class="btn-secondary" style="font-size: 12px; padding: 6px 12px;">Secondary</button>
                 <button class="btn-success" style="font-size: 12px; padding: 6px 12px;">Success</button>
+                <button class="btn-muted" style="font-size: 12px; padding: 6px 12px;"><i class="fas fa-sign-out-alt"></i>Logout</button>
             </div>
         </div>
         
@@ -378,6 +490,7 @@ function runComprehensiveTests() {
     const variableResults = testDesignSystemVariables();
     const utilityResults = testUtilityClasses();
     const componentResults = testComponentIntegration();
+    const buttonConsolidationResults = testButtonConsolidation();
     const performanceResults = testPerformance();
     const showcaseCreated = createInteractiveShowcase();
 
@@ -388,14 +501,15 @@ function runComprehensiveTests() {
     console.log("📊 COMPREHENSIVE TEST SUMMARY");
     console.log("=".repeat(65));
 
-    const totalPassed = variableResults.passed + utilityResults.passed;
-    const totalTests = variableResults.total + utilityResults.total;
+    const totalPassed = variableResults.passed + utilityResults.passed + buttonConsolidationResults.passed;
+    const totalTests = variableResults.total + utilityResults.total + buttonConsolidationResults.total;
     const overallPercentage = Math.round((totalPassed / totalTests) * 100);
 
     console.log(`🎯 Overall: ${totalPassed}/${totalTests} tests passed (${overallPercentage}%)`);
     console.log(`⚡ Performance: ${totalTime.toFixed(2)}ms test execution time`);
     console.log(`📁 CSS Files: ${performanceResults.filesLoaded} loaded, ~${performanceResults.totalRules} rules`);
     console.log(`🧩 Components: ${componentResults.working}/${componentResults.found} properly styled`);
+    console.log(`🔧 Button Consolidation: ${buttonConsolidationResults.passed}/${buttonConsolidationResults.total} validation tests passed`);
     console.log(`✨ Showcase: ${showcaseCreated ? 'Created' : 'Failed'} (top-right corner)`);
 
     // Status indicator
@@ -432,6 +546,7 @@ function runComprehensiveTests() {
         totalTests,
         executionTime: totalTime,
         components: componentResults,
+        buttonConsolidation: buttonConsolidationResults,
         performance: performanceResults
     };
 }

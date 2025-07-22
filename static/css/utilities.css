@@ -294,6 +294,14 @@
   text-decoration: none;
 }
 
+/* Icon spacing for buttons */
+.btn-muted i,
+.btn-primary i,
+.btn-secondary i,
+.btn-success i {
+  margin-right: var(--space-tight);
+}
+
 /* Navigation and action button variants */
 .back-btn {
   display: inline-block;

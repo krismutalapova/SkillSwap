@@ -113,29 +113,6 @@ body {
     display: inline;
 }
 
-.logout-btn {
-    background: var(--color-button-logout-gradient);
-    color: var(--color-text-white);
-    border: none;
-    padding: var(--button-padding);
-    border-radius: var(--radius-button);
-    cursor: pointer;
-    font-weight: var(--font-weight-medium);
-    font-size: var(--font-size-sm);
-    transition: var(--transition-all);
-    box-shadow: var(--shadow-button-logout);
-    text-decoration: none;
-}
-
-.logout-btn:hover {
-    transform: var(--transform-hover-up);
-    box-shadow: var(--shadow-button-logout-hover);
-}
-
-.logout-btn i {
-    margin-right: var(--space-tight);
-}
-
 /* Header buttons now use utility classes from utilities.css */
 
 /* Profile buttons now use utility classes from utilities.css */
@@ -252,7 +229,7 @@ body {
         margin-right: 3px !important;
     }
     
-    .logout-btn,
+    .btn-muted,
     .btn-primary,
     .btn-secondary {
         padding: var(--button-padding-small);
@@ -300,7 +277,7 @@ body {
     }
     
     .nav-link,
-    .logout-btn,
+    .btn-muted,
     .btn-primary,
     .btn-secondary {
         padding: var(--space-tight) var(--space-sm);
