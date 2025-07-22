@@ -486,8 +486,7 @@
         align-items: stretch;
     }
 
-    .back-btn,
-    .add-my-skill-btn {
+    .back-btn {
         text-align: center;
         justify-content: center;
     }
@@ -569,32 +568,7 @@
     color: #666;
 }
 
-.rate-skill-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: #ffc107;
-    color: #333;
-    text-decoration: none;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    min-height: 48px;
-}
-
-.rate-skill-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
-    text-decoration: none;
-    color: #333;
-    background: #ffca28;
-}
+/* Rating buttons now use .btn-warning utility class from utilities.css */
 
 /* Rating info styling */
 .rating-info {

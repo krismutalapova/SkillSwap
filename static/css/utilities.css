@@ -208,6 +208,20 @@
   color: var(--color-text-white);
 }
 
+.btn-outline-danger {
+  background: white;
+  color: #fa709a;
+  border: 2px solid #fa709a;
+  box-shadow: 0 4px 15px rgba(238, 90, 82, 0.3);
+}
+
+.btn-outline-danger:hover {
+  transform: var(--transform-hover-up);
+  box-shadow: 0 6px 20px rgba(238, 90, 82, 0.4);
+  background: #fa709a;
+  color: white;
+}
+
 /* Button sizes */
 .btn-small {
   padding: var(--button-padding-small);
@@ -221,7 +235,10 @@
 
 /* Additional button variants for common patterns */
 .btn-warning {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   padding: var(--button-padding);
   border-radius: var(--radius-button);
   font-weight: var(--font-weight-medium);
@@ -236,6 +253,8 @@
   background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
   color: var(--color-text-primary);
   box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+  width: 100%;
+  min-height: 48px;
 }
 
 .btn-warning:hover {
@@ -1555,6 +1574,11 @@
   .btn-large {
     padding: var(--button-padding);
     font-size: var(--font-size-base);
+  }
+  
+  .btn-outline-danger {
+    width: 100%;
+    justify-content: center;
   }
 }
 

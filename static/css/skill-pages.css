@@ -597,14 +597,7 @@ textarea.form-control {
     text-align: center;
 }
 
-.rate-btn {
-    background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
-    color: white;
-}
-
-.rate-btn:hover {
-    box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
-}
+/* Rate buttons removed - no templates use .rate-btn */
 
 .skill-category-card {
     background: var(--color-background-glass);
@@ -819,24 +812,8 @@ textarea.form-control {
 }
 
 /* Edit buttons now use btn-secondary utility class from utilities.css */
+/* Delete buttons now use btn-outline-danger utility class from utilities.css */
 
-.delete-btn {
-    background: white;
-    color: #fa709a;
-    padding: 10px 20px;
-    border: 2px solid #fa709a;
-    border-radius: var(--radius-button);
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition-all);
-    box-shadow: 0 4px 15px rgba(238, 90, 82, 0.3);
-}
-
-.delete-btn:hover {
-    transform: var(--transform-hover-up);
-    box-shadow: 0 6px 20px rgba(238, 90, 82, 0.4);
-}
 .alternative-actions {
     text-align: center;
     padding-top: 25px;
@@ -979,11 +956,6 @@ textarea.form-control {
     .back-section {
         flex-direction: column;
         align-items: stretch;
-    }
-
-    .delete-btn {
-        width: 100%;
-        justify-content: center;
     }
 
     .alternatives {
