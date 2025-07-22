@@ -659,19 +659,13 @@
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  margin-bottom: var(--space-sm);
   color: var(--color-text-secondary);
   font-size: var(--font-size-sm);
 }
 
 .detail-item-inline i {
   color: var(--color-secondary);
-  width: 16px;
-}
-
-.detail-item-inline.remote {
-  color: var(--color-success);
-  font-weight: var(--font-weight-semibold);
+  width: var(--icon-size);
 }
 
 /* Detail labels and values */
@@ -685,7 +679,9 @@
 
 .detail-label i {
   color: var(--color-secondary);
+  display: flex;
   width: 16px;
+  margin-right: var(--space-sm);
 }
 
 .detail-value {
@@ -1160,7 +1156,7 @@
     font-weight: var(--font-weight-medium);
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: var(--space-sm);
     margin-left: auto;
 }
 

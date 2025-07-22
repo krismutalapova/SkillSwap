@@ -53,12 +53,13 @@
                     <div class="skill-card">
                         <a href="{% url 'skill_detail_page' skill.pk %}" class="skill-card-clickable-area">
                             <div class="skill-header">
-                                <div class="skill-type {{ skill.skill_type }}">
+                                <div class="skill-type skill-type-{{ skill.skill_type }}">
                                     <i class="fas fa-{% if skill.skill_type == 'offer' %}hand-holding-heart{% else %}search{% endif %}"></i>
                                     {{ skill.get_skill_type_display }}
                                 </div>
-                                <div class="skill-status active">
-                                    <i class="fas fa-circle"></i> Active
+                                <div class="category">
+                                    <i class="{{ skill.get_category_icon }}"></i>
+                                    {{ skill.get_category_display }}
                                 </div>
                             </div>
                             
@@ -89,19 +90,6 @@
                                         </div>
                                     {% endif %}
                                 </div>
-                                
-                                <div class="skill-meta">
-                                    <div class="created-date">
-                                        <i class="fas fa-calendar-plus"></i>
-                                        Created {{ skill.created_at|date:"M d, Y" }}
-                                    </div>
-                                    {% if skill.updated_at != skill.created_at %}
-                                        <div class="updated-date">
-                                            <i class="fas fa-edit"></i>
-                                            Updated {{ skill.updated_at|date:"M d, Y" }}
-                                        </div>
-                                    {% endif %}
-                                </div>
                             </div>
                         </a>
                         
@@ -115,13 +103,6 @@
                             <a href="{% url 'delete_skill' skill.pk %}" class="btn btn-gradient-danger">
                                 <i class="fas fa-trash"></i> Delete
                             </a>
-                        </div>
-                        
-                        <div class="skill-category-footer">
-                            <div class="category">
-                                <i class="{{ skill.get_category_icon }}"></i>
-                                {{ skill.get_category_display }}
-                            </div>
                         </div>
                     </div>
                 {% endfor %}

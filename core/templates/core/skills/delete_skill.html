@@ -12,7 +12,7 @@
         </div>
         
         <div class="skill-preview">
-            <div class="skill-type {{ skill.skill_type }}">
+            <div class="skill-type skill-type-{{ skill.skill_type }}">
                 <i class="fas fa-{% if skill.skill_type == 'offer' %}hand-holding-heart{% else %}search{% endif %}"></i>
                 {{ skill.get_skill_type_display }}
             </div>
@@ -65,10 +65,10 @@
         <div class="alternative-actions">
             <p>Instead of deleting, you could:</p>
             <div class="alternatives">
-                <a href="{% url 'skill_edit' skill.pk %}" class="alt-btn">
+                <a href="{% url 'skill_edit' skill.pk %}" class="btn-secondary">
                     <i class="fas fa-edit"></i> Edit the skill details
                 </a>
-                <a href="{% url 'my_skills' %}" class="alt-btn">
+                <a href="{% url 'my_skills' %}" class="btn-secondary">
                     <i class="fas fa-list"></i> View all your skills
                 </a>
             </div>
