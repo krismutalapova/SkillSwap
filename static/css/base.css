@@ -95,6 +95,9 @@ body {
     border-radius: var(--radius-card);
     transition: var(--transition-all);
     font-weight: var(--font-weight-medium);
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .nav-link:hover {
@@ -135,43 +138,7 @@ body {
 
 /* Header buttons now use utility classes from utilities.css */
 
-.profile-btn {
-    background: transparent;
-    color: var(--color-secondary);
-    text-decoration: none;
-    padding: var(--button-padding);
-    border: 2px solid var(--color-secondary);
-    border-radius: var(--radius-card);
-    font-weight: var(--font-weight-medium);
-    transition: var(--transition-all);
-}
-
-.profile-btn:hover {
-    background: var(--color-secondary);
-    color: var(--color-text-white);
-    transform: var(--transform-hover-up);
-    box-shadow: var(--shadow-hover-light);
-}
-
-.profile-btn-gradient {
-    text-decoration: none;
-    padding: var(--button-padding);
-    border-radius: var(--radius-button);
-    font-weight: var(--font-weight-medium);
-    transition: var(--transition-all);
-    box-shadow: var(--shadow-button-primary);
-    border: none;
-}
-
-.profile-btn-gradient:hover {
-    transform: var(--transform-hover-up);
-    box-shadow: var(--shadow-button-primary-hover);
-    color: var(--color-text-white);
-}
-
-.profile-btn-gradient i {
-    margin-right: var(--space-tight);
-}
+/* Profile buttons now use utility classes from utilities.css */
 
 /* Footer styles */
 .footer {
@@ -292,12 +259,6 @@ body {
         font-size: var(--font-size-sm);
     }
     
-    .profile-btn,
-    .profile-btn-gradient {
-        padding: var(--button-padding-small);
-        font-size: var(--font-size-sm);
-    }
-    
     .footer-container {
         padding: 0 var(--space-lg);
     }
@@ -341,9 +302,7 @@ body {
     .nav-link,
     .logout-btn,
     .btn-primary,
-    .btn-secondary,
-    .profile-btn,
-    .profile-btn-gradient {
+    .btn-secondary {
         padding: var(--space-tight) var(--space-sm);
         font-size: var(--font-size-xs);
     }
