@@ -480,6 +480,239 @@ function createInteractiveShowcase() {
 }
 
 // ============================================================================
+// PHASE 4.6: COMPONENTS.CSS BUTTON CONSOLIDATION TEST
+// ============================================================================
+
+function testComponentsButtonConsolidation() {
+    console.log("\n🔧 Phase 4.6: Components Button Consolidation");
+    console.log("-".repeat(50));
+
+    const tests = [];
+
+    // Test search button consolidation (.search-btn with .primary-gradient)
+    function testSearchButtons() {
+        const searchBtns = document.querySelectorAll('.search-btn');
+        console.log(`🔍 Found ${searchBtns.length} search button elements`);
+
+        if (searchBtns.length === 0) {
+            console.log('⚠️  No search buttons found - checking for .btn-primary instead');
+            const btnPrimary = document.querySelectorAll('.btn-primary');
+            console.log(`🔍 Found ${btnPrimary.length} .btn-primary elements`);
+        }
+
+        searchBtns.forEach((btn, index) => {
+            const styles = getComputedStyle(btn);
+
+            // Check if it uses primary button styling
+            const hasCorrectBackground = styles.backgroundImage.includes('gradient') || styles.background.includes('gradient');
+            const hasCorrectColor = styles.color === 'rgb(255, 255, 255)' || styles.color === 'white';
+            const hasCorrectPadding = styles.padding !== '0px';
+            const hasCorrectBorderRadius = parseFloat(styles.borderRadius) > 0;
+            const hasTransition = styles.transition.includes('all') || styles.transitionDuration !== '0s';
+
+            tests.push({
+                name: `Search Button ${index + 1} - Background gradient`,
+                pass: hasCorrectBackground
+            });
+
+            tests.push({
+                name: `Search Button ${index + 1} - White text color`,
+                pass: hasCorrectColor
+            });
+
+            tests.push({
+                name: `Search Button ${index + 1} - Proper padding`,
+                pass: hasCorrectPadding
+            });
+
+            tests.push({
+                name: `Search Button ${index + 1} - Border radius`,
+                pass: hasCorrectBorderRadius
+            });
+
+            tests.push({
+                name: `Search Button ${index + 1} - Transition effects`,
+                pass: hasTransition
+            });
+        });
+    }
+
+    // Test add-skill button consolidation
+    function testAddSkillButton() {
+        const addSkillBtns = document.querySelectorAll('.add-skill-btn, .btn-primary.add-skill');
+        console.log(`🎯 Found ${addSkillBtns.length} add-skill button elements`);
+
+        addSkillBtns.forEach((btn, index) => {
+            const styles = getComputedStyle(btn);
+
+            const hasGradientBg = styles.backgroundImage.includes('gradient');
+            const hasWhiteText = styles.color === 'rgb(255, 255, 255)' || styles.color === 'white';
+            const hasShadow = styles.boxShadow !== 'none';
+            const hasPadding = styles.padding !== '0px';
+            const hasTransition = styles.transition.includes('all') || styles.transitionDuration !== '0s';
+
+            tests.push({
+                name: `Add-Skill Button ${index + 1} - Gradient background`,
+                pass: hasGradientBg
+            });
+
+            tests.push({
+                name: `Add-Skill Button ${index + 1} - White text`,
+                pass: hasWhiteText
+            });
+
+            tests.push({
+                name: `Add-Skill Button ${index + 1} - Box shadow`,
+                pass: hasShadow
+            });
+
+            tests.push({
+                name: `Add-Skill Button ${index + 1} - Button padding`,
+                pass: hasPadding
+            });
+
+            tests.push({
+                name: `Add-Skill Button ${index + 1} - Hover transition`,
+                pass: hasTransition
+            });
+        });
+    }
+
+    // Test cancel button consolidation
+    function testCancelButton() {
+        const cancelBtns = document.querySelectorAll('.cancel-btn, .btn-secondary.cancel');
+        console.log(`🔄 Found ${cancelBtns.length} cancel button elements`);
+
+        cancelBtns.forEach((btn, index) => {
+            const styles = getComputedStyle(btn);
+
+            const hasCorrectBg = styles.backgroundColor !== 'rgba(0, 0, 0, 0)' && !styles.backgroundImage.includes('gradient');
+            const hasCorrectColor = styles.color !== 'rgb(255, 255, 255)'; // Should not be white
+            const hasBorder = styles.border !== 'none' && styles.borderWidth !== '0px';
+            const hasTransition = styles.transition.includes('all') || styles.transitionDuration !== '0s';
+
+            tests.push({
+                name: `Cancel Button ${index + 1} - Non-gradient background`,
+                pass: hasCorrectBg
+            });
+
+            tests.push({
+                name: `Cancel Button ${index + 1} - Non-white text`,
+                pass: hasCorrectColor
+            });
+
+            tests.push({
+                name: `Cancel Button ${index + 1} - Has border`,
+                pass: hasBorder
+            });
+
+            tests.push({
+                name: `Cancel Button ${index + 1} - Hover transition`,
+                pass: hasTransition
+            });
+        });
+    }
+
+    // Test see-all-users button consolidation
+    function testSeeAllUsersButton() {
+        const seeAllBtns = document.querySelectorAll('.see-all-users-btn, .btn-success.see-all');
+        console.log(`👥 Found ${seeAllBtns.length} see-all-users button elements`);
+
+        seeAllBtns.forEach((btn, index) => {
+            const styles = getComputedStyle(btn);
+
+            const hasGreenBg = styles.backgroundImage.includes('76b852') || styles.backgroundColor.includes('green') || styles.backgroundImage.includes('gradient');
+            const hasWhiteText = styles.color === 'rgb(255, 255, 255)' || styles.color === 'white';
+            const hasCorrectSize = parseFloat(styles.minWidth) > 200 || parseFloat(styles.width) > 200;
+            const hasTransition = styles.transition.includes('all') || styles.transitionDuration !== '0s';
+
+            tests.push({
+                name: `See-All Button ${index + 1} - Green/success background`,
+                pass: hasGreenBg
+            });
+
+            tests.push({
+                name: `See-All Button ${index + 1} - White text`,
+                pass: hasWhiteText
+            });
+
+            tests.push({
+                name: `See-All Button ${index + 1} - Appropriate width`,
+                pass: hasCorrectSize
+            });
+
+            tests.push({
+                name: `See-All Button ${index + 1} - Hover transition`,
+                pass: hasTransition
+            });
+        });
+    }
+
+    // Test that utility classes are properly applied
+    function testUtilityIntegration() {
+        // Check if primary-gradient class works with utility buttons
+        const primaryGradientBtns = document.querySelectorAll('.primary-gradient');
+        console.log(`🌈 Found ${primaryGradientBtns.length} primary-gradient elements`);
+
+        primaryGradientBtns.forEach((btn, index) => {
+            if (btn.classList.contains('search-btn') || btn.tagName.toLowerCase() === 'button') {
+                const styles = getComputedStyle(btn);
+
+                tests.push({
+                    name: `Primary gradient ${index + 1} - Background`,
+                    pass: styles.backgroundImage.includes('linear-gradient')
+                });
+
+                tests.push({
+                    name: `Primary gradient ${index + 1} - White text`,
+                    pass: styles.color === 'rgb(255, 255, 255)' || styles.color === 'white'
+                });
+            }
+        });
+
+        // Test .btn-primary buttons that replaced old patterns
+        const btnPrimaryElements = document.querySelectorAll('.btn-primary');
+        console.log(`🎯 Found ${btnPrimaryElements.length} .btn-primary elements`);
+
+        btnPrimaryElements.forEach((btn, index) => {
+            const styles = getComputedStyle(btn);
+
+            tests.push({
+                name: `Btn-primary ${index + 1} - Has gradient background`,
+                pass: styles.backgroundImage.includes('gradient')
+            });
+
+            tests.push({
+                name: `Btn-primary ${index + 1} - White text color`,
+                pass: styles.color === 'rgb(255, 255, 255)' || styles.color === 'white'
+            });
+        });
+    }
+
+    // Run all tests
+    testSearchButtons();
+    testAddSkillButton();
+    testCancelButton();
+    testSeeAllUsersButton();
+    testUtilityIntegration();
+
+    // Calculate results
+    const passed = tests.filter(test => test.pass).length;
+    const failed = tests.filter(test => !test.pass).length;
+
+    // Display results
+    tests.forEach(test => {
+        console.log(`  ${test.pass ? '✅' : '❌'} ${test.name}`);
+    });
+
+    console.log(`\n📊 Phase 4.6 Components Buttons: ${passed}/${tests.length} tests passed`);
+
+    if (failed > 0) {
+        console.log(`⚠️  ${failed} tests failed - check component button consolidation`);
+    }
+
+    return { passed, total: tests.length, success: failed === 0 };
+}// ============================================================================
 // MAIN TEST RUNNER
 // ============================================================================
 
@@ -491,6 +724,7 @@ function runComprehensiveTests() {
     const utilityResults = testUtilityClasses();
     const componentResults = testComponentIntegration();
     const buttonConsolidationResults = testButtonConsolidation();
+    const componentsButtonResults = testComponentsButtonConsolidation();
     const performanceResults = testPerformance();
     const showcaseCreated = createInteractiveShowcase();
 
@@ -501,8 +735,8 @@ function runComprehensiveTests() {
     console.log("📊 COMPREHENSIVE TEST SUMMARY");
     console.log("=".repeat(65));
 
-    const totalPassed = variableResults.passed + utilityResults.passed + buttonConsolidationResults.passed;
-    const totalTests = variableResults.total + utilityResults.total + buttonConsolidationResults.total;
+    const totalPassed = variableResults.passed + utilityResults.passed + buttonConsolidationResults.passed + componentsButtonResults.passed;
+    const totalTests = variableResults.total + utilityResults.total + buttonConsolidationResults.total + componentsButtonResults.total;
     const overallPercentage = Math.round((totalPassed / totalTests) * 100);
 
     console.log(`🎯 Overall: ${totalPassed}/${totalTests} tests passed (${overallPercentage}%)`);
@@ -510,6 +744,7 @@ function runComprehensiveTests() {
     console.log(`📁 CSS Files: ${performanceResults.filesLoaded} loaded, ~${performanceResults.totalRules} rules`);
     console.log(`🧩 Components: ${componentResults.working}/${componentResults.found} properly styled`);
     console.log(`🔧 Button Consolidation: ${buttonConsolidationResults.passed}/${buttonConsolidationResults.total} validation tests passed`);
+    console.log(`🔩 Components Buttons: ${componentsButtonResults.passed}/${componentsButtonResults.total} Phase 4.6 tests passed`);
     console.log(`✨ Showcase: ${showcaseCreated ? 'Created' : 'Failed'} (top-right corner)`);
 
     // Status indicator

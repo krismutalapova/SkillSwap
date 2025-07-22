@@ -59,21 +59,6 @@
     box-shadow: 0 0 0 3px var(--color-secondary-light);
 }
 
-.search-btn {
-    border: none;
-    padding: var(--button-padding);
-    border-radius: var(--radius-sm);
-    font-weight: var(--font-weight-semibold);
-    cursor: pointer;
-    transition: var(--transition-base);
-    white-space: nowrap;
-}
-
-.search-btn:hover {
-    transform: var(--transform-hover-lift);
-    box-shadow: var(--shadow-hover-button);
-}
-
 /* Details and Meta Components */
 .details-section h3 {
     margin-bottom: var(--space-lg);
@@ -103,52 +88,7 @@
     justify-content: center;
 }
 
-/* Button Components */
-.add-skill-btn {
-    padding: var(--space-sm) var(--space-xl);
-    border-radius: var(--radius-button);
-    text-decoration: none;
-    font-weight: var(--font-weight-semibold);
-    transition: var(--transition-all);
-    box-shadow: var(--shadow-strong);
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    background-image: var(--color-primary-gradient);
-    color: var(--color-text-white);
-}
-
-.add-skill-btn:hover {
-    transform: var(--transform-hover-up);
-    box-shadow: var(--shadow-hover-strong);
-    text-decoration: none;
-    color: var(--color-text-white);
-}
-
-/* Cancel Button Component */
-.cancel-btn {
-    background: rgba(255, 255, 255, 0.9);
-    color: var(--color-text-primary);
-    border: 2px solid var(--color-text-light);
-    padding: var(--button-padding);
-    border-radius: var(--radius-button);
-    text-decoration: none;
-    font-weight: var(--font-weight-semibold);
-    transition: var(--transition-all);
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-sm);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-}
-
-.cancel-btn:hover {
-    transform: var(--transform-hover-up);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    background: var(--color-text-light);
-    color: var(--color-text-white);
-    text-decoration: none;
-}
+/* Button Components - Using utility classes from utilities.css */
 
 /* Skill Card Components */
 .skill-card-link {
@@ -538,31 +478,6 @@
     margin-top: 25px;
 }
 
-.see-all-users-btn {
-    background-image: linear-gradient(117deg, #2C7744 0%, #76b852 100%);
-    color: white;
-    text-decoration: none;
-    padding: 12px 25px;
-    border-radius: 8px;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
-    min-width: 220px;
-    height: 50px;
-    font-size: 1rem;
-}
-
-.see-all-users-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
-    text-decoration: none;
-    color: white;
-}
-
 /* ==========================================================================
    MODAL COMPONENTS
    ========================================================================== */
@@ -710,16 +625,6 @@
     .user-footer {
         flex-direction: column;
         gap: 10px;
-    }
-    
-    .add-skill-btn {
-        width: 200px;
-        text-align: center;
-        justify-content: center;
-    }
-    
-    .cancel-btn {
-        justify-content: center;
     }
 }
 
