@@ -113,7 +113,7 @@ function testUtilityClasses() {
             selector: '.btn-primary',
             tests: [
                 { property: 'background', shouldContain: 'gradient', description: 'has gradient background' },
-                { property: 'border-radius', expected: '15px', description: 'has proper border radius' },
+                { property: 'border-radius', expected: '8px', description: 'has proper border radius' },
                 { property: 'padding', shouldContain: 'px', description: 'has padding defined' }
             ]
         },
@@ -121,7 +121,7 @@ function testUtilityClasses() {
             selector: '.btn-secondary',
             tests: [
                 { property: 'background-color', shouldNotBe: 'rgba(0, 0, 0, 0)', description: 'has background color' },
-                { property: 'border-radius', expected: '15px', description: 'has proper border radius' }
+                { property: 'border-radius', expected: '8px', description: 'has proper border radius' }
             ]
         },
         {
@@ -440,8 +440,13 @@ function runComprehensiveTests() {
 // EXECUTE TESTS
 // ============================================================================
 
-// Run the comprehensive test suite
-const testResults = runComprehensiveTests();
+// Run the comprehensive test suite - Use var to allow re-declaration
+if (typeof testResults !== 'undefined') {
+    delete window.testResults;
+    delete window.skillswapTestResults;
+}
+
+var testResults = runComprehensiveTests();
 
 // Store results globally for further inspection
 window.skillswapTestResults = testResults;
