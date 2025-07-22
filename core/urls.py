@@ -34,12 +34,14 @@ urlpatterns = [
     path("index/", redirect_to_home, name="index_redirect"),
     path(
         "login/",
-        auth_views.LoginView.as_view(template_name="core/login.html"),
+        auth_views.LoginView.as_view(template_name="core/auth/login.html"),
         name="login",
     ),
     path(
         "logout/",
-        auth_views.LogoutView.as_view(template_name="core/logout.html", next_page=None),
+        auth_views.LogoutView.as_view(
+            template_name="core/auth/logout.html", next_page=None
+        ),
         name="logout",
     ),
     path("signup/", SignupView.as_view(), name="signup"),

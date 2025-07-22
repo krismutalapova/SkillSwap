@@ -76,7 +76,7 @@
                                     {% endif %}
                                     
                                     {% if skill.is_remote %}
-                                        <div class="detail-item remote">
+                                        <div class="remote-tag">
                                             <i class="fas fa-wifi"></i>
                                             <span>Remote Available</span>
                                         </div>
@@ -118,7 +118,7 @@
                         </div>
                         
                         <div class="skill-category-footer">
-                            <div class="skill-category">
+                            <div class="category">
                                 <i class="{{ skill.get_category_icon }}"></i>
                                 {{ skill.get_category_display }}
                             </div>
@@ -136,10 +136,10 @@
             <p>You haven't added any skills yet. Start by sharing a skill you can teach or requesting one you'd like to learn!</p>
             
             <div class="empty-actions">
-                <a href="{% url 'add_skill' %}" class="primary-btn">
+                <a href="{% url 'add_skill' %}" class="btn-primary">
                     <i class="fas fa-plus"></i> Add Your First Skill
                 </a>
-                <a href="{% url 'skills_list_search' %}" class="secondary-btn">
+                <a href="{% url 'skills_list_search' %}" class="btn-secondary">
                     <i class="fas fa-search"></i> Browse Skills
                 </a>
             </div>

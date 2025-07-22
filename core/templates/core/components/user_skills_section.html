@@ -81,10 +81,10 @@
                 <p>{% if empty_message %}{{ empty_message }}{% elif user_display_name %}{{ user_display_name }} hasn't added any skills yet.{% else %}You haven't added any skills yet.{% endif %}</p>
                 {% if show_empty_actions %}
                     <div class="empty-actions">
-                        <a href="{% url 'add_skill' %}?type=offer&next={{ next_page|default:'view_my_profile' }}" class="{% if use_gradient_button %}primary-gradient {% endif %}primary-btn">
+                        <a href="{% url 'add_skill' %}?type=offer&next={{ next_page|default:'view_my_profile' }}" class="{% if use_gradient_button %}primary-gradient {% endif %}btn-primary">
                             <i class="fas fa-plus"></i> Offer a Skill
                         </a>
-                        <a href="{% url 'add_skill' %}?type=request&next={{ next_page|default:'view_my_profile' }}" class="secondary-btn">
+                        <a href="{% url 'add_skill' %}?type=request&next={{ next_page|default:'view_my_profile' }}" class="btn-secondary">
                             <i class="fas fa-search"></i> Request a Skill
                         </a>
                     </div>

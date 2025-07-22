@@ -7,11 +7,11 @@
         <!-- Skill Header -->
         <div class="skill-header">
             <div class="skill-meta">
-                <div class="skill-type {{ skill.skill_type }}">
+                <div class="skill-type skill-type-{{ skill.skill_type }}">
                     <i class="fas fa-{% if skill.skill_type == 'offer' %}hand-holding-heart{% else %}search{% endif %}"></i>
                     {{ skill.get_skill_type_display }}
                 </div>
-                <div class="skill-category">
+                <div class="category">
                     <i class="{{ skill.get_category_icon }}"></i>
                     {{ skill.get_category_display }}
                 </div>

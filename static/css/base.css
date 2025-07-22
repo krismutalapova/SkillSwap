@@ -133,35 +133,7 @@ body {
     margin-right: var(--space-tight);
 }
 
-.login-btn {
-    text-decoration: none;
-    padding: var(--button-padding);
-    border-radius: var(--radius-card);
-    font-weight: var(--font-weight-medium);
-    transition: var(--transition-all);
-    box-shadow: var(--shadow-button-primary);
-}
-
-.login-btn:hover {
-    transform: var(--transform-hover-up);
-    box-shadow: var(--shadow-button-primary-hover);
-}
-
-.signup-btn {
-    background: transparent;
-    color: var(--color-text-primary);
-    text-decoration: none;
-    padding: var(--button-padding);
-    border: 2px solid var(--color-secondary);
-    border-radius: var(--radius-card);
-    font-weight: var(--font-weight-medium);
-    transition: var(--transition-all);
-}
-
-.signup-btn:hover {
-    background-image: var(--color-primary-gradient);
-    color: var(--color-text-white);
-}
+/* Header buttons now use utility classes from utilities.css */
 
 .profile-btn {
     background: transparent;
@@ -314,8 +286,8 @@ body {
     }
     
     .logout-btn,
-    .login-btn,
-    .signup-btn {
+    .btn-primary,
+    .btn-secondary {
         padding: var(--button-padding-small);
         font-size: var(--font-size-sm);
     }
@@ -368,8 +340,8 @@ body {
     
     .nav-link,
     .logout-btn,
-    .login-btn,
-    .signup-btn,
+    .btn-primary,
+    .btn-secondary,
     .profile-btn,
     .profile-btn-gradient {
         padding: var(--space-tight) var(--space-sm);

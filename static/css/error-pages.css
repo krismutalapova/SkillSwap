@@ -100,53 +100,7 @@
     justify-content: center;
 }
 
-.btn-secondary {
-    display: inline-block;
-    padding: 12px 24px;
-    background: transparent;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.btn-secondary.profile {
-    color: #667eea;
-    border: 2px solid #667eea;
-}
-
-.btn-secondary.login {
-    color: #667eea;
-    border: 2px solid #667eea;
-}
-
-.btn-secondary.signup {
-    color: #28a745;
-    border: 2px solid #28a745;
-}
-
-/* For 500.html compatibility - simpler btn-secondary without classes */
-.btn-secondary:not(.profile):not(.login):not(.signup) {
-    color: #667eea;
-    border: 2px solid #667eea;
-}
-
-.btn-secondary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.btn-secondary.profile:hover,
-.btn-secondary.login:hover,
-.btn-secondary:not(.profile):not(.login):not(.signup):hover {
-    background: #667eea;
-    color: white;
-}
-
-.btn-secondary.signup:hover {
-    background: #28a745;
-    color: white;
-}
+/* Secondary buttons now use utility classes from utilities.css */
 
 .help-section {
     margin-top: 30px;

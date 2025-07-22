@@ -189,12 +189,13 @@
 
 .skill-title {
     color: var(--color-text-primary);
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-heading);
     font-weight: var(--font-weight-semibold);
     margin: 0;
     line-height: var(--line-height-tight);
     flex-grow: 1;
     margin-right: var(--space-md);
+    margin-bottom: var(--space-xxl);
 }
 
 .skill-type {
