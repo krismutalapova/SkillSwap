@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}CSS Design System Test{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>CSS Design System Test Suite</h1>
+    <div class="glass-card">
+        <h2>Running Comprehensive CSS Tests...</h2>
+        <p>Check the browser console (F12) for detailed test results.</p>
+        <div style="margin: 20px 0;">
+            <button class="btn-primary">Primary Button</button>
+            <button class="btn-secondary">Secondary Button</button>
+            <button class="btn-success">Success Button</button>
+        </div>
+        <div class="nav-link" style="display: inline-block; margin: 10px;">Sample Nav Link</div>
+    </div>
+</div>
+
+<script>
+{{ css_test_script|safe }}
+</script>
+{% endblock %}
