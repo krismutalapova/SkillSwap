@@ -999,25 +999,36 @@ if (isNode) {
 
                     isConsolidated = hasBorder && hasPadding && hasRounding;
                 } else {
-                    // For buttons: check gradient, transition, and padding
-                    const hasGradient = computedStyle.backgroundImage.includes('gradient') ||
-                        computedStyle.background.includes('gradient');
-                    const hasProperTransition = computedStyle.transition.includes('all') ||
-                        computedStyle.transition.includes('transform');
-                    const hasConsistentPadding = computedStyle.padding !== '0px';
+                    // Different criteria for different button types
+                    if (test.selector === '.btn-secondary') {
+                        // For secondary buttons: check border, transition, and padding (no gradient required)
+                        const hasBorder = computedStyle.border !== 'none' && computedStyle.border !== '0px';
+                        const hasProperTransition = computedStyle.transition.includes('all') ||
+                            computedStyle.transition.includes('transform');
+                        const hasConsistentPadding = computedStyle.padding !== '0px';
 
-                    // Debug logging for primary buttons
-                    if (test.selector === '.btn-primary') {
-                        console.log(`🔍 DEBUG - Primary Button Analysis:`);
-                        console.log(`   Background: ${computedStyle.backgroundImage}`);
-                        console.log(`   Transition: ${computedStyle.transition}`);
-                        console.log(`   Padding: ${computedStyle.padding}`);
-                        console.log(`   hasGradient: ${hasGradient}`);
-                        console.log(`   hasProperTransition: ${hasProperTransition}`);
-                        console.log(`   hasConsistentPadding: ${hasConsistentPadding}`);
+                        isConsolidated = hasBorder && hasProperTransition && hasConsistentPadding;
+                    } else {
+                        // For primary and other buttons: check gradient, transition, and padding
+                        const hasGradient = computedStyle.backgroundImage.includes('gradient') ||
+                            computedStyle.background.includes('gradient');
+                        const hasProperTransition = computedStyle.transition.includes('all') ||
+                            computedStyle.transition.includes('transform');
+                        const hasConsistentPadding = computedStyle.padding !== '0px';
+
+                        // Debug logging for primary buttons
+                        if (test.selector === '.btn-primary') {
+                            console.log(`🔍 DEBUG - Primary Button Analysis:`);
+                            console.log(`   Background: ${computedStyle.backgroundImage}`);
+                            console.log(`   Transition: ${computedStyle.transition}`);
+                            console.log(`   Padding: ${computedStyle.padding}`);
+                            console.log(`   hasGradient: ${hasGradient}`);
+                            console.log(`   hasProperTransition: ${hasProperTransition}`);
+                            console.log(`   hasConsistentPadding: ${hasConsistentPadding}`);
+                        }
+
+                        isConsolidated = hasGradient && hasProperTransition && hasConsistentPadding;
                     }
-
-                    isConsolidated = hasGradient && hasProperTransition && hasConsistentPadding;
                 }
 
                 if (isConsolidated) results.consolidated++;
