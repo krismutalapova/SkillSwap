@@ -195,7 +195,6 @@ class ButtonConsolidationTests(TestCase):
             ".btn-secondary",
             ".btn-success",
             ".btn-danger",
-            ".btn-muted",
         ]
 
         for btn_class in button_classes:
@@ -224,7 +223,6 @@ class ButtonConsolidationTests(TestCase):
             ".btn-success",
             ".btn-danger",
             ".btn-outline-danger",
-            ".btn-muted",
             ".btn-warning",
         ]
 

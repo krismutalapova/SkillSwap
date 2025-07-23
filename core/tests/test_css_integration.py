@@ -166,7 +166,7 @@ class FormRenderingTests(TestCase):
 
         # Should use utility button classes
         self.assertContains(response, "btn-primary")
-        self.assertContains(response, "btn-muted")
+        self.assertContains(response, "btn-secondary")
 
     def test_profile_form_completion_styling(self):
         """Test profile forms show completion status with proper CSS"""
