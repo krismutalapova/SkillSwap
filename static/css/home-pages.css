@@ -38,7 +38,7 @@
 }
 
 .hero-subtitle {
-    color: #6c757d;
+    color: var(--color-text-light);
     font-size: 1.2em;
     margin-bottom: 30px;
     max-width: 600px;
@@ -78,7 +78,7 @@
 .feature-card {
     text-align: center;
     padding: 30px;
-    background: #f8f9fa;
+    background: var(--color-background);
     border-radius: 15px;
     border: 1px solid #e9ecef;
     transition: all 0.3s ease;
@@ -109,7 +109,7 @@
 }
 
 .feature-description {
-    color: #6c757d;
+    color: var(--color-text-light);
     line-height: 1.6;
 }
 
@@ -145,7 +145,7 @@
 }
 
 .search-subtitle {
-    color: #6c757d;
+    color: var(--color-text-light);
     font-size: 1.1rem;
     margin-bottom: 30px;
 }
@@ -196,7 +196,7 @@
 }
 
 .user-card-location {
-    color: #6c757d;
+    color: var(--color-text-light);
     font-size: 0.9rem;
     display: flex;
     align-items: center;
@@ -234,7 +234,7 @@
 .no-results {
     text-align: center;
     padding: 60px 20px;
-    color: #6c757d;
+    color: var(--color-text-light);
 }
 
 .no-results-icon {

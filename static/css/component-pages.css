@@ -28,7 +28,7 @@
 }
 
 .rating-form-card .form-header h2 i {
-    color: #ffc107;
+    color: var(--color-warning);
 }
 
 .skill-info h3 {
@@ -38,7 +38,7 @@
 }
 
 .skill-info p {
-    color: #6c757d;
+    color: var(--color-text-light);
     margin: 0;
 }
 
