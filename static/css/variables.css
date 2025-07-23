@@ -18,19 +18,20 @@
   --color-secondary-strong: rgba(102, 126, 234, 0.4);
   
   /* Background Colors */
-  --color-background: #f8f9fa;  /* Test compatibility */
+  --color-background: #f8f9fa;
   --color-background-main: linear-gradient(359.5deg, rgba(115,122,205,1) 8.8%, rgba(186,191,248,1) 77.4%);
   --color-background-glass: rgba(255, 255, 255, 0.95);
   --color-background-glass-light: rgba(255, 255, 255, 0.9);
   --color-background-glass-strong: rgba(248, 249, 250, 0.9);
   --color-background-white: #ffffff;
-  --color-background-muted: #f8f9fa;
+  --color-background-muted: var(--color-background);
   
   /* Text Colors */
   --color-text-primary: #2c3e50;  /* Test compatibility */
   --color-text-secondary: #666666;
   --color-text-muted: #999999;
-  --color-text-light: #6c757d;
+  --color-text-dark: #333333;
+  --color-text-light: #f8f9fa;
   --color-text-white: #ffffff;
   --color-text-white-muted: rgba(255, 255, 255, 0.9);
   --color-text-gradient: var(--color-primary-gradient);
@@ -53,6 +54,20 @@
   --color-success-gradient: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-light) 100%);
   --color-success-shadow: rgba(40, 167, 69, 0.3);
 
+  /* Additional Semantic Colors */
+  --color-text-dark: #333333;
+  --color-text-medium: #666666; 
+  --color-skill-offer: #3a7bd5;
+  --color-skill-request: #fd746c;
+  --color-skill-request-bg: rgba(255, 144, 104, 0.25);
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-gray-light: #f1f3f4;
+  --color-gray-medium: #e9ecef;
+  --color-gray-dark: #6c757d;
+  --color-muted-text: #495057;
+  --color-warm-light: #ffecd2;
+
   /* Skill Type Colors */
   --color-offer-gradient: linear-gradient(135deg, #3a7bd5bd 0%, #3a6073 100%);
   --color-offer-gradient-solid: linear-gradient(135deg, #3a7bd5 0%, #3a6073 100%);
@@ -64,7 +79,7 @@
   --color-danger-text: #721c24;
   --color-danger-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
   
-  --color-warning: #ffc107;
+  --color-warning: var(--color-warning);
   --color-info: #17a2b8;
   --color-info-gradient: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
   --color-secondary-light-gradient: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(69, 179, 224, 0.1) 100%);
@@ -77,7 +92,7 @@
   --color-primary-border: rgba(102, 126, 234, 0.3);
   
   /* Button Colors */
-  --color-button-logout-start: #6c757d;
+  --color-button-logout-start: var(--color-text-light);
   --color-button-logout-end: #495057;
   --color-button-logout-gradient: linear-gradient(135deg, var(--color-button-logout-start) 0%, var(--color-button-logout-end) 100%);
   --color-button-logout-shadow: rgba(108, 117, 125, 0.3);
