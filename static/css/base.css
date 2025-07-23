@@ -229,7 +229,6 @@ body {
         margin-right: 3px !important;
     }
     
-    .btn-muted,
     .btn-primary,
     .btn-secondary {
         padding: var(--button-padding-small);
@@ -277,7 +276,6 @@ body {
     }
     
     .nav-link,
-    .btn-muted,
     .btn-primary,
     .btn-secondary {
         padding: var(--space-tight) var(--space-sm);
