@@ -2,12 +2,6 @@
 Django CSS Integration Tests
 Standard Django test suite for CSS and template integration validation
 
-This complements the standalone CSS refactoring suite with Django-specific tests:
-- Template rendering with CSS integration
-- Static file serving and CSS loading
-- Form rendering with utility classes
-- Responsive design validation
-- Cross-browser compatibility basics
 
 Usage: python manage.py test core.tests.test_css_integration
 """
@@ -77,7 +71,7 @@ class CSSIntegrationTests(TestCase):
         self.client.login(username="testuser", password="testpass123")
 
         # Test skill list page
-        response = self.client.get(reverse("skill_list"))
+        response = self.client.get(reverse("skills_list_search"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "btn-primary")
 
@@ -85,17 +79,17 @@ class CSSIntegrationTests(TestCase):
         """Test that profile completion uses proper CSS variables"""
         self.client.login(username="testuser", password="testpass123")
 
-        response = self.client.get(reverse("profile_edit"))
+        response = self.client.get(reverse("edit_my_profile"))
         self.assertEqual(response.status_code, 200)
 
         # Should include CSS that uses variables for status colors
-        self.assertContains(response, "profile-completion")
+        self.assertContains(response, "user-detail-card")
 
     def test_message_pages_css_integration(self):
         """Test message pages work with consolidated CSS"""
         self.client.login(username="testuser", password="testpass123")
 
-        response = self.client.get(reverse("message_inbox"))
+        response = self.client.get(reverse("inbox"))
         self.assertEqual(response.status_code, 200)
 
         # Should use consolidated nav-link styles
@@ -167,22 +161,22 @@ class FormRenderingTests(TestCase):
         """Test skill creation form uses proper button styles"""
         self.client.login(username="testuser", password="testpass123")
 
-        response = self.client.get(reverse("skill_create"))
+        response = self.client.get(reverse("add_skill"))
         self.assertEqual(response.status_code, 200)
 
         # Should use utility button classes
         self.assertContains(response, "btn-primary")
-        self.assertContains(response, "btn-secondary")
+        self.assertContains(response, "btn-muted")
 
     def test_profile_form_completion_styling(self):
         """Test profile forms show completion status with proper CSS"""
         self.client.login(username="testuser", password="testpass123")
 
-        response = self.client.get(reverse("profile_edit"))
+        response = self.client.get(reverse("edit_my_profile"))
         self.assertEqual(response.status_code, 200)
 
         # Should include completion status elements
-        self.assertContains(response, "completion")
+        self.assertContains(response, "profile-user-details")
 
 
 class StaticFilesIntegrationTests(StaticLiveServerTestCase):
