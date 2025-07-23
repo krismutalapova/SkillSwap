@@ -52,11 +52,11 @@
 
         <div class="inbox navigation-actions">
             {% if message.sender == user %}
-                <a href="{% url 'sent_messages' %}" class="back-btn">
+                <a href="{% url 'sent_messages' %}" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Back to Sent
                 </a>
             {% else %}
-                <a href="{% url 'inbox' %}" class="back-btn">
+                <a href="{% url 'inbox' %}" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Back to Inbox
                 </a>
             {% endif %}

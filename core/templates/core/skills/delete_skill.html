@@ -53,10 +53,10 @@
         <form method="post" class="delete-form">
             {% csrf_token %}
             <div class="form-actions">
-                <button type="submit" class="btn-outline-danger">
+                <button type="submit" class="btn-gradient-danger">
                     <i class="fas fa-trash"></i> Yes, Delete Skill
                 </button>
-                <a href="{% url 'skill_detail_page' skill.pk %}" class="btn btn-muted">
+                <a href="{% url 'skill_detail_page' skill.pk %}" class="btn btn-secondary">
                     <i class="fas fa-times"></i> Cancel
                 </a>
             </div>

@@ -113,7 +113,7 @@
 
                     <!-- Action Button -->
                     <div class="user-card-action-button-container">
-                        <button class="user-card-action-button primary-gradient">
+                        <button class="btn-primary">
                             {% if view_user_profile.user == user %}
                                 <i class="fas fa-user"></i>
                                 View Profile
@@ -137,7 +137,7 @@
             <p class="empty-state-message">
                 There are no users to display at the moment. 
             </p>
-            <a href="{% url 'signup' %}" class="empty-state-button btn-success">
+            <a href="{% url 'signup' %}" class="btn-success">
                 <i class="fas fa-user-plus"></i>
                 Be the First to Join
             </a>
