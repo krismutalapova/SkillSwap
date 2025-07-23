@@ -164,17 +164,15 @@
     margin-bottom: 15px;
 }
 
-.auth-links a {
+.auth-links a:not([class*="btn"]) {
     color: #667eea;
     text-decoration: none;
     font-weight: 500;
 }
 
-.auth-links a:hover {
+.auth-links a:not([class*="btn"]):hover {
     text-decoration: underline;
 }
-
-/* Auth link buttons now use utility classes from utilities.css */
 
 /* Logout Success Page */
 .logout-success {
@@ -185,7 +183,7 @@
 .logout-icon {
     width: 80px;
     height: 80px;
-    background-image: linear-gradient(117deg, #2C7744 0%, #76b852 100%);
+    background-image: var(--color-success-gradient);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -210,11 +208,14 @@
 .field-help {
     display: block;
     text-align: left;
-    color: var(--color-text-medium);
+    color: var(--color-text-muted);
     margin-top: 5px;
     font-size: 14px;
+    line-height: 1.4;
+    opacity: 1;
 }
 
 .field-help i {
     margin-right: 5px;
+    color: var(--color-text-muted);
 }
