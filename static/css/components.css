@@ -88,8 +88,6 @@
     justify-content: center;
 }
 
-/* Button Components - Using utility classes from utilities.css */
-
 /* Skill Card Components */
 .skill-card-link {
     text-decoration: none;
@@ -248,9 +246,11 @@
     margin-bottom: var(--space-md);
 }
 
-/* User card components now consolidated in utilities.css */
+.results-summary {
+    margin-bottom: 20px;
+    text-align: center;
+}
 
-/* Remaining issues still need fixing */
 .results-summary p {
     margin: 0;
     color: var(--color-text-primary);
@@ -263,18 +263,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    gap: 15px;
+    margin-top: var(--space-4xl);
+    margin-bottom: var(--space-lg);
+    gap: var(--space-lg);
 }
 
 .pagination-nav {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--space-sm);
     background: var(--color-background-glass);
     backdrop-filter: var(--glass-backdrop-filter);
-    padding: 15px 20px;
+    padding: var(--space-lg) var(--space-lg);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-light);
 }
@@ -305,7 +305,7 @@
 .pagination-info {
     color: var(--color-text-primary);
     font-weight: var(--font-weight-semibold);
-    padding: 0 20px;
+    padding: 0 var(--space-lg);
     font-size: 0.95rem;
     white-space: nowrap;
 }
@@ -317,8 +317,8 @@
     text-align: center;
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: var(--glass-backdrop-filter);
-    padding: 8px 16px;
-    border-radius: 20px;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-xl);
     display: inline-block;
     box-shadow: var(--shadow-strong);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -326,8 +326,8 @@
 
 /* Active Filters Section */
 .active-filters {
-    margin-top: 20px;
-    padding-top: 20px;
+    margin-top: var(--space-lg);
+    padding-top: var(--space-lg);
     border-top: 1px solid var(--color-border-default);
     display: flex;
     align-items: center;
@@ -344,8 +344,8 @@
 .filter-tag {
     background: var(--color-primary-light);
     color: var(--color-primary);
-    padding: 4px 10px;
-    border-radius: 15px;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-lg);
     font-size: 0.85rem;
     font-weight: var(--font-weight-medium);
     border: 1px solid var(--color-primary-border);
@@ -354,8 +354,8 @@
 .clear-filters {
     background: var(--color-danger-bg);
     color: var(--color-danger);
-    padding: 4px 10px;
-    border-radius: 15px;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-lg);
     font-size: 0.85rem;
     font-weight: var(--font-weight-medium);
     text-decoration: none;
@@ -377,24 +377,13 @@
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 25px;
-    margin-bottom: 40px;
-}
-
-.results-summary {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.results-summary p {
-    margin: 0;
-    color: var(--color-text-dark);
-    font-weight: 500;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-4xl);
 }
 
 .no-results {
     text-align: center;
-    padding: 60px 20px;
+    padding: var(--space-6xl) var(--space-lg);
     background: var(--color-background-glass);
     backdrop-filter: var(--glass-backdrop-filter);
     border-radius: var(--radius-card);
@@ -405,12 +394,12 @@
 .no-results-icon {
     font-size: 4rem;
     color: var(--color-border-muted);
-    margin-bottom: 20px;
+    margin-bottom: var(--space-lg);
 }
 
 .no-results h3 {
     color: var(--color-text-primary);
-    margin-bottom: 15px;
+    margin-bottom: var(--space-lg);
     font-size: 1.5rem;
 }
 
@@ -434,20 +423,20 @@
 .search-section-card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    padding: 30px;
-    border-radius: 15px;
+    padding: var(--space-4xl);
+    border-radius: var(--radius-lg);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    margin-bottom: 30px;
+    margin-bottom: var(--space-4xl);
 }
 
 .search-section {
-    margin-bottom: 30px;
+    margin-bottom: var(--space-4xl);
 }
 
 .search-header {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: var(--space-xl);
 }
 
 .search-header h3 {
@@ -470,12 +459,10 @@
 
 .search-actions {
     text-align: center;
-    margin-top: 25px;
+    margin-top: var(--space-xl);
 }
 
-/* ==========================================================================
-   MODAL COMPONENTS
-   ========================================================================== */
+/* Modal Components*/
 
 .modal {
     display: none;
@@ -560,7 +547,7 @@
     .filter-row {
         flex-direction: column;
         align-items: stretch;
-        gap: 15px;
+        gap: var(--space-lg);
     }
     
     .filter-group {
@@ -571,7 +558,7 @@
     .skill-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
+        gap: var(--space-sm);
     }
     
     .skill-meta {
@@ -581,16 +568,16 @@
     
     .pagination-container {
         flex-direction: column;
-        gap: 15px;
+        gap: var(--space-lg);
         text-align: center;
-        margin-top: 25px;
-        margin-bottom: 10px;
+        margin-top: var(--space-xl);
+        margin-bottom: var(--space-sm);
     }
 
     .pagination-nav {
         justify-content: center;
-        padding: 12px 16px;
-        gap: 6px;
+        padding: var(--space-md) var(--space-md);
+        gap: var(--space-xs);
     }
     
     .pagination-link {
@@ -601,32 +588,32 @@
     
     .pagination-info {
         order: -1;
-        margin-bottom: 10px;
-        padding: 0 10px;
+        margin-bottom: var(--space-sm);
+        padding: 0 var(--space-sm);
         font-size: 0.9rem;
         background: rgba(255, 255, 255, 0.9);
-        padding: 8px 16px;
-        border-radius: 20px;
+        padding: var(--space-sm) var(--space-md);
+        border-radius: var(--radius-xl);
         color: #333;
         font-weight: 600;
     }
     
     .pagination-results-info {
         font-size: 0.85rem;
-        margin-bottom: 15px;
-        margin-top: 10px;
+        margin-bottom: var(--space-lg);
+        margin-top: var(--space-sm);
     }
     
     .user-footer {
         flex-direction: column;
-        gap: 10px;
+        gap: var(--space-sm);
     }
 }
 
 @media (max-width: 480px) {
     .pagination-nav {
-        padding: 10px 12px;
-        gap: 4px;
+        padding: var(--space-sm) var(--space-md);
+        gap: var(--space-xs);
     }
     
     .pagination-link {
@@ -637,6 +624,6 @@
     
     .pagination-info {
         font-size: 0.85rem;
-        padding: 6px 12px;
+        padding: var(--space-xs) var(--space-md);
     }
 }
