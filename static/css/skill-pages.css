@@ -259,7 +259,7 @@
     margin-bottom: var(--space-lg);
     background: rgba(0, 0, 0, 0.4);
     padding: 8px 16px;
-    border-radius: 20px;
+    border-radius: var(--radius-xl);
     display: inline-block;
 }
 
@@ -326,7 +326,7 @@
 .stat-card {
     background: var(--color-background-glass);
     backdrop-filter: blur(10px);
-    border-radius: 15px;
+    border-radius: var(--radius-lg);
     padding: 25px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     border: 1px solid var(--color-border-light);
@@ -343,7 +343,7 @@
 .stat-icon {
     width: 60px;
     height: 60px;
-    border-radius: 50%;
+    border-radius: var(--radius-circle);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -352,11 +352,11 @@
 }
 
 .stat-card.offers .stat-icon {
-    background: linear-gradient(135deg, #3a7bd5 0%, #3a6073 100%);
+    background: var(--color-offer-gradient);
 }
 
 .stat-card.requests .stat-icon {
-    background: linear-gradient(135deg, #fd746c 0%, #ff9068 100%);
+    background: var(--color-request-gradient);
 }
 
 .stat-number {
@@ -439,7 +439,7 @@
     width: 100%;
     padding: 12px 15px;
     border: 2px solid #e1e5e9;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     font-size: 1rem;
     transition: var(--transition-all);
     background: var(--color-background-glass-light);
@@ -507,7 +507,7 @@ textarea.form-control {
 .skill-detail-card {
     background: var(--color-background-glass);
     backdrop-filter: blur(10px);
-    border-radius: 20px;
+    border-radius: var(--radius-xl);
     padding: 40px;
     margin-bottom: 30px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
@@ -518,7 +518,7 @@ textarea.form-control {
     background: var(--color-background-muted);
     color: #495057;
     padding: 6px 12px;
-    border-radius: 15px;
+    border-radius: var(--radius-lg);
     font-size: 0.85rem;
     font-weight: 600;
     display: flex;
@@ -559,7 +559,7 @@ textarea.form-control {
 .user-avatar {
     width: 80px;
     height: 80px;
-    border-radius: 50%;
+    border-radius: var(--radius-circle);
     object-fit: cover;
     margin-bottom: 15px;
     border: 3px solid #667eea;
@@ -568,7 +568,7 @@ textarea.form-control {
 .user-avatar-placeholder {
     width: 80px;
     height: 80px;
-    border-radius: 50%;
+    border-radius: var(--radius-circle);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -579,7 +579,7 @@ textarea.form-control {
 .user-name {
     color: var(--color-text-primary);
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-medium);
     margin-bottom: 5px;
 }
 
@@ -602,7 +602,7 @@ textarea.form-control {
 .skill-category-card {
     background: var(--color-background-glass);
     backdrop-filter: blur(10px);
-    border-radius: 15px;
+    border-radius: var(--radius-lg);
     padding: 20px;
     margin-bottom: 30px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -612,7 +612,7 @@ textarea.form-control {
 .owner-actions {
     background: var(--color-background-glass);
     backdrop-filter: blur(10px);
-    border-radius: 15px;
+    border-radius: var(--radius-lg);
     padding: 20px;
     margin-bottom: 30px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -728,7 +728,7 @@ textarea.form-control {
 .delete-card {
     background: var(--color-background-glass);
     backdrop-filter: blur(10px);
-    border-radius: 20px;
+    border-radius: var(--radius-xl);
     padding: 40px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     border: 1px solid var(--color-border-light);
@@ -744,8 +744,8 @@ textarea.form-control {
 .warning-icon {
     width: 80px;
     height: 80px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+    border-radius: var(--radius-circle);
+    background: var(--color-danger-gradient-alt);
     color: white;
     display: flex;
     align-items: center;
@@ -770,7 +770,7 @@ textarea.form-control {
 .skill-preview {
     background: var(--color-background-muted);
     border: 2px solid var(--color-border-muted);
-    border-radius: 15px;
+    border-radius: var(--radius-lg);
     padding: 25px;
     margin-bottom: 25px;
     position: relative;
@@ -791,14 +791,14 @@ textarea.form-control {
         transparent 10px,
         transparent 20px
     );
-    border-radius: 15px;
+    border-radius: var(--radius-lg);
     pointer-events: none;
 }
 
 .warning-message {
     background: rgba(220, 53, 69, 0.1);
     border: 2px solid rgba(220, 53, 69, 0.2);
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     padding: 20px;
     margin-bottom: 30px;
     text-align: center;
