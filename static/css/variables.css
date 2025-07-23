@@ -55,16 +55,19 @@
 
   /* Skill Type Colors */
   --color-offer-gradient: linear-gradient(135deg, #3a7bd5bd 0%, #3a6073 100%);
+  --color-offer-gradient-solid: linear-gradient(135deg, #3a7bd5 0%, #3a6073 100%);
   --color-request-gradient: linear-gradient(135deg, #fd746ce0 0%, #ff9068d6 100%);
   
   --color-danger: #dc3545;
   --color-danger-bg: #f8d7da;
   --color-danger-border: #f5c6cb;
   --color-danger-text: #721c24;
+  --color-danger-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
   
   --color-warning: #ffc107;
   --color-info: #17a2b8;
   --color-info-gradient: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+  --color-secondary-light-gradient: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(69, 179, 224, 0.1) 100%);
   
   /* Accent Colors */
   --color-accent-gold: var(--color-warning); /* Star ratings */
@@ -83,6 +86,11 @@
   /* Skill Type Colors */
   --color-skill-offer: #007bff;
   --color-skill-request: #fd7e14;
+  
+  /* Stat Card Gradients */
+  --color-offer-gradient: linear-gradient(135deg, #3a7bd5 0%, #3a6073 100%);
+  --color-request-gradient: linear-gradient(135deg, #fd746c 0%, #ff9068 100%);
+  --color-danger-gradient-alt: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
   
   /* ---------------------------------
      SHADOWS
@@ -139,6 +147,7 @@
   --radius-xl: 20px;
   --radius-pill: 20px;
   --radius-round: 24px;
+  --radius-circle: 50%;
   --radius-card: var(--radius-lg);
   
   /* Component-specific radius */
@@ -230,8 +239,9 @@
      GLASSMORPHISM EFFECTS
      --------------------------------- */
   
+  --blur-glass: 10px;
   --glass-background: var(--color-background-glass);
-  --glass-backdrop-filter: blur(10px);
+  --glass-backdrop-filter: blur(var(--blur-glass));
   --glass-border: 1px solid var(--color-border-light);
   
   /* Combined glassmorphism patterns */
