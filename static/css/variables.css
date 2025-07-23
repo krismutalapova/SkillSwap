@@ -46,13 +46,13 @@
   --color-border-divider: rgba(0, 0, 0, 0.1);
   
   /* Status Colors */
-  --color-success: #28a745;
-  --color-success-light: #20c997;
+  --color-success: #2C7744;
+  --color-success-light: #76b852;
   --color-success-bg: #d4edda;
   --color-success-border: #c3e6cb;
   --color-success-text: #155724;
-  --color-success-gradient: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-light) 100%);
-  --color-success-shadow: rgba(40, 167, 69, 0.3);
+  --color-success-gradient: linear-gradient(117deg, #2C7744 0%, #76b852 100%);
+  --color-success-shadow: rgba(44, 119, 68, 0.3);
 
   /* Additional Semantic Colors */
   --color-text-dark: #333333;
