@@ -386,6 +386,277 @@ class CSSRefactoringTestSuite:
         if large_files:
             self.test_results.append(f"⚠️  Large CSS files: {', '.join(large_files)}")
 
+    def test_color_contrast_accessibility(self):
+        """Test for proper color contrast - no white text on white backgrounds"""
+        print("\n🎨 Testing Color Contrast Accessibility...")
+
+        issues = []
+
+        # Define problematic color combinations
+        light_backgrounds = [
+            "var(--color-background-glass)",
+            "var(--color-background-white)",
+            "var(--color-background)",
+            "var(--color-background-glass-light)",
+            "var(--color-background-glass-strong)",
+            "#ffffff",
+            "#f8f9fa",
+        ]
+
+        light_text_colors = [
+            "var(--color-text-light)",
+            "var(--color-text-white)",
+            "#f8f9fa",
+            "#ffffff",
+            "rgba(255, 255, 255, 0.9)",
+        ]
+
+        # Check all CSS files for contrast issues
+        css_files = [
+            "static/css/home-pages.css",
+            "static/css/utilities.css",
+            "static/css/main.css",
+        ]
+
+        for css_file in css_files:
+            if os.path.exists(css_file):
+                with open(css_file, "r") as f:
+                    content = f.read()
+
+                # Look for potential contrast issues
+                lines = content.split("\n")
+                current_selector = None
+                current_background = None
+                current_color = None
+
+                for i, line in enumerate(lines, 1):
+                    line = line.strip()
+
+                    # Track current selector
+                    if line.endswith("{") and not line.startswith("/*"):
+                        current_selector = line.replace(" {", "")
+                        current_background = None
+                        current_color = None
+
+                    # Check for background properties
+                    if "background:" in line or "background-color:" in line:
+                        for bg in light_backgrounds:
+                            if bg in line:
+                                current_background = bg
+                                break
+
+                    # Check for color properties
+                    if line.startswith("color:"):
+                        for color in light_text_colors:
+                            if color in line:
+                                current_color = color
+                                break
+
+                    # Flag potential issues
+                    if current_background and current_color and current_selector:
+                        issues.append(
+                            {
+                                "file": css_file,
+                                "line": i,
+                                "selector": current_selector,
+                                "issue": f"Light text ({current_color}) on light background ({current_background})",
+                                "severity": "HIGH",
+                            }
+                        )
+
+        # Specific checks for home-pages.css critical sections
+        home_css_file = "static/css/home-pages.css"
+        if os.path.exists(home_css_file):
+            with open(home_css_file, "r") as f:
+                content = f.read()
+
+            # Check hero section specifically
+            if "color: var(--color-text-light)" in content:
+                # Check if it's in a glassmorphism context
+                hero_section = content[
+                    content.find(".hero-") : (
+                        content.find(".features-section")
+                        if ".features-section" in content
+                        else len(content)
+                    )
+                ]
+                if "var(--color-text-light)" in hero_section:
+                    issues.append(
+                        {
+                            "file": home_css_file,
+                            "section": "hero-section",
+                            "issue": "Using --color-text-light in glassmorphism context (white background)",
+                            "severity": "CRITICAL",
+                            "fix": "Use --color-text-secondary or --color-text-muted instead",
+                        }
+                    )
+
+        # Report results
+        if issues:
+            print(f"\n❌ Found {len(issues)} color contrast issues:")
+            for issue in issues:
+                print(f"   • {issue.get('file', 'Unknown')}: {issue['issue']}")
+                if "fix" in issue:
+                    print(f"     Fix: {issue['fix']}")
+            return False
+        else:
+            print("✅ No color contrast issues found")
+            return True
+
+    def test_css_semantic_color_usage(self):
+        """Test that semantic color variables are used appropriately"""
+        print("\n🏷️  Testing Semantic Color Usage...")
+
+        recommendations = []
+
+        # Check home-pages.css for appropriate semantic color usage
+        home_css_file = "static/css/home-pages.css"
+        if os.path.exists(home_css_file):
+            with open(home_css_file, "r") as f:
+                content = f.read()
+
+            # Check current usage patterns
+            color_usage = {
+                "var(--color-text-primary)": content.count("var(--color-text-primary)"),
+                "var(--color-text-secondary)": content.count(
+                    "var(--color-text-secondary)"
+                ),
+                "var(--color-text-muted)": content.count("var(--color-text-muted)"),
+                "var(--color-text-light)": content.count("var(--color-text-light)"),
+                "var(--color-text-dark)": content.count("var(--color-text-dark)"),
+            }
+
+            print(f"   Color usage in home-pages.css:")
+            for color, count in color_usage.items():
+                status = "⚠️" if count > 0 and "light" in color else "✅"
+                print(f"   {status} {color}: {count} uses")
+
+            # Verify no problematic usage remains
+            if color_usage["var(--color-text-light)"] > 0:
+                recommendations.append(
+                    "Replace remaining var(--color-text-light) uses with var(--color-text-secondary) for better contrast"
+                )
+
+        if recommendations:
+            print(f"\n💡 Recommendations:")
+            for rec in recommendations:
+                print(f"   • {rec}")
+            return True  # This is advisory, not a failure
+        else:
+            print("✅ Semantic color usage follows best practices")
+            return True
+
+    def test_equal_height_card_layouts(self):
+        """Test that card grids use align-items: stretch for equal heights"""
+        print("\n📐 Testing Equal Height Card Layouts...")
+
+        issues = []
+
+        # Define grid layouts that should have equal height cards
+        grid_patterns = {
+            "static/css/home-pages.css": [".users-grid"],
+            "static/css/skill-pages.css": [".skills-grid"],
+            "static/css/components.css": [".skills-grid"],
+            "static/css/profile-pages.css": [".profile-skills-grid"],
+        }
+
+        for css_file, selectors in grid_patterns.items():
+            if os.path.exists(css_file):
+                with open(css_file, "r") as f:
+                    content = f.read()
+
+                for selector in selectors:
+                    # Find the selector and check if it has align-items: stretch
+                    if selector in content:
+                        # Extract the CSS rule for this selector
+                        start_pos = content.find(selector)
+                        if start_pos != -1:
+                            # Find the opening brace
+                            brace_pos = content.find("{", start_pos)
+                            if brace_pos != -1:
+                                # Find the closing brace
+                                closing_brace_pos = content.find("}", brace_pos)
+                                if closing_brace_pos != -1:
+                                    rule_content = content[
+                                        brace_pos : closing_brace_pos + 1
+                                    ]
+
+                                    # Check for display: grid and align-items: stretch
+                                    has_grid = "display: grid" in rule_content
+                                    has_stretch = "align-items: stretch" in rule_content
+
+                                    if has_grid and not has_stretch:
+                                        issues.append(
+                                            {
+                                                "file": css_file,
+                                                "selector": selector,
+                                                "issue": "Grid layout missing align-items: stretch for equal height cards",
+                                            }
+                                        )
+                                    elif has_grid and has_stretch:
+                                        print(
+                                            f"   ✅ {css_file}: {selector} has equal height configuration"
+                                        )
+                    else:
+                        issues.append(
+                            {
+                                "file": css_file,
+                                "selector": selector,
+                                "issue": "Expected grid selector not found",
+                            }
+                        )
+
+        # Check for flex cards that should fill height
+        flex_card_patterns = {
+            "static/css/home-pages.css": [".user-card"],
+            "static/css/components.css": [".skill-card"],
+        }
+
+        for css_file, selectors in flex_card_patterns.items():
+            if os.path.exists(css_file):
+                with open(css_file, "r") as f:
+                    content = f.read()
+
+                for selector in selectors:
+                    if selector in content:
+                        start_pos = content.find(selector)
+                        if start_pos != -1:
+                            brace_pos = content.find("{", start_pos)
+                            if brace_pos != -1:
+                                closing_brace_pos = content.find("}", brace_pos)
+                                if closing_brace_pos != -1:
+                                    rule_content = content[
+                                        brace_pos : closing_brace_pos + 1
+                                    ]
+
+                                    has_flex = "display: flex" in rule_content
+                                    has_column = (
+                                        "flex-direction: column" in rule_content
+                                    )
+                                    has_height = "height: 100%" in rule_content
+
+                                    if has_flex and has_column and has_height:
+                                        print(
+                                            f"   ✅ {css_file}: {selector} configured for equal height"
+                                        )
+                                    elif has_flex and has_column and not has_height:
+                                        issues.append(
+                                            {
+                                                "file": css_file,
+                                                "selector": selector,
+                                                "issue": "Flex card missing height: 100% for equal height",
+                                            }
+                                        )
+
+        if issues:
+            print(f"\n❌ Found {len(issues)} equal height layout issues:")
+            for issue in issues:
+                print(f"   • {issue['file']}: {issue['selector']} - {issue['issue']}")
+            return False
+        else:
+            print("✅ All card grids configured for equal heights")
+            return True
+
     def test_home_pages_css_hardcoded_values(self):
         """Test that home-pages.css has no hardcoded values"""
         home_pages_content = self.read_file_content(self.css_files["home_pages"])
@@ -505,6 +776,10 @@ class CSSRefactoringTestSuite:
             # File Integrity Tests
             self.test_css_syntax_validity,
             self.test_file_size_optimization,
+            # Accessibility Tests
+            self.test_color_contrast_accessibility,
+            self.test_css_semantic_color_usage,
+            self.test_equal_height_card_layouts,
             # Home Pages Specific Tests
             self.test_home_pages_css_hardcoded_values,
             self.test_home_pages_css_variable_usage,
