@@ -386,6 +386,101 @@ class CSSRefactoringTestSuite:
         if large_files:
             self.test_results.append(f"⚠️  Large CSS files: {', '.join(large_files)}")
 
+    def test_home_pages_css_hardcoded_values(self):
+        """Test that home-pages.css has no hardcoded values"""
+        home_pages_content = self.read_file_content(self.css_files["home_pages"])
+
+        if not home_pages_content:
+            self.test_results.append("❌ home-pages.css file not found or empty")
+            return
+
+        # Hardcoded values that should be replaced with variables
+        hardcoded_patterns = [
+            # Spacing values
+            r"\b60px\b",
+            r"\b40px\b",
+            r"\b30px\b",
+            r"\b25px\b",
+            r"\b20px\b",
+            r"\b15px\b",
+            r"\b10px\b",
+            r"\b5px\b",
+            r"\b3px\b",
+            # Font sizes in em units
+            r"\b3em\b",
+            r"\b2\.5em\b",
+            r"\b1\.2em\b",
+            # Hardcoded colors
+            r"#333\b",
+            r"#495057\b",
+            r"#dee2e6\b",
+            # Hardcoded shadows
+            r"0 8px 32px rgba\(0, 0, 0, 0\.1\)",
+            r"0 8px 25px rgba\(0, 0, 0, 0\.1\)",
+            r"0 4px 20px rgba\(0, 0, 0, 0\.1\)",
+            # Hardcoded blur
+            r"blur\(10px\)",
+            # Max widths
+            r"max-width: 600px",
+            r"max-width: 1200px",
+        ]
+
+        found_hardcoded = []
+        for pattern in hardcoded_patterns:
+            import re
+
+            matches = re.findall(pattern, home_pages_content)
+            if matches:
+                found_hardcoded.extend(matches)
+
+        if found_hardcoded:
+            self.test_results.append(
+                f"❌ home-pages.css contains hardcoded values: {', '.join(set(found_hardcoded))}"
+            )
+        else:
+            self.test_results.append(
+                "✅ home-pages.css uses CSS variables consistently"
+            )
+
+    def test_home_pages_css_variable_usage(self):
+        """Test that home-pages.css uses appropriate CSS variables"""
+        home_pages_content = self.read_file_content(self.css_files["home_pages"])
+
+        if not home_pages_content:
+            self.test_results.append("❌ home-pages.css file not found or empty")
+            return
+
+        # Variables that should be used
+        expected_variables = [
+            "--space-6xl",  # For 60px padding
+            "--space-4xl",  # For 40px padding
+            "--space-xxl",  # For 30px spacing
+            "--space-xl",  # For 25px spacing
+            "--space-lg",  # For 20px spacing
+            "--space-md",  # For 15px spacing
+            "--space-sm",  # For smaller gaps
+            "--color-text-primary",  # For #333 colors
+            "--color-text-secondary",  # For muted text
+            "--font-size-3xl",  # For large titles
+            "--font-size-2xl",  # For section titles
+            "--font-size-lg",  # For subtitles
+            "--shadow-glass-card",  # For glassmorphism shadows
+            "--glass-backdrop-filter",  # For backdrop filter
+            "--transform-hover-lift",  # For hover effects
+        ]
+
+        missing_variables = []
+        for variable in expected_variables:
+            if variable not in home_pages_content:
+                missing_variables.append(variable)
+
+        if missing_variables:
+            self.test_results.append(
+                f"⚠️  home-pages.css missing recommended variables: {', '.join(missing_variables)}"
+            )
+        else:
+            self.test_results.append("✅ home-pages.css uses recommended CSS variables")
+
     # ============================================================================
     # TEST RUNNER
     # ============================================================================
@@ -410,6 +505,9 @@ class CSSRefactoringTestSuite:
             # File Integrity Tests
             self.test_css_syntax_validity,
             self.test_file_size_optimization,
+            # Home Pages Specific Tests
+            self.test_home_pages_css_hardcoded_values,
+            self.test_home_pages_css_variable_usage,
         ]
 
         for test_method in test_methods:
