@@ -501,7 +501,7 @@
     align-items: center;
     margin-bottom: var(--space-lg);
     padding-bottom: var(--space-md);
-    border-bottom: var(--form-field-border-width-thick) solid var(--color-background-muted);
+    border-bottom: var(--form-field-border-width) solid var(--color-background-muted);
 }
 
 .modal-header h3 {
