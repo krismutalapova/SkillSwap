@@ -136,16 +136,16 @@
 .auth-links {
     text-align: center;
     margin-top: 20px;
-    padding-top: 20px;
     border-top: 1px solid #e9ecef;
     position: relative;
 }
 
 .auth-links hr {
-    border: none;
+    border: 1px solid var(--color-text-muted);
     height: 1px;
     background: #e1e5e9;
     margin: 25px 0;
+    opacity: 0.5;
 }
 
 .auth-links span {

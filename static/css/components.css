@@ -138,20 +138,20 @@
 
 .skill-type {
     padding: var(--space-xs) var(--space-md);
-    border-radius: var(--radius-pill);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
     white-space: nowrap;
 }
 
 .skill-type-offer {
-    background: var(--color-offer-gradient);
-    color: var(--color-text-white);
+    background: var(--color-skill-offer-bg);
+    color: var(--color-skill-offer);
 }
 
 .skill-type-request {
-    background: var(--color-request-gradient);
-    color: var(--color-text-white);
+    background: var(--color-skill-request-bg);
+    color: var(--color-skill-request);
 }
 
 .skill-content {
@@ -180,10 +180,10 @@
 }
 
 .category {
-    background: var(--color-secondary-light);
-    color: var(--color-secondary);
+    background: var(--color-primary-light);
+    color: var(--color-primary);
     padding: var(--space-xs) var(--space-sm);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
 }

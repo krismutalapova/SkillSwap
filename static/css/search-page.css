@@ -217,7 +217,7 @@
 }
 
  .user-card-skill-tag.offered {
-    background: rgb(102, 126, 234, 0.2);
+    background: var(--color-skill-offer-bg);
     color: var(--color-skill-offer);
 }
 

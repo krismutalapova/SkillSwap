@@ -10,6 +10,9 @@
   --color-primary-start: #6441a5;
   --color-primary-end: #2a0845;
   --color-primary-gradient: linear-gradient(to right, var(--color-primary-start), var(--color-primary-end));
+  --color-primary-light: rgba(100, 65, 165, 0.1);
+  --color-primary-medium: rgba(100, 65, 165, 0.2);
+  --color-primary-border: rgba(100, 65, 165, 0.3);
   
   /* Secondary Brand Colors */
   --color-secondary: #667eea;
@@ -27,7 +30,7 @@
   --color-background-muted: var(--color-background);
   
   /* Text Colors */
-  --color-text-primary: #2c3e50;  /* Test compatibility */
+  --color-text-primary: #2c3e50;
   --color-text-secondary: #666666;
   --color-text-muted: #999999;
   --color-text-dark: #333333;
@@ -58,6 +61,7 @@
   --color-text-dark: #333333;
   --color-text-medium: #666666; 
   --color-skill-offer: #3a7bd5;
+  --color-skill-offer-bg: rgb(102, 126, 234, 0.2);
   --color-skill-request: #fd746c;
   --color-skill-request-bg: rgba(255, 144, 104, 0.25);
   --color-white: #ffffff;
@@ -86,10 +90,6 @@
   
   /* Accent Colors */
   --color-accent-gold: var(--color-warning); /* Star ratings */
-  
-  /* Primary Color Variants */
-  --color-primary-light: rgba(102, 126, 234, 0.1);
-  --color-primary-border: rgba(102, 126, 234, 0.3);
   
   /* Button Colors */
   --color-button-logout-start: var(--color-text-light);
@@ -132,6 +132,7 @@
      --------------------------------- */
   
   /* Base spacing scale (following 4px grid system) */
+  --space-2xs: 2px;
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 12px;
