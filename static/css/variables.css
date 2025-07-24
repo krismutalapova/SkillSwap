@@ -145,6 +145,9 @@
   --space-component: var(--space-xl);
   --space-element: var(--space-md);
   --space-tight: var(--space-sm);
+
+  /* Icon sizes */
+  --icon-size-4xl: 80px;
   
   /* ---------------------------------
      BORDER RADIUS
@@ -184,6 +187,7 @@
   --font-size-2xl: 24px;
   --font-size-3xl: 28px;
   --font-size-4xl: 40px;
+  --font-size-6xl: 48px;
   --font-size-heading: 1.5rem;
   
   /* Font Weights */
