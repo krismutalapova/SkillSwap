@@ -6,16 +6,16 @@
     justify-content: center;
     align-items: center;
     min-height: 80vh;
-    padding: 20px;
+    padding: var(--space-xl);
 }
 
 .auth-card {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--color-background-glass);
     backdrop-filter: var(--glass-backdrop-filter);
     border: 1px solid var(--color-border-light);
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-xl);
+    padding: var(--space-4xl);
+    box-shadow: var(--shadow-glass-card);
     width: 100%;
     max-width: 400px;
 }
@@ -24,20 +24,20 @@
 .auth-logo {
     width: 60px;
     height: 60px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 15px;
-    color: white;
+    margin: 0 auto var(--space-md);
+    color: var(--color-text-white);
     font-size: 28px;
 }
 
 .auth-title {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: var(--space-xxl);
     color: var(--color-text-dark);
-    font-size: 1.5rem;
+    font-size: var(--font-size-heading);
 }
 
 .auth-gradient-text {
@@ -51,29 +51,29 @@
 .auth-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: var(--space-xl);
 }
 
 .form-label {
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     color: var(--color-text-dark);
-    font-size: 14px;
+    font-size: var(--font-size-sm);
 }
 
 .form-input {
     width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: all 0.3s ease;
+    padding: var(--form-field-padding);
+    border: var(--form-field-border-width) solid var(--color-border-muted);
+    border-radius: var(--radius-button);
+    font-size: var(--font-size-md);
+    transition: var(--transition-colors);
     box-sizing: border-box;
 }
 
 .form-input:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: var(--color-border-focus);
+    box-shadow: var(--shadow-focus);
 }
 
 .form-input.error {
@@ -87,87 +87,87 @@
 
 .password-toggle {
     position: absolute;
-    right: 12px;
+    right: var(--space-md);
     top: 50%;
     transform: translateY(-50%);
     background: none;
     border: none;
-    color: var(--color-text-light);
+    color: var(--color-text-muted);
     cursor: pointer;
     padding: 0;
-    font-size: 16px;
+    font-size: var(--font-size-md);
 }
 
 .password-toggle:hover {
-    color: #667eea;
+    color: var(--color-border-focus);
 }
 
 /* Error Messages */
 .form-errors {
-    background: #f8d7da;
-    border: 1px solid #f5c6cb;
-    color: #721c24;
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    background: var(--color-danger-bg);
+    border: 1px solid var(--color-danger-border);
+    color: var(--color-danger-text);
+    padding: var(--space-md);
+    border-radius: var(--radius-button);
+    margin-bottom: var(--space-xl);
 }
 
 .form-errors ul {
     margin: 0;
-    padding-left: 20px;
+    padding-left: var(--space-xl);
 }
 
 .form-errors li {
-    margin-bottom: 5px;
+    margin-bottom: var(--space-xs);
 }
 
 /* Success Messages */
 .success-message {
-    background: #d4edda;
-    border: 1px solid #c3e6cb;
-    color: #155724;
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    background: var(--color-success-bg);
+    border: 1px solid var(--color-success-border);
+    color: var(--color-success-text);
+    padding: var(--space-md);
+    border-radius: var(--radius-button);
+    margin-bottom: var(--space-xl);
     text-align: center;
 }
 
 /* Auth Links */
 .auth-links {
     text-align: center;
-    margin-top: 20px;
-    border-top: 1px solid #e9ecef;
+    margin-top: var(--space-xl);
+    border-top: 1px solid var(--color-border-muted);
     position: relative;
 }
 
 .auth-links hr {
     border: 1px solid var(--color-text-muted);
     height: 1px;
-    background: #e1e5e9;
-    margin: 25px 0;
+    background: var(--color-border-default);
+    margin: var(--space-xl) 0;
     opacity: 0.5;
 }
 
 .auth-links span {
     position: absolute;
-    top: 15px;
+    top: var(--space-md);
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255,255,255,0.95);
-    padding: 0 15px;
+    background: var(--color-background-glass);
+    padding: 0 var(--space-md);
     color: var(--color-text-medium);
-    font-size: 14px;
+    font-size: var(--font-size-sm);
 }
 
 .auth-links p {
     color: var(--color-text-medium);
-    margin-bottom: 15px;
+    margin-bottom: var(--space-md);
 }
 
 .auth-links a:not([class*="btn"]) {
-    color: #667eea;
+    color: var(--color-border-focus);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
 }
 
 .auth-links a:not([class*="btn"]):hover {
@@ -177,31 +177,31 @@
 /* Logout Success Page */
 .logout-success {
     text-align: center;
-    padding: 40px;
+    padding: var(--space-4xl);
 }
 
 .logout-icon {
     width: 80px;
     height: 80px;
     background-image: var(--color-success-gradient);
-    border-radius: 50%;
+    border-radius: var(--radius-circle);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 20px;
-    color: white;
+    margin: 0 auto var(--space-xl);
+    color: var(--color-text-white);
     font-size: 36px;
 }
 
 .logout-title {
-    color: #28a745;
-    font-size: 1.5rem;
-    margin-bottom: 15px;
+    color: var(--color-success);
+    font-size: var(--font-size-heading);
+    margin-bottom: var(--space-md);
 }
 
 .logout-message {
-    color: var(--color-text-light);
-    margin-bottom: 25px;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-xl);
 }
 
 /* Complete Profile Form Specific Styles */
@@ -209,13 +209,13 @@
     display: block;
     text-align: left;
     color: var(--color-text-muted);
-    margin-top: 5px;
-    font-size: 14px;
-    line-height: 1.4;
+    margin-top: var(--space-xs);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-normal);
     opacity: 1;
 }
 
 .field-help i {
-    margin-right: 5px;
+    margin-right: var(--space-xs);
     color: var(--color-text-muted);
 }
