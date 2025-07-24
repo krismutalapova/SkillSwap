@@ -1,8 +1,8 @@
 /* Error Pages Styles */
 .error-container {
-    max-width: 1000px;
+    max-width: var(--container-max-width);
     margin: 0 auto;
-    padding: 20px;
+    padding: var(--space-lg);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,120 +10,118 @@
 }
 
 .error-card {
-    background: rgba(255,255,255,0.95);
+    background: var(--color-background-glass);
     backdrop-filter: var(--glass-backdrop-filter);
-    border: 1px solid var(--color-border-light);
+    border: var(--form-field-border-width) solid var(--color-border-light);
     border-radius: var(--radius-card);
-    padding: 40px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-    max-width: 500px;
+    padding: var(--space-6xl);
+    box-shadow: var(--shadow-glass-card);
+    max-width: var(--modal-max-width);
     width: 100%;
     text-align: center;
 }
 
 .error-icon-container {
-    margin-bottom: 30px;
+    margin-bottom: var(--space-4xl);
 }
 
 .error-icon {
-    width: 80px;
-    height: 80px;
+    width: var(--icon-size-4xl);
+    height: var(--icon-size-4xl);
     background: var(--color-danger-gradient);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 20px;
+    margin: 0 auto var(--space-lg);
     color: white;
-    font-size: 36px;
+    font-size: var(--font-size-4xl);
 }
 
 .error-title {
     margin: 0;
-    color: var(--color-text-dark);
-    font-size: 48px;
-    font-weight: 700;
-    margin-bottom: 10px;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-6xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-xs);
 }
 
 .error-subtitle {
     margin: 0;
-    color: var(--color-text-medium);
-    font-size: 24px;
-    font-weight: 500;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-medium);
 }
 
 .error-message {
-    margin-bottom: 30px;
+    margin-bottom: var(--space-4xl);
 }
 
 .error-text {
-    color: var(--color-text-medium);
-    font-size: 16px;
-    line-height: 1.6;
-    margin-bottom: 15px;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--space-md);
 }
 
 .error-details {
     color: var(--color-text-muted);
-    font-size: 14px;
+    font-size: var(--font-size-sm);
 }
 
 .action-buttons {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: var(--space-md);
     align-items: center;
 }
 
 .btn-primary-home {
     display: inline-block;
-    padding: 14px 30px;
+    padding: var(--space-md) var(--space-4xl);
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     text-decoration: none;
-    font-size: 16px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    transition: var(--transition-all);
+    box-shadow: var(--shadow-button-primary);
 }
 
 .btn-primary-home:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    transform: var(--transform-hover-lift);
+    box-shadow: var(--shadow-button-primary-hover);
 }
 
 .secondary-buttons {
     display: flex;
-    gap: 15px;
+    gap: var(--space-md);
     flex-wrap: wrap;
     justify-content: center;
 }
 
-/* Secondary buttons now use utility classes from utilities.css */
-
 .help-section {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid var(--color-border-default);
+    margin-top: var(--space-4xl);
+    padding-top: var(--space-lg);
+    border-top: var(--form-field-border-width) solid var(--color-border-default);
 }
 
 .help-title {
     color: var(--color-text-muted);
-    font-size: 14px;
-    margin-bottom: 10px;
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-xs);
 }
 
 .help-text {
     color: var(--color-text-muted);
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
 }
 
 .icon-spacing {
-    margin-right: 8px;
+    margin-right: var(--space-sm);
 }
 
 .info-icon-spacing {
-    margin-right: 5px;
+    margin-right: var(--space-xs);
 }
