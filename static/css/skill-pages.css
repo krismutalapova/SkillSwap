@@ -811,9 +811,6 @@ textarea.form-control {
     margin: 0;
 }
 
-/* Edit buttons now use btn-secondary utility class from utilities.css */
-/* Delete buttons now use btn-outline-danger utility class from utilities.css */
-
 .alternative-actions {
     text-align: center;
     padding-top: 25px;
@@ -850,8 +847,6 @@ textarea.form-control {
     justify-content: center;
     flex-wrap: wrap;
 }
-
-/* Alternative buttons now use btn-secondary utility class from utilities.css */
 
 .created-date,
 .updated-date {
