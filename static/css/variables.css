@@ -85,6 +85,7 @@
   --color-warning: #ffc107;
   --color-info: #17a2b8;
   --color-info-gradient: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+  --color-warning-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
   --color-secondary-light-gradient: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(69, 179, 224, 0.1) 100%);
   
   /* Accent Colors */
@@ -121,6 +122,14 @@
   --shadow-button-primary-hover: 0 4px 15px var(--color-secondary-strong);
   --shadow-button-logout: 0 2px 10px var(--color-button-logout-shadow);
   --shadow-button-logout-hover: 0 4px 15px var(--color-button-logout-shadow-hover);
+  --shadow-button-danger: 0 4px 15px rgba(220, 53, 69, 0.3);
+  --shadow-button-danger-hover: 0 6px 20px rgba(220, 53, 69, 0.4);
+  --shadow-button-outline-danger: 0 4px 15px rgba(238, 90, 82, 0.3);
+  --shadow-button-outline-danger-hover: 0 6px 20px rgba(238, 90, 82, 0.4);
+  --shadow-button-warning: 0 4px 15px rgba(255, 193, 7, 0.3);
+  --shadow-button-warning-hover: 0 6px 20px rgba(255, 193, 7, 0.4);
+  --shadow-button-info: 0 4px 15px rgba(23, 162, 184, 0.3);
+  --shadow-button-info-hover: 0 6px 20px rgba(23, 162, 184, 0.4);
   
   /* ---------------------------------
      SPACING SYSTEM
@@ -147,6 +156,7 @@
   --space-tight: var(--space-sm);
 
   /* Icon sizes */
+  --icon-size-sm: 16px;
   --icon-size-4xl: 80px;
   
   /* ---------------------------------
@@ -289,6 +299,7 @@
   --button-padding-small: 8px 16px;  /* Updated for test compatibility */
   --button-padding-large: var(--space-base) var(--space-2xl);
   --button-min-width: auto;
+  --button-min-height: 40px;
   
   /* Forms */
   --form-field-padding: var(--space-md) 15px;
@@ -314,6 +325,8 @@
   --shadow-hover-button: 0 4px 15px var(--color-secondary-medium);
   --skill-description-min-height: 3rem;
   --skill-meta-min-height: 2rem;
+  --skill-tile-min-width: 200px;
+  --skill-tile-max-width: 300px;
   --profile-pic-size: 60px;
   
   /* Phase 3.2: Component-specific variables */
