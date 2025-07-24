@@ -752,6 +752,63 @@ class CSSRefactoringTestSuite:
         else:
             self.test_results.append("✅ home-pages.css uses recommended CSS variables")
 
+    def test_messaging_pages_css_hardcoded_values(self):
+        """Test that messaging-pages.css has no hardcoded values that should be variables"""
+        messaging_pages_content = self.read_file_content(
+            self.css_files["messaging_pages"]
+        )
+
+        if not messaging_pages_content:
+            self.test_results.append("❌ messaging-pages.css file not found or empty")
+            return
+
+        # Specific hardcoded values that should be replaced in messaging-pages.css
+        hardcoded_checks = [
+            ("#667eea", "var(--color-secondary)", "Primary brand color"),
+            ("#333", "var(--color-text-dark)", "Dark text color"),
+            ("#555", "var(--color-text-secondary)", "Secondary text color"),
+            ("#495057", "var(--color-text-muted)", "Muted text color"),
+            ("#dee2e6", "var(--color-border-muted)", "Border color"),
+            ("#e9ecef", "var(--color-border-muted)", "Border color"),
+            (
+                "rgba(255, 255, 255, 0.95)",
+                "var(--color-background-glass)",
+                "Glassmorphism background",
+            ),
+            (
+                "backdrop-filter: blur(10px)",
+                "var(--glass-backdrop-filter)",
+                "Glassmorphism blur",
+            ),
+            ("padding: 40px", "var(--space-5xl)", "Large padding"),
+            ("padding: 30px", "var(--space-4xl)", "Medium-large padding"),
+            ("padding: 25px", "var(--space-xl)", "Medium padding"),
+            ("padding: 20px", "var(--space-lg)", "Default padding"),
+            ("margin-bottom: 25px", "var(--space-xl)", "Spacing"),
+            ("margin-bottom: 20px", "var(--space-lg)", "Spacing"),
+            ("gap: 15px", "var(--space-md)", "Grid gap"),
+            ("gap: 10px", "var(--space-sm)", "Small gap"),
+        ]
+
+        found_issues = []
+        for hardcoded, replacement, description in hardcoded_checks:
+            if hardcoded in messaging_pages_content:
+                found_issues.append(f"{description}: {hardcoded} → {replacement}")
+
+        if found_issues:
+            self.test_results.append(
+                f"❌ messaging-pages.css needs refactoring: {len(found_issues)} hardcoded values found"
+            )
+            # Add detailed output for debugging
+            for issue in found_issues[:5]:  # Show first 5 issues
+                print(f"   • {issue}")
+            if len(found_issues) > 5:
+                print(f"   • ... and {len(found_issues) - 5} more issues")
+        else:
+            self.test_results.append(
+                "✅ messaging-pages.css uses CSS variables consistently"
+            )
+
     # ============================================================================
     # TEST RUNNER
     # ============================================================================
@@ -783,6 +840,8 @@ class CSSRefactoringTestSuite:
             # Home Pages Specific Tests
             self.test_home_pages_css_hardcoded_values,
             self.test_home_pages_css_variable_usage,
+            # Messaging Pages Specific Tests
+            self.test_messaging_pages_css_hardcoded_values,
         ]
 
         for test_method in test_methods:
