@@ -11,26 +11,26 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 60px 20px;
+    padding: var(--space-6xl) var(--space-lg);
     min-height: 70vh;
 }
 
 .hero-card {
     background: var(--color-background-glass);
-    backdrop-filter: blur(10px);
-    padding: 40px 25px;
+    backdrop-filter: var(--glass-backdrop-filter);
+    padding: var(--space-4xl) var(--space-xl);
     border-radius: var(--radius-lg);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-glass-card);
     border: 1px solid var(--color-border-light);
-    margin-bottom: 30px;
+    margin-bottom: var(--space-xxl);
     width: 100%;
     text-align: center;
 }
 
 .hero-title {
     color: var(--color-text-dark);
-    font-size: 3em;
-    margin-bottom: 20px;
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--space-lg);
     background-image: var(--color-primary-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -39,73 +39,73 @@
 
 .hero-subtitle {
     color: var(--color-text-light);
-    font-size: 1.2em;
-    margin-bottom: 30px;
-    max-width: 600px;
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-xxl);
+    max-width: var(--container-max-width-small);
 }
 
 .hero-actions {
     display: flex;
-    gap: 15px;
+    gap: var(--space-md);
     flex-wrap: wrap;
     justify-content: center;
 }
 
 /* Features Section */
 .features-section {
-    padding: 60px 20px;
+    padding: var(--space-6xl) var(--space-lg);
     background: var(--color-background-glass);
-    backdrop-filter: blur(10px);
+    backdrop-filter: var(--glass-backdrop-filter);
     border-radius: var(--radius-xl);
-    margin: 30px auto;
-    max-width: 1200px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin: var(--space-xxl) auto;
+    max-width: var(--container-max-width);
+    box-shadow: var(--shadow-glass-card);
 }
 
 .features-title {
     text-align: center;
     color: var(--color-text-dark);
-    font-size: 2.5em;
-    margin-bottom: 40px;
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-4xl);
 }
 
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+    gap: var(--space-xxl);
 }
 
 .feature-card {
     text-align: center;
-    padding: 30px;
+    padding: var(--space-xxl);
     background: var(--color-background);
     border-radius: var(--radius-lg);
     border: 1px solid var(--color-border-muted);
-    transition: all 0.3s ease;
+    transition: var(--transition-all);
 }
 
 .feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: var(--transform-hover-lift);
+    box-shadow: var(--shadow-hover-light);
 }
 
 .feature-icon {
-    width: 60px;
-    height: 60px;
+    width: var(--space-6xl);
+    height: var(--space-6xl);
     background-image: var(--color-primary-gradient);
     border-radius: var(--radius-circle);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 20px;
+    margin: 0 auto var(--space-lg);
     color: var(--color-text-white);
-    font-size: 24px;
+    font-size: var(--font-size-xl);
 }
 
 .feature-title {
-    color: #333;
-    font-size: 1.3rem;
-    margin-bottom: 10px;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
 }
 
 .feature-description {
@@ -116,24 +116,24 @@
 /* Search Page Specific */
 .search-header {
     text-align: center;
-    padding: 40px 20px;
+    padding: var(--space-4xl) var(--space-lg);
 }
 
 .search-icon {
-    width: 60px;
-    height: 60px;
+    width: var(--space-6xl);
+    height: var(--space-6xl);
     border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 15px;
+    margin: 0 auto var(--space-md);
     color: var(--color-text-white);
-    font-size: 28px;
+    font-size: var(--font-size-2xl);
 }
 
 .search-title {
-    font-size: 2rem;
-    margin-bottom: 15px;
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-md);
     color: var(--color-text-dark);
 }
 
@@ -146,21 +146,21 @@
 
 .search-subtitle {
     color: var(--color-text-light);
-    font-size: 1.1rem;
-    margin-bottom: 30px;
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-xxl);
 }
 
 /* User Cards */
 .users-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px 0;
+    gap: var(--space-lg);
+    padding: var(--space-lg) 0;
 }
 
 .user-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: var(--transform-hover-lift);
+    box-shadow: var(--shadow-hover-light);
     text-decoration: none;
     color: inherit;
 }
@@ -168,19 +168,19 @@
 .user-card-header {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: var(--space-md);
 }
 
 .user-card-avatar {
-    width: 60px;
-    height: 60px;
+    width: var(--space-6xl);
+    height: var(--space-6xl);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 15px;
+    margin-right: var(--space-md);
     color: white;
-    font-size: 24px;
+    font-size: var(--font-size-xl);
     font-weight: bold;
 }
 
@@ -189,25 +189,25 @@
 }
 
 .user-card-name {
-    color: #333;
-    font-size: 1.1rem;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-lg);
     font-weight: 600;
-    margin-bottom: 3px;
+    margin-bottom: var(--space-xs);
 }
 
 .user-card-location {
     color: var(--color-text-light);
-    font-size: 0.9rem;
+    font-size: var(--font-size-sm);
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: var(--space-xs);
 }
 
 .user-card-bio {
-    color: #495057;
-    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
     line-height: 1.4;
-    margin-bottom: 15px;
+    margin-bottom: var(--space-md);
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
@@ -218,45 +218,45 @@
 .user-card-skills {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: var(--space-xs);
 }
 
 .skill-tag {
     background: var(--color-secondary);
     color: var(--color-text-white);
-    padding: 3px 8px;
+    padding: var(--space-xs) var(--space-sm);
     border-radius: var(--radius-md);
-    font-size: 0.75rem;
+    font-size: var(--font-size-xs);
     font-weight: 500;
 }
 
 /* Empty State */
 .no-results {
     text-align: center;
-    padding: 60px 20px;
+    padding: var(--space-6xl) var(--space-lg);
     color: var(--color-text-light);
 }
 
 .no-results-icon {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    color: #dee2e6;
+    font-size: var(--font-size-5xl);
+    margin-bottom: var(--space-lg);
+    color: var(--color-border-light);
 }
 
 .no-results-title {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 10px;
+    font-size: var(--font-size-xl);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-sm);
 }
 
 .no-results-message {
-    font-size: 1.1rem;
-    margin-bottom: 25px;
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-xl);
 }
 
 .signup-suggestion {
     display: inline-block;
-    padding: 12px 24px;
+    padding: var(--space-sm) var(--space-xl);
     background: var(--color-success-gradient);
     color: var(--color-text-white);
     text-decoration: none;
@@ -266,8 +266,8 @@
 }
 
 .signup-suggestion:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px var(--color-success-shadow);
+    transform: var(--transform-hover-lift-sm);
+    box-shadow: var(--shadow-success);
     color: var(--color-text-white);
     text-decoration: none;
 }
@@ -275,7 +275,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero-title {
-        font-size: 2.2em;
+        font-size: var(--font-size-2xl);
     }
 
     .hero-actions {
@@ -292,10 +292,10 @@
     }
 
     .search-header {
-        padding: 30px 15px;
+        padding: var(--space-xxl) var(--space-md);
     }
 
     .search-title {
-        font-size: 1.6rem;
+        font-size: var(--font-size-xl);
     }
 }
