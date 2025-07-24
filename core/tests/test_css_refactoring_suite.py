@@ -249,15 +249,29 @@ class CSSRefactoringTestSuite:
         # Analyze definitions for duplicates
         legitimate_count = 0
         duplicate_count = 0
+        main_definition_count = 0
 
         for defn in nav_link_definitions:
             props = " ".join(defn["properties"])
-            # Check if it's a legitimate responsive override or a duplicate base definition
-            if (
+            # Check if it's a legitimate responsive override or main definition
+            is_main_definition = (
+                "color: var(--color-text-primary)" in props
+                or "text-decoration: none" in props
+                or "display: flex" in props
+            )
+            is_responsive_override = (
                 "justify-content: center" in props
                 or "padding: var(--nav-link-padding-mobile)" in props
                 or len([p for p in defn["properties"] if p and p != "}"]) <= 2
-            ):
+            )
+
+            if is_main_definition:
+                main_definition_count += 1
+                if main_definition_count == 1:
+                    legitimate_count += 1  # First main definition is legitimate
+                else:
+                    duplicate_count += 1  # Additional main definitions are duplicates
+            elif is_responsive_override:
                 legitimate_count += 1
             else:
                 duplicate_count += 1
