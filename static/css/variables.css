@@ -97,7 +97,6 @@
   --color-button-logout-shadow-hover: rgba(108, 117, 125, 0.4);
   
   /* Stat Card Gradients */
-  --color-offer-gradient: linear-gradient(135deg, #3a7bd5 0%, #3a6073 100%);
   --color-request-gradient: linear-gradient(135deg, #fd746c 0%, #ff9068 100%);
   --color-danger-gradient-alt: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
   
@@ -211,8 +210,8 @@
   --card-min-height: auto;
   
   /* Header/Footer */
-  --header-padding: 15px 0;
-  --footer-padding: 30px 0 20px 0;
+  --header-padding: var(--space-md) 0;
+  --footer-padding: var(--space-xxl) 0 var(--space-lg) 0;
 
   /* Transitions & Animations */
 
@@ -263,20 +262,20 @@
   /* Component-specific breakpoints */
 
   /* Navigation */
-  --nav-gap: 15px; 
+  --nav-gap: var(--space-md); 
   --nav-gap-mobile: var(--space-sm);
-  --nav-link-padding: 10px 20px;
-  --nav-link-padding-mobile: 6px 10px;
+  --nav-link-padding: var(--space-sm) var(--space-lg);
+  --nav-link-padding-mobile: 6px var(--space-sm);
   
   /* Buttons */
-  --button-padding: 10px 20px;
-  --button-padding-small: 8px 16px;
-  --button-padding-large: var(--space-base) var(--space-2xl);
+  --button-padding: var(--space-sm) var(--space-lg);
+  --button-padding-small: var(--space-sm) var(--space-md);
+  --button-padding-large: var(--space-md) var(--space-2xl);
   --button-min-width: auto;
   --button-min-height: 40px;
   
   /* Forms */
-  --form-field-padding: var(--space-md) 15px;
+  --form-field-padding: var(--space-md) var(--space-md);
   --form-field-border-width: 2px;
   --form-gap: var(--space-xl);
   
