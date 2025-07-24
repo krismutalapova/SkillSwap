@@ -1,9 +1,7 @@
 /* SkillSwap Utility Classes */
 /* Reusable utility classes for common design patterns */
 
-/* ==========================================================================
-   GLASSMORPHISM CARD UTILITIES
-   ========================================================================== */
+/* Glassmorphism card utilities */
 
 .glass-card {
   background: var(--color-background-glass);
@@ -73,7 +71,7 @@
 }
 
 .stats-card:hover {
-  transform: translateY(-5px);
+  transform: var(--transform-hover-lift);
 }
 
 .section-card {
@@ -85,9 +83,7 @@
   box-shadow: var(--shadow-light-soft);
 }
 
-/* ==========================================================================
-   BUTTON UTILITIES
-   ========================================================================== */
+/* Button Utilities */
 
 /* Base button styling */
 .btn-base {
@@ -114,7 +110,7 @@
   text-align: center;
   cursor: pointer;
   transition: all var(--transition-normal), transform var(--transition-normal);
-  border: 2px solid transparent;
+  border: var(--form-field-border-width) solid transparent;
   font-family: inherit;
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
@@ -138,16 +134,16 @@
   text-align: center;
   cursor: pointer;
   transition: all var(--transition-normal), transform var(--transition-normal);
-  border: 2px solid var(--color-primary);
+  border: var(--form-field-border-width) solid var(--color-secondary);
   font-family: inherit;
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
   background: var(--color-text-white);
-  color: var(--color-primary);
+  color: var(--color-secondary);
 }
 
 .btn-secondary:hover {
-  background: var(--color-primary-gradient);
+  background: var(--color-secondary);
   color: var(--color-text-white);
   transform: var(--transform-hover-up);
   box-shadow: var(--shadow-hover-light);
@@ -199,12 +195,12 @@
 .btn-danger {
   background: var(--color-danger);
   color: var(--color-text-white);
-  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+  box-shadow: var(--shadow-button-danger);
 }
 
 .btn-danger:hover {
   transform: var(--transform-hover-up);
-  box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+  box-shadow: var(--shadow-button-danger-hover);
   color: var(--color-text-white);
 }
 
@@ -220,17 +216,17 @@
   font-family: inherit;
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
-  background: white;
+  background: var(--color-text-white);
   color: var(--color-danger);
-  border: 2px solid var(--color-danger);
-  box-shadow: 0 4px 15px rgba(238, 90, 82, 0.3);
+  border: var(--form-field-border-width) solid var(--color-danger);
+  box-shadow: var(--shadow-button-outline-danger);
 }
 
 .btn-outline-danger:hover {
   transform: var(--transform-hover-up);
-  box-shadow: 0 6px 20px rgba(238, 90, 82, 0.4);
+  box-shadow: var(--shadow-button-outline-danger-hover);
   background: var(--color-danger);
-  color: white;
+  color: var(--color-text-white);
 }
 
 /* Button sizes */
@@ -251,7 +247,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--space-sm);
   padding: var(--button-padding);
   border-radius: var(--radius-button);
   font-weight: var(--font-weight-medium);
@@ -263,16 +259,16 @@
   font-family: inherit;
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
-  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  background: var(--color-warning-gradient);
   color: var(--color-text-primary);
-  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+  box-shadow: var(--shadow-button-warning);
   width: 100%;
-  min-height: 48px;
+  min-height: var(--button-min-height);
 }
 
 .btn-warning:hover {
   transform: var(--transform-hover-up);
-  box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+  box-shadow: var(--shadow-button-warning-hover);
   color: var(--color-text-primary);
   text-decoration: none;
 }
@@ -290,14 +286,14 @@
   font-family: inherit;
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  background: var(--color-danger-gradient);
   color: var(--color-text-white);
-  box-shadow: 0 4px 15px rgba(238, 90, 82, 0.3);
+  box-shadow: var(--shadow-button-outline-danger);
 }
 
 .btn-gradient-danger:hover {
   transform: var(--transform-hover-up);
-  box-shadow: 0 6px 20px rgba(238, 90, 82, 0.4);
+  box-shadow: var(--shadow-button-outline-danger-hover);
   color: var(--color-text-white);
   text-decoration: none;
 }
@@ -348,12 +344,12 @@
   line-height: var(--line-height-normal);
   background: var(--color-info-gradient);
   color: var(--color-text-white);
-  box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+  box-shadow: var(--shadow-button-info);
 }
 
 .edit-profile-btn:hover {
   transform: var(--transform-hover-up);
-  box-shadow: 0 6px 20px rgba(23, 162, 184, 0.4);
+  box-shadow: var(--shadow-button-info-hover);
   color: var(--color-text-white);
 }
 
@@ -382,9 +378,7 @@
   color: var(--color-text-white);
 }
 
-/* ==========================================================================
-   NAVIGATION UTILITIES
-   ========================================================================== */
+/* Navigation Utilities */
 
 .nav-link {
   color: var(--color-text-primary);
@@ -395,7 +389,7 @@
   font-weight: var(--font-weight-medium);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-sm);
 }
 
 .nav-link:hover {
@@ -407,9 +401,7 @@
   margin-right: var(--space-tight);
 }
 
-/* ==========================================================================
-   LAYOUT UTILITIES
-   ========================================================================== */
+/* Layout Utilities */
 
 .flex-center {
   display: flex;
@@ -472,9 +464,7 @@
   width: auto;
 }
 
-/* ==========================================================================
-   TEXT UTILITIES
-   ========================================================================== */
+/* Text Utilities */
 
 .text-gradient {
   background-image: var(--color-primary-gradient);
@@ -532,9 +522,7 @@
 .text-xl { font-size: var(--font-size-xl); }
 .text-2xl { font-size: var(--font-size-2xl); }
 
-/* ==========================================================================
-   SPACING UTILITIES
-   ========================================================================== */
+/* Spacing Utilities */
 
 /* Margin utilities */
 .m-0 { margin: 0; }
@@ -608,9 +596,7 @@
 .pr-lg { padding-right: var(--space-lg); }
 .pr-xl { padding-right: var(--space-xl); }
 
-/* ==========================================================================
-   USER INFO UTILITIES
-   ========================================================================== */
+/* User Info Utilities */
 
 /* Horizontal user info for cards */
 .user-info {
@@ -634,9 +620,7 @@
   gap: var(--space-xs);
 }
 
-/* ==========================================================================
-   SIDEBAR & GRID UTILITIES
-   ========================================================================== */
+/* Sidebar and usergrid utilities */
 
 /* User sidebar layout */
 .user-sidebar {
@@ -692,7 +676,7 @@
 .detail-label i {
   color: var(--color-secondary);
   display: flex;
-  width: 16px;
+  width: var(--icon-size-sm);
   margin-right: var(--space-sm);
 }
 
@@ -721,12 +705,10 @@
 
 .meta-item i {
   color: var(--color-secondary);
-  width: 16px;
+  width: var(--icon-size-sm);
 }
 
-/* ==========================================================================
-   USER COMPONENT UTILITIES
-   ========================================================================== */
+/* User component utilities */
 
 /* User info grid layouts */
 .user-info-grid {
@@ -761,7 +743,7 @@
 
 .skill-rating .rating-display .star-rating-display {
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-sm);
 }
 
 /* User name variants */
@@ -857,7 +839,7 @@
   border: none;
   cursor: pointer;
   width: 100%;
-  min-height: 48px;
+  min-height: var(--button-min-height);
 }
 
 .rate-skill-btn:hover {
@@ -865,9 +847,7 @@
   box-shadow: var(--shadow-hover-light);
 }
 
-/* ==========================================================================
-   SKILL TILE UTILITIES
-   ========================================================================== */
+/* Skill Tile Utilities */
 
 /* Compact skills tiles layout */
 .compact-skills-tiles {
@@ -887,8 +867,8 @@
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  min-width: 200px;
-  max-width: 300px;
+  min-width: var(--skill-tile-min-width);
+  max-width: var(--skill-tile-max-width);
   flex: 1;
   padding: var(--space-sm) var(--space-md);
   text-decoration: none;
@@ -915,7 +895,7 @@
 /* Skill tile icons */
 .compact-skill-tile i {
   font-size: var(--font-size-md);
-  width: 16px;
+  width: var(--icon-size-sm);
   text-align: center;
 }
 
@@ -931,7 +911,7 @@
 .compact-skill-title {
     font-size: 0.95rem;
     font-weight: 600;
-    margin-bottom: 4px;
+    margin-bottom: var(--space-2xs);
     color: var(--color-text-primary);
 }
 
@@ -939,9 +919,7 @@
     color: var(--color-primary);
 }
 
-/* ===================================================
-   CONTENT UTILITIES
-   =================================================== */
+/* Content Utilities */
 
 /* Description content component */
 .description-content {
@@ -949,7 +927,7 @@
     font-size: 1.1rem;
     line-height: 1.7;
     background: var(--color-background-muted);
-    padding: 20px;
+    padding: var(--space-lg);
     border-radius: var(--radius-md);
     border-left: 4px solid var(--color-secondary);
 }
@@ -958,10 +936,10 @@
 .user-content h3 {
     color: var(--color-text-primary);
     font-size: 1.3rem;
-    margin-bottom: 15px;
+    margin-bottom: var(--space-md);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: var(--space-xs);
 }
 
 .user-content h3 i {
@@ -973,25 +951,23 @@
     color: var(--color-text-primary);
     font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 30px;
+    margin-bottom: var(--space-2xl);
     line-height: 1.2;
-    padding-bottom: 10px;
+    padding-bottom: var(--space-xs);
 }
 
-/* ===================================================
-   RATING UTILITIES
-   =================================================== */
+/* Rating Utilities */
 
 /* Star rating display system */
 .star-rating-display {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: var(--space-sm-plus);
 }
 
 .star-rating-display .stars {
     display: flex;
-    gap: 2px;
+    gap: var(--space-2xs);
 }
 
 .star-rating-display .stars i {
@@ -1006,7 +982,7 @@
 .star-rating-display .rating-info {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--space-sm);
 }
 
 .star-rating-display .rating-value {
@@ -1020,16 +996,14 @@
     color: var(--color-text-secondary);
 }
 
-/* ===================================================
-   SKILL COMPONENTS
-   =================================================== */
+/* Skill Component Utilities */
 
 /* Skill footer component */
 .skill-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 15px;
+    gap: var(--space-md);
     margin-bottom: var(--space-sm);
     padding-top: var(--space-md);
     border-top: 1px solid var(--color-border-muted);
@@ -1052,7 +1026,7 @@
 .rating-text {
     color: var(--color-text-secondary);
     font-size: 0.9rem;
-    margin: 10px 0;
+    margin: var(--space-xs) 0;
     transition: var(--transition-all);
 }
 
@@ -1065,7 +1039,7 @@
 }
 
 .rating-text.min-height {
-    min-height: 20px;
+    min-height: var(--space-lg);
 }
 
 /* User skills section component */
@@ -1073,8 +1047,8 @@
     background: var(--color-background-glass);
     backdrop-filter: var(--glass-backdrop-filter);
     border-radius: var(--radius-xl);
-    padding: 30px;
-    margin-bottom: 30px;
+    padding: var(--space-2xl);
+    margin-bottom: var(--space-2xl);
     box-shadow: var(--shadow-light);
 }
 
@@ -1083,7 +1057,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: var(--space-xl);
 }
 
 .skills-header h3 {
@@ -1098,9 +1072,7 @@
     color: var(--color-primary);
 }
 
-/* ===================================================
-   USER CARD COMPONENTS
-   =================================================== */
+/* User Card Components*/
 
 /* Profile picture components */
 .profile-pic,
@@ -1126,7 +1098,7 @@
     color: var(--color-text-primary);
     font-size: 1.2rem;
     font-weight: var(--font-weight-medium);
-    margin: 0 0 5px 0;
+    margin: 0 0 var(--space-2xs) 0;
 }
 
 /* User rating display */
@@ -1152,7 +1124,7 @@
     color: var(--color-text-primary);
     font-size: 0.9rem;
     font-weight: var(--font-weight-semibold);
-    margin: 0 0 8px 0;
+    margin: 0 0 var(--space-sm) 0;
 }
 
 .skills-list {
@@ -1163,7 +1135,7 @@
 
 /* Skill tag components */
 .skill-tag {
-    padding: 4px 10px;
+    padding: var(--space-2xs) var(--space-xs);
     border-radius: var(--radius-md);
     font-size: 0.8rem;
     font-weight: var(--font-weight-medium);
@@ -1191,7 +1163,7 @@
 .remote-tag {
     background: var(--color-success-bg);
     color: var(--color-success);
-    padding: 4px 8px;
+    padding: var(--space-2xs) var(--space-sm);
     border-radius: var(--radius-sm);
     font-size: 0.75rem;
     font-weight: var(--font-weight-medium);
@@ -1211,7 +1183,7 @@
 
 /* Profile link component */
 .profile-link {
-    padding: 8px 15px;
+    padding: var(--space-sm) var(--space-md);
     border-radius: var(--radius-md);
     text-decoration: none;
     font-size: 0.9rem;
@@ -1242,9 +1214,7 @@
   white-space: nowrap;
 }
 
-/* ==========================================================================
-   FORM UTILITIES
-   ========================================================================== */
+/* Form Utilities */
 
 .form-field {
   width: 100%;
@@ -1322,10 +1292,6 @@
   align-items: center;
   gap: var(--space-sm);
 }
-
-/* ==========================================================================
-   PHASE 3.2: COMPONENT-SPECIFIC MIXINS/PATTERNS
-   ========================================================================== */
 
 /* Card hover effect patterns */
 .card-hover-lift {
@@ -1538,9 +1504,7 @@
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
 }
 
-/* ==========================================================================
-   BORDER RADIUS UTILITIES
-   ========================================================================== */
+/* Border Radius Utilities */
 
 .rounded-sm { border-radius: var(--radius-sm); }
 .rounded-md { border-radius: var(--radius-md); }
@@ -1548,26 +1512,20 @@
 .rounded-xl { border-radius: var(--radius-xl); }
 .rounded-full { border-radius: 9999px; }
 
-/* ==========================================================================
-   SHADOW UTILITIES
-   ========================================================================== */
+/* Shadow Utilities */
 
 .shadow-none { box-shadow: none; }
 .shadow-light { box-shadow: var(--shadow-light); }
 .shadow-medium { box-shadow: var(--shadow-medium); }
 .shadow-strong { box-shadow: var(--shadow-strong); }
 
-/* ==========================================================================
-   VISIBILITY UTILITIES
-   ========================================================================== */
+/* Visibility Utilities */
 
 .hidden { display: none; }
 .visible { visibility: visible; }
 .invisible { visibility: hidden; }
 
-/* ==========================================================================
-   TYPOGRAPHY & TEXT UTILITIES
-   ========================================================================== */
+/* Typography Utilities */
 
 .user-name {
   font-weight: var(--font-weight-medium);
@@ -1579,9 +1537,7 @@
   line-height: var(--line-height-relaxed);
 }
 
-/* ==========================================================================
-   ANIMATION & INTERACTION UTILITIES
-   ========================================================================== */
+/* Animation Utilities */
 
 .hover-lift {
   transition: all var(--transition-normal), transform var(--transition-normal);
@@ -1607,9 +1563,7 @@
   }
 }
 
-/* ==========================================================================
-   COMPONENT UTILITIES
-   ========================================================================== */
+/* Card Components */
 
 .user-card {
   background: var(--color-background-glass);
@@ -1631,7 +1585,7 @@
 
 .skill-tag {
   background: var(--color-secondary);
-  color: white;
+  color: var(--color-text-white);
   padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-md);
   font-size: var(--font-size-sm);
@@ -1653,9 +1607,7 @@
   border: 2px solid var(--color-border-light);
 }
 
-/* ==========================================================================
-   RESPONSIVE UTILITIES
-   ========================================================================== */
+/* Responsive Utilities */
 
 @media (max-width: 768px) {
   .container {
