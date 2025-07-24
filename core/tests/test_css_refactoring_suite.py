@@ -809,6 +809,76 @@ class CSSRefactoringTestSuite:
                 "✅ messaging-pages.css uses CSS variables consistently"
             )
 
+    def test_profile_pages_css_hardcoded_values(self):
+        """Test that profile-pages.css has no hardcoded values that should be variables"""
+        profile_pages_content = self.read_file_content(self.css_files["profile_pages"])
+
+        if not profile_pages_content:
+            self.test_results.append("❌ profile-pages.css file not found or empty")
+            return
+
+        # Specific hardcoded values that should be replaced in profile-pages.css
+        hardcoded_checks = [
+            ("#667eea", "var(--color-secondary)", "Primary brand color"),
+            ("#333", "var(--color-text-dark)", "Dark text color"),
+            ("#999", "var(--color-text-light)", "Light text color"),
+            ("#666", "var(--color-text-secondary)", "Secondary text color"),
+            ("#555", "var(--color-text-secondary)", "Secondary text color"),
+            ("#dee2e6", "var(--color-border-muted)", "Border color"),
+            ("#e9ecef", "var(--color-border-muted)", "Border color"),
+            (
+                "rgba(255, 255, 255, 0.95)",
+                "var(--color-background-glass)",
+                "Glassmorphism background",
+            ),
+            (
+                "backdrop-filter: blur(10px)",
+                "var(--glass-backdrop-filter)",
+                "Glassmorphism blur",
+            ),
+            ("padding: 40px", "var(--space-5xl)", "Extra large padding"),
+            ("padding: 30px", "var(--space-4xl)", "Large padding"),
+            ("padding: 25px", "var(--space-xl)", "Medium-large padding"),
+            ("padding: 20px", "var(--space-lg)", "Default padding"),
+            ("padding: 15px", "var(--space-md)", "Medium padding"),
+            ("padding: 12px", "var(--space-md)", "Medium padding"),
+            ("padding: 10px", "var(--space-sm)", "Small padding"),
+            ("margin-bottom: 30px", "var(--space-4xl)", "Large spacing"),
+            ("margin-bottom: 25px", "var(--space-xl)", "Medium-large spacing"),
+            ("margin-bottom: 20px", "var(--space-lg)", "Default spacing"),
+            ("margin-bottom: 15px", "var(--space-md)", "Medium spacing"),
+            ("margin-bottom: 10px", "var(--space-sm)", "Small spacing"),
+            ("gap: 20px", "var(--space-lg)", "Grid gap"),
+            ("gap: 15px", "var(--space-md)", "Grid gap"),
+            ("gap: 10px", "var(--space-sm)", "Small gap"),
+            ("gap: 8px", "var(--space-sm)", "Small gap"),
+            ("gap: 5px", "var(--space-xs)", "Extra small gap"),
+            ("font-size: 18px", "var(--font-size-lg)", "Large font size"),
+            ("font-size: 1.2rem", "var(--font-size-xl)", "Extra large font size"),
+            ("font-size: 1.1rem", "var(--font-size-lg)", "Large font size"),
+            ("font-size: 0.9rem", "var(--font-size-sm)", "Small font size"),
+            ("font-size: 0.8rem", "var(--font-size-xs)", "Extra small font size"),
+        ]
+
+        found_issues = []
+        for hardcoded, replacement, description in hardcoded_checks:
+            if hardcoded in profile_pages_content:
+                found_issues.append(f"{description}: {hardcoded} → {replacement}")
+
+        if found_issues:
+            self.test_results.append(
+                f"❌ profile-pages.css needs refactoring: {len(found_issues)} hardcoded values found"
+            )
+            # Add detailed output for debugging
+            for issue in found_issues[:5]:  # Show first 5 issues
+                print(f"   • {issue}")
+            if len(found_issues) > 5:
+                print(f"   • ... and {len(found_issues) - 5} more issues")
+        else:
+            self.test_results.append(
+                "✅ profile-pages.css uses CSS variables consistently"
+            )
+
     # ============================================================================
     # TEST RUNNER
     # ============================================================================
@@ -842,6 +912,8 @@ class CSSRefactoringTestSuite:
             self.test_home_pages_css_variable_usage,
             # Messaging Pages Specific Tests
             self.test_messaging_pages_css_hardcoded_values,
+            # Profile Pages Specific Tests
+            self.test_profile_pages_css_hardcoded_values,
         ]
 
         for test_method in test_methods:
