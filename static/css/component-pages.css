@@ -3,28 +3,28 @@
 
 /* Rating Form Styles */
 .rating-form-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: var(--color-background-glass);
+    backdrop-filter: var(--glass-backdrop-filter);
+    border-radius: var(--radius-xl);
+    padding: var(--space-4xl);
+    box-shadow: var(--shadow-glass-card);
+    border: 1px solid var(--color-border-light);
     max-width: 600px;
-    margin: 0 auto 60px auto;
+    margin: 0 auto var(--space-6xl) auto;
 }
 
 .rating-form-card .form-header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: var(--space-xxl);
 }
 
 .rating-form-card .form-header h2 {
-    color: #333;
-    margin-bottom: 15px;
+    color: var(--color-text-dark);
+    margin-bottom: var(--space-md);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: var(--space-sm);
 }
 
 .rating-form-card .form-header h2 i {
@@ -32,20 +32,20 @@
 }
 
 .skill-info h3 {
-    color: #333;
-    margin: 0 0 5px 0;
-    font-size: 1.3rem;
+    color: var(--color-text-dark);
+    margin: 0 0 var(--space-xs) 0;
+    font-size: var(--font-size-2xl);
 }
 
 .skill-info p {
-    color: var(--color-text-light);
+    color: var(--color-text-muted);
     margin: 0;
 }
 
 .rating-form {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: var(--space-xl);
 }
 
 .rating-section {
@@ -54,17 +54,17 @@
 
 .rating-label {
     display: block;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-dark);
+    margin-bottom: var(--space-md);
+    font-size: var(--font-size-lg);
 }
 
 .star-rating-input {
     display: flex;
     justify-content: center;
-    gap: 5px;
-    margin-bottom: 10px;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-sm);
 }
 
 .star-input {
@@ -74,8 +74,8 @@
 .star-label {
     cursor: pointer;
     font-size: 2.5rem;
-    color: #dee2e6;
-    transition: all 0.3s ease;
+    color: var(--color-border-muted);
+    transition: var(--transition-all);
     transform: scale(1);
 }
 
@@ -84,49 +84,49 @@
 }
 
 .rating-form .form-control {
-    padding: 12px 15px;
-    border: 2px solid #e9ecef;
-    border-radius: 10px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.9);
+    padding: var(--form-field-padding);
+    border: var(--form-field-border-width) solid var(--color-border-muted);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-md);
+    transition: var(--transition-colors);
+    background: var(--color-background-glass-light);
     resize: vertical;
     min-height: 100px;
 }
 
 .rating-form .form-control:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: var(--color-border-focus);
+    box-shadow: var(--shadow-focus);
 }
 
 /* Rating-specific button styles */
 .rating-form .btn-primary {
-    background: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%);
-    color: white;
+    background: var(--color-warning);
+    color: var(--color-text-white);
 }
 
 .existing-rating-notice {
-    background: rgba(102, 126, 234, 0.1);
-    border: 1px solid rgba(102, 126, 234, 0.2);
-    border-radius: 15px;
-    padding: 15px;
-    margin-top: 20px;
-    color: #667eea;
-    font-size: 0.9rem;
+    background: var(--color-secondary-light);
+    border: 1px solid var(--color-secondary-medium);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin-top: var(--space-xl);
+    color: var(--color-border-focus);
+    font-size: var(--font-size-sm);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: var(--space-sm);
 }
 
 .existing-rating-notice i {
-    color: #667eea;
+    color: var(--color-border-focus);
 }
 
 /* Mobile Responsive for Rating */
 @media (max-width: 768px) {
     .rating-form-card {
-        padding: 25px;
+        padding: var(--space-xl);
     }
 
     .star-label {
