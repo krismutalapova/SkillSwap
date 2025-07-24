@@ -42,7 +42,7 @@ body {
     background: var(--color-background-glass-strong);
     backdrop-filter: var(--glass-backdrop-filter);
     border-bottom: var(--glass-border);
-    box-shadow: var(--shadow-medium);
+    box-shadow: var(--shadow-card);
     padding: var(--header-padding);
 }
 
@@ -101,16 +101,12 @@ body {
     display: inline;
 }
 
-/* Header buttons now use utility classes from utilities.css */
-
-/* Profile buttons now use utility classes from utilities.css */
-
 /* Footer styles */
 .footer {
     background: var(--color-background-glass-strong);
     backdrop-filter: var(--glass-backdrop-filter);
     border-top: var(--glass-border);
-    box-shadow: 0 -2px var(--shadow-blur-large) var(--shadow-light);
+    box-shadow: 0 -2px var(--shadow-blur-large) var(--shadow-footer);
     padding: var(--footer-padding);
     margin-top: auto;
 }
@@ -176,7 +172,7 @@ body {
 .footer-info {
     color: var(--color-text-muted);
     font-size: var(--font-size-base);
-    border-top: 1px solid var(--color-border-divider);
+    border-top: var(--form-field-border-width) solid var(--color-border-divider);
     padding-top: var(--space-lg);
     margin-top: var(--space-lg);
 }
@@ -197,7 +193,7 @@ body {
     .logo-icon {
         width: var(--logo-icon-size-small);
         height: var(--logo-icon-size-small);
-        margin-right: 6px;
+        margin-right: var(--space-xs);
     }
     
     .nav-items {
@@ -215,7 +211,7 @@ body {
     }
     
     .nav-link i {
-        margin-right: 3px !important;
+        margin-right: var(--space-2xs) !important;
     }
     
     .btn-primary,
@@ -243,7 +239,7 @@ body {
     }
     
     .footer-link {
-        padding: 3px var(--space-sm);
+        padding: var(--space-2xs) var(--space-sm);
         font-size: var(--font-size-base);
     }
 }
@@ -261,7 +257,7 @@ body {
     
     .nav-items {
         justify-content: center;
-        gap: 6px;
+        gap: var(--space-xs);
     }
     
     .nav-link,
