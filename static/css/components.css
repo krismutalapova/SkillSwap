@@ -56,7 +56,7 @@
 .filter-group select:focus {
     outline: none;
     border-color: var(--color-border-focus);
-    box-shadow: 0 0 0 3px var(--color-secondary-light);
+    box-shadow: var(--shadow-focus);
 }
 
 /* Details and Meta Components */
@@ -66,7 +66,7 @@
 
 .meta-info {
     background: var(--color-border-muted);
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     padding: var(--space-md);
 }
 
@@ -199,10 +199,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 15px;
-    border-top: 1px solid var(--color-border-muted);
-    color: var(--color-text-light);
-    font-size: 0.9rem;
+    padding-top: var(--space-md);
+    border-top: var(--form-field-border-width) solid var(--color-border-muted);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
     min-height: 2.5rem;
     flex-shrink: 0;
     margin-top: auto;
@@ -211,13 +211,13 @@
 .skill-card-user-name {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--space-sm);
     color: var(--color-text-primary);
     font-weight: var(--font-weight-medium);
 }
 
 .skill-card-user-name i {
-    margin-right: 5px;
+    margin-right: var(--space-xs);
     color: var(--color-secondary);
 }
 
@@ -247,7 +247,7 @@
 }
 
 .results-summary {
-    margin-bottom: 20px;
+    margin-bottom: var(--space-xl);
     text-align: center;
 }
 
@@ -283,15 +283,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: var(--space-4xl);
+    height: var(--space-4xl);
     border-radius: var(--radius-sm);
     background: var(--color-background-glass);
     color: var(--color-primary);
     text-decoration: none;
-    border: 1px solid var(--color-primary-border);
+    border: var(--form-field-border-width) solid var(--color-primary-border);
     transition: var(--transition-all);
-    font-size: 14px;
+    font-size: var(--font-size-sm);
 }
 
 .pagination-link:hover {
@@ -312,23 +312,23 @@
 
 .pagination-results-info {
     color: var(--color-text-white);
-    font-size: 0.9rem;
+    font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     text-align: center;
-    background: rgba(0, 0, 0, 0.3);
+    background: var(--color-overlay-dark);
     backdrop-filter: var(--glass-backdrop-filter);
     padding: var(--space-sm) var(--space-md);
     border-radius: var(--radius-xl);
     display: inline-block;
     box-shadow: var(--shadow-strong);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: var(--form-field-border-width) solid var(--color-border-light);
 }
 
 /* Active Filters Section */
 .active-filters {
     margin-top: var(--space-lg);
     padding-top: var(--space-lg);
-    border-top: 1px solid var(--color-border-default);
+    border-top: var(--form-field-border-width) solid var(--color-border-default);
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -346,9 +346,9 @@
     color: var(--color-primary);
     padding: var(--space-xs) var(--space-sm);
     border-radius: var(--radius-lg);
-    font-size: 0.85rem;
+    font-size: var(--font-size-xs);
     font-weight: var(--font-weight-medium);
-    border: 1px solid var(--color-primary-border);
+    border: var(--form-field-border-width) solid var(--color-primary-border);
 }
 
 .clear-filters {
@@ -356,10 +356,10 @@
     color: var(--color-danger);
     padding: var(--space-xs) var(--space-sm);
     border-radius: var(--radius-lg);
-    font-size: 0.85rem;
+    font-size: var(--font-size-xs);
     font-weight: var(--font-weight-medium);
     text-decoration: none;
-    border: 1px solid var(--color-danger-border);
+    border: var(--form-field-border-width) solid var(--color-danger-border);
     transition: var(--transition-all);
     display: flex;
     align-items: center;
@@ -421,12 +421,12 @@
 
 /* Search Section Components (Home Page) */
 .search-section-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: var(--color-background-glass);
+    backdrop-filter: var(--glass-backdrop-filter);
     padding: var(--space-4xl);
     border-radius: var(--radius-lg);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-glass-card);
+    border: var(--glass-border);
     margin-bottom: var(--space-4xl);
 }
 
@@ -440,15 +440,15 @@
 }
 
 .search-header h3 {
-    margin: 0 0 15px 0;
-    color: #333;
-    font-size: 1.8em;
-    font-weight: 700;
+    margin: 0 0 var(--space-md) 0;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
 }
 
 .search-header h3 i {
-    margin-right: 10px;
-    color: #667eea;
+    margin-right: var(--space-xs);
+    color: var(--color-primary);
 }
 
 .search-header p {
@@ -472,8 +472,8 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
+    background-color: var(--color-overlay-modal);
+    backdrop-filter: var(--glass-backdrop-filter-light);
 }
 
 .modal.show {
@@ -489,7 +489,7 @@
     padding: var(--space-xl);
     border-radius: var(--radius-card);
     width: 90%;
-    max-width: 650px;
+    max-width: var(--modal-max-width);
     position: relative;
     box-shadow: var(--shadow-card);
     border: var(--glass-border);
@@ -501,7 +501,7 @@
     align-items: center;
     margin-bottom: var(--space-lg);
     padding-bottom: var(--space-md);
-    border-bottom: 2px solid var(--color-background-muted);
+    border-bottom: var(--form-field-border-width-thick) solid var(--color-background-muted);
 }
 
 .modal-header h3 {
@@ -511,8 +511,8 @@
 
 .modal-close {
     color: var(--color-text-muted);
-    font-size: 28px;
-    font-weight: bold;
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
     cursor: pointer;
     transition: var(--transition-color);
     line-height: 1;
@@ -581,21 +581,21 @@
     }
     
     .pagination-link {
-        width: 36px;
-        height: 36px;
-        font-size: 12px;
+        width: var(--space-5xl);
+        height: var(--space-5xl);
+        font-size: var(--font-size-xs);
     }
     
     .pagination-info {
         order: -1;
         margin-bottom: var(--space-sm);
         padding: 0 var(--space-sm);
-        font-size: 0.9rem;
-        background: rgba(255, 255, 255, 0.9);
+        font-size: var(--font-size-sm);
+        background: var(--color-background-glass);
         padding: var(--space-sm) var(--space-md);
         border-radius: var(--radius-xl);
-        color: #333;
-        font-weight: 600;
+        color: var(--color-text-primary);
+        font-weight: var(--font-weight-semibold);
     }
     
     .pagination-results-info {
@@ -617,9 +617,9 @@
     }
     
     .pagination-link {
-        width: 32px;
-        height: 32px;
-        font-size: 11px;
+        width: var(--space-4xl);
+        height: var(--space-4xl);
+        font-size: var(--font-size-2xs);
     }
     
     .pagination-info {
