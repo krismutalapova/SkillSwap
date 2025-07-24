@@ -379,6 +379,7 @@
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: var(--space-xl);
     margin-bottom: var(--space-4xl);
+    align-items: stretch;
 }
 
 .no-results {
