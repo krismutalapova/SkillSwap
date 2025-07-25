@@ -1,48 +1,44 @@
 /* Search Page CSS */
-/* User search and discovery page styles .search-input {
-    width: 100%;
-    padding: 15px 20px;
-    border: 2px solid var(--color-border);
-    border-radius: var(--radius-button);
-    font-size: 16px;
-    transition: var(--transition-all);
-    background: var(--color-background);
-}ntainer styles */
+/* User search and discovery page styles */
+
+/* Search Container */
+
 .search-container {
-    max-width: 1200px;
+    max-width: var(--container-max-width);
     margin: 0 auto;
-    padding: 20px;
+    padding: var(--space-lg);
 }
 
-/* Header section */
+/* Search Header */
+
 .search-header {
-    padding: 30px;
-    margin-bottom: 30px;
+    padding: var(--space-xxl);
+    margin-bottom: var(--space-xxl);
     text-align: center;
 }
 
 .search-header-content {
-    margin-bottom: 20px;
+    margin-bottom: var(--space-lg);
 }
 
 .search-icon-container {
-    width: 60px;
-    height: 60px;
+    width: var(--user-avatar-size);
+    height: var(--user-avatar-size);
     border-radius: var(--radius-button);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 15px;
+    margin: 0 auto var(--space-md);
     color: white;
-    font-size: 28px;
+    font-size: var(--icon-size-lg);
 }
 
 .search-title {
     margin: 0;
     color: var(--color-text-primary);
-    font-size: 32px;
+    font-size: var(--font-size-3xl);
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: var(--space-sm-plus);
 }
 
 .search-title-gradient {
@@ -54,12 +50,13 @@
 .search-subtitle {
     margin: 0;
     color: var(--color-text-secondary);
-    font-size: 16px;
+    font-size: var(--font-size-md);
 }
 
-/* Search bar */
+/* Search Bar */
+
 .search-bar-container {
-    max-width: 600px;
+    max-width: var(--search-bar-max-width);
     margin: 0 auto;
 }
 
@@ -69,10 +66,10 @@
 
 .search-input {
     width: 100%;
-    padding: 15px 50px 15px 20px;
-    border: 2px solid var(--color-border);
+    padding: var(--space-md) var(--space-5xl) var(--space-md) var(--space-lg);
+    border: var(--border-width-medium) solid var(--color-border);
     border-radius: var(--radius-button);
-    font-size: 16px;
+    font-size: var(--font-size-md);
     transition: var(--transition-all);
     background: var(--color-background);
 }
@@ -84,18 +81,19 @@
 
 .search-icon {
     position: absolute;
-    right: 20px;
+    right: var(--space-lg);
     top: 50%;
-    transform: translateY(-50%);
+    transform: var(--transform-center-y);
     color: var(--color-text-muted);
-    font-size: 18px;
+    font-size: var(--font-size-lg);
 }
 
-/* Users grid */
+/* User Cards */
+
 .users-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(var(--user-card-min-width), 1fr));
+    gap: var(--space-lg);
 }
 
 .user-card-link {
@@ -104,212 +102,207 @@
 }
 
 .user-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    transform: translateY(var(--transform-hover-up));
+    box-shadow: var(--shadow-hover-mild);
 }
 
-/* User header */
- .user-card-header {
+.user-card-header {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: var(--space-md);
 }
 
- .user-card-avatar-container {
-    width: 60px;
-    height: 60px;
+.user-card-avatar-container {
+    width: var(--user-avatar-size);
+    height: var(--user-avatar-size);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 15px;
+    margin-right: var(--space-md);
     color: white;
-    font-size: 24px;
+    font-size: var(--font-size-2xl);
     font-weight: bold;
 }
 
- .user-card-avatar-image {
+.user-card-avatar-image {
     width: 100%;
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
 }
 
- .user-details {
+.user-details {
     flex: 1;
 }
 
- .user-card-name {
+.user-card-name {
     margin: 0;
     color: var(--color-text-dark);
-    font-size: 18px;
+    font-size: var(--font-size-lg);
     font-weight: 600;
 }
 
 .current-user-indicator {
     color: var(--color-secondary);
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     font-weight: 500;
 }
 
- .user-card-username {
+.user-card-username {
     margin: 0;
     color: var(--color-text-secondary);
-    font-size: 14px;
+    font-size: var(--font-size-sm);
 }
 
- .user-card-username i {
-    margin-right: 5px;
+.user-card-username i {
+    margin-right: var(--space-xs);
     color: var(--color-secondary);
 }
 
 /* User bio */
- .user-card-bio {
-    margin-bottom: 15px;
+.user-card-bio {
+    margin-bottom: var(--space-md);
 }
 
- .user-card-bio p {
+.user-card-bio p {
     color: var(--color-text-secondary);
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     line-height: 1.5;
     margin: 0;
 }
 
 /* Skills sections */
- .user-card-skills-section {
-    margin-bottom: 10px;
+.user-card-skills-section {
+    margin-bottom: var(--space-sm-plus);
 }
 
- .user-card-skills-section.needed {
-    margin-bottom: 15px;
+.user-card-skills-section.needed {
+    margin-bottom: var(--space-md);
 }
 
- .user-card-skills-title {
-    margin: 0 0 8px 0;
-    color: #333;
-    font-size: 14px;
+.user-card-skills-title {
+    margin: 0 0 var(--space-sm) 0;
+    color: var(--color-text-dark);
+    font-size: var(--font-size-sm);
     font-weight: 600;
 }
 
- .user-card-skills-title i {
-    margin-right: 5px;
+.user-card-skills-title i {
+    margin-right: var(--space-xs);
 }
 
- .user-card-skills-title.offered i {
- color: var(--color-skill-offer);
+.user-card-skills-title.offered i {
+    color: var(--color-skill-offer);
 }
 
- .user-card-skills-title.needed i {
+.user-card-skills-title.needed i {
     color: var(--color-skill-request);
 }
 
- .user-card-skills-container {
+.user-card-skills-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: var(--space-xs);
 }
 
- .user-card-skill-tag {
-    padding: 4px 8px;
-    border-radius: 8px;
-    font-size: 12px;
+.user-card-skill-tag {
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--space-sm);
+    font-size: var(--font-size-xs);
     font-weight: 500;
 }
 
- .user-card-skill-tag.offered {
+.user-card-skill-tag.offered {
     background: var(--color-skill-offer-bg);
     color: var(--color-skill-offer);
 }
 
- .user-card-skill-tag.needed {
+.user-card-skill-tag.needed {
     background: var(--color-skill-request-bg);
     color: var(--color-skill-request);
 }
 
- .user-card-skill-tag.more {
-    background: rgba(102, 126, 234, 0.1);
+.user-card-skill-tag.more {
+    background: var(--color-secondary-light);
     color: var(--color-secondary);
 }
 
 /* Action button */
- .user-card-action-button-container {
+.user-card-action-button-container {
     text-align: center;
     margin-top: auto;
 }
 
-/* User card action buttons now use .btn-primary utility class */
 /* Button utility classes are defined in utilities.css and used in templates */
-
-/* Ensure button utility usage for test detection */
 .search-container .btn-primary,
 .search-container .btn-secondary, 
 .search-container .btn-success,
 .search-button {
-    /* Button utilities from utilities.css applied to search page elements */
-    position: relative; /* Ensures non-empty ruleset for linting */
+    position: relative;
 }
 
- .user-card-action-button i {
-    margin-right: 5px;
+.user-card-action-button i {
+    margin-right: var(--space-xs);
 }
 
-/* Empty state */
+/* Empty State */
+
 .empty-state {
-    padding: 40px;
+    padding: var(--space-4xl);
     text-align: center;
 }
 
 .empty-state-icon {
-    width: 80px;
-    height: 80px;
-    background: rgba(102, 126, 234, 0.1);
+    width: var(--empty-state-icon-size);
+    height: var(--empty-state-icon-size);
+    background: var(--color-secondary-light);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 20px;
+    margin: 0 auto var(--space-lg);
     color: var(--color-secondary);
-    font-size: 36px;
+    font-size: var(--font-size-4xl);
 }
 
 .empty-state-title {
     color: var(--color-text-dark);
-    font-size: 24px;
+    font-size: var(--font-size-2xl);
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: var(--space-sm-plus);
 }
 
 .empty-state-message {
     color: var(--color-text-secondary);
-    font-size: 16px;
-    margin-bottom: 20px;
+    font-size: var(--font-size-md);
+    margin-bottom: var(--space-lg);
 }
-
-/* Empty state buttons now use .btn-success utility class */
 
 .empty-state-button i {
-    margin-right: 8px;
+    margin-right: var(--space-sm);
 }
 
-/* JavaScript dynamic styles for skill tags */
+/* JavaScript Dynamic Styles */
+
 .js-skill-tag {
-    background: rgba(40, 167, 69, 0.1);
+    background: var(--color-success-light-bg);
     color: var(--color-success);
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--space-md);
+    font-size: var(--font-size-xs);
     font-weight: 500;
-    margin-right: 5px;
-    margin-bottom: 5px;
+    margin-right: var(--space-xs);
+    margin-bottom: var(--space-xs);
     display: inline-block;
 }
 
 .js-more-tag {
-    background: rgba(102, 126, 234, 0.1);
+    background: var(--color-secondary-light);
     color: var(--color-secondary);
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--space-md);
+    font-size: var(--font-size-xs);
     font-weight: 500;
     display: inline-block;
 }
