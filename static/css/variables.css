@@ -154,8 +154,12 @@
   --icon-size: 20px;
   --icon-size-4xl: 80px;
 
+  /* Profile specific dimensions */
+  --profile-pic-size: 120px;
+  --profile-card-min-width: 280px;
+
   
-/* Border Radius */
+  /* Border Radius */
   --radius-xs: 4px;
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -174,7 +178,11 @@
   --radius-input: var(--radius-sm);
   --radius-logo: var(--radius-sm);
 
-  /* Typography */
+  /* Border Widths */
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-width-thick: 3px;
+  --border-width-default: var(--border-width-thin);  /* Typography */
 
   /* Font Families */
   --font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -265,6 +273,9 @@
   /* Responsive Breakpoints */
 
   --breakpoint-xs: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
 
   /* Component-specific breakpoints */
 
@@ -309,7 +320,6 @@
   --skill-meta-min-height: 2rem;
   --skill-tile-min-width: 200px;
   --skill-tile-max-width: 300px;
-  --profile-pic-size: 60px;
   
   --icon-btn-size: 40px;
   --icon-btn-size-sm: 32px;
