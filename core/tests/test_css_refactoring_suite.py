@@ -1102,6 +1102,324 @@ class CSSRefactoringTestSuite:
             print("   ✅ No major optimization opportunities found")
             self.test_results.append("✅ profile-pages.css is well optimized")
 
+    def test_search_pages_css_hardcoded_values(self):
+        """Test that search-page.css has no hardcoded values that should be variables"""
+        search_pages_content = self.read_file_content(self.css_files["search_page"])
+
+        if not search_pages_content:
+            self.test_results.append("❌ search-page.css file not found or empty")
+            return
+
+        # Specific hardcoded values that should be replaced in search-page.css
+        hardcoded_checks = [
+            ("#333", "var(--color-text-dark)", "Dark text color"),
+            (
+                "rgba(102, 126, 234, 0.1)",
+                "var(--color-secondary-light)",
+                "Secondary light background",
+            ),
+            ("rgba(0,0,0,0.15)", "var(--shadow-hover-mild)", "Hover shadow effect"),
+            (
+                "rgba(40, 167, 69, 0.1)",
+                "var(--color-success-light)",
+                "Success color background",
+            ),
+            ("padding: 20px", "var(--space-lg)", "Standard padding"),
+            ("padding: 15px", "var(--space-md)", "Medium padding"),
+            ("padding: 10px", "var(--space-sm-plus)", "Small-plus padding"),
+            ("margin-bottom: 30px", "var(--space-xxl)", "Large spacing"),
+            ("margin-bottom: 20px", "var(--space-lg)", "Standard spacing"),
+            ("margin-bottom: 15px", "var(--space-md)", "Medium spacing"),
+            ("margin-bottom: 10px", "var(--space-sm-plus)", "Small-plus spacing"),
+            ("gap: 20px", "var(--space-lg)", "Grid gap"),
+            ("gap: 15px", "var(--space-md)", "Medium gap"),
+            ("gap: 5px", "var(--space-xs)", "Small gap"),
+            ("font-size: 32px", "var(--font-size-3xl)", "Large title font"),
+            ("font-size: 18px", "var(--font-size-lg)", "Large font"),
+            ("font-size: 16px", "var(--font-size-md)", "Medium font"),
+            ("font-size: 14px", "var(--font-size-sm)", "Small font"),
+            ("font-size: 12px", "var(--font-size-xs)", "Extra small font"),
+            ("max-width: 1200px", "var(--container-max-width)", "Container max width"),
+            ("max-width: 600px", "var(--search-bar-max-width)", "Search bar max width"),
+            (
+                "minmax(350px, 1fr)",
+                "minmax(var(--user-card-min-width), 1fr)",
+                "User card grid sizing",
+            ),
+        ]
+
+        found_issues = []
+        for hardcoded, replacement, description in hardcoded_checks:
+            if hardcoded in search_pages_content:
+                found_issues.append(f"{description}: {hardcoded} → {replacement}")
+
+        if found_issues:
+            self.test_results.append(
+                f"❌ search-page.css needs refactoring: {len(found_issues)} hardcoded values found"
+            )
+            # Add detailed output for debugging
+            for issue in found_issues[:5]:  # Show first 5 issues
+                print(f"   • {issue}")
+            if len(found_issues) > 5:
+                print(f"   • ... and {len(found_issues) - 5} more issues")
+        else:
+            self.test_results.append(
+                "✅ search-page.css uses CSS variables consistently"
+            )
+
+    def test_search_pages_css_optimization_analysis(self):
+        """Comprehensive analysis of search-page.css optimization opportunities"""
+        search_pages_content = self.read_file_content(self.css_files["search_page"])
+
+        if not search_pages_content:
+            self.test_results.append("❌ search-page.css file not found or empty")
+            return
+
+        print("\n🔍 Search-Page.css Optimization Analysis...")
+
+        # 1. Find remaining hardcoded values
+        hardcoded_patterns = {
+            "colors": re.findall(r"#[0-9a-fA-F]{3,6}", search_pages_content),
+            "px_values": re.findall(r"\b(\d+)px\b", search_pages_content),
+            "rem_values": re.findall(r"\b(\d+\.?\d*)rem\b", search_pages_content),
+            "rgba_values": re.findall(r"rgba?\([^)]+\)", search_pages_content),
+            "percentages": re.findall(r"\b(\d+)%\b", search_pages_content),
+        }
+
+        optimization_opportunities = []
+
+        # Analyze hardcoded pixel values
+        px_values = [int(px) for px in hardcoded_patterns["px_values"]]
+        common_sizes = {}
+        for px in px_values:
+            common_sizes[px] = common_sizes.get(px, 0) + 1
+
+        repeating_sizes = {k: v for k, v in common_sizes.items() if v > 1}
+        if repeating_sizes:
+            optimization_opportunities.append(
+                f"Repeating pixel values (use spacing variables): {list(repeating_sizes.keys())}"
+            )
+
+        # Check for hardcoded grid values that need variables
+        grid_matches = re.findall(r"minmax\((\d+px)", search_pages_content)
+        if grid_matches:
+            optimization_opportunities.append(
+                f"Hardcoded grid minmax values: {grid_matches} (use --user-card-min-width)"
+            )
+
+        # Check for hardcoded max-widths that should be container variables
+        max_width_matches = re.findall(r"max-width:\s*(\d+px)", search_pages_content)
+        if max_width_matches:
+            optimization_opportunities.append(
+                f"Hardcoded max-width values: {max_width_matches} (use container variables)"
+            )
+
+        # Check for user avatar sizes - should be standardized
+        avatar_sizes = re.findall(r"(?:width|height):\s*60px", search_pages_content)
+        if len(avatar_sizes) > 2:
+            optimization_opportunities.append(
+                f"User avatar size (60px) used {len(avatar_sizes)} times - could use --user-avatar-size variable"
+            )
+
+        # Check for empty state icon sizes
+        icon_sizes = re.findall(r"(?:width|height):\s*80px", search_pages_content)
+        if len(icon_sizes) > 1:
+            optimization_opportunities.append(
+                f"Large icon size (80px) used {len(icon_sizes)} times - could use --empty-state-icon-size variable"
+            )
+
+        # Check for transform values that could be variables
+        transform_values = re.findall(r"translateY\(([^)]+)\)", search_pages_content)
+        if transform_values:
+            unique_transforms = list(set(transform_values))
+            if len(unique_transforms) > 1:
+                optimization_opportunities.append(
+                    f"Hardcoded transform values: {unique_transforms} (use transform variables)"
+                )
+
+        # Analyze variable usage vs hardcoded values ratio
+        var_matches = re.findall(r"var\(--[^)]+\)", search_pages_content)
+        hardcoded_values = (
+            len(hardcoded_patterns["px_values"])
+            + len(hardcoded_patterns["colors"])
+            + len(hardcoded_patterns["rem_values"])
+            + len(hardcoded_patterns["rgba_values"])
+        )
+
+        if hardcoded_values > 0:
+            variable_ratio = (
+                len(var_matches) / (len(var_matches) + hardcoded_values) * 100
+            )
+            print(
+                f"   📊 CSS Variable Usage: {variable_ratio:.1f}% ({len(var_matches)} variables vs {hardcoded_values} hardcoded values)"
+            )
+
+        # Check for file structure and organization
+        lines = search_pages_content.split("\n")
+        comment_sections = [
+            line
+            for line in lines
+            if line.strip().startswith("/*")
+            and ("====" in line or "section" in line.lower())
+        ]
+
+        if len(comment_sections) < 4:
+            optimization_opportunities.append(
+                "File lacks proper section organization (needs /* ===== SECTION ===== */ structure)"
+            )
+
+        # Check for duplicate or similar selectors
+        selectors = re.findall(r"^([.#][^{@\s]+)", search_pages_content, re.MULTILINE)
+        selector_counts = {}
+        for selector in selectors:
+            clean_selector = selector.strip()
+            selector_counts[clean_selector] = selector_counts.get(clean_selector, 0) + 1
+
+        duplicate_selectors = {k: v for k, v in selector_counts.items() if v > 1}
+        if duplicate_selectors:
+            optimization_opportunities.append(
+                f"Duplicate selectors need consolidation: {list(duplicate_selectors.keys())[:3]}"
+            )
+
+        # Summary
+        if optimization_opportunities:
+            print(
+                f"   ⚠️  {len(optimization_opportunities)} optimization opportunities found:"
+            )
+            for i, opportunity in enumerate(optimization_opportunities[:5], 1):
+                print(f"   {i}. {opportunity}")
+            if len(optimization_opportunities) > 5:
+                print(f"   ... and {len(optimization_opportunities) - 5} more")
+
+            # Determine priority level based on analysis
+            if hardcoded_values > 50:
+                priority = "CRITICAL"
+            elif hardcoded_values > 30:
+                priority = "HIGH"
+            elif hardcoded_values > 15:
+                priority = "MEDIUM"
+            else:
+                priority = "LOW"
+
+            self.test_results.append(
+                f"⚠️  search-page.css optimization opportunities: {len(optimization_opportunities)} areas ({priority} priority)"
+            )
+        else:
+            print("   ✅ No major optimization opportunities found")
+            self.test_results.append("✅ search-page.css is well optimized")
+
+    def test_search_pages_css_variable_usage(self):
+        """Test that search-page.css uses appropriate CSS variables from the design system"""
+        search_pages_content = self.read_file_content(self.css_files["search_page"])
+
+        if not search_pages_content:
+            self.test_results.append("❌ search-page.css file not found or empty")
+            return
+
+        # Variables that should be used in search-page.css
+        expected_variables = [
+            "--space-lg",  # For 20px spacing
+            "--space-md",  # For 15px spacing
+            "--space-sm-plus",  # For 10px spacing
+            "--space-sm",  # For 8px spacing
+            "--space-xs",  # For 5px spacing
+            "--space-xxl",  # For 30px spacing
+            "--space-4xl",  # For 40px spacing
+            "--color-text-dark",  # For #333 colors
+            "--color-text-secondary",  # For muted text
+            "--color-secondary-light",  # For secondary backgrounds
+            "--font-size-3xl",  # For 32px titles
+            "--font-size-lg",  # For 18px text
+            "--font-size-md",  # For 16px text
+            "--font-size-sm",  # For 14px text
+            "--font-size-xs",  # For 12px text
+            "--radius-button",  # For border radius
+            "--transition-all",  # For transitions
+            "--shadow-hover-mild",  # For hover effects
+        ]
+
+        missing_variables = []
+        for variable in expected_variables:
+            if variable not in search_pages_content:
+                missing_variables.append(variable)
+
+        if missing_variables:
+            self.test_results.append(
+                f"⚠️  search-page.css missing recommended variables: {', '.join(missing_variables)}"
+            )
+        else:
+            self.test_results.append(
+                "✅ search-page.css uses recommended CSS variables"
+            )
+
+    def test_search_pages_css_structure_organization(self):
+        """Test that search-page.css has proper file structure and organization"""
+        search_pages_content = self.read_file_content(self.css_files["search_page"])
+
+        if not search_pages_content:
+            self.test_results.append("❌ search-page.css file not found or empty")
+            return
+
+        structure_issues = []
+
+        # Check for proper section organization
+        expected_sections = [
+            "/* ===== SEARCH CONTAINER =====",
+            "/* ===== SEARCH HEADER =====",
+            "/* ===== SEARCH BAR =====",
+            "/* ===== USER CARDS =====",
+            "/* ===== EMPTY STATE =====",
+        ]
+
+        missing_sections = []
+        for section in expected_sections:
+            if section not in search_pages_content:
+                missing_sections.append(
+                    section.replace("/* ===== ", "").replace(" =====", "")
+                )
+
+        if missing_sections:
+            structure_issues.append(
+                f"Missing section organization: {', '.join(missing_sections)}"
+            )
+
+        # Check for alphabetical organization within selectors
+        lines = search_pages_content.split("\n")
+        css_rules = []
+        current_selector = None
+
+        for line in lines:
+            line = line.strip()
+            if line.endswith("{") and not line.startswith("/*"):
+                current_selector = line.replace(" {", "")
+            elif line.startswith("/*") and "====" in line:
+                current_selector = None  # Reset for new section
+
+        # Check for consistent indentation and formatting
+        indentation_issues = 0
+        for i, line in enumerate(lines, 1):
+            if line.strip() and not line.startswith("/*"):
+                if line.startswith("  ") and not line.startswith("    "):
+                    # Should be 4-space indentation for consistency
+                    pass
+                elif line.startswith("\t"):
+                    indentation_issues += 1
+                    if indentation_issues == 1:  # Only report once
+                        structure_issues.append(
+                            "Inconsistent indentation (tabs vs spaces)"
+                        )
+
+        if not structure_issues:
+            self.test_results.append(
+                "✅ search-page.css has good structure and organization"
+            )
+        else:
+            self.test_results.append(
+                f"⚠️  search-page.css structure improvements needed: {len(structure_issues)} issues"
+            )
+            for issue in structure_issues[:3]:
+                print(f"   {issue}")
+
     def test_variables_css_optimization(self):
         """Test variables.css for duplicates, unused variables, and optimization opportunities"""
         variables_content = self.read_file_content(self.css_files["variables"])
@@ -1383,6 +1701,11 @@ class CSSRefactoringTestSuite:
             # Profile Pages Specific Tests
             self.test_profile_pages_css_hardcoded_values,
             self.test_profile_pages_css_optimization_analysis,
+            # Search Pages Specific Tests
+            self.test_search_pages_css_hardcoded_values,
+            self.test_search_pages_css_optimization_analysis,
+            self.test_search_pages_css_variable_usage,
+            self.test_search_pages_css_structure_organization,
         ]
 
         for test_method in test_methods:
