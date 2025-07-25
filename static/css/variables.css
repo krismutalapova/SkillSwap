@@ -52,6 +52,7 @@
   /* Status Colors */
   --color-success: #2C7744;
   --color-success-light: #76b852;
+  --color-success-light-bg: rgba(40, 167, 69, 0.1);
   --color-success-bg: #d4edda;
   --color-success-border: #c3e6cb;
   --color-success-text: #155724;
@@ -152,11 +153,18 @@
   /* Icon sizes */
   --icon-size-sm: 16px;
   --icon-size: 20px;
+  --icon-size-lg: 28px;
   --icon-size-4xl: 80px;
 
   /* Profile specific dimensions */
   --profile-pic-size: 120px;
   --profile-card-min-width: 280px;
+
+  /* Search page specific dimensions */  
+  --user-card-min-width: 350px;
+  --user-avatar-size: 60px;
+  --empty-state-icon-size: 80px;
+  --search-bar-max-width: var(--container-max-width-small);
 
   
   /* Border Radius */
@@ -247,6 +255,7 @@
   /* Hover transforms */
   --transform-hover-up: translateY(-2px);
   --transform-hover-down: translateY(2px);
+  --transform-center-y: translateY(-50%);
 
   /* Z-Index Scale */
 
