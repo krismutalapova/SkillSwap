@@ -1224,7 +1224,7 @@
   font-size: var(--font-size-md);
   font-family: inherit;
   transition: var(--transition-colors);
-  background: var(--color-background-white);
+  background: var(--color-text-white);
 }
 
 .form-field:focus {
@@ -1341,7 +1341,7 @@
 }
 
 .icon-btn-primary:hover {
-  background: var(--color-primary-start);
+  background: var(--color-primary);
   transform: var(--transform-hover-lift);
   color: var(--color-text-white);
 }

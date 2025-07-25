@@ -155,12 +155,12 @@
     transform: translateX(-50%);
     background: var(--color-background-glass);
     padding: 0 var(--space-md);
-    color: var(--color-text-medium);
+    color: var(--color-text-secondary);
     font-size: var(--font-size-sm);
 }
 
 .auth-links p {
-    color: var(--color-text-medium);
+    color: var(--color-text-secondary);
     margin-bottom: var(--space-md);
 }
 

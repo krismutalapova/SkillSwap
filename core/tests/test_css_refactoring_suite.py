@@ -48,6 +48,10 @@ class CSSRefactoringTestSuite:
             "messaging_pages": self.static_css_dir / "messaging-pages.css",
             "home_pages": self.static_css_dir / "home-pages.css",
             "profile_pages": self.static_css_dir / "profile-pages.css",
+            "auth_pages": self.static_css_dir / "auth-pages.css",
+            "search_page": self.static_css_dir / "search-page.css",
+            "error_pages": self.static_css_dir / "error-pages.css",
+            "component_pages": self.static_css_dir / "component-pages.css",
         }
 
         # Template files to test
@@ -115,6 +119,76 @@ class CSSRefactoringTestSuite:
         else:
             self.test_results.append(
                 f"❌ Missing CSS variables: {', '.join(missing_vars[:3])}{'...' if len(missing_vars) > 3 else ''}"
+            )
+
+    def test_undefined_css_variables(self):
+        """Test that all CSS variables used in files are defined in variables.css"""
+        variables_content = self.read_file_content(self.css_files["variables"])
+
+        if not variables_content:
+            self.test_results.append(
+                "❌ variables.css file not found - cannot validate variable usage"
+            )
+            return
+
+        # Extract all defined variables from variables.css
+        defined_variables = set()
+        variable_pattern = r"--[\w-]+(?=\s*:)"
+        for match in re.finditer(variable_pattern, variables_content):
+            defined_variables.add(match.group().strip())
+
+        # Check each CSS file for undefined variables
+        undefined_variables = {}
+        css_files_to_check = [
+            "base",
+            "components",
+            "utilities",
+            "home_pages",
+            "profile_pages",
+            "messaging_pages",
+            "skill_pages",
+            "auth_pages",
+            "search_page",
+            "error_pages",
+        ]
+
+        for file_key in css_files_to_check:
+            if file_key not in self.css_files:
+                continue
+
+            file_path = self.css_files[file_key]
+            if not file_path.exists():
+                continue
+
+            file_content = self.read_file_content(file_path)
+            if not file_content:
+                continue
+
+            # Find all var() usage in the file
+            used_variables = set()
+            var_usage_pattern = r"var\(\s*(--[\w-]+)\s*(?:,.*?)?\)"
+            for match in re.finditer(var_usage_pattern, file_content):
+                used_variables.add(match.group(1).strip())
+
+            # Check for undefined variables
+            file_undefined = used_variables - defined_variables
+            if file_undefined:
+                undefined_variables[file_key] = sorted(file_undefined)
+
+        if undefined_variables:
+            total_undefined = sum(len(vars) for vars in undefined_variables.values())
+            self.test_results.append(
+                f"❌ {total_undefined} undefined CSS variables found across {len(undefined_variables)} files"
+            )
+
+            # Show details for debugging
+            for file_key, vars_list in undefined_variables.items():
+                print(f"   📁 {file_key}: {', '.join(vars_list[:3])}")
+                if len(vars_list) > 3:
+                    print(f"      ... and {len(vars_list) - 3} more")
+        else:
+            self.test_results.append(
+                "✅ All CSS variables are properly defined in variables.css"
             )
 
     def test_utility_classes_available(self):
@@ -879,6 +953,248 @@ class CSSRefactoringTestSuite:
                 "✅ profile-pages.css uses CSS variables consistently"
             )
 
+    def test_variables_css_optimization(self):
+        """Test variables.css for duplicates, unused variables, and optimization opportunities"""
+        variables_content = self.read_file_content(self.css_files["variables"])
+
+        if not variables_content:
+            self.test_results.append(
+                "❌ variables.css file not found - cannot analyze optimization"
+            )
+            return
+
+        # Extract all defined variables with their values
+        defined_variables = {}
+        variable_pattern = r"(--[\w-]+)\s*:\s*([^;]+);"
+        for match in re.finditer(variable_pattern, variables_content):
+            var_name = match.group(1).strip()
+            var_value = match.group(2).strip()
+            defined_variables[var_name] = var_value
+
+        # Find all variables used across CSS files
+        used_variables = set()
+        css_files_to_check = [
+            "base",
+            "components",
+            "utilities",
+            "home_pages",
+            "profile_pages",
+            "messaging_pages",
+            "skill_pages",
+            "auth_pages",
+            "search_page",
+            "error_pages",
+        ]
+
+        for file_key in css_files_to_check:
+            if file_key not in self.css_files:
+                continue
+
+            file_path = self.css_files[file_key]
+            if not file_path.exists():
+                continue
+
+            file_content = self.read_file_content(file_path)
+            if not file_content:
+                continue
+
+            # Find all var() usage in the file
+            var_usage_pattern = r"var\(\s*(--[\w-]+)\s*(?:,.*?)?\)"
+            for match in re.finditer(var_usage_pattern, file_content):
+                used_variables.add(match.group(1).strip())
+
+        # Analysis results
+        issues = []
+
+        # 1. Find unused variables
+        unused_vars = set(defined_variables.keys()) - used_variables
+        if unused_vars:
+            issues.append(f"🗑️  {len(unused_vars)} unused variables found")
+            print(f"   Unused variables: {', '.join(sorted(list(unused_vars))[:5])}")
+            if len(unused_vars) > 5:
+                print(f"   ... and {len(unused_vars) - 5} more")
+
+        # 2. Find duplicate values (same value, different variable names)
+        value_groups = {}
+        for var_name, var_value in defined_variables.items():
+            # Normalize values for comparison
+            normalized_value = var_value.lower().replace(" ", "")
+            if normalized_value not in value_groups:
+                value_groups[normalized_value] = []
+            value_groups[normalized_value].append(var_name)
+
+        duplicates = {
+            value: vars for value, vars in value_groups.items() if len(vars) > 1
+        }
+        if duplicates:
+            issues.append(f"🔄 {len(duplicates)} sets of duplicate values found")
+            for value, vars in list(duplicates.items())[:3]:  # Show first 3 sets
+                print(f"   Value '{value[:30]}...': {', '.join(vars)}")
+
+        # 3. Find redundant color definitions
+        color_redundancies = []
+        color_vars = {k: v for k, v in defined_variables.items() if "color" in k}
+
+        # Check for colors that could be consolidated
+        similar_colors = [
+            (["--color-text-secondary", "--color-text-medium"], "#666666"),
+            (["--color-border", "--color-border-muted"], "#dee2e6 vs #e9ecef"),
+            (["--color-white", "--color-background-white"], "#ffffff"),
+        ]
+
+        for color_group, expected in similar_colors:
+            existing_colors = [
+                (var, defined_variables.get(var, "NOT_FOUND"))
+                for var in color_group
+                if var in defined_variables
+            ]
+            if len(existing_colors) > 1:
+                values = [color[1] for color in existing_colors]
+                if len(set(values)) == 1:  # Same values
+                    color_redundancies.append(
+                        f"Identical: {', '.join([c[0] for c in existing_colors])}"
+                    )
+                else:
+                    color_redundancies.append(
+                        f"Similar: {', '.join([f'{c[0]}({c[1]})' for c in existing_colors])}"
+                    )
+
+        if color_redundancies:
+            issues.append(f"🎨 {len(color_redundancies)} color redundancies found")
+            for redundancy in color_redundancies:
+                print(f"   {redundancy}")
+
+        # 4. Find variables that reference other variables inefficiently
+        circular_refs = []
+        for var_name, var_value in defined_variables.items():
+            if "var(--" in var_value:
+                referenced_vars = re.findall(r"var\((--[\w-]+)\)", var_value)
+                for ref_var in referenced_vars:
+                    if ref_var in defined_variables:
+                        ref_value = defined_variables[ref_var]
+                        if var_name in ref_value:
+                            circular_refs.append(f"{var_name} ↔ {ref_var}")
+
+        if circular_refs:
+            issues.append(f"🔄 {len(circular_refs)} potential circular references")
+            for ref in circular_refs[:3]:
+                print(f"   {ref}")
+
+        # 5. Check for naming inconsistencies
+        naming_issues = []
+
+        # Check for inconsistent naming patterns
+        spacing_vars = [var for var in defined_variables.keys() if "space" in var]
+        color_vars = [var for var in defined_variables.keys() if "color" in var]
+
+        # Look for similar names that might be redundant
+        name_groups = {}
+        for var in defined_variables.keys():
+            # Group by base name (remove modifiers like -light, -dark, etc.)
+            base_name = re.sub(
+                r"-(light|dark|medium|strong|muted|primary|secondary)$", "", var
+            )
+            if base_name not in name_groups:
+                name_groups[base_name] = []
+            name_groups[base_name].append(var)
+
+        large_groups = {
+            base: vars for base, vars in name_groups.items() if len(vars) > 4
+        }
+        if large_groups:
+            issues.append(
+                f"📝 {len(large_groups)} variable families with many variants"
+            )
+            for base, vars in list(large_groups.items())[:2]:
+                print(f"   {base}: {len(vars)} variants ({', '.join(vars[:3])}...)")
+
+        # Report results
+        if not issues:
+            self.test_results.append("✅ variables.css is well-optimized")
+        else:
+            self.test_results.append(
+                f"⚠️  variables.css optimization opportunities: {len(issues)} areas identified"
+            )
+            print(
+                f"   💡 Consider: consolidating duplicates, removing unused vars, simplifying naming"
+            )
+
+    def test_variables_css_structure(self):
+        """Test variables.css for logical organization and documentation"""
+        variables_content = self.read_file_content(self.css_files["variables"])
+
+        if not variables_content:
+            self.test_results.append(
+                "❌ variables.css file not found - cannot analyze structure"
+            )
+            return
+
+        issues = []
+
+        # Check for proper section organization
+        expected_sections = [
+            "/* Color Palette */",
+            "/* Spacing */",
+            "/* Typography */",
+            "/* Border Radius */",
+            "/* Shadows */",
+            "/* Transitions */",
+            "/* Glassmorphism */",
+        ]
+
+        missing_sections = []
+        for section in expected_sections:
+            if section not in variables_content:
+                missing_sections.append(section.replace("/* ", "").replace(" */", ""))
+
+        if missing_sections:
+            issues.append(
+                f"📚 Missing organizational sections: {', '.join(missing_sections)}"
+            )
+
+        # Check for alphabetical order within sections
+        lines = variables_content.split("\n")
+        current_section = None
+        section_vars = []
+
+        for line in lines:
+            line = line.strip()
+            if line.startswith("/*") and line.endswith("*/"):
+                # Process previous section
+                if current_section and section_vars:
+                    sorted_vars = sorted(section_vars)
+                    if section_vars != sorted_vars:
+                        issues.append(
+                            f"🔤 {current_section} variables not alphabetically ordered"
+                        )
+
+                current_section = line.replace("/*", "").replace("*/", "").strip()
+                section_vars = []
+            elif line.startswith("--") and ":" in line:
+                var_name = line.split(":")[0].strip()
+                section_vars.append(var_name)
+
+        # Check documentation coverage
+        var_count = len(re.findall(r"--[\w-]+\s*:", variables_content))
+        comment_count = len(re.findall(r"/\*.*?\*/", variables_content, re.DOTALL))
+
+        if comment_count < (var_count / 10):  # Less than 1 comment per 10 variables
+            issues.append(
+                f"📝 Low documentation coverage: {comment_count} comments for {var_count} variables"
+            )
+
+        # Report results
+        if not issues:
+            self.test_results.append(
+                "✅ variables.css has good structure and organization"
+            )
+        else:
+            self.test_results.append(
+                f"⚠️  variables.css structure improvements needed: {len(issues)} issues"
+            )
+            for issue in issues[:3]:
+                print(f"   {issue}")
+
     # ============================================================================
     # TEST RUNNER
     # ============================================================================
@@ -893,6 +1209,9 @@ class CSSRefactoringTestSuite:
         test_methods = [
             # Design System Tests
             self.test_css_variables_defined,
+            self.test_undefined_css_variables,
+            self.test_variables_css_optimization,
+            self.test_variables_css_structure,
             self.test_utility_classes_available,
             # Button Consolidation Tests
             self.test_duplicate_button_patterns_removed,
