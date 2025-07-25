@@ -953,6 +953,155 @@ class CSSRefactoringTestSuite:
                 "✅ profile-pages.css uses CSS variables consistently"
             )
 
+    def test_profile_pages_css_optimization_analysis(self):
+        """Comprehensive analysis of profile-pages.css optimization opportunities"""
+        profile_pages_content = self.read_file_content(self.css_files["profile_pages"])
+
+        if not profile_pages_content:
+            self.test_results.append("❌ profile-pages.css file not found or empty")
+            return
+
+        print("\n🔍 Profile-Pages.css Optimization Analysis...")
+
+        # 1. Find remaining hardcoded values
+        hardcoded_patterns = {
+            "colors": re.findall(r"#[0-9a-fA-F]{3,6}", profile_pages_content),
+            "px_values": re.findall(r"\b(\d+)px\b", profile_pages_content),
+            "rem_values": re.findall(r"\b(\d+\.?\d*)rem\b", profile_pages_content),
+            "transform_values": re.findall(
+                r"translateY\(([^)]+)\)", profile_pages_content
+            ),
+            "rgba_values": re.findall(r"rgba?\([^)]+\)", profile_pages_content),
+        }
+
+        optimization_opportunities = []
+
+        # Analyze hardcoded pixel values
+        px_values = [int(px) for px in hardcoded_patterns["px_values"]]
+        common_sizes = {}
+        for px in px_values:
+            common_sizes[px] = common_sizes.get(px, 0) + 1
+
+        repeating_sizes = {k: v for k, v in common_sizes.items() if v > 1}
+        if repeating_sizes:
+            optimization_opportunities.append(
+                f"Repeating pixel values: {list(repeating_sizes.keys())}"
+            )
+
+        # Check for hardcoded responsive breakpoints
+        breakpoint_matches = re.findall(
+            r"@media[^{]*\(.*?(\d+)px\)", profile_pages_content
+        )
+        if breakpoint_matches:
+            breakpoints = [int(bp) for bp in breakpoint_matches]
+            optimization_opportunities.append(
+                f"Hardcoded breakpoints: {sorted(set(breakpoints))}"
+            )
+
+        # Analyze profile picture sizes - check for repetitive dimensions
+        profile_pic_sizes = re.findall(
+            r"(?:width|height):\s*120px", profile_pages_content
+        )
+        if len(profile_pic_sizes) > 2:
+            optimization_opportunities.append(
+                f"Profile picture size (120px) used {len(profile_pic_sizes)} times - could use --profile-pic-size variable"
+            )
+
+        # Check for hardcoded grid values
+        grid_matches = re.findall(r"minmax\((\d+px)", profile_pages_content)
+        if grid_matches:
+            optimization_opportunities.append(
+                f"Hardcoded grid minmax values: {grid_matches}"
+            )
+
+        # Check for border widths
+        border_widths = re.findall(r"border(?:-\w+)?:\s*(\d+)px", profile_pages_content)
+        border_width_counts = {}
+        for width in border_widths:
+            border_width_counts[width] = border_width_counts.get(width, 0) + 1
+
+        repeating_borders = {k: v for k, v in border_width_counts.items() if v > 1}
+        if repeating_borders:
+            optimization_opportunities.append(
+                f"Repeating border widths: {list(repeating_borders.keys())}"
+            )
+
+        # Check for transform values that could be variables
+        transform_values = hardcoded_patterns["transform_values"]
+        if transform_values:
+            unique_transforms = list(set(transform_values))
+            if len(unique_transforms) > 1:
+                optimization_opportunities.append(
+                    f"Hardcoded transform values: {unique_transforms}"
+                )
+
+        # Analyze variable usage vs hardcoded values ratio
+        var_matches = re.findall(r"var\(--[^)]+\)", profile_pages_content)
+        hardcoded_values = (
+            len(hardcoded_patterns["px_values"])
+            + len(hardcoded_patterns["colors"])
+            + len(hardcoded_patterns["rem_values"])
+        )
+
+        if hardcoded_values > 0:
+            variable_ratio = (
+                len(var_matches) / (len(var_matches) + hardcoded_values) * 100
+            )
+            print(
+                f"   📊 CSS Variable Usage: {variable_ratio:.1f}% ({len(var_matches)} variables vs {hardcoded_values} hardcoded values)"
+            )
+
+        # Check for duplicate CSS rules
+        selectors = re.findall(r"^([^{@]+){", profile_pages_content, re.MULTILINE)
+        selector_counts = {}
+        for selector in selectors:
+            clean_selector = selector.strip()
+            selector_counts[clean_selector] = selector_counts.get(clean_selector, 0) + 1
+
+        duplicate_selectors = {k: v for k, v in selector_counts.items() if v > 1}
+        if duplicate_selectors:
+            optimization_opportunities.append(
+                f"Duplicate selectors: {list(duplicate_selectors.keys())[:3]}"
+            )
+
+        # Check file structure and organization
+        lines = profile_pages_content.split("\n")
+        comment_sections = [
+            line
+            for line in lines
+            if line.strip().startswith("/*") and "section" in line.lower()
+        ]
+
+        if len(comment_sections) < 3:
+            optimization_opportunities.append(
+                "File lacks proper section organization (comments)"
+            )
+
+        # Summary
+        if optimization_opportunities:
+            print(
+                f"   ⚠️  {len(optimization_opportunities)} optimization opportunities found:"
+            )
+            for i, opportunity in enumerate(optimization_opportunities[:5], 1):
+                print(f"   {i}. {opportunity}")
+            if len(optimization_opportunities) > 5:
+                print(f"   ... and {len(optimization_opportunities) - 5} more")
+
+            # Determine priority level
+            if hardcoded_values > 20:
+                priority = "HIGH"
+            elif hardcoded_values > 10:
+                priority = "MEDIUM"
+            else:
+                priority = "LOW"
+
+            self.test_results.append(
+                f"⚠️  profile-pages.css optimization opportunities: {len(optimization_opportunities)} areas ({priority} priority)"
+            )
+        else:
+            print("   ✅ No major optimization opportunities found")
+            self.test_results.append("✅ profile-pages.css is well optimized")
+
     def test_variables_css_optimization(self):
         """Test variables.css for duplicates, unused variables, and optimization opportunities"""
         variables_content = self.read_file_content(self.css_files["variables"])
@@ -1233,6 +1382,7 @@ class CSSRefactoringTestSuite:
             self.test_messaging_pages_css_hardcoded_values,
             # Profile Pages Specific Tests
             self.test_profile_pages_css_hardcoded_values,
+            self.test_profile_pages_css_optimization_analysis,
         ]
 
         for test_method in test_methods:
