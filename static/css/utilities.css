@@ -814,14 +814,6 @@
   gap: var(--space-xl);
 }
 
-/* Profile card styling */
-.profile-user-card {
-  background: var(--color-background-muted);
-  border-radius: var(--radius-card-lg);
-  padding: var(--space-lg);
-  border: 2px solid var(--color-border-light);
-}
-
 /* Rate skill button */
 .rate-skill-btn {
   display: inline-flex;
@@ -1237,6 +1229,105 @@
   border-color: var(--color-danger);
 }
 
+/* Centralized form input styles - used across auth and profile pages */
+.form-input {
+  width: 100%;
+  padding: var(--form-field-padding);
+  border: none;
+  border-radius: var(--radius-button);
+  font-size: var(--font-size-md);
+  transition: var(--transition-colors);
+  box-sizing: border-box;
+  background: white;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: transparent;
+  box-shadow: var(--shadow-focus);
+}
+
+.form-input.error {
+  border-color: transparent;
+}
+
+/* Form help text utility */
+.field-help {
+  display: block;
+  color: var(--color-text-muted);
+  margin-top: var(--space-xs);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+.field-help i {
+  margin-right: var(--space-xs);
+  color: var(--color-text-muted);
+}
+
+/* User avatar utilities */
+.user-avatar {
+  border-radius: var(--radius-circle);
+  object-fit: cover;
+  border: var(--border-width-thick) solid var(--color-secondary);
+}
+
+.user-avatar-placeholder {
+  border-radius: var(--radius-circle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-4xl);
+}
+
+/* Help and error text utilities */
+.help-text {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  margin-top: var(--space-xs);
+}
+
+.error-message {
+  color: var(--color-danger);
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Form control utility - used in skill and messaging forms */
+.form-control {
+  width: 100%;
+  padding: var(--form-field-padding);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-md);
+  transition: var(--transition-all);
+  background: white;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: transparent;
+  box-shadow: var(--shadow-focus);
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+}
+
+/* Form actions layout utility - used across profile, messaging, and skill forms */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
@@ -1252,12 +1343,20 @@
   font-size: var(--font-size-sm);
 }
 
+/* Form label with icon (for skill forms) */
+.form-label i {
+  margin-right: 8px;
+  color: #667eea;
+  width: 16px;
+}
+
 .form-row {
   display: flex;
   gap: var(--space-component);
   align-items: end;
   flex-wrap: wrap;
   width: 100%;
+  margin-bottom: var(--form-gap);
 }
 
 /* Enhanced form patterns for Phase 3.2 */
@@ -1527,16 +1626,6 @@
 
 /* Typography Utilities */
 
-.user-name {
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-primary);
-}
-
-.user-bio {
-  color: var(--color-text-muted);
-  line-height: var(--line-height-relaxed);
-}
-
 /* Animation Utilities */
 
 .hover-lift {
@@ -1564,24 +1653,6 @@
 }
 
 /* Card Components */
-
-.user-card {
-  background: var(--color-background-glass);
-  backdrop-filter: var(--glass-backdrop-filter);
-  border: var(--glass-border);
-  border-radius: var(--radius-card);
-  padding: var(--space-lg);
-  transition: var(--transition-all);
-}
-
-.search-header {
-  background: var(--color-background-glass);
-  backdrop-filter: var(--glass-backdrop-filter);
-  border: var(--glass-border);
-  padding: var(--space-md) var(--space-lg);
-  border-radius: var(--radius-lg);
-  margin-bottom: var(--space-lg);
-}
 
 .skill-tag {
   background: var(--color-secondary);
@@ -1622,6 +1693,7 @@
   .form-row {
     flex-direction: column;
     align-items: stretch;
+    gap: 0;
   }
   
   .btn-large {
