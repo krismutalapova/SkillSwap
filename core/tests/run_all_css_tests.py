@@ -178,8 +178,6 @@ def main():
 
     print("🧪 CSS Test Suite - Comprehensive Testing")
     print("=" * 70)
-    print("Testing CSS refactoring, button consolidation, template integration,")
-    print("design system consistency, and visual regression.\n")
 
     results = {}
 

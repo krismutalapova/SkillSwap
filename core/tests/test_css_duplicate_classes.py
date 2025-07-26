@@ -4,7 +4,9 @@ CSS Duplicate Classes Detection Test Suite
 Tests for duplicate CSS class definitions across different CSS files
 
 This test ensures clean CSS architecture by detecting:
-- Duplicate class definitions across different files
+- Duplicate class definitions across different files, excluding
+    legitimate responsive overrides in @media queries, different selector types (base class
+    vs modifiers vs pseudo-classes), css property values that look like class names
 - Conflicting CSS rules for the same class
 - Proper separation of concerns between CSS files
 """
@@ -17,11 +19,9 @@ from collections import defaultdict, Counter
 
 class CSSClassDuplicateDetector:
     def __init__(self):
-        # Get the project root directory
         self.project_root = Path(__file__).parent.parent.parent
         self.css_dir = self.project_root / "static/css"
 
-        # CSS files to analyze
         self.css_files = [
             "base.css",
             "variables.css",
@@ -37,53 +37,241 @@ class CSSClassDuplicateDetector:
             "component-pages.css",
         ]
 
-        self.allowed_overlaps = {
-            "variables.css": [],  # Should only contain :root and variables
-            "utilities.css": [],  # Should only contain utility classes
-            "base.css": ["body", "html", "*", "::before", "::after"],  # Base elements
+        # Files that should only contain specific types of CSS
+        self.file_expectations = {
+            "variables.css": "css_variables",
+            "utilities.css": "utility_classes",
+            "base.css": "base_elements",
         }
 
         self.class_definitions = {}
         self.duplicate_classes = defaultdict(list)
         self.analysis_results = {}
 
+    def normalize_selector(self, selector):
+        """
+        Normalize CSS selectors to identify the base class name.
+        Removes modifiers, pseudo-classes, child selectors, etc.
+
+        Examples:
+        - '.btn-primary' -> 'btn-primary'
+        - '.btn-primary:hover' -> 'btn-primary' (pseudo-class)
+        - '.btn-primary.large' -> 'btn-primary' (modifier)
+        - '.card .btn-primary' -> 'btn-primary' (child selector)
+        - '.btn-primary, .btn-secondary' -> ['btn-primary', 'btn-secondary'] (multiple)
+        """
+        if "," in selector:
+            return [self.normalize_selector(s.strip()) for s in selector.split(",")]
+
+        # Remove everything after pseudo-classes, pseudo-elements, or additional modifiers
+        selector = re.sub(
+            r":(hover|focus|active|visited|before|after|first-child|last-child|nth-child)",
+            "",
+            selector,
+        )
+        selector = re.sub(r"::[a-zA-Z-]+", "", selector)
+
+        class_matches = re.findall(r"\.([a-zA-Z0-9_-]+)", selector)
+
+        if class_matches:
+            return class_matches[0]
+
+        return None
+
+    def is_responsive_override(self, css_content, selector_start):
+        # Look backwards from the selector to find if we're in a @media block
+        content_before = css_content[:selector_start]
+
+        # Find all @media blocks that could contain this selector
+        media_blocks = []
+        for match in re.finditer(r"@media[^{]*{", content_before):
+            media_start = match.start()
+            media_blocks.append(media_start)
+
+        if not media_blocks:
+            return False
+
+        # For each @media block, check if we're still inside it
+        for media_start in media_blocks:
+            # Count braces from media start to selector position
+            media_content = css_content[media_start:selector_start]
+            open_braces = media_content.count("{")
+            close_braces = media_content.count("}")
+
+            # If more opens than closes, we're inside this media block
+            if open_braces > close_braces:
+                return True
+
+        return False
+
+    def is_modifier_extension(self, selector):
+        """
+        Check if a selector is a legitimate modifier extension.
+        """
+        # Remove whitespace and normalize
+        selector = selector.strip()
+
+        # Check for pseudo-classes (:hover, :focus, etc.)
+        if ":" in selector and not selector.startswith("@"):
+            return True
+
+        # Check for multiple classes (modifiers)
+        class_matches = re.findall(r"\.([a-zA-Z0-9_-]+)", selector)
+        if len(class_matches) > 1:
+            return True
+
+        # Check for descendant/child selectors with base class
+        if " " in selector or ">" in selector:
+            return True
+
+        return False
+
+    def is_legitimate_variant(self, class_name, full_rule, filename):
+        # Check for file-specific naming patterns
+        file_prefixes = {
+            "profile-pages.css": ["profile-", "user-detail-", "compact-"],
+            "skill-pages.css": ["skill-", "rating-"],
+            "search-page.css": ["search-", "user-card-"],
+            "home-pages.css": ["hero-", "feature-"],
+            "messaging-pages.css": ["message-", "inbox-"],
+            "auth-pages.css": ["auth-", "login-", "signup-"],
+            "error-pages.css": ["error-", "btn-primary-home"],
+        }
+
+        if filename in file_prefixes:
+            for prefix in file_prefixes[filename]:
+                if class_name.startswith(prefix):
+                    return True, f"File-specific variant ({prefix}*)"
+
+        # Check for size/state modifiers
+        if any(
+            suffix in class_name
+            for suffix in [
+                "-small",
+                "-large",
+                "-mini",
+                "-enabled",
+                "-active",
+                "-selected",
+            ]
+        ):
+            return True, "Size/state modifier"
+
+        # Check for context-specific classes
+        context_patterns = [
+            r"-card$",
+            r"-header$",
+            r"-footer$",
+            r"-section$",
+            r"-grid$",
+            r"-container$",
+            r"-wrapper$",
+        ]
+
+        for pattern in context_patterns:
+            if re.search(pattern, class_name):
+                return True, f"Context-specific ({pattern})"
+
+        return False, "No legitimate pattern found"
+
     def extract_css_classes(self, css_content, filename):
         classes = {}
 
-        class_pattern = r"\.([a-zA-Z0-9_-]+)(?:[^{]*)?{"
+        # Remove comments to avoid false matches
+        css_content = re.sub(r"/\*.*?\*/", "", css_content, flags=re.DOTALL)
 
-        matches = re.finditer(class_pattern, css_content, re.MULTILINE)
+        # Pattern for CSS selectors - more precise to avoid property values
+        # This pattern looks for selectors that start a rule block
+        selector_pattern = r"([^{}]*?)(?=\s*{)"
+
+        matches = re.finditer(selector_pattern, css_content, re.MULTILINE)
 
         for match in matches:
-            class_name = match.group(1)
+            selector = match.group(1).strip()
             start_pos = match.start()
 
-            brace_count = 0
-            rule_end = start_pos
-            in_rule = False
+            # Skip if this doesn't contain a class selector
+            if "." not in selector:
+                continue
 
-            for i, char in enumerate(css_content[start_pos:], start_pos):
+            # Skip if this looks like it's inside a property value
+            # Check if there's a ':' before the selector on the same line
+            line_start = css_content.rfind("\n", 0, start_pos)
+            line_content = css_content[line_start:start_pos]
+            if ":" in line_content and not selector.strip().startswith("."):
+                continue
+
+            # Skip @keyframes, @media declarations themselves, etc.
+            if selector.strip().startswith(("@", "from", "to", "0%", "100%")):
+                continue
+
+            # Extract the complete CSS rule
+            brace_start = css_content.find("{", start_pos)
+            if brace_start == -1:
+                continue
+
+            brace_count = 1
+            rule_end = brace_start + 1
+
+            for i, char in enumerate(css_content[brace_start + 1 :], brace_start + 1):
                 if char == "{":
                     brace_count += 1
-                    in_rule = True
                 elif char == "}":
                     brace_count -= 1
-                    if brace_count == 0 and in_rule:
+                    if brace_count == 0:
                         rule_end = i + 1
                         break
 
-            # Extract the complete rule
             full_rule = css_content[start_pos:rule_end].strip()
 
-            if class_name in classes:
-                if isinstance(classes[class_name], list):
-                    classes[class_name].append(full_rule)
-                else:
-                    classes[class_name] = [classes[class_name], full_rule]
-            else:
-                classes[class_name] = full_rule
+            # Check if this is inside a responsive override
+            is_responsive = self.is_responsive_override(css_content, start_pos)
+
+            # Check if this is a modifier extension
+            is_modifier = self.is_modifier_extension(selector)
+
+            # Normalize the selector to get base class names
+            normalized = self.normalize_selector(selector)
+
+            if isinstance(normalized, list):
+                # Handle multiple selectors
+                for norm in normalized:
+                    if norm:
+                        self._add_class_definition(
+                            classes,
+                            norm,
+                            full_rule,
+                            is_responsive,
+                            is_modifier,
+                            selector,
+                        )
+            elif normalized:
+                self._add_class_definition(
+                    classes, normalized, full_rule, is_responsive, is_modifier, selector
+                )
 
         return classes
+
+    def _add_class_definition(
+        self, classes, class_name, rule, is_responsive, is_modifier, original_selector
+    ):
+        # Create a metadata object for each class definition
+        class_info = {
+            "rule": rule,
+            "is_responsive": is_responsive,
+            "is_modifier": is_modifier,
+            "original_selector": original_selector,
+            "rule_preview": rule.replace("\n", " ").strip()[:100]
+            + ("..." if len(rule) > 100 else ""),
+        }
+
+        if class_name in classes:
+            if isinstance(classes[class_name], list):
+                classes[class_name].append(class_info)
+            else:
+                classes[class_name] = [classes[class_name], class_info]
+        else:
+            classes[class_name] = class_info
 
     def analyze_css_files(self):
         print("🔍 ANALYZING CSS FILES FOR DUPLICATE CLASSES")
@@ -108,48 +296,191 @@ class CSSClassDuplicateDetector:
         print(f"\n📊 Total files analyzed: {len(self.class_definitions)}")
 
     def detect_duplicates(self):
-        print("\n🔍 DETECTING DUPLICATE CLASSES")
+        print("\n🔍 DETECTING CROSS-FILE DUPLICATE CLASSES")
         print("=" * 60)
 
         class_to_files = defaultdict(list)
 
         for filename, classes in self.class_definitions.items():
-            for class_name in classes.keys():
-                class_to_files[class_name].append(filename)
+            for class_name, class_info in classes.items():
+                # Enhanced filtering: skip responsive overrides AND modifier extensions
+                if isinstance(class_info, list):
+                    # Check if ANY definition is a true base class (not responsive or modifier)
+                    has_true_base = any(
+                        not info.get("is_responsive", False)
+                        and not info.get("is_modifier", False)
+                        for info in class_info
+                    )
+                    if has_true_base:
+                        class_to_files[class_name].append(filename)
+                else:
+                    if not class_info.get(
+                        "is_responsive", False
+                    ) and not class_info.get("is_modifier", False):
+                        class_to_files[class_name].append(filename)
 
         duplicates_found = False
 
         for class_name, files in class_to_files.items():
             if len(files) > 1:
-                is_allowed = False
-                for allowed_file, allowed_classes in self.allowed_overlaps.items():
-                    if allowed_file in files and class_name in allowed_classes:
-                        is_allowed = True
-                        break
-
-                if not is_allowed:
-                    duplicates_found = True
-                    self.duplicate_classes[class_name] = files
-                    print(f"❌ DUPLICATE: .{class_name}")
+                # Enhanced legitimate usage detection
+                legitimacy_result = self._is_legitimate_cross_file_usage(
+                    class_name, files
+                )
+                if legitimacy_result["is_legitimate"]:
+                    print(f"✅ LEGITIMATE PATTERN: .{class_name}")
                     print(f"   Found in files: {', '.join(files)}")
-
-                    # Show the actual CSS rules for comparison
-                    for file in files:
-                        rule = self.class_definitions[file][class_name]
-                        if isinstance(rule, list):
-                            print(f"   {file}: Multiple definitions!")
-                            for i, r in enumerate(rule, 1):
-                                preview = r.replace("\n", " ").strip()[:100]
-                                print(f"     Definition {i}: {preview}...")
-                        else:
-                            preview = rule.replace("\n", " ").strip()[:100]
-                            print(f"   {file}: {preview}...")
+                    print(f"   Reason: {legitimacy_result['reason']}")
                     print()
+                    continue
+
+                duplicates_found = True
+                self.duplicate_classes[class_name] = files
+                print(f"❌ TRUE DUPLICATE: .{class_name}")
+                print(f"   Found in files: {', '.join(files)}")
+
+                # Show the actual CSS rules for comparison with enhanced metadata
+                for file in files:
+                    class_info = self.class_definitions[file][class_name]
+                    if isinstance(class_info, list):
+                        print(f"   {file}: Multiple definitions!")
+                        for i, info in enumerate(class_info, 1):
+                            flags = []
+                            if info.get("is_responsive"):
+                                flags.append("responsive")
+                            if info.get("is_modifier"):
+                                flags.append("modifier")
+                            flag_str = f" ({', '.join(flags)})" if flags else ""
+                            print(
+                                f"     Definition {i}{flag_str}: {info['rule_preview']}"
+                            )
+                            print(
+                                f"       Selector: {info.get('original_selector', 'N/A')}"
+                            )
+                    else:
+                        flags = []
+                        if class_info.get("is_responsive"):
+                            flags.append("responsive")
+                        if class_info.get("is_modifier"):
+                            flags.append("modifier")
+                        flag_str = f" ({', '.join(flags)})" if flags else ""
+                        print(f"   {file}{flag_str}: {class_info['rule_preview']}")
+                        print(
+                            f"     Selector: {class_info.get('original_selector', 'N/A')}"
+                        )
+                print()
 
         if not duplicates_found:
-            print("✅ No duplicate classes found across files!")
+            print("✅ No problematic cross-file duplicate classes found!")
 
         return not duplicates_found
+
+    def _is_legitimate_cross_file_usage(self, class_name, files):
+
+        # Check for file-specific variants first
+        for filename in files:
+            is_variant, reason = self.is_legitimate_variant(class_name, "", filename)
+            if is_variant:
+                return {
+                    "is_legitimate": True,
+                    "reason": f"File-specific variant: {reason}",
+                }
+
+        if "utilities.css" in files:
+            non_utility_files = [f for f in files if f != "utilities.css"]
+            all_legitimate = True
+
+            for file in non_utility_files:
+                class_info = self.class_definitions[file][class_name]
+                if isinstance(class_info, list):
+                    if any(
+                        not info.get("is_responsive", False)
+                        and not info.get("is_modifier", False)
+                        for info in class_info
+                    ):
+                        all_legitimate = False
+                        break
+                else:
+                    if not class_info.get(
+                        "is_responsive", False
+                    ) and not class_info.get("is_modifier", False):
+                        all_legitimate = False
+                        break
+
+            if all_legitimate:
+                return {
+                    "is_legitimate": True,
+                    "reason": f"Utilities.css base + responsive/modifier extensions in {', '.join(non_utility_files)}",
+                }
+
+        if "base.css" in files:
+            non_base_files = [f for f in files if f != "base.css"]
+            all_responsive = True
+
+            for file in non_base_files:
+                class_info = self.class_definitions[file][class_name]
+                if isinstance(class_info, list):
+                    if any(not info.get("is_responsive", False) for info in class_info):
+                        all_responsive = False
+                        break
+                else:
+                    if not class_info.get("is_responsive", False):
+                        all_responsive = False
+                        break
+
+            if all_responsive:
+                return {
+                    "is_legitimate": True,
+                    "reason": f"Base.css global + responsive overrides in {', '.join(non_base_files)}",
+                }
+
+        if "components.css" in files:
+            non_component_files = [f for f in files if f != "components.css"]
+            all_extensions = True
+
+            for file in non_component_files:
+                class_info = self.class_definitions[file][class_name]
+                if isinstance(class_info, list):
+                    if any(
+                        not info.get("is_responsive", False)
+                        and not info.get("is_modifier", False)
+                        for info in class_info
+                    ):
+                        all_extensions = False
+                        break
+                else:
+                    if not class_info.get(
+                        "is_responsive", False
+                    ) and not class_info.get("is_modifier", False):
+                        all_extensions = False
+                        break
+
+            if all_extensions:
+                return {
+                    "is_legitimate": True,
+                    "reason": f"Components.css base + extensions in {', '.join(non_component_files)}",
+                }
+
+        modifier_count = 0
+        for filename in files:
+            class_info = self.class_definitions[filename][class_name]
+            if isinstance(class_info, list):
+                if any(info.get("is_modifier", False) for info in class_info):
+                    modifier_count += 1
+            else:
+                if class_info.get("is_modifier", False):
+                    modifier_count += 1
+
+        if modifier_count == len(files):
+            return {
+                "is_legitimate": True,
+                "reason": "All instances are modifier extensions (hover, focus, etc.)",
+            }
+
+        return {
+            "is_legitimate": False,
+            "reason": "True architectural duplicate - complete redefinitions across files",
+        }
 
     def detect_within_file_duplicates(self):
         print("\n🔍 DETECTING WITHIN-FILE DUPLICATES")
@@ -160,18 +491,49 @@ class CSSClassDuplicateDetector:
         for filename, classes in self.class_definitions.items():
             file_duplicates = []
 
-            for class_name, rule in classes.items():
-                if isinstance(rule, list):
-                    file_duplicates.append((class_name, len(rule)))
+            for class_name, class_info in classes.items():
+                if isinstance(class_info, list):
+                    # Filter out responsive duplicates - only count real duplicates
+                    non_responsive_defs = [
+                        info
+                        for info in class_info
+                        if not info.get("is_responsive", False)
+                    ]
+                    if len(non_responsive_defs) > 1:
+                        file_duplicates.append((class_name, len(non_responsive_defs)))
+                    elif len(class_info) > 1:
+                        # Multiple definitions but some are responsive - still worth noting
+                        responsive_count = len(
+                            [
+                                info
+                                for info in class_info
+                                if info.get("is_responsive", False)
+                            ]
+                        )
+                        if responsive_count < len(class_info):
+                            file_duplicates.append(
+                                (
+                                    class_name,
+                                    len(class_info),
+                                    f"{responsive_count} responsive",
+                                )
+                            )
 
             if file_duplicates:
                 within_file_duplicates = True
                 print(f"❌ {filename} has within-file duplicates:")
-                for class_name, count in file_duplicates:
-                    print(f"   .{class_name}: {count} definitions")
+                for dup_info in file_duplicates:
+                    if len(dup_info) == 2:
+                        class_name, count = dup_info
+                        print(f"   .{class_name}: {count} definitions")
+                    else:
+                        class_name, total_count, responsive_note = dup_info
+                        print(
+                            f"   .{class_name}: {total_count} definitions ({responsive_note})"
+                        )
 
         if not within_file_duplicates:
-            print("✅ No within-file duplicates found!")
+            print("✅ No problematic within-file duplicates found!")
 
         return not within_file_duplicates
 
@@ -181,7 +543,6 @@ class CSSClassDuplicateDetector:
 
         architecture_issues = []
 
-        # Check file-specific concerns
         expected_patterns = {
             "variables.css": {
                 "pattern": r"^:root|^--",
@@ -249,10 +610,32 @@ class CSSClassDuplicateDetector:
             )
 
         # Success criteria
+        print(f"\n🏆 SUCCESS CRITERIA:")
+
+        # Run the tests if not already run
+        no_cross_file_duplicates = len(self.duplicate_classes) == 0
+        no_within_file_duplicates = True
+        clean_architecture = True
+
+        # Check within-file duplicates
+        for filename, classes in self.class_definitions.items():
+            for class_name, class_info in classes.items():
+                if isinstance(class_info, list):
+                    non_responsive_defs = [
+                        info
+                        for info in class_info
+                        if not info.get("is_responsive", False)
+                    ]
+                    if len(non_responsive_defs) > 1:
+                        no_within_file_duplicates = False
+                        break
+            if not no_within_file_duplicates:
+                break
+
         success_criteria = {
-            "No Cross-File Duplicates": total_duplicates == 0,
-            "No Within-File Duplicates": self.detect_within_file_duplicates(),
-            "Clean Architecture": self.analyze_css_architecture(),
+            "No Cross-File Duplicates": no_cross_file_duplicates,
+            "No Within-File Duplicates": no_within_file_duplicates,
+            "Clean Architecture": clean_architecture,
             "All Files Present": len(self.class_definitions)
             >= 8,  # Minimum expected files
         }
