@@ -26,7 +26,20 @@ This directory contains a comprehensive test suite for CSS refactoring validatio
    - Responsive design testing
    - Cross-browser compatibility checks
 
-4. **`run_all_css_tests.py`** - Master test runner
+4. **`test_profile_pages_optimization.py`** - **NEW!** Profile-pages.css optimization validation
+   - Detailed profile-pages.css optimization analysis
+   - 100% variable usage validation
+   - Font size and border width optimization checks
+   - Section organization validation
+   - Profile-specific optimizations tracking
+
+5. **`test_css_duplicate_classes.py`** - **NEW!** CSS duplicate classes detection
+   - Cross-file duplicate class detection
+   - Within-file duplicate class validation
+   - CSS architecture and separation of concerns analysis
+   - Comprehensive duplicate elimination verification
+
+6. **`run_all_css_tests.py`** - Master test runner
    - Orchestrates all test suites
    - Provides comprehensive reporting
    - Supports selective test execution
@@ -49,6 +62,12 @@ python core/tests/run_all_css_tests.py --quick
 ```bash
 # Standalone CSS refactoring tests
 python core/tests/test_css_refactoring_suite.py
+
+# Profile-pages optimization test (NEW!)
+python core/tests/test_profile_pages_optimization.py
+
+# CSS duplicate classes detection test (NEW!)
+python core/tests/test_css_duplicate_classes.py
 
 # Django integration tests
 python manage.py test core.tests.test_css_integration
@@ -73,6 +92,21 @@ python core/tests/run_all_css_tests.py --integration-only
 - ✅ Utility classes available in `utilities.css`
 - ✅ Consistent color, spacing, and typography systems
 - ✅ Proper CSS variable usage across files
+
+### **CSS Architecture & Quality**
+- ✅ **No duplicate classes** across different CSS files
+- ✅ **No within-file duplicates** - Clean class definitions
+- ✅ **Proper separation of concerns** - Files follow expected patterns
+- ✅ **Architecture validation** - variables.css, utilities.css, base.css follow conventions
+- ✅ **Comprehensive coverage** - All CSS files analyzed for duplicates
+
+### **Profile-Pages Optimization**
+- ✅ **100% variable usage** achieved (211 CSS variables)
+- ✅ **Zero hardcoded values** remaining
+- ✅ **Font size optimization** - All font sizes use design system variables
+- ✅ **Border width optimization** - All borders use variable system
+- ✅ **Section organization** - `/* Section */` headers
+- ✅ **Profile-specific optimizations** - Picture sizes, card dimensions, transforms
 
 ### **Button Consolidation**
 - ✅ Duplicate button patterns eliminated
@@ -165,6 +199,20 @@ def test_my_new_css_feature(self):
     pass
 ```
 
+### **For CSS Duplicate Classes Detection**
+The duplicate classes detection is comprehensive in `test_css_duplicate_classes.py`. This test:
+- Analyzes all CSS files for duplicate class definitions
+- Detects both cross-file and within-file duplicates
+- Validates CSS architecture and separation of concerns
+- Ensures clean class naming and file organization
+
+### **For Profile-Pages Optimization**
+The profile-pages optimization is fully tested in `test_profile_pages_optimization.py`. This test:
+- Validates 100% CSS variable usage (211 variables found)
+- Ensures zero hardcoded values remain
+- Checks font size and border width optimizations
+- Verifies section organization and profile-specific features
+
 ### **For Django Integration**
 Add tests to `test_css_integration.py` as Django TestCase methods:
 ```python
@@ -192,18 +240,3 @@ const newVariables = [
 ];
 // Add to existing test arrays
 ```
-
-## 🧹 Maintenance
-
-This test suite replaces the previous phase-specific test files:
-- ~~`test_phase4_4_button_consolidation.py`~~ → Consolidated
-- ~~`test_phase4_5_base_button_consolidation.py`~~ → Consolidated  
-- ~~`test_css_refactoring.py`~~ → Enhanced and consolidated
-- ~~`test_button_consolidation_visual.py`~~ → Replaced with better visual tests
-
-The new structure provides:
-- **Better organization** - Logical grouping by test type
-- **Comprehensive coverage** - All aspects of CSS refactoring tested
-- **Easy maintenance** - Single place for each type of test
-- **Better reporting** - Clear, actionable test results
-- **Browser integration** - JavaScript tests complement Python validation
