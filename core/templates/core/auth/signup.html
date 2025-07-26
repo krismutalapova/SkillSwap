@@ -82,12 +82,12 @@
             <!-- Password Field -->
             <div class="form-group">
                 <div class="password-container">
-                    <label class="form-label">
+                    <label class="form-label" for="password1">
                         <i class="fas fa-lock"></i>Password
                     </label>
                     <input type="password" name="password1" id="password1" placeholder="Create a password" required 
-                           class="form-input">
-                    <button type="button" onclick="togglePassword('password1')" class="password-toggle">
+                           class="form-input" style="padding-right: 44px;" />
+                    <button type="button" onclick="togglePassword('password1')" class="password-toggle" style="position: absolute; right: 12px; top: 35px; background: none; border: none; color: #666; cursor: pointer; padding: 6px; font-size: 16px; display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; z-index: 10;">
                         <i class="fas fa-eye" id="password1-icon"></i>
                     </button>
                 </div>
@@ -100,12 +100,12 @@
             <!-- Confirm Password Field -->
             <div class="form-group">
                 <div class="password-container">
-                    <label class="form-label">
+                    <label class="form-label" for="password2">
                         <i class="fas fa-lock"></i>Confirm Password
                     </label>
                     <input type="password" name="password2" id="password2" placeholder="Confirm your password" required 
-                           class="form-input">
-                    <button type="button" onclick="togglePassword('password2')" class="password-toggle">
+                           class="form-input" style="padding-right: 44px;" />
+                    <button type="button" onclick="togglePassword('password2')" class="password-toggle" style="position: absolute; right: 12px; top: 35px; background: none; border: none; color: #666; cursor: pointer; padding: 6px; font-size: 16px; display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; z-index: 10;">
                         <i class="fas fa-eye" id="password2-icon"></i>
                     </button>
                 </div>

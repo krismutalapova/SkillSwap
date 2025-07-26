@@ -35,10 +35,10 @@
             {% csrf_token %}
             <!-- Username Field -->
             <div class="form-group">
-                <label class="form-label">
+                <label class="form-label" for="username">
                     <i class="fas fa-user"></i>Username
                 </label>
-                <input type="text" name="username" placeholder="Enter your username" required class="form-input">
+                <input type="text" name="username" id="username" placeholder="Enter your username" required class="form-input">
                 <small class="field-help">
                     <i class="fas fa-info-circle"></i>
                     Enter your username (letters, numbers, and @/./+/-/_ only)
@@ -48,11 +48,11 @@
             <!-- Password Field -->
             <div class="form-group">
                 <div class="password-container">
-                    <label class="form-label">
+                    <label class="form-label" for="password">
                         <i class="fas fa-lock"></i>Password
                     </label>
-                    <input type="password" name="password" id="password" placeholder="Enter your password" required class="form-input">
-                    <button type="button" onclick="togglePassword('password')" class="password-toggle">
+                    <input type="password" name="password" id="password" placeholder="Enter your password" required class="form-input" style="padding-right: 44px;" />
+                    <button type="button" onclick="togglePassword('password')" class="password-toggle" style="position: absolute; right: 12px; top: 35px; background: none; border: none; color: #666; cursor: pointer; padding: 6px; font-size: 16px; display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; z-index: 10;">
                         <i class="fas fa-eye" id="password-icon"></i>
                     </button>
                 </div>
