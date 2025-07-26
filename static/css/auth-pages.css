@@ -54,52 +54,38 @@
     gap: var(--space-xl);
 }
 
-.form-label {
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-dark);
-    font-size: var(--font-size-sm);
-}
-
-.form-input {
-    width: 100%;
-    padding: var(--form-field-padding);
-    border: var(--form-field-border-width) solid var(--color-border-muted);
-    border-radius: var(--radius-button);
-    font-size: var(--font-size-md);
-    transition: var(--transition-colors);
-    box-sizing: border-box;
-}
-
-.form-input:focus {
-    outline: none;
-    border-color: var(--color-border-focus);
-    box-shadow: var(--shadow-focus);
-}
-
-.form-input.error {
-    border-color: var(--color-danger);
-}
-
 /* Password Toggle */
 .password-container {
     position: relative;
 }
 
-.password-toggle {
-    position: absolute;
-    right: var(--space-md);
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: var(--color-text-muted);
-    cursor: pointer;
-    padding: 0;
-    font-size: var(--font-size-md);
+.password-container .form-input {
+    padding-right: 44px !important;
 }
 
-.password-toggle:hover {
-    color: var(--color-border-focus);
+.auth-form .password-container .password-toggle {
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background: none !important;
+    border: none !important;
+    color: var(--color-text-muted) !important;
+    cursor: pointer;
+    padding: 6px !important;
+    font-size: 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 28px !important;
+    height: 28px !important;
+    z-index: 10 !important;
+    border-radius: 4px !important;
+}
+
+.auth-form .password-container .password-toggle:hover {
+    color: var(--color-border-focus) !important;
+    background-color: rgba(0,0,0,0.05) !important;
 }
 
 /* Error Messages */
@@ -202,20 +188,4 @@
 .logout-message {
     color: var(--color-text-muted);
     margin-bottom: var(--space-xl);
-}
-
-/* Complete Profile Form Specific Styles */
-.field-help {
-    display: block;
-    text-align: left;
-    color: var(--color-text-muted);
-    margin-top: var(--space-xs);
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-normal);
-    opacity: 1;
-}
-
-.field-help i {
-    margin-right: var(--space-xs);
-    color: var(--color-text-muted);
 }
