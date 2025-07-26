@@ -49,7 +49,7 @@
                 <div class="description-content">
                     {% if is_edit_mode %}
                         <div class="form-field">
-                            <textarea name="bio" rows="5" class="form-textarea" placeholder="Tell others about yourself, your interests, and background...">{{ form.bio.value|default:'' }}</textarea>
+                            <textarea name="bio" cols="40" rows="4" class="form-control" placeholder="Tell others about yourself, your interests, and background..." aria-describedby="id_bio_helptext" id="id_bio">{{ form.bio.value|default:'' }}</textarea>
                             {% if form.bio.errors %}
                                 <div class="field-error">
                                     {% for error in form.bio.errors %}
