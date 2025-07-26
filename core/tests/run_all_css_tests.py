@@ -78,6 +78,52 @@ def run_django_integration_tests():
         return False
 
 
+def run_profile_pages_optimization_test():
+    print("\n📄 Running Profile Pages Optimization Test...")
+    print("=" * 60)
+
+    try:
+        result = subprocess.run(
+            [sys.executable, "core/tests/test_profile_pages_optimization.py"],
+            capture_output=True,
+            text=True,
+            cwd=Path(__file__).parent.parent.parent,
+        )
+
+        print(result.stdout)
+        if result.stderr:
+            print("STDERR:", result.stderr)
+
+        return result.returncode == 0
+
+    except Exception as e:
+        print(f"❌ Failed to run profile pages optimization test: {e}")
+        return False
+
+
+def run_css_duplicate_classes_test():
+    print("\n🔍 Running CSS Duplicate Classes Detection Test...")
+    print("=" * 60)
+
+    try:
+        result = subprocess.run(
+            [sys.executable, "core/tests/test_css_duplicate_classes.py"],
+            capture_output=True,
+            text=True,
+            cwd=Path(__file__).parent.parent.parent,
+        )
+
+        print(result.stdout)
+        if result.stderr:
+            print("STDERR:", result.stderr)
+
+        return result.returncode == 0
+
+    except Exception as e:
+        print(f"❌ Failed to run CSS duplicate classes test: {e}")
+        return False
+
+
 def run_visual_regression_tests():
     print("\n🌐 Running Visual Regression Tests...")
     print("=" * 60)
@@ -140,6 +186,14 @@ def main():
     # Run CSS refactoring suite (standalone)
     if not args.integration_only:
         results["refactoring"] = run_css_refactoring_suite()
+
+    # Run profile pages optimization test
+    if not args.integration_only:
+        results["profile_optimization"] = run_profile_pages_optimization_test()
+
+    # Run CSS duplicate classes detection test
+    if not args.integration_only:
+        results["duplicate_classes"] = run_css_duplicate_classes_test()
 
     # Run Django integration tests
     if not args.refactoring_only:
