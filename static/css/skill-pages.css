@@ -20,6 +20,11 @@
     margin-bottom: var(--space-2xl);
 }
 
+.action-buttons {
+    display: flex;
+    gap: var(--space-sm);
+}
+
 /* Quick actions */
 .quick-actions {
     display: flex;
@@ -138,60 +143,6 @@
 
 /* View buttons now use btn-primary utility class from utilities.css */
 
-/* No results / empty states */
-.no-results,
-.empty-state {
-    text-align: center;
-    padding: var(--space-5xl) var(--space-lg);
-    background: var(--color-background-glass-light);
-    backdrop-filter: var(--glass-backdrop-filter);
-    border-radius: var(--radius-large);
-    margin: var(--space-4xl) 0;
-}
-
-.no-results-icon,
-.empty-icon {
-    font-size: var(--font-size-5xl);
-    color: var(--color-text-white-muted);
-    margin-bottom: var(--space-lg);
-}
-
-.empty-icon {
-    font-size: var(--font-size-6xl);
-    margin-bottom: var(--space-xl);
-}
-
-.no-results h3,
-.empty-state h3 {
-    color: var(--color-text-white);
-    margin-bottom: var(--space-md);
-    font-size: var(--font-size-2xl);
-}
-
-.empty-state h3 {
-    font-size: var(--font-size-3xl);
-}
-
-.no-results p,
-.empty-state p {
-    color: var(--color-text-white-muted);
-    margin-bottom: var(--space-xl);
-    font-size: var(--font-size-lg);
-}
-
-.empty-state p {
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: var(--space-2xl);
-}
-
-.no-results a {
-    color: var(--color-warm-light);
-    text-decoration: none;
-    font-weight: var(--font-weight-semibold);
-}
-
 /* Add first skill buttons now use btn-primary utility class from utilities.css */
 
 .empty-actions {
@@ -204,117 +155,7 @@
 
 /* Primary and secondary buttons now use utility classes from utilities.css */
 
-/* Pagination */
-.pagination-container {
-    display: flex;
-    justify-content: center;
-    margin-top: var(--space-4xl);
-}
-
-.pagination-nav {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    background: var(--color-background-glass);
-    backdrop-filter: var(--glass-backdrop-filter);
-    padding: var(--space-md) var(--space-xl);
-    border-radius: var(--radius-round);
-    box-shadow: var(--shadow-light-soft);
-}
-
-.pagination-link {
-    color: var(--color-secondary);
-    text-decoration: none;
-    padding: var(--space-sm) var(--space-sm);
-    border-radius: var(--radius-button);
-    transition: var(--transition-all);
-    font-weight: var(--font-weight-semibold);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 40px;
-    height: 40px;
-}
-
-.pagination-link:hover {
-    background: var(--color-secondary);
-    color: white;
-    transform: var(--transform-hover-up);
-    box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
-}
-
-.pagination-info {
-    color: var(--color-text-primary);
-    font-weight: 600;
-    padding: 0 15px;
-    font-size: 0.95rem;
-    white-space: nowrap;
-}
-
-.pagination-results-info {
-    color: white;
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: var(--space-lg);
-    background: rgba(0, 0, 0, 0.4);
-    padding: 8px 16px;
-    border-radius: var(--radius-xl);
-    display: inline-block;
-}
-
-.current-page {
-    color: var(--color-text-primary);
-    font-weight: 600;
-    padding: 0 15px;
-}
-
-/* Responsive pagination styles for skills pages */
-@media (max-width: 768px) {
-    .pagination-container {
-        margin-top: 30px;
-    }
-
-    .pagination-nav {
-        padding: 12px 20px;
-        gap: 8px;
-    }
-    
-    .pagination-link {
-        padding: 6px 10px;
-        min-width: 36px;
-        height: 36px;
-        font-size: 0.9rem;
-    }
-    
-    .pagination-info {
-        padding: 0 10px;
-        font-size: 0.9rem;
-    }
-    
-    .pagination-results-info {
-        font-size: 0.85rem;
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    .pagination-nav {
-        padding: 10px 15px;
-        gap: 6px;
-        flex-wrap: wrap;
-    }
-    
-    .pagination-info {
-        order: -1;
-        width: 100%;
-        text-align: center;
-        margin-bottom: 10px;
-        padding: 0;
-    }
-}
+/* User profile cards */
 
 /* Stats cards (for my_skills page) */
 .stats-cards {
@@ -411,50 +252,9 @@
     max-width: 100%;
 }
 
-.form-row {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 25px;
-}
-
 .half-width {
     flex: 1;
     margin-bottom: 0;
-}
-
-.form-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    font-size: 1rem;
-}
-
-.form-label i {
-    margin-right: 8px;
-    color: #667eea;
-    width: 16px;
-}
-
-.form-control {
-    width: 100%;
-    padding: 12px 15px;
-    border: 2px solid var(--color-border-default);
-    border-radius: var(--radius-md);
-    font-size: 1rem;
-    transition: var(--transition-all);
-    background: var(--color-background-glass-light);
-}
-
-.form-control:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-textarea.form-control {
-    resize: vertical;
-    min-height: 120px;
 }
 
 .checkbox-container {
@@ -481,25 +281,11 @@ textarea.form-control {
     transform: scale(1.2);
 }
 
-.help-text {
-    display: block;
-    margin-top: 5px;
-    color: var(--color-text-light);
-    font-size: 0.875rem;
-}
-
 .error-message {
     color: var(--color-danger);
     font-size: 0.875rem;
     margin-top: 5px;
     font-weight: 500;
-}
-
-.form-actions {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    margin-top: 40px;
 }
 
 /* Submit buttons now use btn-primary utility class from utilities.css */
@@ -557,16 +343,41 @@ textarea.form-control {
     gap: 20px;
 }
 
-.user-avatar {
+.skill-user-avatar {
     width: 80px;
     height: 80px;
     border-radius: var(--radius-circle);
     object-fit: cover;
     margin-bottom: 15px;
-    border: 3px solid #667eea;
+    border: var(--border-width-thick) solid var(--color-secondary);
+    flex-shrink: 0; /* Prevent image from shrinking in flex layouts */
 }
 
-.user-avatar-placeholder {
+/* Override user-avatar on skill pages to use skill-specific sizing */
+.user-sidebar .user-avatar {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0; /* Prevent image from shrinking in flex layouts */
+}
+
+/* Avatar link styling to prevent layout issues */
+.user-sidebar .avatar-link {
+    display: inline-block;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+
+.user-sidebar .avatar-link:hover {
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+/* Ensure user-info-centered container doesn't break layout on skill pages */
+.user-sidebar .user-info-centered {
+    overflow: hidden; /* Prevent content from breaking the container */
+}
+
+.skill-user-avatar-placeholder {
     width: 80px;
     height: 80px;
     border-radius: var(--radius-circle);
@@ -575,13 +386,7 @@ textarea.form-control {
     justify-content: center;
     font-size: 2rem;
     margin-bottom: 15px;
-}
-
-.user-name {
-    color: var(--color-text-primary);
-    font-size: 1.2rem;
-    font-weight: var(--font-weight-medium);
-    margin-bottom: 5px;
+    flex-shrink: 0; /* Prevent placeholder from shrinking in flex layouts */
 }
 
 .user-member-since {
@@ -910,11 +715,6 @@ textarea.form-control {
     .btn-secondary {
         width: 250px;
         justify-content: center;
-    }
-
-    .form-row {
-        flex-direction: column;
-        gap: 0;
     }
 
     .half-width {

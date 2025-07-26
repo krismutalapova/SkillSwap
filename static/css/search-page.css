@@ -246,43 +246,6 @@
     margin-right: var(--space-xs);
 }
 
-/* Empty State */
-
-.empty-state {
-    padding: var(--space-4xl);
-    text-align: center;
-}
-
-.empty-state-icon {
-    width: var(--empty-state-icon-size);
-    height: var(--empty-state-icon-size);
-    background: var(--color-secondary-light);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto var(--space-lg);
-    color: var(--color-secondary);
-    font-size: var(--font-size-4xl);
-}
-
-.empty-state-title {
-    color: var(--color-text-dark);
-    font-size: var(--font-size-2xl);
-    font-weight: 600;
-    margin-bottom: var(--space-sm-plus);
-}
-
-.empty-state-message {
-    color: var(--color-text-secondary);
-    font-size: var(--font-size-md);
-    margin-bottom: var(--space-lg);
-}
-
-.empty-state-button i {
-    margin-right: var(--space-sm);
-}
-
 /* JavaScript Dynamic Styles */
 
 .js-skill-tag {

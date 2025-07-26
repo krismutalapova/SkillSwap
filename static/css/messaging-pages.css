@@ -447,21 +447,6 @@
     color: var(--color-text-dark);
 }
 
-.form-control {
-    padding: var(--form-field-padding);
-    border: var(--form-field-border-width) solid var(--color-border-muted);
-    border-radius: var(--radius-md);
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.9);
-}
-
-.form-control:focus {
-    outline: none;
-    border-color: var(--color-secondary);
-    box-shadow: var(--shadow-focus);
-}
-
 .error-messages {
     display: flex;
     flex-direction: column;
@@ -471,13 +456,6 @@
 .error {
     color: var(--color-danger);
     font-size: 0.875rem;
-}
-
-.form-actions {
-    display: flex;
-    gap: var(--space-md);
-    justify-content: center;
-    margin-top: var(--space-lg);
 }
 
 /* Mobile Responsive for Send Message */

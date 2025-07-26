@@ -159,12 +159,7 @@
     align-items: stretch; 
 }
 
-.user-card {
-    display: flex;
-    flex-direction: column;
-    height: 100%; 
-}
-
+/* Home-specific user card extensions */
 .user-card:hover {
     transform: var(--transform-hover-lift);
     box-shadow: var(--shadow-hover-light);
@@ -230,13 +225,8 @@
     margin-top: auto;
 }
 
-.skill-tag {
-    background: var(--color-secondary);
-    color: var(--color-text-white);
-    padding: var(--space-xs) var(--space-sm);
-    border-radius: var(--radius-md);
+.user-card-skills .skill-tag {
     font-size: var(--font-size-xs);
-    font-weight: 500;
 }
 
 /* Empty State */

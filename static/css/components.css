@@ -628,3 +628,93 @@
         padding: var(--space-xs) var(--space-md);
     }
 }
+
+/* Empty State Components */
+
+/* Base empty state - glassmorphism style for dark themes */
+.no-results,
+.empty-state {
+    text-align: center;
+    padding: var(--space-5xl) var(--space-lg);
+    background: var(--color-background-glass-light);
+    backdrop-filter: var(--glass-backdrop-filter);
+    border-radius: var(--radius-large);
+    margin: var(--space-4xl) 0;
+}
+
+.no-results-icon,
+.empty-icon {
+    font-size: var(--font-size-5xl);
+    color: var(--color-text-white-muted);
+    margin-bottom: var(--space-lg);
+}
+
+.empty-icon {
+    font-size: var(--font-size-6xl);
+    margin-bottom: var(--space-xl);
+}
+
+.no-results h3,
+.empty-state h3 {
+    color: var(--color-text-white);
+    margin-bottom: var(--space-md);
+    font-size: var(--font-size-2xl);
+}
+
+.empty-state h3 {
+    font-size: var(--font-size-3xl);
+}
+
+.no-results p,
+.empty-state p {
+    color: var(--color-text-white-muted);
+    margin-bottom: var(--space-xl);
+    font-size: var(--font-size-lg);
+}
+
+.empty-state p {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--space-2xl);
+}
+
+.no-results a {
+    color: var(--color-warm-light);
+}
+
+/* Light theme empty state variant - for search pages */
+.empty-state-light {
+    padding: var(--space-4xl);
+    text-align: center;
+    background: transparent;
+    backdrop-filter: none;
+    border-radius: 0;
+    margin: var(--space-2xl) 0;
+}
+
+.empty-state-icon {
+    width: var(--empty-state-icon-size);
+    height: var(--empty-state-icon-size);
+    background: var(--color-secondary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-lg);
+    color: var(--color-secondary);
+    font-size: var(--font-size-4xl);
+}
+
+.empty-state-title {
+    color: var(--color-text-dark);
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    margin-bottom: var(--space-sm-plus);
+}
+
+.empty-state-message {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-md);
+    margin-bottom: var(--space-lg);
+}

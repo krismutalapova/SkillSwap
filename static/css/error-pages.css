@@ -112,12 +112,6 @@
     margin-bottom: var(--space-xs);
 }
 
-.help-text {
-    color: var(--color-text-muted);
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-relaxed);
-}
-
 .icon-spacing {
     margin-right: var(--space-sm);
 }
