@@ -5,7 +5,7 @@
     <div class="skills-header">
         <h3><i class="fas fa-tools"></i> {{ section_title|default:"My Skills" }}</h3>
         {% if show_add_button %}
-            <a href="{% url 'add_skill' %}?next={{ next_page|default:'view_my_profile' }}" class="btn btn-primary">
+            <a href="{% url 'add_skill' %}?next={{ next_page|default:'view_my_profile' }}" class="btn-primary">
                 <i class="fas fa-plus"></i> Add New Skill
             </a>
         {% endif %}

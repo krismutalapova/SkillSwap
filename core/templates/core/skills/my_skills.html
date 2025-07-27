@@ -43,7 +43,7 @@
         <div class="skills-section">
             <div class="section-header">
                 <h2>Your Skills</h2>
-                <a href="{% url 'add_skill' %}" class="btn btn-primary">
+                <a href="{% url 'add_skill' %}" class="btn-primary">
                     <i class="fas fa-plus"></i> Add New Skill
                 </a>
             </div>
@@ -100,7 +100,7 @@
                             <a href="{% url 'skill_edit' skill.pk %}?next=my_skills" class="btn btn-small btn-outline-danger">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
-                            <a href="{% url 'delete_skill' skill.pk %}" class="btn btn-small btn-gradient-danger">
+                            <a href="{% url 'delete_skill' skill.pk %}?next=my_skills" class="btn btn-small btn-gradient-danger">
                                 <i class="fas fa-trash"></i> Delete
                             </a>
                         </div>
@@ -114,14 +114,11 @@
                 <i class="fas fa-star"></i>
             </div>
             <h3>No Skills Yet</h3>
-            <p>You haven't added any skills yet. Start by sharing a skill you can teach or requesting one you'd like to learn!</p>
+            <p>You haven't added any skills yet. Start adding a skill you can help others with or requesting one you need!</p>
             
             <div class="empty-actions">
                 <a href="{% url 'add_skill' %}" class="btn-primary">
                     <i class="fas fa-plus"></i> Add Your First Skill
-                </a>
-                <a href="{% url 'skills_list_search' %}" class="btn-secondary">
-                    <i class="fas fa-search"></i> Browse Skills
                 </a>
             </div>
         </div>
