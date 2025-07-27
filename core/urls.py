@@ -59,6 +59,7 @@ urlpatterns = [
     path("skills/<int:pk>/delete/", delete_skill, name="delete_skill"),
     path("my-skills/", my_skills, name="my_skills"),
     # Messaging URLs
+    path("messages/", lambda request: redirect("inbox"), name="messages_redirect"),
     path("skills/<int:skill_id>/message/", send_message, name="send_message"),
     path("message/<int:user_id>/", send_message, name="send_message_to_user"),
     path("inbox/", inbox, name="inbox"),
