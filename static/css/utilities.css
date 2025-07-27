@@ -1289,13 +1289,6 @@
   margin-top: var(--space-xs);
 }
 
-.error-message {
-  color: var(--color-danger);
-  font-size: var(--font-size-sm);
-  margin-top: var(--space-xs);
-  font-weight: var(--font-weight-medium);
-}
-
 /* Form control utility - used in skill and messaging forms */
 .form-control {
   width: 100%;

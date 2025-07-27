@@ -30,7 +30,7 @@
 }
 
 .message-date {
-    color: var(--color-text-light);
+    color: var(--color-text-secondary);
     font-size: 0.9rem;
     font-weight: 500;
 }
@@ -267,7 +267,7 @@
 }
 
 .skill-reference {
-    color: var(--color-text-light);
+    color: var(--color-text-secondary);
     font-size: 0.875rem;
     display: flex;
     align-items: center;
@@ -283,24 +283,18 @@
     flex-direction: column;
     align-items: flex-end;
     gap: 2px;
-    color: var(--color-text-light);
+    color: var(--color-text-secondary);
     font-size: 0.875rem;
 }
 
 .empty-inbox {
     text-align: center;
     padding: var(--space-6xl) var(--space-4xl);
-    color: var(--color-text-light);
+    color: var(--color-text-secondary);
     background: rgba(248, 249, 250, 0.5);
     border-radius: var(--radius-lg);
     border: 2px dashed var(--color-border-muted);
     margin-top: var(--space-lg);
-}
-
-.empty-icon {
-    font-size: 5rem;
-    margin-bottom: var(--space-xl);
-    color: var(--color-border-muted);
 }
 
 .empty-inbox h3 {
@@ -351,7 +345,7 @@
 }
 
 .page-info {
-    color: var(--color-text-light);
+    color: var(--color-text-secondary);
     font-weight: 600;
     margin: 0 var(--space-md);
 }
@@ -386,10 +380,6 @@
 
     .empty-inbox {
         padding: var(--space-5xl) var(--space-lg);
-    }
-
-    .empty-icon {
-        font-size: 4rem;
     }
 
     .empty-inbox h3 {
@@ -432,7 +422,7 @@
 }
 
 .form-header p {
-    color: var(--color-text-light);
+    color: var(--color-text-secondary);
     margin: 0;
 }
 

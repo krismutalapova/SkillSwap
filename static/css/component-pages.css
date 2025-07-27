@@ -74,7 +74,7 @@
 .star-label {
     cursor: pointer;
     font-size: 2.5rem;
-    color: var(--color-border-muted);
+    color: var(--color-secondary);
     transition: var(--transition-all);
     transform: scale(1);
 }

@@ -74,6 +74,7 @@
 .navigation-actions {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     flex-wrap: wrap;
     gap: var(--space-md);
     padding: var(--space-lg) 0;
@@ -394,7 +395,7 @@
 
 .no-results-icon {
     font-size: 4rem;
-    color: var(--color-border-muted);
+    color: var(--color-secondary);
     margin-bottom: var(--space-lg);
 }
 
@@ -408,16 +409,6 @@
     color: var(--color-text-secondary);
     font-size: 1.1rem;
     line-height: var(--line-height-relaxed);
-}
-
-.no-results a {
-    color: var(--color-primary);
-    text-decoration: none;
-    font-weight: var(--font-weight-medium);
-}
-
-.no-results a:hover {
-    text-decoration: underline;
 }
 
 /* Search Section Components (Home Page) */
@@ -645,7 +636,7 @@
 .no-results-icon,
 .empty-icon {
     font-size: var(--font-size-5xl);
-    color: var(--color-text-white-muted);
+    color: var(--color-secondary);
     margin-bottom: var(--space-lg);
 }
 
@@ -656,7 +647,7 @@
 
 .no-results h3,
 .empty-state h3 {
-    color: var(--color-text-white);
+    color: var(--color-text-dark);
     margin-bottom: var(--space-md);
     font-size: var(--font-size-2xl);
 }
@@ -667,7 +658,7 @@
 
 .no-results p,
 .empty-state p {
-    color: var(--color-text-white-muted);
+    color: var(--color-text-secondary);
     margin-bottom: var(--space-xl);
     font-size: var(--font-size-lg);
 }
@@ -677,10 +668,6 @@
     margin-left: auto;
     margin-right: auto;
     margin-bottom: var(--space-2xl);
-}
-
-.no-results a {
-    color: var(--color-warm-light);
 }
 
 /* Light theme empty state variant - for search pages */

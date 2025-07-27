@@ -201,19 +201,6 @@
     background: var(--color-request-gradient);
 }
 
-.stat-number {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-text-primary);
-    line-height: 1;
-}
-
-.stat-label {
-    color: var(--color-text-secondary);
-    font-weight: 500;
-    margin-top: 5px;
-}
-
 /* Skills section - Use .section-card from utilities.css */
 
 .section-header {
@@ -281,14 +268,6 @@
     transform: scale(1.2);
 }
 
-.error-message {
-    color: var(--color-danger);
-    font-size: 0.875rem;
-    margin-top: 5px;
-    font-weight: 500;
-}
-
-/* Submit buttons now use btn-primary utility class from utilities.css */
 
 /* Skill detail page */
 .skill-detail-card {
@@ -386,11 +365,10 @@
     justify-content: center;
     font-size: 2rem;
     margin-bottom: 15px;
-    flex-shrink: 0; /* Prevent placeholder from shrinking in flex layouts */
+    flex-shrink: 0;
 }
-
 .user-member-since {
-    color: var(--color-text-light);
+    color: var(--color-text-secondary);
     font-size: 0.9rem;
     margin-bottom: 15px;
     display: flex;
@@ -624,7 +602,7 @@
 }
 
 .alternative-actions p {
-    color: var(--color-text-light);
+    color: var(--color-text-secondary);
     margin-bottom: var(--space-lg);
     font-weight: 500;
 }
@@ -659,7 +637,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    color: var(--color-text-light);
+    color: var(--color-text-secondary);
     font-size: 0.875rem;
     margin-bottom: 5px;
 }
@@ -786,9 +764,3 @@
 }
 
 /* ===== MERGED FROM skills-pages.css ===== */
-/* Filter label styling (only class that was unique) */
-.filter-label {
-    font-weight: 600;
-    color: #333;
-    font-size: 14px;
-}
