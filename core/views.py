@@ -327,7 +327,10 @@ def skill_edit(request, pk):
         form = SkillForm(request.POST, instance=skill)
         if form.is_valid():
             form.save()
-            return redirect("skill_detail_page", pk=skill.pk)
+            if next_url == "my_skills":
+                return redirect("my_skills")
+            else:
+                return redirect("skill_detail_page", pk=skill.pk)
     else:
         form = SkillForm(instance=skill)
 
@@ -345,13 +348,19 @@ def skill_edit(request, pk):
 def delete_skill(request, pk):
     """Delete a skill listing"""
     skill = get_object_or_404(Skill, pk=pk, user=request.user)
+    next_url = request.GET.get("next", "skills_list_search")
 
     if request.method == "POST":
         skill_title = skill.title
         skill.delete()
-        return redirect("skills_list_search")
+        if next_url == "my_skills":
+            return redirect("my_skills")
+        else:
+            return redirect("skills_list_search")
 
-    return render(request, "core/skills/delete_skill.html", {"skill": skill})
+    return render(
+        request, "core/skills/delete_skill.html", {"skill": skill, "next_url": next_url}
+    )
 
 
 @login_required
