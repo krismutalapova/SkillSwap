@@ -577,6 +577,83 @@ class CSSRefactoringTestSuite:
             print("✅ No color contrast issues found")
             return True
 
+    def test_text_visibility_on_white_backgrounds(self):
+        """Test for invisible text elements on white backgrounds with design exceptions"""
+        print("\n👁️  Testing Text Visibility on White Backgrounds...")
+
+        css_files = [
+            "static/css/utilities.css",
+            "static/css/auth-pages.css",
+            "static/css/profile-pages.css",
+            "static/css/components.css",
+            "static/css/component-pages.css",
+            "static/css/skill-pages.css",
+            "static/css/home-pages.css",
+            "static/css/messaging-pages.css",
+            "static/css/error-pages.css",
+        ]
+
+        # Problematic colors that can be invisible on white backgrounds
+        problematic_colors = ["var(--color-text-light)", "var(--color-border-muted)"]
+
+        # Exception classes that are allowed to use light colors for design purposes
+        exception_classes = {".star-rating-display .stars i", ".skill-rating .stars i"}
+
+        problematic_text_colors = []
+
+        for css_file in css_files:
+            if not os.path.exists(css_file):
+                continue
+
+            with open(css_file, "r") as f:
+                content = f.read()
+                lines = content.split("\n")
+
+            for i, line in enumerate(lines, 1):
+                # Only check text color properties (not border or background)
+                if re.search(
+                    r"^\s*color:\s*var\(--color-(text-light|border-muted)\)",
+                    line.strip(),
+                ):
+                    selector = ""
+                    for j in range(i - 1, max(0, i - 10), -1):
+                        if "{" in lines[j - 1]:
+                            selector = (
+                                lines[j - 1].strip().replace(" {", "").replace("{", "")
+                            )
+                            break
+
+                    if selector not in exception_classes:
+                        problematic_text_colors.append(
+                            {
+                                "file": css_file,
+                                "line": i,
+                                "selector": selector,
+                                "issue": f"Line {i}: {selector} uses {line.strip()}",
+                                "fix": "Change to var(--color-text-secondary) for better contrast",
+                            }
+                        )
+
+        if problematic_text_colors:
+            print(f"\n❌ Found {len(problematic_text_colors)} text visibility issues:")
+            for issue in problematic_text_colors:
+                print(f"   • {issue['file']}: {issue['issue']}")
+                print(f"     Fix: {issue['fix']}")
+            print(f"\n📝 Note: Exceptions applied for design choices:")
+            for exception in exception_classes:
+                print(f"   • {exception} (intentionally muted for visual hierarchy)")
+            return False
+        else:
+            print("✅ No text visibility issues found")
+            print(
+                f"📝 Checked {len([f for f in css_files if os.path.exists(f)])} CSS files"
+            )
+            if exception_classes:
+                print("📝 Applied design exceptions for:")
+                for exception in exception_classes:
+                    print(f"   • {exception}")
+            return True
+
     def test_css_semantic_color_usage(self):
         """Test that semantic color variables are used appropriately"""
         print("\n🏷️  Testing Semantic Color Usage...")
@@ -1691,6 +1768,7 @@ class CSSRefactoringTestSuite:
             self.test_file_size_optimization,
             # Accessibility Tests
             self.test_color_contrast_accessibility,
+            self.test_text_visibility_on_white_backgrounds,
             self.test_css_semantic_color_usage,
             self.test_equal_height_card_layouts,
             # Home Pages Specific Tests
