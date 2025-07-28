@@ -284,23 +284,6 @@
     cursor: pointer;
 }
 
-/* Navigation actions - buttons at top/bottom of profile pages */
-.navigation-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-md);
-}
-
-/* Ensure desktop layout is maintained */
-@media (min-width: var(--breakpoint-lg)) {
-    .navigation-actions {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-}
-
 /* Responsive grid adjustments */
 @media (min-width: var(--breakpoint-xl)) {
     .profile-skills-grid {
@@ -437,11 +420,6 @@
     .detail-item {
         grid-template-columns: 1fr;
         gap: var(--space-sm);
-    }
-
-    .navigation-actions {
-        flex-direction: column;
-        align-items: stretch;
     }
 
     .profile-skills-grid {

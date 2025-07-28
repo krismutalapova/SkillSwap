@@ -1125,12 +1125,21 @@
     gap: var(--space-xs);
 }
 
-/* Skill tag components */
+/* Skill tag components - comprehensive system */
 .skill-tag {
-    padding: var(--space-2xs) var(--space-xs);
-    border-radius: var(--radius-md);
-    font-size: 0.8rem;
-    font-weight: var(--font-weight-medium);
+  background: var(--color-secondary); 
+  color: var(--color-text-white);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  display: inline-block;
+  transition: var(--transition-all);
+}
+
+.skill-tag:hover {
+  background: var(--color-primary);
+  transform: var(--transform-hover-up);
 }
 
 .skill-tag.skill-offer {
@@ -1646,22 +1655,6 @@ textarea.form-control {
 }
 
 /* Card Components */
-
-.skill-tag {
-  background: var(--color-secondary);
-  color: var(--color-text-white);
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  display: inline-block;
-  transition: var(--transition-all);
-}
-
-.skill-tag:hover {
-  background: var(--color-primary);
-  transform: var(--transform-hover-up);
-}
 
 .profile-picture {
   width: 60px;
