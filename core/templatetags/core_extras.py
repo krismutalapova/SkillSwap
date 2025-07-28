@@ -31,6 +31,6 @@ def get_category_name(categories, category_key):
 @register.filter
 def get_item(dictionary, key):
     """Get an item from a dictionary"""
-    if dictionary and hasattr(dictionary, 'get'):
+    if dictionary and hasattr(dictionary, "get"):
         return dictionary.get(key)
     return None

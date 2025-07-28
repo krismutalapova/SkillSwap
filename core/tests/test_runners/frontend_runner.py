@@ -86,7 +86,10 @@ def run_profile_pages_optimization_test():
 
     try:
         result = subprocess.run(
-            [sys.executable, "core/tests/frontend_tests/test_profile_pages_optimization.py"],
+            [
+                sys.executable,
+                "core/tests/frontend_tests/test_profile_pages_optimization.py",
+            ],
             capture_output=True,
             text=True,
             cwd=project_root,
