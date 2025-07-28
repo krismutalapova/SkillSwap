@@ -8,9 +8,13 @@
     {% include 'core/components/user_detail_card.html' with profile=profile is_own_profile=is_own_profile sidebar_action_type='message_user' profile_meta_items=profile_meta_items %}
 
     <!-- User Skills -->
-    {% include 'core/components/user_skills_section.html' with section_title=profile.user.first_name|default:"This user"|add:"'s Skills" use_card_layout=True user_display_name=profile.user.first_name|default:"This user" offered_skills=offered_skills requested_skills=requested_skills is_own_profile=is_own_profile show_add_button=False show_empty_actions=False %}
+    {% if is_own_profile %}
+        {% include 'core/components/user_skills_section.html' with section_title="My Skills" show_add_button=True next_page="view_user_profile" next_page_id=profile.user.id empty_message="You haven't added any skills yet." show_empty_actions=True use_gradient_button=False is_own_profile=True %}
+    {% else %}
+        {% include 'core/components/user_skills_section.html' with section_title=profile.user.first_name|default:"This user"|add:"'s Skills" use_card_layout=True user_display_name=profile.user.first_name|default:"This user" offered_skills=offered_skills requested_skills=requested_skills is_own_profile=is_own_profile show_add_button=False show_empty_actions=False %}
+    {% endif %}
 
     <!-- Navigation Actions Component -->
-    {% include 'core/components/navigation_actions.html' with back_url='search' back_text='Back to Browse' show_manage_skills=False %}
+    {% include 'core/components/navigation_actions.html' with back_url='search' back_text='Back to Browse' show_manage_skills=is_own_profile %}
 </div>
 {% endblock %}

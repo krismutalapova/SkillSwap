@@ -16,7 +16,8 @@
             </p>
         </div>
         
-        <form method="post" class="skill-form">
+        {% url 'add_skill' as add_skill_url %}
+        <form method="post" class="skill-form" action="{{ add_skill_url }}{% if next_url or next_id %}?{% if next_url %}next={{ next_url }}{% endif %}{% if next_url and next_id %}&{% endif %}{% if next_id %}next_id={{ next_id }}{% endif %}{% endif %}">
             {% csrf_token %}
             
             <div class="form-group">
