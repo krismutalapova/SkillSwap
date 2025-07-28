@@ -20,7 +20,7 @@ from pathlib import Path
 from typing import List, Dict, Tuple
 
 # Add the parent directories to Python path for Django setup
-sys.path.append(str(Path(__file__).parent.parent.parent))
+sys.path.append(str(Path(__file__).parent.parent.parent.parent))
 
 # Setup Django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "skillswap.settings")

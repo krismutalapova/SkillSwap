@@ -16,7 +16,7 @@ def test_profile_pages_optimization():
     """Test profile-pages.css optimization results"""
 
     # Get the project root directory
-    project_root = Path(__file__).parent.parent.parent
+    project_root = Path(__file__).parent.parent.parent.parent
     css_file = project_root / "static/css/profile-pages.css"
 
     if not css_file.exists():

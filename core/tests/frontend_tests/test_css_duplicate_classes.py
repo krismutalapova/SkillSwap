@@ -19,7 +19,7 @@ from collections import defaultdict, Counter
 
 class CSSClassDuplicateDetector:
     def __init__(self):
-        self.project_root = Path(__file__).parent.parent.parent
+        self.project_root = Path(__file__).parent.parent.parent.parent
         self.css_dir = self.project_root / "static/css"
 
         self.css_files = [
