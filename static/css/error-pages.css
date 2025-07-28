@@ -73,31 +73,40 @@
     font-size: var(--font-size-sm);
 }
 
-.error-action-buttons {
+.error-actions {
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
     align-items: center;
 }
 
-.btn-primary-home {
-    display: inline-block;
+
+/* Button utility extensions for error pages - use with btn-base and color classes */
+.btn-error-large {
     padding: var(--space-md) var(--space-4xl);
-    border: none;
-    border-radius: var(--radius-md);
-    text-decoration: none;
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-semibold);
-    transition: var(--transition-all);
-    box-shadow: var(--shadow-button-primary);
 }
 
-.btn-primary-home:hover {
-    transform: var(--transform-hover-lift);
-    box-shadow: var(--shadow-button-primary-hover);
+.btn-error-compact {
+    padding: var(--space-sm) var(--space-lg);
+    font-size: var(--font-size-sm);
 }
 
-.secondary-buttons {
+.btn-home-width {
+    min-width: 200px;
+}
+
+.btn-error-center {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-error-spacing {
+    margin-top: var(--space-lg);
+}
+
+.secondary-actions {
     display: flex;
     gap: var(--space-md);
     flex-wrap: wrap;
