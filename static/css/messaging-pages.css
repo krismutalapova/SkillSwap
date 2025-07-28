@@ -67,7 +67,7 @@
 }
 
 .view-skill-link:hover {
-    color: #5a6fd8;
+    color: var(--color-secondary);
     transform: translateX(2px);
 }
 

@@ -1144,13 +1144,13 @@
 
 .skill-tag.skill-offer {
     background: rgba(79, 156, 249, 0.1);
-    color: #4f9cf9;
+    color: var(--color-skill-offer);
     border: 1px solid rgba(79, 156, 249, 0.3);
 }
 
 .skill-tag.skill-request {
     background: rgba(255, 138, 128, 0.1);
-    color: #ff8a80;
+    color: var(--color-skill-request);
     border: 1px solid rgba(255, 138, 128, 0.3);
 }
 
@@ -1348,7 +1348,7 @@ textarea.form-control {
 /* Form label with icon (for skill forms) */
 .form-label i {
   margin-right: 8px;
-  color: #667eea;
+  color: var(--color-secondary);
   width: 16px;
 }
 
@@ -1466,7 +1466,7 @@ textarea.form-control {
 }
 
 .icon-btn-danger:hover {
-  background: #c82333;
+  background: var(--color-danger);
   transform: var(--transform-hover-lift);
   color: var(--color-text-white);
 }

@@ -242,7 +242,7 @@
 }
 
 .signup-suggestion:hover {
-    transform: var(--transform-hover-lift-sm);
+    transform: var(--transform-hover-lift);
     box-shadow: var(--shadow-success);
     color: var(--color-text-white);
     text-decoration: none;

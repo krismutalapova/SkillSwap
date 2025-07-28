@@ -251,7 +251,7 @@
 }
 
 .checkbox-container i {
-    color: #667eea;
+    color: var(--color-secondary);
     width: 16px;
     margin-right: 8px
 }
@@ -293,7 +293,7 @@
 }
 
 .created-date i {
-    color: #667eea;
+    color: var(--color-secondary);
 }
 
 .skill-info-grid {
@@ -312,7 +312,7 @@
 }
 
 .skill-content h3 i {
-    color: #667eea;
+    color: var(--color-secondary);
 }
 
 /* Skill sidebar */
@@ -437,7 +437,7 @@
 
 .interactive-stars i {
     font-size: 2rem;
-    color: #ddd;
+    color: var(--color-border-default);
     cursor: pointer;
     transition: all 0.2s ease;
     user-select: none;
@@ -458,7 +458,7 @@
 .rating-comment {
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid #e1e5e9;
+    border: 2px solid var(--color-border-default);
     border-radius: var(--radius-button);
     font-size: 1rem;
     transition: border-color 0.3s ease;
@@ -470,7 +470,7 @@
 
 .rating-comment:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: var(--color-secondary);
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
@@ -490,7 +490,7 @@
 
 .star {
     font-size: 2rem;
-    color: #ddd;
+    color: var(--color-border-default);
     cursor: pointer;
     transition: color 0.2s ease;
     user-select: none;
@@ -589,7 +589,7 @@
 }
 
 .warning-message p {
-    color: #721c24;
+    color: var(--color-danger-text);
     font-size: 1.1rem;
     font-weight: 600;
     margin: 0;
@@ -644,7 +644,7 @@
 
 .created-date i,
 .updated-date i {
-    color: #667eea;
+    color: var(--color-secondary);
     width: 14px;
 }
 
@@ -745,7 +745,7 @@
 
 /* Dynamic rating text styles for JavaScript interaction */
 .rating-text.rating-selected {
-    color: #ffc107 !important;
+    color: var(--color-warning) !important;
     font-weight: 600 !important;
 }
 
