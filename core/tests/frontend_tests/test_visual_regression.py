@@ -91,15 +91,21 @@ class VisualRegressionTestSuite:
                 EC.presence_of_element_located((By.TAG_NAME, "body"))
             )
 
-            # Check that utility button classes are applied
-            buttons = self.driver.find_elements(By.CLASS_NAME, "btn-primary")
-            if buttons:
+            # Check that atomic button classes are applied
+            # Look for buttons with both btn-base and color classes (atomic pattern)
+            buttons_with_atomic = self.driver.find_elements(
+                By.XPATH,
+                "//button[contains(@class, 'btn-base') and (contains(@class, 'btn-primary-colors') or contains(@class, 'btn-secondary-colors'))]",
+            )
+
+            all_buttons = buttons_with_atomic
+            if all_buttons:
                 self.test_results.append(
-                    "✅ Home page: btn-primary buttons render correctly"
+                    "✅ Home page: Button classes (atomic pattern) render correctly"
                 )
 
                 # Check button styling
-                button = buttons[0]
+                button = all_buttons[0]
                 bg_color = button.value_of_css_property("background")
                 if "gradient" in bg_color.lower() or "linear" in bg_color.lower():
                     self.test_results.append(
@@ -110,7 +116,9 @@ class VisualRegressionTestSuite:
                         "⚠️  Home page: Button gradients may not be applied"
                     )
             else:
-                self.test_results.append("❌ Home page: No btn-primary buttons found")
+                self.test_results.append(
+                    "❌ Home page: No button classes found (neither atomic nor legacy)"
+                )
 
         except TimeoutException:
             self.test_results.append("❌ Home page: Page load timeout")

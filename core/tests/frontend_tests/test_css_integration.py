@@ -58,22 +58,24 @@ class CSSIntegrationTests(TestCase):
         self.assertIn("base.css", rendered)
 
     def test_home_page_uses_utility_classes(self):
-        """Test that home page uses consolidated utility classes"""
+        """Test that home page uses consolidated atomic utility classes"""
         response = self.client.get(reverse("home"))
         self.assertEqual(response.status_code, 200)
 
-        # Should use utility classes, not deprecated ones
-        self.assertContains(response, "btn-primary")
+        # Should use atomic pattern classes
+        self.assertContains(response, "btn-base")
+        self.assertContains(response, "btn-primary-colors")
         self.assertNotContains(response, "profile-btn-gradient")
 
     def test_skill_pages_css_integration(self):
-        """Test skill pages integrate properly with CSS refactoring"""
+        """Test skill pages integrate properly with atomic CSS pattern"""
         self.client.login(username="testuser", password="testpass123")
 
         # Test skill list page
         response = self.client.get(reverse("skills_list_search"))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "btn-primary")
+        self.assertContains(response, "btn-base")
+        self.assertContains(response, "btn-primary-colors")
 
     def test_profile_completion_styling(self):
         """Test that profile completion uses proper CSS variables"""
@@ -136,7 +138,13 @@ class CSSVariableTests(TestCase):
         with open(utilities_path, "r") as f:
             content = f.read()
 
-        button_classes = [".btn-primary", ".btn-secondary", ".btn-success"]
+        button_classes = [
+            ".btn-base",
+            ".btn-primary-colors",
+            ".btn-secondary-colors",
+            ".btn-success-colors",
+            ".btn-warning-colors",
+        ]
         for btn_class in button_classes:
             self.assertIn(
                 btn_class,
@@ -158,15 +166,16 @@ class FormRenderingTests(TestCase):
         self.client = Client()
 
     def test_skill_create_form_styling(self):
-        """Test skill creation form uses proper button styles"""
+        """Test skill creation form uses atomic button pattern"""
         self.client.login(username="testuser", password="testpass123")
 
         response = self.client.get(reverse("add_skill"))
         self.assertEqual(response.status_code, 200)
 
-        # Should use utility button classes
-        self.assertContains(response, "btn-primary")
-        self.assertContains(response, "btn-secondary")
+        # Should use atomic pattern button classes
+        self.assertContains(response, "btn-base")
+        self.assertContains(response, "btn-primary-colors")
+        self.assertContains(response, "btn-secondary-colors")
 
     def test_profile_form_completion_styling(self):
         """Test profile forms show completion status with proper CSS"""

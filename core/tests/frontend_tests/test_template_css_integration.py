@@ -151,8 +151,11 @@ class TemplateCSSIntegrationTests(CSSLiveTestCase):
         self.assertEqual(response.status_code, 200)
 
         utility_classes_to_check = [
-            "btn-primary",
-            "btn-secondary",
+            "btn-base",  # Atomic foundation
+            "btn-primary-colors",  # Atomic color classes
+            "btn-secondary-colors",
+            "btn-success-colors",
+            "btn-warning-colors",
             "text-center",
             "flex-center",
         ]

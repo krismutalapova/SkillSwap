@@ -239,7 +239,7 @@ class CSSArchitectureValidationTests(CSSTestCase):
 
         # Essential utility categories that should be present
         essential_categories = {
-            "buttons": ["btn-primary", "btn-secondary", "btn-base"],
+            "buttons": ["btn-base", "btn-primary-colors", "btn-secondary-colors"],
             "text": ["text-center", "text-left", "text-right"],
             "spacing": ["m-0", "p-0", "mt-sm", "mb-sm"],
             "layout": ["flex-center", "flex-between"],

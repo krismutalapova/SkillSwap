@@ -161,11 +161,11 @@ if (isNode) {
                 message: `${totalVariableUsage} CSS variable usages found`
             });
 
-            // Test 6: Button consolidation
+            // Test 6: Button consolidation (atomic pattern)
             const buttonPatterns = [
-                /\.btn-primary/g,
-                /\.contact-btn/g,
-                /\.search-button/g
+                /\.btn-base/g,
+                /\.btn-primary-colors/g,
+                /\.btn-secondary-colors/g
             ];
 
             let buttonConsolidationScore = 0;
@@ -439,7 +439,7 @@ if (isNode) {
                 const content = this.readFile(templateFile);
                 if (content) {
                     const utilityClasses = [
-                        'glass-card', 'primary-gradient', 'btn-primary',
+                        'glass-card', 'primary-gradient', 'btn-base', 'btn-primary-colors',
                         'user-name', 'user-bio', 'profile-pic', 'contact-btn', 'skill-tag'
                     ];
 
@@ -501,7 +501,9 @@ if (isNode) {
             const coreUtilities = [
                 { class: '.glass-card', file: 'utilities.css', content: utilitiesCSS },
                 { class: '.primary-gradient', file: 'base.css', content: baseCSS },
-                { class: '.btn-primary', file: 'utilities.css', content: utilitiesCSS },
+                { class: '.btn-base', file: 'utilities.css', content: utilitiesCSS },
+                { class: '.btn-primary-colors', file: 'utilities.css', content: utilitiesCSS },
+                { class: '.btn-secondary-colors', file: 'utilities.css', content: utilitiesCSS },
                 { class: '.user-name', file: 'utilities.css', content: utilitiesCSS },
                 { class: '.user-bio', file: 'utilities.css', content: utilitiesCSS },
                 { class: '.profile-pic', file: 'utilities.css', content: utilitiesCSS },
@@ -852,7 +854,8 @@ if (isNode) {
             // Layout utilities
             { class: 'glass-card', property: 'backdrop-filter', expectedContains: 'blur' },
             { class: 'primary-gradient', property: 'background-image', expectedContains: 'gradient' },
-            { class: 'btn-primary', property: 'background', expectedContains: 'gradient' },
+            { class: 'btn-base', property: 'padding', expectedContains: 'px' },
+            { class: 'btn-primary-colors', property: 'background', expectedContains: 'var' },
 
             // Typography utilities  
             { class: 'user-name', property: 'font-weight', expected: '500' },
@@ -921,7 +924,8 @@ if (isNode) {
             { selector: '.user-card', name: 'User Card' },
             { selector: '.search-header', name: 'Search Header' },
             { selector: '.glass-card', name: 'Glass Card' },
-            { selector: '.btn-primary', name: 'Primary Button' },
+            { selector: '.btn-base', name: 'Button Base' },
+            { selector: '.btn-primary-colors', name: 'Primary Button Colors' },
             { selector: '.skill-tag', name: 'Skill Tag' },
             { selector: '.profile-pic', name: 'Profile Picture' },
             { selector: '.nav-link', name: 'Navigation Link' }
@@ -973,9 +977,10 @@ if (isNode) {
         console.log("-".repeat(40));
 
         const buttonTests = [
-            { selector: '.btn-primary', name: 'Primary Button' },
-            { selector: '.btn-secondary', name: 'Secondary Button' },
-            { selector: '.btn-success', name: 'Success Button' },
+            { selector: '.btn-base', name: 'Button Foundation' },
+            { selector: '.btn-primary-colors', name: 'Primary Button Colors' },
+            { selector: '.btn-secondary-colors', name: 'Secondary Button Colors' },
+            { selector: '.btn-success-colors', name: 'Success Button Colors' },
             { selector: '.contact-btn', name: 'Contact Button' },
             { selector: '.form-input', name: 'Form Input' }
         ];
@@ -1000,7 +1005,7 @@ if (isNode) {
                     isConsolidated = hasBorder && hasPadding && hasRounding;
                 } else {
                     // Different criteria for different button types
-                    if (test.selector === '.btn-secondary') {
+                    if (test.selector === '.btn-secondary-colors') {
                         // For secondary buttons: check border, transition, and padding (no gradient required)
                         const hasBorder = computedStyle.border !== 'none' && computedStyle.border !== '0px';
                         const hasProperTransition = computedStyle.transition.includes('all') ||
@@ -1017,8 +1022,8 @@ if (isNode) {
                         const hasConsistentPadding = computedStyle.padding !== '0px';
 
                         // Debug logging for primary buttons
-                        if (test.selector === '.btn-primary') {
-                            console.log(`🔍 DEBUG - Primary Button Analysis:`);
+                        if (test.selector === '.btn-primary-colors') {
+                            console.log(`🔍 DEBUG - Primary Button Colors Analysis:`);
                             console.log(`   Background: ${computedStyle.backgroundImage}`);
                             console.log(`   Transition: ${computedStyle.transition}`);
                             console.log(`   Padding: ${computedStyle.padding}`);
@@ -1142,7 +1147,7 @@ if (isNode) {
 
         showcase.innerHTML = `
             <h3 style="margin: 0 0 15px 0; color: var(--color-primary, #6441a5);">🧪 CSS Test Showcase</h3>
-            <button class="btn-primary" style="width: 100%; margin-bottom: 10px;">Primary Button</button>
+            <button class="btn-base btn-primary-colors" style="width: 100%; margin-bottom: 10px;">Primary Button (Atomic)</button>
             <div class="glass-card" style="padding: 15px; margin-bottom: 10px;">
                 <h4 style="margin: 0 0 10px 0;">Glass Card</h4>
                 <p style="margin: 0; font-size: 14px;">Testing glassmorphism effect</p>

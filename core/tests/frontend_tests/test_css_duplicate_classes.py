@@ -54,11 +54,11 @@ class CSSClassDuplicateDetector:
         Removes modifiers, pseudo-classes, child selectors, etc.
 
         Examples:
-        - '.btn-primary' -> 'btn-primary'
-        - '.btn-primary:hover' -> 'btn-primary' (pseudo-class)
-        - '.btn-primary.large' -> 'btn-primary' (modifier)
-        - '.card .btn-primary' -> 'btn-primary' (child selector)
-        - '.btn-primary, .btn-secondary' -> ['btn-primary', 'btn-secondary'] (multiple)
+        - '.btn-base' -> 'btn-base' (atomic foundation)
+        - '.btn-primary-colors:hover' -> 'btn-primary-colors' (atomic color with pseudo-class)
+        - '.btn-primary-colors.large' -> 'btn-primary-colors' (modifier)
+        - '.card .btn-primary-colors' -> 'btn-primary-colors' (child selector)
+        - '.btn-primary-colors, .btn-secondary-colors' -> ['btn-primary-colors', 'btn-secondary-colors'] (multiple)
         """
         if "," in selector:
             return [self.normalize_selector(s.strip()) for s in selector.split(",")]
@@ -135,7 +135,7 @@ class CSSClassDuplicateDetector:
             "home-pages.css": ["hero-", "feature-"],
             "messaging-pages.css": ["message-", "inbox-"],
             "auth-pages.css": ["auth-", "login-", "signup-"],
-            "error-pages.css": ["error-", "btn-primary-home"],
+            "error-pages.css": ["error-", "btn-primary-colors"],
         }
 
         if filename in file_prefixes:
