@@ -54,7 +54,7 @@ python manage.py test core.tests.django_tests.test_models
 python manage.py test core.tests.django_tests.test_views
 ```
 
-## 🛠️ Test Runners
+## Test Runners
 
 ### **`comprehensive_runner.py`** - Primary Runner
 Complete testing solution with advanced features:
@@ -95,7 +95,7 @@ python core/tests/test_runners/frontend_runner.py
 python core/tests/test_runners/frontend_runner.py --visual
 ```
 
-## 🧪 JavaScript CSS Tests
+## JavaScript CSS Tests
 
 Dual-mode CSS design system validation:
 ```bash
@@ -106,7 +106,7 @@ node core/tests/frontend_tests/css_tests.js
 # Visit http://127.0.0.1:8000 and paste css_tests.js content
 ```
 
-## 📊 Test Categories
+## Test Categories
 
 ### Django Tests (`django_tests/`)
 - **Models**: Profile completion, skill sync, ratings, signals
@@ -122,7 +122,7 @@ node core/tests/frontend_tests/css_tests.js
 - **Profile Optimization**: CSS variable usage validation
 - **Visual Regression**: Selenium browser automation testing
 
-## � Development Workflow
+## Development Workflow
 
 ### Adding New Tests
 1. **Choose category**: Django (`django_tests/`) or Frontend (`frontend_tests/`)
@@ -156,7 +156,7 @@ class ProfileModelTest(TestCase):
         self.assertTrue(profile.is_profile_complete)
 ```
 
-## 🚀 Continuous Integration
+## Continuous Integration
 
 ### Recommended CI Pipeline
 ```bash
