@@ -4,6 +4,17 @@ from math import floor, ceil
 register = template.Library()
 
 
+def filled_stars(rating):
+    """Calculate number of filled stars (rounded to nearest integer)"""
+    rating = float(rating) if rating else 0
+    return int(round(rating))
+
+
+def empty_stars(rating):
+    """Calculate number of empty stars"""
+    return 5 - filled_stars(rating)
+
+
 @register.inclusion_tag("core/components/star_rating.html")
 def star_rating(rating, show_value=True, show_count=True, count=0):
     """

@@ -26,3 +26,11 @@ def get_category_name(categories, category_key):
         if key == category_key:
             return name
     return category_key
+
+
+@register.filter
+def get_item(dictionary, key):
+    """Get an item from a dictionary"""
+    if dictionary and hasattr(dictionary, 'get'):
+        return dictionary.get(key)
+    return None
