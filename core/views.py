@@ -176,6 +176,7 @@ def search(request):
 @login_required
 def add_skill(request):
     next_url = request.GET.get("next", "skills_list_search")
+    next_id = request.GET.get("next_id", "")
     skill_type = request.GET.get("type", "").strip()
 
     if request.method == "POST":
@@ -185,7 +186,12 @@ def add_skill(request):
             skill.user = request.user
             skill.save()
 
-            return redirect("skill_detail_page", pk=skill.pk)
+            if next_url == "view_user_profile" and next_id:
+                return redirect("view_user_profile", user_id=next_id)
+            elif next_url == "view_my_profile":
+                return redirect("view_my_profile")
+            else:
+                return redirect("skill_detail_page", pk=skill.pk)
     else:
         # Prefill form with skill_type from URL parameter
         initial_data = {}
@@ -196,6 +202,7 @@ def add_skill(request):
     context = {
         "form": form,
         "next_url": next_url,
+        "next_id": next_id,
     }
     return render(request, "core/skills/add_skill.html", context)
 
@@ -523,9 +530,9 @@ def css_test(request):
     """CSS Design System Test Page"""
     import os
 
-    # Read the CSS test script
+    # Read the CSS test script from the organized test location
     test_script_path = os.path.join(
-        os.path.dirname(os.path.dirname(__file__)), "css_design_system_tests.js"
+        os.path.dirname(__file__), "tests", "frontend_tests", "css_tests.js"
     )
     try:
         with open(test_script_path, "r") as f:
