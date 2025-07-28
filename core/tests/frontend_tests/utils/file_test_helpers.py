@@ -27,6 +27,23 @@ class FileTestUtils:
         return current_file.parent.parent.parent.parent.parent
 
     @staticmethod
+    def get_file_size(file_path) -> int | None:
+        """
+        Get file size in bytes
+        Args:
+            file_path: Path object or string path to file
+        Returns:
+            File size in bytes, or None if file doesn't exist
+        """
+        try:
+            if hasattr(file_path, "stat"):
+                return file_path.stat().st_size
+            else:
+                return Path(file_path).stat().st_size
+        except (OSError, FileNotFoundError):
+            return None
+
+    @staticmethod
     def read_static_file(file_path: str) -> str:
         """
         Read file from static directory with error handling

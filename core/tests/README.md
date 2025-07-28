@@ -14,12 +14,24 @@ core/tests/
 │   ├── test_templates.py                  # Template rendering and context
 │   └── test_integration.py                # End-to-end workflows
 ├── frontend_tests/                        # 🎨 Frontend and CSS tests
-│   ├── css_tests.js                       # JavaScript design system tests
-│   ├── test_css_integration.py            # CSS integration validation
-│   ├── test_css_refactoring.py            # CSS refactoring tests
-│   ├── test_css_duplicate_classes.py      # Duplicate detection
-│   ├── test_profile_pages_optimization.py # Profile optimization
-│   └── test_visual_regression.py          # Visual regression testing
+│   ├── utils/                             # 🔧 Shared test utilities and base classes
+│   │   ├── __init__.py                    # Package initialization
+│   │   ├── base_test_classes.py           # CSSTestCase, CSSLiveTestCase base classes
+│   │   ├── css_test_helpers.py            # CSS parsing and analysis utilities
+│   │   └── file_test_helpers.py           # File operations and project navigation
+│   ├── test_css_variables.py              # CSS variable usage and definition tests
+│   ├── test_button_consolidation.py       # Button pattern consolidation validation
+│   ├── test_hardcoded_values.py           # Hardcoded value detection and analysis
+│   ├── test_css_architecture.py           # CSS file organization and naming conventions
+│   ├── test_responsive_design.py          # Responsive design and mobile-first validation
+│   ├── test_template_css_integration.py   # Template-CSS integration and class usage
+│   ├── test_css_performance.py            # Performance analysis and optimization
+│   ├── test_css_integrity.py              # File existence, syntax, and basic validation
+│   ├── test_css_duplicate_classes.py      # Cross-file duplicate detection
+│   ├── test_css_integration.py            # Django integration validation
+│   ├── test_visual_regression.py          # Visual regression testing
+│   ├── test_css_refactoring_suite.py      # Monolithic suite 
+│   └── css_tests.js                       # JavaScript design system tests
 └── test_runners/                          # 🚀 Test execution utilities
     ├── comprehensive_runner.py            # Full-featured runner
     ├── simple_runner.py                   # Quick test execution
@@ -116,10 +128,16 @@ node core/tests/frontend_tests/css_tests.js
 - **Integration**: Complete user workflows, messaging, skill discovery
 
 ### Frontend Tests (`frontend_tests/`)
-- **CSS Integration**: Template rendering with CSS classes
-- **CSS Refactoring**: Variable usage, button consolidation
+- **CSS Variables**: Variable definition, usage, and integration testing
+- **Button Consolidation**: Button pattern consolidation and utility adoption
+- **Hardcoded Values**: Detection and analysis of hardcoded CSS values
+- **CSS Architecture**: File organization, naming conventions, and structure
+- **Responsive Design**: Mobile-first approach and breakpoint validation
+- **Template Integration**: Template-CSS integration and class usage validation
+- **Performance**: File size analysis, optimization opportunities, load times
+- **Integrity**: File existence, syntax validation, and basic quality checks
 - **Duplicate Detection**: Cross-file duplicate class analysis
-- **Profile Optimization**: CSS variable usage validation
+- **CSS Integration**: Django staticfiles integration
 - **Visual Regression**: Selenium browser automation testing
 
 ## Development Workflow
