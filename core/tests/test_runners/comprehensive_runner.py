@@ -2,14 +2,16 @@
 """
 Comprehensive Django Test Runner for SkillSwap Platform
 
-This script runs all Django tests with detailed reporting and coverage analysis.
-Covers models, views, forms, templates, integration tests, and more.
+This script runs all Django and frontend tests with detailed reporting and coverage analysis.
+Covers models, views, forms, templates, integration tests, CSS tests, and visual regression.
 
 Usage:
-    python core/tests/run_all_tests.py
-    python core/tests/run_all_tests.py --coverage
-    python core/tests/run_all_tests.py --specific test_models
-    python core/tests/run_all_tests.py --verbose
+    python core/tests/test_runners/run_all_tests.py
+    python core/tests/test_runners/run_all_tests.py --coverage
+    python core/tests/test_runners/run_all_tests.py --specific models
+    python core/tests/test_runners/run_all_tests.py --specific css_integration
+    python core/tests/test_runners/run_all_tests.py --verbose
+    python core/tests/test_runners/run_all_tests.py --check-env
 """
 
 import os
@@ -75,11 +77,18 @@ class SkillSwapTestRunner:
     def __init__(self):
         self.project_root = project_root
         self.test_categories = {
-            "models": "core.tests.test_models",
-            "views": "core.tests.test_views",
-            "forms": "core.tests.test_forms",
-            "templates": "core.tests.test_templates",
-            "integration": "core.tests.test_integration",
+            "models": "core.tests.django_tests.test_models",
+            "views": "core.tests.django_tests.test_views",
+            "forms": "core.tests.django_tests.test_forms",
+            "templates": "core.tests.django_tests.test_templates",
+            "integration": "core.tests.django_tests.test_integration",
+        }
+        self.frontend_categories = {
+            "css_integration": "core.tests.frontend_tests.test_css_integration",
+            "css_refactoring": "core.tests.frontend_tests.test_css_refactoring",
+            "css_duplicates": "core.tests.frontend_tests.test_css_duplicate_classes",
+            "profile_optimization": "core.tests.frontend_tests.test_profile_pages_optimization",
+            "visual_regression": "core.tests.frontend_tests.test_visual_regression",
         }
         self.results = {}
 
@@ -98,16 +107,28 @@ class SkillSwapTestRunner:
         return self._run_django_tests([test_module], verbose)
 
     def run_all_tests(self, verbose=False):
-        """Run all test categories"""
+        """Run all test categories including Django and frontend tests"""
         ColoredOutput.print_header("SkillSwap Platform - Comprehensive Test Suite")
 
         all_passed = True
         start_time = time.time()
 
+        # Run Django tests
+        ColoredOutput.print_info("Running Django Tests...")
         for category, module in self.test_categories.items():
             ColoredOutput.print_header(f"Running {category.title()} Tests")
             success = self._run_django_tests([module], verbose)
-            self.results[category] = success
+            self.results[f"django_{category}"] = success
+            all_passed = all_passed and success
+
+        # Run Frontend tests
+        ColoredOutput.print_info("Running Frontend Tests...")
+        for category, module in self.frontend_categories.items():
+            ColoredOutput.print_header(
+                f"Running {category.replace('_', ' ').title()} Tests"
+            )
+            success = self._run_django_tests([module], verbose)
+            self.results[f"frontend_{category}"] = success
             all_passed = all_passed and success
 
         end_time = time.time()
@@ -253,9 +274,11 @@ class SkillSwapTestRunner:
         return "Database connection successful"
 
     def _check_test_files(self):
-        """Check test files exist"""
-        test_dir = self.project_root / "core" / "tests"
-        required_files = [
+        """Check test files exist in the organized structure"""
+        django_test_dir = self.project_root / "core" / "tests" / "django_tests"
+        frontend_test_dir = self.project_root / "core" / "tests" / "frontend_tests"
+
+        required_django_files = [
             "test_models.py",
             "test_views.py",
             "test_forms.py",
@@ -263,15 +286,31 @@ class SkillSwapTestRunner:
             "test_integration.py",
         ]
 
+        required_frontend_files = [
+            "test_css_integration.py",
+            "test_css_refactoring.py",
+            "test_css_duplicate_classes.py",
+            "test_profile_pages_optimization.py",
+            "test_visual_regression.py",
+        ]
+
         missing_files = []
-        for file_name in required_files:
-            if not (test_dir / file_name).exists():
-                missing_files.append(file_name)
+
+        # Check Django test files
+        for file_name in required_django_files:
+            if not (django_test_dir / file_name).exists():
+                missing_files.append(f"django_tests/{file_name}")
+
+        # Check Frontend test files
+        for file_name in required_frontend_files:
+            if not (frontend_test_dir / file_name).exists():
+                missing_files.append(f"frontend_tests/{file_name}")
 
         if missing_files:
             raise Exception(f"Missing test files: {missing_files}")
 
-        return f"All {len(required_files)} test files found"
+        total_files = len(required_django_files) + len(required_frontend_files)
+        return f"All {total_files} test files found in organized structure"
 
     def _check_models(self):
         """Check models can be imported"""
@@ -298,7 +337,18 @@ def main():
     )
     parser.add_argument(
         "--specific",
-        choices=["models", "views", "forms", "templates", "integration"],
+        choices=[
+            "models",
+            "views",
+            "forms",
+            "templates",
+            "integration",
+            "css_integration",
+            "css_refactoring",
+            "css_duplicates",
+            "profile_optimization",
+            "visual_regression",
+        ],
         help="Run specific test category only",
     )
     parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
@@ -317,7 +367,18 @@ def main():
 
     # Run tests based on arguments
     if args.specific:
-        success = runner.run_specific_test(args.specific, args.verbose)
+        # Check if it's a Django or frontend test
+        if args.specific in runner.test_categories:
+            success = runner.run_specific_test(args.specific, args.verbose)
+        elif args.specific in runner.frontend_categories:
+            ColoredOutput.print_header(
+                f"Running {args.specific.replace('_', ' ').title()} Tests"
+            )
+            test_module = runner.frontend_categories[args.specific]
+            success = runner._run_django_tests([test_module], args.verbose)
+        else:
+            ColoredOutput.print_error(f"Unknown test category: {args.specific}")
+            success = False
     elif args.coverage:
         success = runner.run_with_coverage(args.verbose)
     else:

@@ -19,7 +19,7 @@ import subprocess
 from pathlib import Path
 
 # Add the project root to Python path
-project_root = Path(__file__).parent.parent.parent
+project_root = Path(__file__).parent.parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 
@@ -56,10 +56,10 @@ def run_django_tests(test_app=None):
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "skillswap.settings")
 
     if test_app:
-        test_target = f"core.tests.test_{test_app}"
+        test_target = f"core.tests.django_tests.test_{test_app}"
         print_header(f"Running {test_app.title()} Tests")
     else:
-        test_target = "core.tests"
+        test_target = "core.tests.django_tests"
         print_header("Running All Django Tests")
 
     try:

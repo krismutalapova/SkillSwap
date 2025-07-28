@@ -23,7 +23,9 @@ import subprocess
 import argparse
 from pathlib import Path
 
-sys.path.append(str(Path(__file__).parent.parent.parent))
+# Add the project root to Python path
+project_root = Path(__file__).parent.parent.parent.parent
+sys.path.append(str(project_root))
 
 
 def run_css_refactoring_suite():
@@ -32,10 +34,10 @@ def run_css_refactoring_suite():
 
     try:
         result = subprocess.run(
-            [sys.executable, "core/tests/test_css_refactoring_suite.py"],
+            [sys.executable, "core/tests/frontend_tests/test_css_refactoring_suite.py"],
             capture_output=True,
             text=True,
-            cwd=Path(__file__).parent.parent.parent,
+            cwd=project_root,
         )
 
         print(result.stdout)
@@ -59,12 +61,12 @@ def run_django_integration_tests():
                 sys.executable,
                 "manage.py",
                 "test",
-                "core.tests.test_css_integration",
+                "core.tests.frontend_tests.test_css_integration",
                 "--verbosity=2",
             ],
             capture_output=True,
             text=True,
-            cwd=Path(__file__).parent.parent.parent,
+            cwd=project_root,
         )
 
         print(result.stdout)
@@ -84,10 +86,10 @@ def run_profile_pages_optimization_test():
 
     try:
         result = subprocess.run(
-            [sys.executable, "core/tests/test_profile_pages_optimization.py"],
+            [sys.executable, "core/tests/frontend_tests/test_profile_pages_optimization.py"],
             capture_output=True,
             text=True,
-            cwd=Path(__file__).parent.parent.parent,
+            cwd=project_root,
         )
 
         print(result.stdout)
@@ -107,10 +109,10 @@ def run_css_duplicate_classes_test():
 
     try:
         result = subprocess.run(
-            [sys.executable, "core/tests/test_css_duplicate_classes.py"],
+            [sys.executable, "core/tests/frontend_tests/test_css_duplicate_classes.py"],
             capture_output=True,
             text=True,
-            cwd=Path(__file__).parent.parent.parent,
+            cwd=project_root,
         )
 
         print(result.stdout)
@@ -130,10 +132,10 @@ def run_visual_regression_tests():
 
     try:
         result = subprocess.run(
-            [sys.executable, "core/tests/test_visual_regression.py"],
+            [sys.executable, "core/tests/frontend_tests/test_visual_regression.py"],
             capture_output=True,
             text=True,
-            cwd=Path(__file__).parent.parent.parent,
+            cwd=project_root,
         )
 
         print(result.stdout)
