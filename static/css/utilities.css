@@ -1,8 +1,22 @@
 /* SkillSwap Utility Classes */
 /* Reusable utility classes for common design patterns */
 
-/* Glassmorphism card utilities */
+/* Card Utilities - Atomic styling patterns */
 
+.card-base {
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-strong);
+}
+
+.card-padding {
+  padding: var(--card-padding);
+}
+
+.card-padding-large {
+  padding: var(--card-padding-large);
+}
+
+/* Glass Card Components - Complete glassmorphism cards */
 .glass-card {
   background: var(--color-background-glass);
   backdrop-filter: var(--glass-backdrop-filter);
@@ -83,9 +97,30 @@
   box-shadow: var(--shadow-light-soft);
 }
 
+/* Atomic Base Classes - Foundation for Complex Selectors */
+
+/* Universal glassmorphism pattern */
+.glass {
+  background: var(--color-background-glass);
+  backdrop-filter: var(--glass-backdrop-filter);
+  border: var(--glass-border);
+}
+
+.glass-strong {
+  background: var(--color-background-glass-strong);
+  backdrop-filter: var(--glass-backdrop-filter);
+  border: var(--glass-border);
+}
+
+/* Universal hover effect */
+.hover-lift:hover {
+  transform: var(--transform-hover-up);
+  text-decoration: none;
+}
+
 /* Button Utilities */
 
-/* Base button styling */
+/* Atomic Foundation Class - base button properties that all buttons share */
 .btn-base {
   display: inline-block;
   padding: var(--button-padding);
@@ -95,103 +130,75 @@
   text-align: center;
   cursor: pointer;
   transition: var(--transition-all);
-  border: none;
   font-family: inherit;
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
 }
 
-.btn-primary {
-  display: inline-block;
-  padding: var(--button-padding);
-  border-radius: var(--radius-button);
-  font-weight: var(--font-weight-medium);
-  text-decoration: none;
-  text-align: center;
-  cursor: pointer;
-  transition: all var(--transition-normal), transform var(--transition-normal);
-  border: var(--form-field-border-width) solid transparent;
-  font-family: inherit;
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-normal);
+/* Atomic Color Classes - compose with .btn-base */
+.btn-primary-colors {
   background: var(--color-primary-gradient);
   color: var(--color-text-white);
   box-shadow: var(--shadow-button-primary);
+  border: var(--form-field-border-width) solid transparent;
 }
 
-.btn-primary:hover {
-  transform: var(--transform-hover-up);
-  box-shadow: var(--shadow-button-primary-hover);
+.btn-primary-colors:hover {
+  box-shadow: var(--shadow-button-primary-hover, 0 4px 15px rgba(79, 156, 249, 0.4));
   color: var(--color-text-white);
 }
 
-.btn-secondary {
-  display: inline-block;
-  padding: var(--button-padding);
-  border-radius: var(--radius-button);
-  font-weight: var(--font-weight-medium);
-  text-decoration: none;
-  text-align: center;
-  cursor: pointer;
-  transition: all var(--transition-normal), transform var(--transition-normal);
-  border: var(--form-field-border-width) solid var(--color-secondary);
-  font-family: inherit;
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-normal);
+.btn-secondary-colors {
   background: var(--color-text-white);
   color: var(--color-secondary);
+  border: var(--form-field-border-width) solid var(--color-secondary);
 }
 
-.btn-secondary:hover {
+.btn-secondary-colors:hover {
   background: var(--color-secondary);
   color: var(--color-text-white);
-  transform: var(--transform-hover-up);
   box-shadow: var(--shadow-hover-light);
   text-decoration: none;
 }
 
-/* Secondary button variants */
-.btn-secondary.profile {
-  color: var(--color-secondary);
-  border-color: var(--color-secondary);
-}
-
-.btn-secondary.login {
-  color: var(--color-secondary);
-  border-color: var(--color-secondary);
-}
-
-.btn-secondary.profile:hover,
-.btn-secondary.login:hover {
-  background: var(--color-secondary);
-  color: var(--color-text-white);
-  box-shadow: var(--shadow-hover-light);
-}
-
-.btn-success {
-  display: inline-block;
-  padding: var(--button-padding);
-  border-radius: var(--radius-button);
-  font-weight: var(--font-weight-medium);
-  text-decoration: none;
-  text-align: center;
-  cursor: pointer;
-  transition: all var(--transition-normal), transform var(--transition-normal);
-  border: none;
-  font-family: inherit;
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-normal);
+.btn-success-colors {
   background: var(--color-success-gradient);
   color: var(--color-text-white);
   box-shadow: 0 4px 15px var(--color-success-shadow);
+  border: var(--form-field-border-width) solid transparent;
 }
 
-.btn-success:hover {
-  transform: var(--transform-hover-up);
+.btn-success-colors:hover {
   box-shadow: 0 6px 20px var(--color-success-shadow);
   color: var(--color-text-white);
 }
 
+.btn-warning-colors {
+  background: var(--color-warning-gradient);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-button-warning);
+  border: none;
+}
+
+.btn-warning-colors:hover {
+  box-shadow: var(--shadow-button-warning-hover);
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.btn-info-colors {
+  background: var(--color-info-gradient);
+  color: var(--color-text-white);
+  box-shadow: var(--shadow-button-info);
+  border: var(--form-field-border-width) solid transparent;
+}
+
+.btn-info-colors:hover {
+  box-shadow: var(--shadow-button-info-hover);
+  color: var(--color-text-white);
+}
+
+/* Button color variants - used with btn-base */
 .btn-danger {
   background: var(--color-danger);
   color: var(--color-text-white);
@@ -201,31 +208,6 @@
 .btn-danger:hover {
   transform: var(--transform-hover-up);
   box-shadow: var(--shadow-button-danger-hover);
-  color: var(--color-text-white);
-}
-
-.btn-outline-danger {
-  display: inline-block;
-  padding: var(--button-padding);
-  border-radius: var(--radius-button);
-  font-weight: var(--font-weight-medium);
-  text-decoration: none;
-  text-align: center;
-  cursor: pointer;
-  transition: var(--transition-all);
-  font-family: inherit;
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-normal);
-  background: var(--color-text-white);
-  color: var(--color-danger);
-  border: var(--form-field-border-width) solid var(--color-danger);
-  box-shadow: var(--shadow-button-outline-danger);
-}
-
-.btn-outline-danger:hover {
-  transform: var(--transform-hover-up);
-  box-shadow: var(--shadow-button-outline-danger-hover);
-  background: var(--color-danger);
   color: var(--color-text-white);
 }
 
@@ -242,140 +224,9 @@
   font-size: var(--font-size-lg);
 }
 
-/* Additional button variants for common patterns */
-.btn-warning {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-sm);
-  padding: var(--button-padding);
-  border-radius: var(--radius-button);
-  font-weight: var(--font-weight-medium);
-  text-decoration: none;
-  text-align: center;
-  cursor: pointer;
-  transition: var(--transition-all);
-  border: none;
-  font-family: inherit;
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-normal);
-  background: var(--color-warning-gradient);
-  color: var(--color-text-primary);
-  box-shadow: var(--shadow-button-warning);
-  width: 100%;
-  min-height: var(--button-min-height);
-}
-
-.btn-warning:hover {
-  transform: var(--transform-hover-up);
-  box-shadow: var(--shadow-button-warning-hover);
-  color: var(--color-text-primary);
-  text-decoration: none;
-}
-
-.btn-gradient-danger {
-  display: inline-block;
-  padding: var(--button-padding);
-  border-radius: var(--radius-button);
-  font-weight: var(--font-weight-medium);
-  text-decoration: none;
-  text-align: center;
-  cursor: pointer;
-  transition: var(--transition-all);
-  border: none;
-  font-family: inherit;
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-normal);
-  background: var(--color-danger-gradient);
-  color: var(--color-text-white);
-  box-shadow: var(--shadow-button-outline-danger);
-}
-
-.btn-gradient-danger:hover {
-  transform: var(--transform-hover-up);
-  box-shadow: var(--shadow-button-outline-danger-hover);
-  color: var(--color-text-white);
-  text-decoration: none;
-}
-
-/* Icon spacing for buttons */
-.btn-primary i,
-.btn-secondary i,
-.btn-success i {
+/* Icon spacing for buttons - for atomic pattern */
+.btn-base i {
   margin-right: var(--space-tight);
-}
-
-.manage-skills-btn {
-  display: inline-block;
-  padding: var(--button-padding);
-  border-radius: var(--radius-button);
-  font-weight: var(--font-weight-medium);
-  text-decoration: none;
-  text-align: center;
-  cursor: pointer;
-  transition: var(--transition-all);
-  border: none;
-  font-family: inherit;
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-normal);
-  background: var(--color-primary-gradient);
-  color: var(--color-text-white);
-  box-shadow: var(--shadow-button-primary);
-}
-
-.manage-skills-btn:hover {
-  transform: var(--transform-hover-up);
-  box-shadow: var(--shadow-button-primary-hover);
-  color: var(--color-text-white);
-}
-
-.edit-profile-btn {
-  display: inline-block;
-  padding: var(--button-padding);
-  border-radius: var(--radius-button);
-  font-weight: var(--font-weight-medium);
-  text-decoration: none;
-  text-align: center;
-  cursor: pointer;
-  transition: var(--transition-all);
-  border: none;
-  font-family: inherit;
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-normal);
-  background: var(--color-info-gradient);
-  color: var(--color-text-white);
-  box-shadow: var(--shadow-button-info);
-}
-
-.edit-profile-btn:hover {
-  transform: var(--transform-hover-up);
-  box-shadow: var(--shadow-button-info-hover);
-  color: var(--color-text-white);
-}
-
-.contact-btn {
-  display: inline-block;
-  padding: var(--button-padding);
-  border-radius: var(--radius-button);
-  font-weight: var(--font-weight-medium);
-  text-decoration: none;
-  text-align: center;
-  cursor: pointer;
-  transition: all var(--transition-normal), transform var(--transition-normal);
-  border: none;
-  font-family: inherit;
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-normal);
-  background: var(--color-primary-gradient);
-  color: var(--color-text-white);
-  box-shadow: var(--shadow-button-primary);
-  margin: var(--space-sm) 0;
-}
-
-.contact-btn:hover {
-  transform: var(--transform-hover-up);
-  box-shadow: var(--shadow-button-primary-hover);
-  color: var(--color-text-white);
 }
 
 /* Navigation Utilities */

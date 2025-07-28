@@ -214,8 +214,7 @@ body {
         margin-right: var(--space-2xs) !important;
     }
     
-    .btn-primary,
-    .btn-secondary {
+    .btn-base {
         padding: var(--button-padding-small);
         font-size: var(--font-size-sm);
     }
@@ -261,8 +260,7 @@ body {
     }
     
     .nav-link,
-    .btn-primary,
-    .btn-secondary {
+    .btn-base {
         padding: var(--space-tight) var(--space-sm);
         font-size: var(--font-size-xs);
     }

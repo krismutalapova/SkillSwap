@@ -689,8 +689,7 @@
         align-items: center;
     }
 
-    .btn-primary,
-    .btn-secondary {
+    .btn-base {
         width: 250px;
         justify-content: center;
     }
@@ -704,7 +703,7 @@
         align-items: center;
     }
 
-    .btn-primary {
+    .btn-base {
         width: 100%;
         justify-content: center;
     }
@@ -737,7 +736,7 @@
         align-items: center;
     }
 
-    .btn-secondary {
+    .btn-base.btn-width-secondary {
         width: 200px;
         justify-content: center;
     }
@@ -750,7 +749,7 @@
 }
 
 /* Dynamic button styles for JavaScript interaction */
-.btn-primary.btn-enabled {
+.btn-base.btn-enabled {
     opacity: 1 !important;
 }
 

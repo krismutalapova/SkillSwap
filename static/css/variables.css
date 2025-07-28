@@ -212,7 +212,7 @@
   
   /* Button Shadows */
   --shadow-button-primary: 0 2px 10px var(--color-secondary-medium);
-  --shadow-button-primary-hover: 0 4px 15px var(--color-secondary-strong);
+  --shadow-button-primary-hover: 0 4px 15px rgba(102, 126, 234, 0.5);
   --shadow-button-danger: 0 4px 15px rgba(220, 53, 69, 0.3);
   --shadow-button-danger-hover: 0 6px 20px rgba(220, 53, 69, 0.4);
   --shadow-button-outline-danger: 0 4px 15px rgba(238, 90, 82, 0.3);

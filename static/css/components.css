@@ -2,20 +2,17 @@
 
 /* Filter Components */
 .filters-card {
-    background: var(--color-background-glass);
-    backdrop-filter: var(--glass-backdrop-filter);
-    padding: var(--space-xl);
-    border-radius: var(--radius-card);
-    box-shadow: var(--shadow-glass-card);
-    border: var(--glass-border);
-    margin-bottom: var(--space-xxl);
+  padding: var(--space-xl);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-glass-card);
+  margin-bottom: var(--space-xxl);
 }
 
 .filters-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  width: 100%;
 }
 
 .filter-row {

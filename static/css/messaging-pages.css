@@ -113,8 +113,7 @@
         flex-direction: column;
     }
 
-    .btn-primary,
-    .btn-secondary {
+    .btn-base {
         justify-content: center;
     }
 
@@ -458,8 +457,7 @@
         flex-direction: column;
     }
 
-    .btn-primary,
-    .btn-secondary {
+    .btn-base {
         width: 100%;
         justify-content: center;
     }
