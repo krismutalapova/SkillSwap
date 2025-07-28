@@ -19,7 +19,7 @@ Parameters:
 {% load core_extras %}
 
 {% if not no_card_wrapper %}
-<div class="filters-card">
+<div class="filters-card glass-card">
 {% endif %}
     <form method="get" action="{% if action_url %}{% url action_url %}{% else %}{% url 'skills_list_search' %}{% endif %}" class="filters-form">
         <div class="filter-row">
@@ -71,14 +71,14 @@ Parameters:
             {% if show_search_button %}
             <div class="filter-group">
                 <label>&nbsp;</label>
-                <button type="submit" class="btn-primary">
+                <button type="submit" class="btn-base btn-primary-colors hover-lift">
                     <i class="fas fa-search"></i> Search Skills
                 </button>
             </div>
             {% else %}
             <div class="filter-group">
                 <label>&nbsp;</label>
-                <button type="submit" class="btn-primary">
+                <button type="submit" class="btn-base btn-primary-colors hover-lift">
                     <i class="fas fa-filter"></i> Filter
                 </button>
             </div>

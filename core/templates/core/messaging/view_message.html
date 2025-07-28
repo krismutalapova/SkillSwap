@@ -39,11 +39,11 @@
 
         {% if message.receiver == user and message.skill %}
             <div class="message-actions">
-                <a href="{% url 'send_message' skill_id=message.skill.id %}" class="btn-primary">
+                <a href="{% url 'send_message' skill_id=message.skill.id %}" class="btn-base btn-primary-colors hover-lift">
                     <i class="fas fa-reply"></i> Reply
                 </a>
                 {% if message.skill.skill_type == "offer" %}
-                    <a href="{% url 'rate_skill' skill_id=message.skill.id %}" class="btn-secondary">
+                    <a href="{% url 'rate_skill' skill_id=message.skill.id %}" class="btn-base btn-secondary-colors hover-lift">
                         <i class="fas fa-star"></i> Rate Skill
                     </a>
                 {% endif %}
@@ -52,11 +52,11 @@
 
         <div class="inbox navigation-actions">
             {% if message.sender == user %}
-                <a href="{% url 'sent_messages' %}" class="btn btn-secondary">
+                <a href="{% url 'sent_messages' %}" class="btn-base btn-secondary-colors hover-lift">
                     <i class="fas fa-arrow-left"></i> Back to Sent
                 </a>
             {% else %}
-                <a href="{% url 'inbox' %}" class="btn btn-secondary">
+                <a href="{% url 'inbox' %}" class="btn-base btn-secondary-colors hover-lift">
                     <i class="fas fa-arrow-left"></i> Back to Inbox
                 </a>
             {% endif %}

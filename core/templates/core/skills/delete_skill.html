@@ -56,7 +56,7 @@
                 <button type="submit" class="btn-gradient-danger">
                     <i class="fas fa-trash"></i> Yes, Delete Skill
                 </button>
-                <a href="{% if next_url == 'my_skills' %}{% url 'my_skills' %}{% else %}{% url 'skill_detail_page' skill.pk %}{% endif %}" class="btn btn-secondary">
+                <a href="{% if next_url == 'my_skills' %}{% url 'my_skills' %}{% else %}{% url 'skill_detail_page' skill.pk %}{% endif %}" class="btn-base btn-secondary-colors hover-lift">
                     <i class="fas fa-times"></i> Cancel
                 </a>
             </div>
@@ -65,10 +65,10 @@
         <div class="alternative-actions">
             <p>Instead of deleting, you could:</p>
             <div class="alternatives">
-                <a href="{% url 'skill_edit' skill.pk %}{% if next_url == 'my_skills' %}?next=my_skills{% endif %}" class="btn-secondary">
+                <a href="{% url 'skill_edit' skill.pk %}{% if next_url == 'my_skills' %}?next=my_skills{% endif %}" class="btn-base btn-secondary-colors hover-lift">
                     <i class="fas fa-edit"></i> Edit the skill details
                 </a>
-                <a href="{% url 'my_skills' %}" class="btn-secondary">
+                <a href="{% url 'my_skills' %}" class="btn-base btn-secondary-colors hover-lift">
                     <i class="fas fa-list"></i> View all your skills
                 </a>
             </div>

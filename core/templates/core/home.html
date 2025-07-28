@@ -10,10 +10,10 @@
             
             <div class="hero-actions">
                 {% if not user.is_authenticated %}
-                    <a href="{% url 'signup' %}" class="btn-primary">Get Started</a>
-                    <a href="{% url 'login' %}" class="btn-secondary">Login</a>
+                    <a href="{% url 'signup' %}" class="btn-base btn-primary-colors hover-lift">Get Started</a>
+                    <a href="{% url 'login' %}" class="btn-base btn-secondary-colors hover-lift">Login</a>
                 {% endif %}
-                <a href="{% url 'search' %}" class="{% if user.is_authenticated %}btn-primary{% else %}btn-secondary{% endif %}">
+                <a href="{% url 'search' %}" class="btn-base {% if user.is_authenticated %}btn-primary-colors{% else %}btn-secondary-colors{% endif %} hover-lift">
                     <i class="fa-solid fa-users"></i>
                     Browse All Users
                 </a>

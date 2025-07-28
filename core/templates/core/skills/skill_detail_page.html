@@ -19,7 +19,7 @@
             
             {% if can_edit %}
                 <div class="skill-actions">
-                    <a href="{% url 'skill_edit' skill.pk %}" class="btn-secondary">
+                    <a href="{% url 'skill_edit' skill.pk %}" class="btn-base btn-secondary-colors hover-lift">
                         <i class="fas fa-edit"></i> Edit
                     </a>
                     <a href="{% url 'delete_skill' skill.pk %}" class="btn-gradient-danger">
@@ -116,8 +116,8 @@
                 <textarea class="rating-comment" placeholder="Share your experience (optional)..." rows="3"></textarea>
             </div>
             <div class="modal-actions">
-                <button onclick="hideRatingModal()" class="btn-secondary">Cancel</button>
-                <button onclick="submitRating()" class="btn-primary" disabled>Submit Rating</button>
+                <button onclick="hideRatingModal()" class="btn-base btn-secondary-colors hover-lift">Cancel</button>
+                <button onclick="submitRating()" class="btn-base btn-primary-colors hover-lift" disabled>Submit Rating</button>
             </div>
         </div>
     </div>
@@ -192,7 +192,7 @@
     }
 
     function enableSubmitButton() {
-        const submitBtn = document.querySelector('.modal-actions .btn-primary');
+        const submitBtn = document.querySelector('.modal-actions .btn-base.btn-primary-colors');
         submitBtn.disabled = selectedRating === 0;
         
         if (selectedRating > 0) {

@@ -27,23 +27,23 @@
 
         <!-- Action Buttons -->
         <div class="error-action-buttons">
-            <a href="{% url 'home' %}" class="primary-gradient btn-primary-home">
+            <a href="{% url 'home' %}" class="btn-base btn-primary-colors hover-lift">
                 <i class="fas fa-home icon-spacing"></i>
                 Go to Home Page
             </a>
             
             <div class="secondary-buttons">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'view_my_profile' %}" class="btn-secondary profile">
+                    <a href="{% url 'view_my_profile' %}" class="btn-base btn-secondary-colors hover-lift">
                         <i class="fas fa-user icon-spacing"></i>
                         My Profile
                     </a>
                 {% else %}
-                    <a href="{% url 'login' %}" class="btn-secondary login">
+                    <a href="{% url 'login' %}" class="btn-base btn-secondary-colors hover-lift">
                         <i class="fas fa-sign-in-alt icon-spacing"></i>
                         Login
                     </a>
-                    <a href="{% url 'signup' %}" class="btn-secondary signup">
+                    <a href="{% url 'signup' %}" class="btn-base btn-secondary-colors hover-lift">
                         <i class="fas fa-user-plus icon-spacing"></i>
                         Sign Up
                     </a>

@@ -6,11 +6,11 @@
         <h3><i class="fas fa-tools"></i> {{ section_title|default:"My Skills" }}</h3>
         {% if show_add_button %}
             {% if next_page_id %}
-                <a href="{% url 'add_skill' %}?next={{ next_page }}&next_id={{ next_page_id }}" class="btn-primary">
+                <a href="{% url 'add_skill' %}?next={{ next_page }}&next_id={{ next_page_id }}" class="btn-base btn-primary-colors hover-lift">
                     <i class="fas fa-plus"></i> Add New Skill
                 </a>
             {% else %}
-                <a href="{% url 'add_skill' %}?next={{ next_page|default:'view_my_profile' }}" class="btn-primary">
+                <a href="{% url 'add_skill' %}?next={{ next_page|default:'view_my_profile' }}" class="btn-base btn-primary-colors hover-lift">
                     <i class="fas fa-plus"></i> Add New Skill
                 </a>
             {% endif %}
@@ -88,17 +88,17 @@
                 {% if show_empty_actions %}
                     <div class="empty-actions">
                         {% if next_page_id %}
-                            <a href="{% url 'add_skill' %}?type=offer&next={{ next_page }}&next_id={{ next_page_id }}" class="{% if use_gradient_button %}primary-gradient {% endif %}btn-primary">
+                            <a href="{% url 'add_skill' %}?type=offer&next={{ next_page }}&next_id={{ next_page_id }}" class="btn-base btn-primary-colors hover-lift">
                                 <i class="fas fa-plus"></i> Offer a Skill
                             </a>
-                            <a href="{% url 'add_skill' %}?type=request&next={{ next_page }}&next_id={{ next_page_id }}" class="btn-secondary">
+                            <a href="{% url 'add_skill' %}?type=request&next={{ next_page }}&next_id={{ next_page_id }}" class="btn-base btn-secondary-colors hover-lift">
                                 <i class="fas fa-search"></i> Request a Skill
                             </a>
                         {% else %}
-                            <a href="{% url 'add_skill' %}?type=offer&next={{ next_page|default:'view_my_profile' }}" class="{% if use_gradient_button %}primary-gradient {% endif %}btn-primary">
+                            <a href="{% url 'add_skill' %}?type=offer&next={{ next_page|default:'view_my_profile' }}" class="btn-base btn-primary-colors hover-lift">
                                 <i class="fas fa-plus"></i> Offer a Skill
                             </a>
-                            <a href="{% url 'add_skill' %}?type=request&next={{ next_page|default:'view_my_profile' }}" class="btn-secondary">
+                            <a href="{% url 'add_skill' %}?type=request&next={{ next_page|default:'view_my_profile' }}" class="btn-base btn-secondary-colors hover-lift">
                                 <i class="fas fa-search"></i> Request a Skill
                             </a>
                         {% endif %}
