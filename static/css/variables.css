@@ -1,35 +1,82 @@
-/* Centralized design tokens for consistent theming and maintainability */
+/* ===============================================
+   SKILLSWAP DESIGN SYSTEM - CSS CUSTOM PROPERTIES
+   ===============================================
+   Centralized design tokens for consistent theming and maintainability
+   Organized following atomic design system principles
+*/
 
 :root {
-  /* Color Palette */
-
-  /* Primary Brand Colors */
+  
+  /* ===== CORE COLOR PALETTE ===== */
+  
+  /* Base Brand Colors */
   --color-primary: #6441a5;
   --color-primary-end: #2a0845;
-  --color-primary-gradient: linear-gradient(to right, var(--color-primary), var(--color-primary-end));
+  --color-secondary: rgba(115,122,205,1);
+  
+  /* Extended Brand Color Variants */
   --color-primary-light: rgba(100, 65, 165, 0.1);
   --color-primary-medium: rgba(100, 65, 165, 0.2);
   --color-primary-border: rgba(100, 65, 165, 0.3);
-  
-  /* Secondary Brand Colors */
-  --color-secondary: rgba(115,122,205,1);
   --color-secondary-light: rgba(102, 126, 234, 0.1);
   --color-secondary-medium: rgba(102, 126, 234, 0.3);
   --color-secondary-strong: rgba(102, 126, 234, 0.4);
   
-  /* Background Colors */
+  /* Neutral Colors */
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-gray-light: #f1f3f4;
+  --color-gray-medium: #e9ecef;
+  --color-gray-dark: #6c757d;
+  
+  /* ===== SEMANTIC COLORS ===== */
+  
+  /* Status Colors - Success */
+  --color-success: #2C7744;
+  --color-success-light: #76b852;
+  --color-success-light-bg: rgba(40, 167, 69, 0.1);
+  --color-success-bg: #d4edda;
+  --color-success-border: #c3e6cb;
+  --color-success-text: #155724;
+  --color-success-shadow: rgba(44, 119, 68, 0.3);
+  
+  /* Status Colors - Danger */
+  --color-danger: #dc3545;
+  --color-danger-bg: #f8d7da;
+  --color-danger-border: #f5c6cb;
+  --color-danger-text: #721c24;
+  
+  /* Status Colors - Warning & Info */
+  --color-warning: #ffc107;
+  --color-info: #17a2b8;
+  --color-warm-light: #ffecd2;
+  
+  /* Skill-Specific Colors */
+  --color-skill-offer: #3a7bd5;
+  --color-skill-offer-bg: rgba(102, 126, 234, 0.2);
+  --color-skill-request: #fd746c;
+  --color-skill-request-bg: rgba(255, 144, 104, 0.25);
+  
+  /* Accent Colors */
+  --color-accent-gold: var(--color-warning); /* Star ratings */
+  
+  /* ===== BACKGROUND COLORS ===== */
+  
+  /* Base Backgrounds */
   --color-background: #f8f9fa;
-  --color-background-main: linear-gradient(359.5deg, rgba(115,122,205,1) 8.8%, rgba(186,191,248,1) 77.4%);
+  --color-background-muted: var(--color-background);
+  
+  /* Glassmorphism Backgrounds */
   --color-background-glass: rgba(255, 255, 255, 0.95);
   --color-background-glass-light: rgba(255, 255, 255, 0.9);
   --color-background-glass-strong: rgba(248, 249, 250, 0.9);
-  --color-background-muted: var(--color-background);
   
-  /* Overlay Colors */
+  /* Overlay Backgrounds */
   --color-overlay-modal: rgba(0, 0, 0, 0.5);
   --color-overlay-dark: rgba(0, 0, 0, 0.7);
   
-  /* Text Colors */
+  /* ===== TEXT COLORS ===== */
+  
   --color-text-primary: #2c3e50;
   --color-text-secondary: #666666;
   --color-text-muted: #999999;
@@ -37,99 +84,51 @@
   --color-text-light: #f8f9fa;
   --color-text-white: #ffffff;
   --color-text-white-muted: rgba(255, 255, 255, 0.9);
-  --color-text-gradient: var(--color-primary-gradient);
+  --color-muted-text: #495057;
   
-  /* Border Colors */
+  /* ===== BORDER COLORS ===== */
+  
   --color-border: #dee2e6;
+  --color-border-default: #e1e5e9;
+  --color-border-muted: #e9ecef;
   --color-border-light: rgba(255, 255, 255, 0.2);
   --color-border-light-strong: rgb(233, 236, 239);
   --color-border-medium: rgba(255, 255, 255, 0.3);
-  --color-border-default: #e1e5e9;
-  --color-border-muted: #e9ecef;
   --color-border-focus: var(--color-secondary);
   --color-border-divider: rgba(0, 0, 0, 0.1);
   
-  /* Status Colors */
-  --color-success: #2C7744;
-  --color-success-light: #76b852;
-  --color-success-light-bg: rgba(40, 167, 69, 0.1);
-  --color-success-bg: #d4edda;
-  --color-success-border: #c3e6cb;
-  --color-success-text: #155724;
+  /* ===== GRADIENT SYSTEM ===== */
+  
+  /* Brand Gradients */
+  --color-primary-gradient: linear-gradient(to right, var(--color-primary), var(--color-primary-end));
+  --color-background-main: linear-gradient(359.5deg, rgba(115,122,205,1) 8.8%, rgba(186,191,248,1) 77.4%);
+  --color-text-gradient: var(--color-primary-gradient);
+  
+  /* Status Gradients */
   --color-success-gradient: linear-gradient(117deg, #2C7744 0%, #76b852 100%);
-  --color-success-shadow: rgba(44, 119, 68, 0.3);
-
-  /* Additional Semantic Colors */
-  --color-skill-offer: #3a7bd5;
-  --color-skill-offer-bg: rgba(102, 126, 234, 0.2);
-  --color-skill-request: #fd746c;
-  --color-skill-request-bg: rgba(255, 144, 104, 0.25);
-  --color-black: #000000;
-  --color-gray-light: #f1f3f4;
-  --color-gray-medium: #e9ecef;
-  --color-gray-dark: #6c757d;
-  --color-muted-text: #495057;
-  --color-warm-light: #ffecd2;
-
-  /* Skill Type Colors */
+  --color-danger-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  --color-info-gradient: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+  --color-warning-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  
+  /* Skill Type Gradients */
   --color-offer-gradient: linear-gradient(135deg, #3a7bd5bd 0%, #3a6073 100%);
   --color-offer-gradient-solid: linear-gradient(135deg, #3a7bd5 0%, #3a6073 100%);
   --color-request-gradient: linear-gradient(135deg, #fd746ce0 0%, #ff9068d6 100%);
   
-  --color-danger: #dc3545;
-  --color-danger-bg: #f8d7da;
-  --color-danger-border: #f5c6cb;
-  --color-danger-text: #721c24;
-  --color-danger-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-  
-  --color-warning: #ffc107;
-  --color-info: #17a2b8;
-  --color-info-gradient: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
-  --color-warning-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  /* Component-Specific Gradients */
   --color-secondary-light-gradient: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(69, 179, 224, 0.1) 100%);
+  --color-danger-gradient-alt: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
   
-  /* Accent Colors */
-  --color-accent-gold: var(--color-warning); /* Star ratings */
-  
-  /* Button Colors */
+  /* Button-Specific Gradients */
   --color-button-logout-start: var(--color-text-light);
   --color-button-logout-end: #495057;
   --color-button-logout-gradient: linear-gradient(135deg, var(--color-button-logout-start) 0%, var(--color-button-logout-end) 100%);
   --color-button-logout-shadow: rgba(108, 117, 125, 0.3);
   --color-button-logout-shadow-hover: rgba(108, 117, 125, 0.4);
   
-  /* Stat Card Gradients */
-  --color-request-gradient: linear-gradient(135deg, #fd746c 0%, #ff9068 100%);
-  --color-danger-gradient-alt: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  /* ===== SPACING SYSTEM ===== */
   
- /* Shadows */
-  --shadow-light: rgba(255, 255, 255, 0.1);
-  --shadow-light-soft: rgba(255, 255, 255, 0.05);
-  --shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.15);
-  --shadow-dark: rgba(0, 0, 0, 0.2);
-  --shadow-footer: rgba(0, 0, 0, 0.1);
-  --shadow-blur-large: 20px;
-  --shadow-focus: 0 0 0 3px var(--color-secondary-light);
-  --shadow-hover-light: 0 4px 15px var(--color-secondary-medium);
-  --shadow-hover-mild: 0 3px 12px rgba(0, 0, 0, 0.1);
-  --shadow-hover-strong: 0 6px 20px rgba(0, 0, 0, 0.2);
-  --shadow-strong: 0 4px 15px rgba(0, 0, 0, 0.2);
-  
-  /* Button Shadows */
-  --shadow-button-primary: 0 2px 10px var(--color-secondary-medium);
-  --shadow-button-primary-hover: 0 4px 15px var(--color-secondary-strong);
-  --shadow-button-logout: 0 2px 10px var(--color-button-logout-shadow);
-  --shadow-button-logout-hover: 0 4px 15px var(--color-button-logout-shadow-hover);
-  --shadow-button-danger: 0 4px 15px rgba(220, 53, 69, 0.3);
-  --shadow-button-danger-hover: 0 6px 20px rgba(220, 53, 69, 0.4);
-  --shadow-button-outline-danger: 0 4px 15px rgba(238, 90, 82, 0.3);
-  --shadow-button-outline-danger-hover: 0 6px 20px rgba(238, 90, 82, 0.4);
-  --shadow-button-warning: 0 4px 15px rgba(255, 193, 7, 0.3);
-  --shadow-button-warning-hover: 0 6px 20px rgba(255, 193, 7, 0.4);
-  --shadow-button-info: 0 4px 15px rgba(23, 162, 184, 0.3);
-  --shadow-button-info-hover: 0 6px 20px rgba(23, 162, 184, 0.4);
-  
-  /* Base spacing scale (following 4px grid system) */
+  /* Base Spacing Scale (4px grid system) */
   --space-2xs: 2px;
   --space-xs: 4px;
   --space-sm: 8px;
@@ -144,54 +143,14 @@
   --space-6xl: 64px;
   --space-xxl: 30px;
 
-  /* Common spacing patterns */
+  /* Semantic Spacing */
   --space-section: var(--space-4xl);
   --space-component: var(--space-xl);
   --space-element: var(--space-md);
   --space-tight: var(--space-sm);
-
-  /* Icon sizes */
-  --icon-size-sm: 16px;
-  --icon-size: 20px;
-  --icon-size-lg: 28px;
-  --icon-size-4xl: 80px;
-
-  /* Profile specific dimensions */
-  --profile-pic-size: 120px;
-  --profile-card-min-width: 280px;
-
-  /* Search page specific dimensions */  
-  --user-card-min-width: 350px;
-  --user-avatar-size: 60px;
-  --empty-state-icon-size: 80px;
-  --search-bar-max-width: var(--container-max-width-small);
-
   
-  /* Border Radius */
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 15px;
-  --radius-large: 18px;
-  --radius-xl: 20px;
-  --radius-pill: 20px;
-  --radius-round: 24px;
-  --radius-circle: 50%;
-  --radius-card: var(--radius-lg);
+  /* ===== TYPOGRAPHY SYSTEM ===== */
   
-  /* Component-specific radius */
-  --radius-button: 8px;
-  --radius-card-lg: var(--radius-large);
-  --radius-modal: var(--radius-xl);
-  --radius-input: var(--radius-sm);
-  --radius-logo: var(--radius-sm);
-
-  /* Border Widths */
-  --border-width-thin: 1px;
-  --border-width-medium: 2px;
-  --border-width-thick: 3px;
-  --border-width-default: var(--border-width-thin);  /* Typography */
-
   /* Font Families */
   --font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   
@@ -220,45 +179,142 @@
   --line-height-tight: 1.2;
   --line-height-normal: 1.4;
   --line-height-relaxed: 1.6;
+  
+  /* ===== BORDER SYSTEM ===== */
+  
+  /* Border Radius */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 15px;
+  --radius-large: 18px;
+  --radius-xl: 20px;
+  --radius-pill: 20px;
+  --radius-round: 24px;
+  --radius-circle: 50%;
+  
+  /* Component-Specific Radius */
+  --radius-card: var(--radius-lg);
+  --radius-button: 8px;
+  --radius-card-lg: var(--radius-large);
+  --radius-modal: var(--radius-xl);
+  --radius-input: var(--radius-sm);
+  --radius-logo: var(--radius-sm);
 
-  /* Container styles */
-
-  /* Container widths */
+  /* Border Widths */
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-width-thick: 3px;
+  --border-width-default: var(--border-width-thin);
+  
+  /* ===== SHADOW SYSTEM ===== */
+  
+  /* Base Shadows */
+  --shadow-light: rgba(255, 255, 255, 0.1);
+  --shadow-light-soft: rgba(255, 255, 255, 0.05);
+  --shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-dark: rgba(0, 0, 0, 0.2);
+  --shadow-footer: rgba(0, 0, 0, 0.1);
+  --shadow-strong: 0 4px 15px rgba(0, 0, 0, 0.2);
+  --shadow-blur-large: 20px;
+  
+  /* Interactive Shadows */
+  --shadow-focus: 0 0 0 3px var(--color-secondary-light);
+  --shadow-hover-light: 0 4px 15px var(--color-secondary-medium);
+  --shadow-hover-mild: 0 3px 12px rgba(0, 0, 0, 0.1);
+  --shadow-hover-strong: 0 6px 20px rgba(0, 0, 0, 0.2);
+  
+  /* Component Shadows */
+  --shadow-glass-card: 0 8px 32px var(--shadow-footer);
+  --shadow-card: 0 4px 20px var(--shadow-footer);
+  --shadow-card-hover: 0 8px 30px rgba(0, 0, 0, 0.15);
+  --shadow-card-hover-mild: 0 6px 25px rgba(0, 0, 0, 0.15);
+  --shadow-success: 0 4px 15px var(--color-success-shadow);
+  
+  /* Button Shadows */
+  --shadow-button-primary: 0 2px 10px var(--color-secondary-medium);
+  --shadow-button-primary-hover: 0 4px 15px var(--color-secondary-strong);
+  --shadow-button-logout: 0 2px 10px var(--color-button-logout-shadow);
+  --shadow-button-logout-hover: 0 4px 15px var(--color-button-logout-shadow-hover);
+  --shadow-button-danger: 0 4px 15px rgba(220, 53, 69, 0.3);
+  --shadow-button-danger-hover: 0 6px 20px rgba(220, 53, 69, 0.4);
+  --shadow-button-outline-danger: 0 4px 15px rgba(238, 90, 82, 0.3);
+  --shadow-button-outline-danger-hover: 0 6px 20px rgba(238, 90, 82, 0.4);
+  --shadow-button-warning: 0 4px 15px rgba(255, 193, 7, 0.3);
+  --shadow-button-warning-hover: 0 6px 20px rgba(255, 193, 7, 0.4);
+  --shadow-button-info: 0 4px 15px rgba(23, 162, 184, 0.3);
+  --shadow-button-info-hover: 0 6px 20px rgba(23, 162, 184, 0.4);
+  --shadow-hover-button: 0 4px 15px var(--color-secondary-medium);
+  
+  /* ===== DIMENSIONS & LAYOUT ===== */
+  
+  /* Container Widths */
   --container-max-width: 1200px;
   --container-max-width-small: 600px;
   --modal-max-width: 800px;
   --container-padding: var(--space-xl);
   --container-padding-mobile: var(--space-md);
   
-  /* Card dimensions */
+  /* Card Dimensions */
   --card-padding: var(--space-xl);
   --card-padding-large: var(--space-5xl);
   --card-min-height: auto;
+  --card-grid-min-width: 300px;
+  --card-grid-min-width-sm: 250px;
+  --card-grid-min-width-lg: 400px;
   
-  /* Header/Footer */
+  /* Header/Footer Layout */
   --header-padding: var(--space-md) 0;
   --footer-padding: var(--space-xxl) 0 var(--space-lg) 0;
-
-  /* Transitions & Animations */
-
+  
+  /* Icon Sizes */
+  --icon-size-sm: 16px;
+  --icon-size: 20px;
+  --icon-size-lg: 28px;
+  --icon-size-4xl: 80px;
+  --icon-btn-size: 40px;
+  --icon-btn-size-sm: 32px;
+  --icon-btn-size-lg: 48px;
+  
+  /* Component-Specific Dimensions */
+  --profile-pic-size: 120px;
+  --profile-card-min-width: 280px;
+  --user-card-min-width: 350px;
+  --user-avatar-size: 60px;
+  --empty-state-icon-size: 80px;
+  --search-bar-max-width: var(--container-max-width-small);
+  --skill-description-min-height: 3rem;
+  --skill-meta-min-height: 2rem;
+  --skill-tile-min-width: 200px;
+  --skill-tile-max-width: 300px;
+  --status-dot-size: 8px;
+  --progress-bar-height: 8px;
+  
+  /* ===== ANIMATION & TRANSITIONS ===== */
+  
+  /* Transition Durations */
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
   --transition-slow: 0.5s ease;
   
-  /* Common transition patterns */
+  /* Common Transition Patterns */
   --transition-all: all var(--transition-normal);
+  --transition-base: all var(--transition-normal);
   --transition-transform: transform var(--transition-normal);
   --transition-opacity: opacity var(--transition-normal);
   --transition-colors: color var(--transition-normal), background-color var(--transition-normal), border-color var(--transition-normal);
   --transition-color: color var(--transition-normal);
   
-  /* Hover transforms */
+  /* Transform Effects */
   --transform-hover-up: translateY(-2px);
   --transform-hover-down: translateY(2px);
   --transform-center-y: translateY(-50%);
-
-  /* Z-Index Scale */
-
+  --transform-hover-lift: translateY(-2px);
+  --transform-hover-lift-sm: translateY(-2px);
+  --transform-card-hover: translateY(-5px);
+  
+  /* ===== Z-INDEX SCALE ===== */
+  
   --z-dropdown: 100;
   --z-sticky: 200;
   --z-fixed: 300;
@@ -266,28 +322,28 @@
   --z-modal: 500;
   --z-popover: 600;
   --z-tooltip: 700;
-
   
-  /* Glassmorphism */
-
+  /* ===== GLASSMORPHISM SYSTEM ===== */
+  
+  /* Base Glassmorphism Properties */
   --glass-background: var(--color-background-glass);
   --glass-backdrop-filter: blur(10px);
   --glass-backdrop-filter-light: blur(5px);
   --glass-border: 1px solid var(--color-border-light);
   
-  /* Combined glassmorphism patterns */
+  /* Combined Glassmorphism Patterns */
   --glass-card-light: var(--glass-background) var(--glass-backdrop-filter);
   --glass-card-strong: var(--color-background-glass-strong) var(--glass-backdrop-filter);
-
-  /* Responsive Breakpoints */
-
+  
+  /* ===== RESPONSIVE BREAKPOINTS ===== */
+  
   --breakpoint-xs: 480px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-
-  /* Component-specific breakpoints */
-
+  
+  /* ===== COMPONENT-SPECIFIC TOKENS ===== */
+  
   /* Navigation */
   --nav-gap: var(--space-md); 
   --nav-gap-mobile: var(--space-sm);
@@ -314,29 +370,7 @@
   --logo-font-size-mobile: var(--font-size-lg);
   --logo-font-size-footer: var(--font-size-xl);
   
-  /* Components */
+  /* Component Utilities */
   --filter-group-min-width: 200px;
-  --shadow-glass-card: 0 8px 32px var(--shadow-footer);
-  --shadow-card: 0 4px 20px var(--shadow-footer);
-  --shadow-card-hover: 0 8px 30px rgba(0, 0, 0, 0.15);
-  --shadow-card-hover-mild: 0 6px 25px rgba(0, 0, 0, 0.15);
-  --transform-hover-lift: translateY(-2px);
-  --transform-hover-lift-sm: translateY(-2px);
-  --transform-card-hover: translateY(-5px);
-  --shadow-hover-button: 0 4px 15px var(--color-secondary-medium);
-  --shadow-success: 0 4px 15px var(--color-success-shadow);
-  --skill-description-min-height: 3rem;
-  --skill-meta-min-height: 2rem;
-  --skill-tile-min-width: 200px;
-  --skill-tile-max-width: 300px;
   
-  --icon-btn-size: 40px;
-  --icon-btn-size-sm: 32px;
-  --icon-btn-size-lg: 48px;
-  --status-dot-size: 8px;
-  --progress-bar-height: 8px;
-  --card-grid-min-width: 300px;
-  --card-grid-min-width-sm: 250px;
-  --card-grid-min-width-lg: 400px;
-  --transition-base: all var(--transition-normal);
 }
