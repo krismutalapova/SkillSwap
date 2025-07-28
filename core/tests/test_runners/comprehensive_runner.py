@@ -21,7 +21,7 @@ import time
 from pathlib import Path
 
 # Add the project root to Python path
-project_root = Path(__file__).parent.parent.parent
+project_root = Path(__file__).parent.parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 # Set Django settings
@@ -36,8 +36,6 @@ django.setup()
 
 
 class ColoredOutput:
-    """Utility class for colored terminal output"""
-
     HEADER = "\033[95m"
     OKBLUE = "\033[94m"
     OKCYAN = "\033[96m"
@@ -72,8 +70,6 @@ class ColoredOutput:
 
 
 class SkillSwapTestRunner:
-    """Comprehensive test runner for SkillSwap platform"""
-
     def __init__(self):
         self.project_root = project_root
         self.test_categories = {
@@ -85,15 +81,21 @@ class SkillSwapTestRunner:
         }
         self.frontend_categories = {
             "css_integration": "core.tests.frontend_tests.test_css_integration",
-            "css_refactoring": "core.tests.frontend_tests.test_css_refactoring",
+            "css_refactoring_suite": "core.tests.frontend_tests.test_css_refactoring_suite",
             "css_duplicates": "core.tests.frontend_tests.test_css_duplicate_classes",
-            "profile_optimization": "core.tests.frontend_tests.test_profile_pages_optimization",
+            "css_variables": "core.tests.frontend_tests.test_css_variables",
+            "css_architecture": "core.tests.frontend_tests.test_css_architecture",
+            "css_integrity": "core.tests.frontend_tests.test_css_integrity",
+            "css_performance": "core.tests.frontend_tests.test_css_performance",
+            "button_consolidation": "core.tests.frontend_tests.test_button_consolidation",
+            "hardcoded_values": "core.tests.frontend_tests.test_hardcoded_values",
+            "responsive_design": "core.tests.frontend_tests.test_responsive_design",
+            "template_css_integration": "core.tests.frontend_tests.test_template_css_integration",
             "visual_regression": "core.tests.frontend_tests.test_visual_regression",
         }
         self.results = {}
 
     def run_specific_test(self, test_name, verbose=False):
-        """Run a specific test category"""
         if test_name not in self.test_categories:
             ColoredOutput.print_error(f"Unknown test category: {test_name}")
             ColoredOutput.print_info(
@@ -107,7 +109,6 @@ class SkillSwapTestRunner:
         return self._run_django_tests([test_module], verbose)
 
     def run_all_tests(self, verbose=False):
-        """Run all test categories including Django and frontend tests"""
         ColoredOutput.print_header("SkillSwap Platform - Comprehensive Test Suite")
 
         all_passed = True
@@ -138,7 +139,6 @@ class SkillSwapTestRunner:
         return all_passed
 
     def run_with_coverage(self, verbose=False):
-        """Run tests with coverage analysis"""
         ColoredOutput.print_header("Running Tests with Coverage Analysis")
 
         try:
@@ -171,39 +171,37 @@ class SkillSwapTestRunner:
         return all_passed
 
     def _run_django_tests(self, test_modules, verbose=False):
-        """Run Django tests for specified modules"""
         try:
-            from django.core.management.commands.test import Command as TestCommand
-            from io import StringIO
-            from django.core.management.base import CommandError
+            import subprocess
 
-            # Prepare command
-            cmd = TestCommand()
-            cmd.verbosity = 2 if verbose else 1
-            cmd.interactive = False
-            cmd.failfast = False
-            cmd.keepdb = False
-            cmd.reverse = False
-            cmd.debug_mode = False
-            cmd.debug_sql = False
-            cmd.parallel = 1
-            cmd.tags = set()
-            cmd.exclude_tags = set()
+            # Build command
+            cmd = [sys.executable, "manage.py", "test"]
+
+            # Add test modules
+            cmd.extend(test_modules)
+
+            # Add verbosity
+            if verbose:
+                cmd.extend(["--verbosity", "2"])
 
             # Run tests
             start_time = time.time()
-            result = cmd.run_tests(test_modules)
+            result = subprocess.run(
+                cmd, cwd=str(self.project_root), capture_output=True, text=True
+            )
             end_time = time.time()
 
             duration = end_time - start_time
 
-            if result == 0:
+            if result.returncode == 0:
                 ColoredOutput.print_success(f"All tests passed in {duration:.2f}s")
                 return True
             else:
                 ColoredOutput.print_error(
-                    f"Tests failed ({result} failures) in {duration:.2f}s"
+                    f"Tests failed (return code: {result.returncode}) in {duration:.2f}s"
                 )
+                if verbose and result.stderr:
+                    print(f"Error output: {result.stderr}")
                 return False
 
         except Exception as e:
@@ -211,7 +209,6 @@ class SkillSwapTestRunner:
             return False
 
     def _print_summary(self, duration):
-        """Print test summary"""
         ColoredOutput.print_header("Test Summary")
 
         total_categories = len(self.test_categories)
@@ -235,7 +232,6 @@ class SkillSwapTestRunner:
             )
 
     def check_test_environment(self):
-        """Check if test environment is properly set up"""
         ColoredOutput.print_header("Environment Check")
 
         checks = [
@@ -258,7 +254,6 @@ class SkillSwapTestRunner:
         return all_passed
 
     def _check_django(self):
-        """Check Django installation"""
         import django
 
         version = django.get_version()
@@ -267,14 +262,12 @@ class SkillSwapTestRunner:
         return f"Django {version}"
 
     def _check_database(self):
-        """Check database configuration"""
         from django.db import connection
 
         connection.ensure_connection()
         return "Database connection successful"
 
     def _check_test_files(self):
-        """Check test files exist in the organized structure"""
         django_test_dir = self.project_root / "core" / "tests" / "django_tests"
         frontend_test_dir = self.project_root / "core" / "tests" / "frontend_tests"
 
@@ -288,9 +281,16 @@ class SkillSwapTestRunner:
 
         required_frontend_files = [
             "test_css_integration.py",
-            "test_css_refactoring.py",
+            "test_css_refactoring_suite.py",
             "test_css_duplicate_classes.py",
-            "test_profile_pages_optimization.py",
+            "test_css_variables.py",
+            "test_css_architecture.py",
+            "test_css_integrity.py",
+            "test_css_performance.py",
+            "test_button_consolidation.py",
+            "test_hardcoded_values.py",
+            "test_responsive_design.py",
+            "test_template_css_integration.py",
             "test_visual_regression.py",
         ]
 
@@ -313,20 +313,17 @@ class SkillSwapTestRunner:
         return f"All {total_files} test files found in organized structure"
 
     def _check_models(self):
-        """Check models can be imported"""
         from core.models import Profile, Skill, Message, Rating
 
         return "All models importable"
 
     def _check_views(self):
-        """Check views can be imported"""
         from core.views import home, view_my_profile, add_skill
 
         return "All views importable"
 
 
 def main():
-    """Main function to handle command line arguments and run tests"""
     import argparse
 
     parser = argparse.ArgumentParser(
@@ -344,9 +341,16 @@ def main():
             "templates",
             "integration",
             "css_integration",
-            "css_refactoring",
+            "css_refactoring_suite",
             "css_duplicates",
-            "profile_optimization",
+            "css_variables",
+            "css_architecture",
+            "css_integrity",
+            "css_performance",
+            "button_consolidation",
+            "hardcoded_values",
+            "responsive_design",
+            "template_css_integration",
             "visual_regression",
         ],
         help="Run specific test category only",
