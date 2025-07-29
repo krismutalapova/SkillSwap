@@ -155,7 +155,7 @@ class TemplateCSSIntegrationTests(CSSLiveTestCase):
             "btn-primary-colors",  # Atomic color classes
             "btn-secondary-colors",
             "btn-success-colors",
-            "btn-warning-colors",
+            "btn-yellow-colors",
             "text-center",
             "flex-center",
         ]

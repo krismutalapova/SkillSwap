@@ -319,7 +319,6 @@ if (isNode) {
                 { class: '.user-name', file: 'utilities.css', content: utilitiesCSS },
                 { class: '.user-bio', file: 'utilities.css', content: utilitiesCSS },
                 { class: '.profile-pic', file: 'utilities.css', content: utilitiesCSS },
-                { class: '.contact-btn', file: 'utilities.css', content: utilitiesCSS }
             ];
 
             let availableUtilities = 0;
@@ -440,7 +439,7 @@ if (isNode) {
                 if (content) {
                     const utilityClasses = [
                         'glass-card', 'primary-gradient', 'btn-base', 'btn-primary-colors',
-                        'user-name', 'user-bio', 'profile-pic', 'contact-btn', 'skill-tag'
+                        'user-name', 'user-bio', 'profile-pic', 'skill-tag'
                     ];
 
                     let fileUtilityCount = 0;
@@ -507,7 +506,6 @@ if (isNode) {
                 { class: '.user-name', file: 'utilities.css', content: utilitiesCSS },
                 { class: '.user-bio', file: 'utilities.css', content: utilitiesCSS },
                 { class: '.profile-pic', file: 'utilities.css', content: utilitiesCSS },
-                { class: '.contact-btn', file: 'utilities.css', content: utilitiesCSS },
                 { class: '.skill-tag', file: 'utilities.css', content: utilitiesCSS }
             ];
 
@@ -863,7 +861,6 @@ if (isNode) {
 
             // Component utilities
             { class: 'profile-pic', property: 'border-radius', expected: '50%' },
-            { class: 'contact-btn', property: 'padding', expectedContains: 'px' },
             { class: 'skill-tag', property: 'border-radius', expectedContains: 'px' },
 
             // Interactive utilities
@@ -981,7 +978,6 @@ if (isNode) {
             { selector: '.btn-primary-colors', name: 'Primary Button Colors' },
             { selector: '.btn-secondary-colors', name: 'Secondary Button Colors' },
             { selector: '.btn-success-colors', name: 'Success Button Colors' },
-            { selector: '.contact-btn', name: 'Contact Button' },
             { selector: '.form-input', name: 'Form Input' }
         ];
 

@@ -143,7 +143,7 @@ class CSSVariableTests(TestCase):
             ".btn-primary-colors",
             ".btn-secondary-colors",
             ".btn-success-colors",
-            ".btn-warning-colors",
+            ".btn-yellow-colors",
         ]
         for btn_class in button_classes:
             self.assertIn(

@@ -478,7 +478,7 @@ class CSSRefactoringTestSuite:
         ]
 
         light_text_colors = [
-            "var(--color-text-light)",
+            "var(--color-text-white)",
             "var(--color-text-white)",
             "#f8f9fa",
             "#ffffff",
@@ -545,7 +545,7 @@ class CSSRefactoringTestSuite:
                 content = f.read()
 
             # Check hero section specifically
-            if "color: var(--color-text-light)" in content:
+            if "color: var(--color-text-white)" in content:
                 # Check if it's in a glassmorphism context
                 hero_section = content[
                     content.find(".hero-") : (
@@ -554,12 +554,12 @@ class CSSRefactoringTestSuite:
                         else len(content)
                     )
                 ]
-                if "var(--color-text-light)" in hero_section:
+                if "var(--color-text-white)" in hero_section:
                     issues.append(
                         {
                             "file": home_css_file,
                             "section": "hero-section",
-                            "issue": "Using --color-text-light in glassmorphism context (white background)",
+                            "issue": "Using --color-text-white in glassmorphism context (white background)",
                             "severity": "CRITICAL",
                             "fix": "Use --color-text-secondary or --color-text-muted instead",
                         }
@@ -594,7 +594,7 @@ class CSSRefactoringTestSuite:
         ]
 
         # Problematic colors that can be invisible on white backgrounds
-        problematic_colors = ["var(--color-text-light)", "var(--color-border-muted)"]
+        problematic_colors = ["var(--color-text-white)", "var(--color-border-muted)"]
 
         # Exception classes that are allowed to use light colors for design purposes
         exception_classes = {".star-rating-display .stars i", ".skill-rating .stars i"}
@@ -673,7 +673,7 @@ class CSSRefactoringTestSuite:
                     "var(--color-text-secondary)"
                 ),
                 "var(--color-text-muted)": content.count("var(--color-text-muted)"),
-                "var(--color-text-light)": content.count("var(--color-text-light)"),
+                "var(--color-text-white)": content.count("var(--color-text-white)"),
                 "var(--color-text-dark)": content.count("var(--color-text-dark)"),
             }
 
@@ -683,9 +683,9 @@ class CSSRefactoringTestSuite:
                 print(f"   {status} {color}: {count} uses")
 
             # Verify no problematic usage remains
-            if color_usage["var(--color-text-light)"] > 0:
+            if color_usage["var(--color-text-white)"] > 0:
                 recommendations.append(
-                    "Replace remaining var(--color-text-light) uses with var(--color-text-secondary) for better contrast"
+                    "Replace remaining var(--color-text-white) uses with var(--color-text-secondary) for better contrast"
                 )
 
         if recommendations:
@@ -972,7 +972,7 @@ class CSSRefactoringTestSuite:
         hardcoded_checks = [
             ("#667eea", "var(--color-secondary)", "Primary brand color"),
             ("#333", "var(--color-text-dark)", "Dark text color"),
-            ("#999", "var(--color-text-light)", "Light text color"),
+            ("#999", "var(--color-text-white)", "Light text color"),
             ("#666", "var(--color-text-secondary)", "Secondary text color"),
             ("#555", "var(--color-text-secondary)", "Secondary text color"),
             ("#dee2e6", "var(--color-border-muted)", "Border color"),

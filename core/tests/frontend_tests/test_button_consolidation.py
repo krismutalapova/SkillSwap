@@ -22,7 +22,7 @@ class ButtonClassDefinitionTests(CSSTestCase):
             "btn-primary-colors",  # Atomic color class
             "btn-secondary-colors",  # Atomic color class
             "btn-success-colors",  # Atomic color class
-            "btn-warning-colors",  # Atomic color class
+            "btn-yellow-colors",  # Atomic color class
             "btn-small",
             "btn-large",
         ]
