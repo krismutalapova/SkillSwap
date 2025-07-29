@@ -92,8 +92,8 @@
   background: var(--color-background-glass);
   backdrop-filter: var(--glass-backdrop-filter);
   border-radius: var(--radius-card);
-  padding: var(--space-2xl);
-  margin-bottom: var(--space-2xl);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xl);
   box-shadow: var(--shadow-light-soft);
 }
 
@@ -144,7 +144,7 @@
 }
 
 .btn-primary-colors:hover {
-  box-shadow: var(--shadow-button-primary-hover, 0 4px 15px var(--color-primary-opacity-40));
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
   color: var(--color-text-white);
 }
 
@@ -164,30 +164,30 @@
 .btn-success-colors {
   background: var(--color-success-gradient);
   color: var(--color-text-white);
-  box-shadow: 0 4px 15px var(--color-success-shadow);
+  box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
   border: var(--form-field-border-width) solid transparent;
 }
 
 .btn-success-colors:hover {
-  box-shadow: 0 6px 20px var(--color-success-shadow);
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.3);
   color: var(--color-text-white);
 }
 
-.btn-warning-colors {
-  background: var(--color-warning-gradient);
+.btn-yellow-colors {
+  background: var(--color-yellow);
   color: var(--color-text-primary);
   box-shadow: var(--shadow-button-warning);
   border: none;
 }
 
-.btn-warning-colors:hover {
+.btn-yellow-colors:hover {
   box-shadow: var(--shadow-button-warning-hover);
   color: var(--color-text-primary);
   text-decoration: none;
 }
 
 .btn-info-colors {
-  background: var(--color-info-gradient);
+  background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
   color: var(--color-text-white);
   box-shadow: var(--shadow-button-info);
   border: var(--form-field-border-width) solid transparent;
@@ -198,16 +198,27 @@
   color: var(--color-text-white);
 }
 
+/* Button Width Utilities */
+.btn-full-width {
+  width: 100%;
+  display: block;
+}
+
+.btn-auto-width {
+  width: auto;
+  display: inline-block;
+}
+
 /* Button color variants - used with btn-base */
 .btn-danger {
   background: var(--color-danger);
   color: var(--color-text-white);
-  box-shadow: var(--shadow-button-danger);
+  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
 }
 
 .btn-danger:hover {
   transform: var(--transform-hover-up);
-  box-shadow: var(--shadow-button-danger-hover);
+  box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
   color: var(--color-text-white);
 }
 
@@ -565,7 +576,7 @@
 .user-info-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: var(--space-2xl);
+  gap: var(--space-xl);
 }
 
 /* Profile user details container */
@@ -671,7 +682,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-xs);
-  background: var(--color-warning);
+  background: var(--color-yellow);
   color: var(--color-text-primary);
   text-decoration: none;
   padding: var(--space-sm) var(--space-lg);
@@ -794,7 +805,7 @@
     color: var(--color-text-primary);
     font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-xl);
     line-height: 1.2;
     padding-bottom: var(--space-xs);
 }
@@ -819,7 +830,7 @@
 }
 
 .star-rating-display .stars i.active {
-    color: var(--color-accent-gold);
+    color: var(--color-yellow);
 }
 
 .star-rating-display .rating-info {
@@ -890,8 +901,8 @@
     background: var(--color-background-glass);
     backdrop-filter: var(--glass-backdrop-filter);
     border-radius: var(--radius-xl);
-    padding: var(--space-2xl);
-    margin-bottom: var(--space-2xl);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xl);
     box-shadow: var(--shadow-light);
 }
 
@@ -1000,9 +1011,9 @@
 }
 
 .skill-tag.skill-request {
-    background: var(--color-warning-opacity-10);
+    background: var(--color-yellow-opacity-10);
     color: var(--color-skill-request);
-    border: 1px solid var(--color-warning-opacity-30);
+    border: 1px solid var(--color-yellow-opacity-30);
 }
 
 .skill-tag.more {
@@ -1382,7 +1393,7 @@ textarea.form-control {
 }
 
 .status-dot-warning {
-  background: var(--color-warning);
+  background: var(--color-yellow);
 }
 
 /* Link button patterns */
