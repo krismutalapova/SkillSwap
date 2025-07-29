@@ -30,7 +30,7 @@
     justify-content: center;
     margin: 0 auto var(--space-md);
     color: var(--color-text-white);
-    font-size: 28px;
+    font-size: var(--font-size-3xl);
 }
 
 .auth-title {
@@ -74,12 +74,12 @@
     color: var(--color-text-muted) !important;
     cursor: pointer;
     padding: 6px !important;
-    font-size: 16px !important;
+    font-size: var(--font-size-md) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 28px !important;
-    height: 28px !important;
+    width: var(--font-size-3xl) !important;
+    height: var(--font-size-3xl) !important;
     z-index: 10 !important;
     border-radius: 4px !important;
 }
@@ -92,11 +92,11 @@
 /* Responsive adjustments for smaller screens */
 @media (max-width: 480px) {
     .auth-form .password-container .password-toggle {
-        margin-top: 14px !important; 
+        margin-top: var(--font-size-sm) !important; 
         right: 10px !important;
         width: 24px !important;
         height: 24px !important;
-        font-size: 14px !important;
+        font-size: var(--font-size-sm) !important;
     }
     
     .password-container .form-input {
@@ -192,7 +192,7 @@
     justify-content: center;
     margin: 0 auto var(--space-xl);
     color: var(--color-text-white);
-    font-size: 36px;
+    font-size: var(--font-size-3_5xl);
 }
 
 .logout-title {

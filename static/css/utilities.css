@@ -144,7 +144,7 @@
 }
 
 .btn-primary-colors:hover {
-  box-shadow: var(--shadow-button-primary-hover, 0 4px 15px rgba(79, 156, 249, 0.4));
+  box-shadow: var(--shadow-button-primary-hover, 0 4px 15px var(--color-primary-opacity-40));
   color: var(--color-text-white);
 }
 
@@ -994,15 +994,15 @@
 }
 
 .skill-tag.skill-offer {
-    background: rgba(79, 156, 249, 0.1);
+    background: var(--color-primary-opacity-10);
     color: var(--color-skill-offer);
-    border: 1px solid rgba(79, 156, 249, 0.3);
+    border: 1px solid var(--color-primary-opacity-30);
 }
 
 .skill-tag.skill-request {
-    background: rgba(255, 138, 128, 0.1);
+    background: var(--color-warning-opacity-10);
     color: var(--color-skill-request);
-    border: 1px solid rgba(255, 138, 128, 0.3);
+    border: 1px solid var(--color-warning-opacity-30);
 }
 
 .skill-tag.more {

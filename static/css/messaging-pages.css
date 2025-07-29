@@ -194,23 +194,23 @@
 }
 
 .message-item {
-    background: rgba(248, 249, 250, 0.8);
+    background: var(--color-light-opacity-80);
     backdrop-filter: blur(5px);
     border-radius: var(--radius-lg);
     border: 2px solid var(--color-border-muted);
     transition: all 0.3s ease;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 10px var(--color-black-opacity-05);
 }
 
 .message-item.unread {
     border-color: var(--color-secondary);
-    background: rgba(102, 126, 234, 0.08);
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
+    background: var(--color-secondary-opacity-08);
+    box-shadow: 0 4px 15px var(--color-secondary-opacity-15);
 }
 
 .message-item:hover {
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 6px 25px var(--color-black-opacity-12);
     transform: translateY(-2px);
     border-color: var(--color-secondary);
 }
@@ -290,7 +290,7 @@
     text-align: center;
     padding: var(--space-6xl) var(--space-4xl);
     color: var(--color-text-secondary);
-    background: rgba(248, 249, 250, 0.5);
+    background: var(--color-light-opacity-50);
     border-radius: var(--radius-lg);
     border: 2px dashed var(--color-border-muted);
     margin-top: var(--space-lg);
@@ -321,11 +321,11 @@
     display: flex;
     align-items: center;
     gap: var(--space-sm);
-    background: rgba(248, 249, 250, 0.8);
+    background: var(--color-light-opacity-80);
     backdrop-filter: blur(5px);
     padding: var(--space-md) var(--space-xl);
     border-radius: var(--radius-lg);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 10px var(--color-black-opacity-05);
     border: 1px solid var(--color-border-muted);
 }
 
