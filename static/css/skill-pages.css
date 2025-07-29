@@ -15,9 +15,9 @@
 }
 
 .subtitle {
-    color: var(--color-text-white-muted);
+    color: var(-color-text-white);
     font-size: var(--font-size-lg);
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-xl);
 }
 
 .action-buttons {
@@ -42,7 +42,7 @@
 }
 
 .results-summary p {
-    color: var(--color-text-white-muted);
+    color: var(-color-text-white);
     font-size: var(--font-size-lg);
 }
 
@@ -92,7 +92,7 @@
 }
 
 .skill-status.inactive {
-    background: var(--color-text-light);
+    background: var(--color-text-white);
     color: var(--color-text-white);
     padding: var(--space-xs) var(--space-sm);
     border-radius: var(--radius-large);
@@ -194,11 +194,11 @@
 }
 
 .stat-card.offers .stat-icon {
-    background: var(--color-offer-gradient);
+    background: linear-gradient(135deg, #3a7bd5bd 0%, #3a6073 100%);
 }
 
 .stat-card.requests .stat-icon {
-    background: var(--color-request-gradient);
+    background: linear-gradient(135deg, #fd746ce0 0%, #ff9068d6 100%);
 }
 
 /* Skills section - Use .section-card from utilities.css */
@@ -282,7 +282,7 @@
 
 .created-date {
     background: var(--color-background-muted);
-    color: var(--color-muted-text);
+    color: var(--color-text-secondary);
     padding: 6px 12px;
     border-radius: var(--radius-lg);
     font-size: 0.85rem;
@@ -446,7 +446,7 @@
 .interactive-stars i:hover,
 .interactive-stars i.hover,
 .interactive-stars i.selected {
-    color: var(--color-warning);
+    color: var(--color-yellow);
     transform: scale(1.1);
 }
 
@@ -498,7 +498,7 @@
 
 .star:hover,
 .star.active {
-    color: var(--color-warning);
+    color: var(--color-yellow);
 }
 
 .rating-description {
@@ -529,7 +529,7 @@
     width: 80px;
     height: 80px;
     border-radius: var(--radius-circle);
-    background: var(--color-danger-gradient-alt);
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
     color: white;
     display: flex;
     align-items: center;
@@ -744,7 +744,7 @@
 
 /* Dynamic rating text styles for JavaScript interaction */
 .rating-text.rating-selected {
-    color: var(--color-warning) !important;
+    color: var(--color-yellow) !important;
     font-weight: 600 !important;
 }
 

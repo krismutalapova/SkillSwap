@@ -86,6 +86,7 @@
 
 .profile-contact-section {
     text-align: center;
+    padding: var(--space-lg);
 }
 
 .contact-note {
@@ -340,12 +341,12 @@
 }
 
 .skill-card.mini .skill-type.offer {
-    background: var(--color-offer-gradient);
+    background: linear-gradient(135deg, #3a7bd5bd 0%, #3a6073 100%);
     color: white;
 }
 
 .skill-card.mini .skill-type.request {
-    background: var(--color-request-gradient);
+    background: linear-gradient(135deg, #fd746ce0 0%, #ff9068d6 100%);
     color: white;
 }
 
@@ -452,7 +453,7 @@
 }
 
 .skill-rating h4 i {
-    color: var(--color-warning);
+    color: var(--color-yellow);
 }
 
 .skill-rating .stars {
@@ -466,7 +467,7 @@
 }
 
 .skill-rating .stars i.active {
-    color: var(--color-warning);
+    color: var(--color-yellow);
 }
 
 .skill-rating .rating-info {

@@ -36,7 +36,7 @@
 }
 
 .skill-context {
-    background: var(--color-secondary-light-gradient);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(69, 179, 224, 0.1) 100%);
     border-radius: var(--radius-lg);
     padding: var(--space-md) var(--space-lg);
     margin-bottom: var(--space-xl);
@@ -250,7 +250,7 @@
 }
     
 .new-badge {
-    background: var(--color-offer-gradient-solid);
+    background: linear-gradient(135deg, #3a7bd5 0%, #3a6073 100%);
     color: white;
     padding: 2px 8px;
     border-radius: var(--radius-sm);

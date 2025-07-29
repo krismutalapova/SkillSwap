@@ -214,12 +214,12 @@
 }
 
 .user-card-skill-tag.offered {
-    background: var(--color-skill-offer-bg);
+    background: rgba(59, 130, 246, 0.1);
     color: var(--color-skill-offer);
 }
 
 .user-card-skill-tag.needed {
-    background: var(--color-skill-request-bg);
+    background: rgba(249, 115, 22, 0.1);
     color: var(--color-skill-request);
 }
 
@@ -249,7 +249,7 @@
 /* JavaScript Dynamic Styles */
 
 .js-skill-tag {
-    background: var(--color-success-light-bg);
+    background: rgba(34, 197, 94, 0.1);
     color: var(--color-success);
     padding: var(--space-xs) var(--space-sm);
     border-radius: var(--space-md);

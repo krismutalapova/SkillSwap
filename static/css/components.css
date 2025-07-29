@@ -151,12 +151,12 @@
 }
 
 .skill-type-offer {
-    background: var(--color-skill-offer-bg);
+    background: rgba(59, 130, 246, 0.1);
     color: var(--color-skill-offer);
 }
 
 .skill-type-request {
-    background: var(--color-skill-request-bg);
+    background: rgba(249, 115, 22, 0.1);
     color: var(--color-skill-request);
 }
 
@@ -672,7 +672,7 @@
     max-width: 500px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-xl);
 }
 
 /* Light theme empty state variant - for search pages */
@@ -682,7 +682,7 @@
     background: transparent;
     backdrop-filter: none;
     border-radius: 0;
-    margin: var(--space-2xl) 0;
+    margin: var(--space-xl) 0;
 }
 
 .empty-state-icon {

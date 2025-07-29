@@ -28,7 +28,7 @@
 }
 
 .rating-form-card .form-header h2 i {
-    color: var(--color-warning);
+    color: var(--color-yellow);
 }
 
 .skill-info h3 {
@@ -102,7 +102,7 @@
 
 /* Rating-specific button styles */
 .rating-form .btn-primary {
-    background: var(--color-warning);
+    background: var(--color-yellow);
     color: var(--color-text-white);
 }
 
