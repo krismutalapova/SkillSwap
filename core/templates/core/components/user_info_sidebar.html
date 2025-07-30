@@ -18,12 +18,12 @@
             {% else %}
                 {% if show_profile_link %}
                     <a href="{% url 'view_user_profile' user_obj.id %}" class="avatar-link">
-                        <div class="primary-gradient profile-user-avatar-placeholder">
+                        <div class="icon-container profile-user-avatar-icon primary-gradient">
                             <i class="fas fa-user"></i>
                         </div>
                     </a>
                 {% else %}
-                    <div class="primary-gradient profile-user-avatar-placeholder">
+                    <div class="icon-container profile-user-avatar-icon primary-gradient">
                         <i class="fas fa-user"></i>
                     </div>
                 {% endif %}
