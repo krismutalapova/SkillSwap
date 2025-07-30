@@ -15,35 +15,6 @@
     min-height: 70vh;
 }
 
-.hero-card {
-    background: var(--color-background-glass);
-    backdrop-filter: var(--glass-backdrop-filter);
-    padding: var(--space-4xl) var(--space-xl);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-glass-card);
-    border: 1px solid var(--color-border-light);
-    margin-bottom: var(--space-xxl);
-    width: 100%;
-    text-align: center;
-}
-
-.hero-title {
-    color: var(--color-text-dark);
-    font-size: var(--font-size-3xl);
-    margin-bottom: var(--space-lg);
-    background-image: var(--color-primary-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.hero-subtitle {
-    color: var(--color-text-secondary);
-    font-size: var(--font-size-lg);
-    margin-bottom: var(--space-xxl);
-    max-width: var(--container-max-width-small);
-}
-
 .hero-actions {
     display: flex;
     gap: var(--space-md);
@@ -114,10 +85,6 @@
 }
 
 /* Search Page Specific */
-.search-header {
-    text-align: center;
-    padding: var(--space-4xl) var(--space-lg);
-}
 
 .search-icon {
     width: var(--space-6xl);
@@ -131,23 +98,11 @@
     font-size: var(--font-size-2xl);
 }
 
-.search-title {
-    font-size: var(--font-size-2xl);
-    margin-bottom: var(--space-md);
-    color: var(--color-text-dark);
-}
-
 .search-gradient-text {
     background-image: var(--color-primary-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-}
-
-.search-subtitle {
-    color: var(--color-text-secondary);
-    font-size: var(--font-size-lg);
-    margin-bottom: var(--space-xxl);
 }
 
 /* User Cards */
@@ -250,7 +205,7 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .hero-title {
+    .section-title {
         font-size: var(--font-size-2xl);
     }
 
@@ -267,11 +222,7 @@
         grid-template-columns: 1fr;
     }
 
-    .search-header {
-        padding: var(--space-xxl) var(--space-md);
-    }
-
-    .search-title {
+    .section-title {
         font-size: var(--font-size-xl);
     }
 }
