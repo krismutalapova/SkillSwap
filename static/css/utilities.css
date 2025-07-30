@@ -89,12 +89,111 @@
 }
 
 .section-card {
-  background: var(--color-background-glass);
-  backdrop-filter: var(--glass-backdrop-filter);
-  border-radius: var(--radius-card);
-  padding: var(--space-xl);
   margin-bottom: var(--space-xl);
-  box-shadow: var(--shadow-light-soft);
+  width: 100%;
+  text-align: center;
+}
+
+.section-title {
+  color: var(--color-text-dark);
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--space-lg);
+  background-image: var(--color-primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-subtitle {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-xxl);
+  max-width: var(--container-max-width-small);
+  margin:  0 auto var(--space-lg);
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-icon {
+  width: var(--user-avatar-size);
+  height: var(--user-avatar-size);
+  border-radius: var(--radius-button);
+  margin: 0 auto var(--space-md);
+  font-size: var(--icon-size-lg);
+}
+.profile-user-avatar-icon {
+  width: var(--profile-pic-size);
+  height: var(--profile-pic-size);
+  border-radius: var(--radius-circle);
+  margin-bottom: var(--space-md);
+  font-size: var(--font-size-4xl);
+  flex-shrink: 0;
+
+}
+.user-card-avatar-icon {
+  width: var(--user-avatar-size);
+  height: var(--user-avatar-size);
+  border-radius: var(--radius-circle);
+  margin-right: var(--space-md);
+  font-size: var(--font-size-2xl);
+  font-weight: bold;
+}
+.logo-icon {
+  width: var(--logo-icon-size);
+  height: var(--logo-icon-size);
+  border-radius: var(--radius-logo);
+  margin-right: var(--space-md);
+  font-size: var(--font-size-xl);
+}
+
+.footer-logo-icon {
+  width: var(--logo-icon-size-footer);
+  height: var(--logo-icon-size-footer);
+  border-radius: var(--radius-logo);
+  margin-right: var(--space-sm);
+  font-size: var(--font-size-md);
+}
+
+.error-icon {
+  width: var(--icon-size-4xl);
+  height: var(--icon-size-4xl);
+  background: var(--color-danger-gradient);
+  border-radius: 50%;
+  margin: 0 auto var(--space-lg);
+  color: white;
+  font-size: var(--font-size-4xl);
+}
+.no-skills-icon {
+  font-size: var(--font-size-4xl);
+  margin-bottom: var(--space-md);
+  color: var(--color-secondary);
+}
+.no-results-icon {
+  font-size: var(--font-size-5xl);
+  margin-bottom: var(--space-lg);
+}
+
+.no-results-icon,
+.empty-icon {
+  color: var(--color-secondary);
+}
+
+.empty-icon {
+    font-size: var(--font-size-6xl);
+    margin-bottom: var(--space-xl);
+}
+.logout-icon {
+  width: 80px;
+  height: 80px;
+  background-image: var(--color-success-gradient);
+  border-radius: var(--radius-circle);
+  margin: 0 auto var(--space-xl);
+  color: var(--color-text-white);
+  font-size: var(--font-size-3_5xl);
 }
 
 /* Atomic Base Classes - Foundation for Complex Selectors */
