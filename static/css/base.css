@@ -64,17 +64,6 @@ body {
     font-weight: var(--font-weight-bold);
 }
 
-.logo-icon {
-    width: var(--logo-icon-size);
-    height: var(--logo-icon-size);
-    border-radius: var(--radius-logo);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: var(--space-md);
-    font-size: var(--font-size-xl);
-}
-
 .logo-text {
     background-image: var(--color-primary-gradient);
     -webkit-background-clip: text;
@@ -129,16 +118,6 @@ body {
     font-weight: var(--font-weight-bold);
 }
 
-.footer-logo .logo-icon {
-    width: var(--logo-icon-size-footer);
-    height: var(--logo-icon-size-footer);
-    border-radius: var(--radius-logo);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: var(--space-sm);
-    font-size: var(--font-size-md);
-}
 
 .footer-logo .logo-text {
     background-image: var(--color-primary-gradient);

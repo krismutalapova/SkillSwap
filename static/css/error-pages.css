@@ -25,19 +25,6 @@
     margin-bottom: var(--space-4xl);
 }
 
-.error-icon {
-    width: var(--icon-size-4xl);
-    height: var(--icon-size-4xl);
-    background: var(--color-danger-gradient);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto var(--space-lg);
-    color: white;
-    font-size: var(--font-size-4xl);
-}
-
 .error-title {
     margin: 0;
     color: var(--color-text-primary);

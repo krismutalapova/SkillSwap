@@ -182,19 +182,6 @@
     padding: var(--space-4xl);
 }
 
-.logout-icon {
-    width: 80px;
-    height: 80px;
-    background-image: var(--color-success-gradient);
-    border-radius: var(--radius-circle);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto var(--space-xl);
-    color: var(--color-text-white);
-    font-size: var(--font-size-3_5xl);
-}
-
 .logout-title {
     color: var(--color-success);
     font-size: var(--font-size-heading);
