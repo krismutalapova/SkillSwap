@@ -8,7 +8,7 @@
         
         <div class="stats-cards">
             <div class="stat-card offers">
-                <div class="stat-icon">
+                <div class="icon-container stat-icon">
                     <i class="fas fa-hand-holding-heart"></i>
                 </div>
                 <div class="stat-info">
@@ -18,7 +18,7 @@
             </div>
             
             <div class="stat-card requests">
-                <div class="stat-icon">
+                <div class="icon-container stat-icon">
                     <i class="fas fa-search"></i>
                 </div>
                 <div class="stat-info">
@@ -28,7 +28,7 @@
             </div>
             
             <div class="stat-card total">
-                <div class="primary-gradient stat-icon">
+                <div class="icon-container stat-icon primary-gradient">
                     <i class="fas fa-list"></i>
                 </div>
                 <div class="stat-info">
@@ -94,13 +94,13 @@
                         </a>
                         
                         <div class="skill-actions">
-                            <a href="{% url 'skill_detail_page' skill.pk %}" class="btn btn-small btn-base btn-primary-colors hover-lift">
+                            <a href="{% url 'skill_detail_page' skill.pk %}" class="btn-base btn-small btn-primary-colors hover-lift">
                                 <i class="fas fa-eye"></i> View
                             </a>
-                            <a href="{% url 'skill_edit' skill.pk %}?next=my_skills" class="btn btn-small btn-outline-danger">
+                            <a href="{% url 'skill_edit' skill.pk %}?next=my_skills" class="btn-base btn-small btn-secondary-colors">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
-                            <a href="{% url 'delete_skill' skill.pk %}?next=my_skills" class="btn btn-small btn-gradient-danger">
+                            <a href="{% url 'delete_skill' skill.pk %}?next=my_skills" class="btn-base btn-small btn-danger-colors">
                                 <i class="fas fa-trash"></i> Delete
                             </a>
                         </div>
