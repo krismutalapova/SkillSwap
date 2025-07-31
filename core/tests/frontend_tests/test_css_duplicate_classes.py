@@ -132,7 +132,6 @@ class CSSClassDuplicateDetector:
             "profile-pages.css": ["profile-", "user-detail-", "compact-"],
             "skill-pages.css": ["skill-", "rating-"],
             "search-page.css": ["search-", "user-card-"],
-            "home-pages.css": ["hero-", "feature-"],
             "messaging-pages.css": ["message-", "inbox-"],
             "auth-pages.css": ["auth-", "login-", "signup-"],
             "error-pages.css": ["error-", "btn-primary-colors"],
