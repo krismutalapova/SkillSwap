@@ -119,8 +119,8 @@
 }
 
 .card-icon {
-  width: var(--user-avatar-size);
-  height: var(--user-avatar-size);
+  width: var(--icon-size-3xl);
+  height: var(--icon-size-3xl);
   border-radius: var(--radius-button);
   margin: 0 auto var(--space-md);
   font-size: var(--icon-size-lg);
@@ -135,24 +135,24 @@
 
 }
 .user-card-avatar-icon {
-  width: var(--user-avatar-size);
-  height: var(--user-avatar-size);
+  width: var(--icon-size-3xl);
+  height: var(--icon-size-3xl);
   border-radius: var(--radius-circle);
   margin-right: var(--space-md);
   font-size: var(--font-size-2xl);
   font-weight: bold;
 }
 .logo-icon {
-  width: var(--logo-icon-size);
-  height: var(--logo-icon-size);
+  width: var(--icon-size-2xl);
+  height: var(--icon-size-2xl);
   border-radius: var(--radius-logo);
   margin-right: var(--space-md);
   font-size: var(--font-size-xl);
 }
 
 .footer-logo-icon {
-  width: var(--logo-icon-size-footer);
-  height: var(--logo-icon-size-footer);
+  width: var(--icon-size-xl);
+  height: var(--icon-size-xl);
   border-radius: var(--radius-logo);
   margin-right: var(--space-sm);
   font-size: var(--font-size-md);
@@ -187,8 +187,8 @@
     margin-bottom: var(--space-xl);
 }
 .logout-icon {
-  width: 80px;
-  height: 80px;
+  width: var(--icon-size-4xl);
+  height: var(--icon-size-4xl);
   background-image: var(--color-success-gradient);
   border-radius: var(--radius-circle);
   margin: 0 auto var(--space-xl);
@@ -196,6 +196,32 @@
   font-size: var(--font-size-3_5xl);
 }
 
+.auth-logo-icon {
+  width: var(--icon-size-3xl);
+  height: var(--icon-size-3xl);
+  border-radius: var(--radius-md);
+  margin: 0 auto var(--space-md);
+  font-size: var(--font-size-3xl);
+}
+
+.warning-icon {
+  width: var(--icon-size-4xl);
+  height: var(--icon-size-4xl);
+  border-radius: var(--radius-circle);
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  color: white;
+  font-size: 2rem;
+  margin: 0 auto 20px auto;
+  animation: pulse 2s infinite;
+}
+
+.stat-icon {
+  width: var(--icon-size-3xl);
+  height: var(--icon-size-3xl);
+  border-radius: var(--radius-circle);
+  font-size: 1.5rem;
+  color: white;
+}
 /* Atomic Base Classes - Foundation for Complex Selectors */
 
 /* Universal glassmorphism pattern */
@@ -294,6 +320,18 @@
 
 .btn-info-colors:hover {
   box-shadow: var(--shadow-button-info-hover);
+  color: var(--color-text-white);
+}
+
+.btn-danger-colors {
+  background: var(--color-danger-gradient);
+  color: var(--color-text-white);
+  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+  border: var(--form-field-border-width) solid transparent;
+}
+
+.btn-danger-colors:hover {
+  box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
   color: var(--color-text-white);
 }
 
@@ -1310,7 +1348,7 @@ textarea.form-control {
 .form-label i {
   margin-right: 8px;
   color: var(--color-secondary);
-  width: 16px;
+  width: var(--icon-size-sm);
 }
 
 .form-row {
@@ -1383,67 +1421,6 @@ textarea.form-control {
   box-shadow: var(--shadow-card-hover-mild);
 }
 
-/* Icon button patterns */
-.icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-md);
-  border: none;
-  cursor: pointer;
-  transition: var(--transition-all);
-  text-decoration: none;
-}
-
-.icon-btn-primary {
-  background: var(--color-secondary);
-  color: var(--color-text-white);
-}
-
-.icon-btn-primary:hover {
-  background: var(--color-primary);
-  transform: var(--transform-hover-lift);
-  color: var(--color-text-white);
-}
-
-.icon-btn-secondary {
-  background: var(--color-background-glass);
-  color: var(--color-text-secondary);
-  border: 1px solid var(--color-border-default);
-}
-
-.icon-btn-secondary:hover {
-  background: var(--color-secondary-light);
-  color: var(--color-secondary);
-  border-color: var(--color-secondary);
-  transform: var(--transform-hover-lift);
-}
-
-.icon-btn-danger {
-  background: var(--color-danger);
-  color: var(--color-text-white);
-}
-
-.icon-btn-danger:hover {
-  background: var(--color-danger);
-  transform: var(--transform-hover-lift);
-  color: var(--color-text-white);
-}
-
-.icon-btn-sm {
-  width: 32px;
-  height: 32px;
-  font-size: var(--font-size-sm);
-}
-
-.icon-btn-lg {
-  width: 48px;
-  height: 48px;
-  font-size: var(--font-size-lg);
-}
-
 /* Badge and tag patterns */
 .badge {
   display: inline-flex;
@@ -1472,27 +1449,6 @@ textarea.form-control {
 
 .badge-pill {
   border-radius: var(--radius-pill);
-}
-
-/* Status indicators */
-.status-dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: var(--radius-circle);
-  margin-right: var(--space-xs);
-}
-
-.status-dot-active {
-  background: var(--color-success);
-}
-
-.status-dot-inactive {
-  background: var(--color-text-muted);
-}
-
-.status-dot-warning {
-  background: var(--color-yellow);
 }
 
 /* Link button patterns */
@@ -1538,7 +1494,7 @@ textarea.form-control {
 /* Progress and loading patterns */
 .progress-bar {
   width: 100%;
-  height: 8px;
+  height: var(--icon-size-2xs);
   background: var(--color-border-default);
   border-radius: var(--radius-pill);
   overflow: hidden;
@@ -1618,8 +1574,8 @@ textarea.form-control {
 /* Card Components */
 
 .profile-picture {
-  width: 60px;
-  height: 60px;
+  width: var(--icon-size-3xl);
+  height: var(--icon-size-3xl);
   border-radius: var(--radius-circle);
   object-fit: cover;
   border: 2px solid var(--color-border-light);
@@ -1646,11 +1602,6 @@ textarea.form-control {
   .btn-large {
     padding: var(--button-padding);
     font-size: var(--font-size-base);
-  }
-  
-  .btn-outline-danger {
-    width: 100%;
-    justify-content: center;
   }
 }
 
