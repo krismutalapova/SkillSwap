@@ -46,29 +46,6 @@
     font-size: var(--font-size-lg);
 }
 
-/* Skills grid */
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: var(--space-xl);
-    margin-bottom: var(--space-4xl);
-    align-items: stretch;
-}
-
-/* Skill cards */
-/* Page-specific skill card enhancements */
-.skill-card-clickable-area {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    cursor: pointer;
-    flex: 1;
-}
-
-.skill-card-link:hover .skill-card {
-    box-shadow: var(--shadow-hover-strong);
-}
-
 /* Page-specific skill content styling */
 .skill-category-footer {
     margin-top: auto;
@@ -130,15 +107,6 @@
     min-height: 2rem;
     flex-shrink: 0;
     margin-bottom: var(--space-lg);
-}
-
-/* Skill actions */
-.skill-actions {
-    text-align: center;
-    margin-top: auto;
-    display: flex;
-    gap: var(--space-sm);
-    justify-content: center;
 }
 
 /* View buttons now use btn-primary utility class from utilities.css */
