@@ -69,8 +69,8 @@
 }
 
 .user-card-avatar-container {
-    width: var(--user-avatar-size);
-    height: var(--user-avatar-size);
+    width: var(--icon-size-3xl);
+    height: var(--icon-size-3xl);
     border-radius: 50%;
     display: flex;
     align-items: center;
