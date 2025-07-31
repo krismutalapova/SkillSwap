@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load rating_extras %}
 
 {% block content %}
 <div class="container">
@@ -50,61 +51,7 @@
             
             <div class="skills-grid">
                 {% for skill in skills %}
-                    <div class="skill-card">
-                        <a href="{% url 'skill_detail_page' skill.pk %}" class="skill-card-clickable-area">
-                            <div class="skill-header">
-                                <div class="skill-type skill-type-{{ skill.skill_type }}">
-                                    <i class="fas fa-{% if skill.skill_type == 'offer' %}hand-holding-heart{% else %}search{% endif %}"></i>
-                                    {{ skill.get_skill_type_display }}
-                                </div>
-                                <div class="category">
-                                    <i class="{{ skill.get_category_icon }}"></i>
-                                    {{ skill.get_category_display }}
-                                </div>
-                            </div>
-                            
-                            <div class="skill-content">
-                                <h3 class="skill-title">{{ skill.title }}</h3>
-                                
-                                <p class="skill-description">{{ skill.description|truncatewords:15 }}</p>
-                            
-                                <div class="skill-details">
-                                    {% if skill.location %}
-                                        <div class="detail-item-inline">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                            <span>{{ skill.location }}</span>
-                                        </div>
-                                    {% endif %}
-                                    
-                                    {% if skill.is_remote %}
-                                        <div class="remote-tag">
-                                            <i class="fas fa-wifi"></i>
-                                            <span>Remote Available</span>
-                                        </div>
-                                    {% endif %}
-                                    
-                                    {% if skill.availability %}
-                                        <div class="detail-item">
-                                            <i class="fas fa-clock"></i>
-                                            <span>{{ skill.availability }}</span>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </a>
-                        
-                        <div class="skill-actions">
-                            <a href="{% url 'skill_detail_page' skill.pk %}" class="btn-base btn-small btn-primary-colors hover-lift">
-                                <i class="fas fa-eye"></i> View
-                            </a>
-                            <a href="{% url 'skill_edit' skill.pk %}?next=my_skills" class="btn-base btn-small btn-secondary-colors">
-                                <i class="fas fa-edit"></i> Edit
-                            </a>
-                            <a href="{% url 'delete_skill' skill.pk %}?next=my_skills" class="btn-base btn-small btn-danger-colors">
-                                <i class="fas fa-trash"></i> Delete
-                            </a>
-                        </div>
-                    </div>
+                    {% include 'core/components/skill_card.html' with skill=skill show_actions=True actions_type='my_skills' %}
                 {% endfor %}
             </div>
         </div>
