@@ -1,17 +1,27 @@
 {% comment %}
-Skill Card Component
-Displays a skill as a card with consistent styling.
+Reusable skill card component for displaying skills consistently across the platform.
 
-Parameters:
-- skill: The skill object to display
-- show_user: Whether to show user information (default: True)
-- card_class: Additional CSS classes for the card (e.g., "mini")
+Usage:
+  Simple display: {% include 'core/components/skill_card.html' with skill=skill %}
+  With actions:    {% include 'core/components/skill_card.html' with skill=skill show_actions=True actions_type='my_skills' %}
+
+Required parameters:
+  - skill: Skill object to display
+
+Optional parameters:
+  - show_actions: Boolean to show action buttons (default: False)
+  - actions_type: Type of actions to show ('my_skills') (default: None)
 {% endcomment %}
 
 {% load rating_extras %}
 
+{% if show_actions %}
+<div class="skill-card {% if card_class %}{{ card_class }}{% endif %}">
+    <a href="{% url 'skill_detail_page' skill.pk %}" class="skill-card-link">
+{% else %}
 <a href="{% url 'skill_detail_page' skill.pk %}" class="skill-card-link">
     <div class="skill-card {% if card_class %}{{ card_class }}{% endif %}">
+{% endif %}
         <div class="skill-header">
             <h4 class="skill-title">{{ skill.title }}</h4>
             <span class="skill-type skill-type-{{ skill.skill_type }}">
@@ -78,5 +88,24 @@ Parameters:
                 {% endif %}
             </div>
         </div>
+{% if show_actions %}
+    </a>
+    
+    {% if actions_type == 'my_skills' %}
+        <div class="skill-actions">
+            <a href="{% url 'skill_detail_page' skill.pk %}" class="btn-base btn-small btn-primary-colors hover-lift">
+                <i class="fas fa-eye"></i> View
+            </a>
+            <a href="{% url 'skill_edit' skill.pk %}?next=my_skills" class="btn-base btn-small btn-secondary-colors">
+                <i class="fas fa-edit"></i> Edit
+            </a>
+            <a href="{% url 'delete_skill' skill.pk %}?next=my_skills" class="btn-base btn-small btn-danger-colors">
+                <i class="fas fa-trash"></i> Delete
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% else %}
     </div>
 </a>
+{% endif %}
