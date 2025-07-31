@@ -262,24 +262,26 @@
   --footer-padding: var(--space-xxl) 0 var(--space-lg) 0;
   
   /* Icon Sizes */
+  --icon-size-2xs: 8px;
+  --icon-size-xs: 12px;
   --icon-size-sm: 16px;
   --icon-size: 20px;
   --icon-size-lg: 28px;
+  --icon-size-xl: 35px;
+  --icon-size-2xl: 40px;
+  --icon-size-3xl: 60px;
   --icon-size-4xl: 80px;
   
   /* Component-Specific Dimensions */
   --profile-pic-size: 120px;
   --profile-card-min-width: 280px;
   --user-card-min-width: 350px;
-  --user-avatar-size: 60px;
-  --empty-state-icon-size: 80px;
   --search-bar-max-width: var(--container-max-width-small);
   --skill-description-min-height: 3rem;
   --skill-meta-min-height: 2rem;
   --skill-tile-min-width: 200px;
-  --skill-tile-max-width: 300px;
-  --status-dot-size: 8px;
-  
+  --skill-tile-max-width: 300px;  
+
   /* ===== ANIMATION & TRANSITIONS ===== */
   
   /* Transition Durations */
@@ -339,9 +341,6 @@
   --form-gap: var(--space-xl);
   
   /* Logo */
-  --logo-icon-size: 40px;
-  --logo-icon-size-small: 30px;
-  --logo-icon-size-footer: 35px;
   --logo-font-size: var(--font-size-2xl);
   --logo-font-size-mobile: var(--font-size-lg);
   --logo-font-size-footer: var(--font-size-xl);
