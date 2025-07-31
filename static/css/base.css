@@ -170,8 +170,8 @@ body {
     }
     
     .logo-icon {
-        width: var(--logo-icon-size-small);
-        height: var(--logo-icon-size-small);
+        width: var(--icon-size-lg);
+        height: var(--icon-size-lg);
         margin-right: var(--space-xs);
     }
     
@@ -207,8 +207,8 @@ body {
     }
     
     .footer-logo .logo-icon {
-        width: var(--logo-icon-size-small);
-        height: var(--logo-icon-size-small);
+        width: var(--icon-size-lg);
+        height: var(--icon-size-lg);
         margin-right: var(--space-sm);
     }
     

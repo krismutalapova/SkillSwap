@@ -182,17 +182,6 @@
     transform: translateY(-5px);
 }
 
-.stat-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: var(--radius-circle);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    color: white;
-}
-
 .stat-card.offers .stat-icon {
     background: linear-gradient(135deg, #3a7bd5bd 0%, #3a6073 100%);
 }
@@ -525,19 +514,6 @@
     margin-bottom: 30px;
 }
 
-.warning-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: var(--radius-circle);
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    margin: 0 auto 20px auto;
-    animation: pulse 2s infinite;
-}
 
 @keyframes pulse {
     0% { transform: scale(1); }
